@@ -34,6 +34,8 @@ gulp.task('server', function() {
         online: Boolean(util.env.tunnel),
         tunnel: util.env.tunnel || null
     });
+
+    gulp.watch(config.src.dest + '/**/*.*').on('change', server.reload);
 });
 
 module.exports = server;

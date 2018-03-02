@@ -18,7 +18,11 @@ function createConfig(env) {
     context: path.join(__dirname, config.src.js),
     entry: {
       main: './main.js',
-      // sw: './sw.js'
+      sw: './sw.js',
+      vendor: [
+        'vue',
+        'page'
+      ]
     },
     output: {
       path: path.join(__dirname, config.dest.js),
@@ -29,11 +33,11 @@ function createConfig(env) {
       '#source-map' :
       '#cheap-module-eval-source-map',
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-          name: 'vendor',
-          filename: '[name].js',
-          minChunks: Infinity
-      }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //     name: 'vendor',
+      //     filename: '[name].js',
+      //     minChunks: Infinity
+      // }),
       new webpack.LoaderOptionsPlugin({
         options: {
           eslint: {
@@ -42,6 +46,8 @@ function createConfig(env) {
         }
       }),
       new webpack.ProvidePlugin({
+        Vue: 'vue',
+        page:  'page',
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',

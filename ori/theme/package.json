@@ -84,12 +84,14 @@
     "lost": "^8.2.0",
     "lozad": "^1.3.0",
     "owl.carousel": "^2.2.0",
+    "page": "^1.8.4",
     "rimraf": "^2.5.4",
     "scrollmagic": "^2.0.5",
     "slick-carousel": "^1.8.1",
     "susy": "^2.2.12",
     "three": "^0.89.0",
     "three-orbit-controls": "^82.1.0",
-    "tooltip.js": "^1.1.7"
+    "tooltip.js": "^1.1.7",
+    "vue": "^2.5.13"
   }
 }
