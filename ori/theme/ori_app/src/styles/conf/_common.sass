@@ -26,11 +26,11 @@ body
   color: $darkGray
 
 
-main * + *:not(.catalogForm *)
-  margin-top:  1.5rem
-  &:not(p):not(img):not(picture)
-    margin-top:  3rem
-    margin-bottom: 3rem
+// main * + *:not(.catalogForm *)
+//   margin-top:  1.5rem
+//   &:not(p):not(img):not(picture)
+//     margin-top:  3rem
+//     margin-bottom: 3rem
 
 li, dt, th, td, tr
   margin-top:  0
@@ -58,9 +58,10 @@ h1, h2, h3, h4, h5, h6
 
 p, li 
   max-width: 60rem
-
-p:not(:first-child) 
-  margin-top: 1.5rem
+p:first-of-type
+  margin-top:  $s47 
+p:not(:first-of-type) 
+  margin-top: $s29
 ul
   list-style: none
 a 

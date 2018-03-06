@@ -38,7 +38,12 @@
 	.about
 		max-width: em(505)
 		margin-bottom: $s29
+
 		border-left: 8px solid #941857;
+		&:first-of-type, &:nth-of-type(2)
+			padding-bottom: $s47
+		&:nth-of-type(3), &:last-of-type
+			padding-bottom: $s77
 		@include breakpoint($sm-less)
 			max-width: calc(50% - #{29.127px / 2});
 		@include breakpoint($xxs)
