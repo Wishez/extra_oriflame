@@ -22,7 +22,7 @@ body
   -webkit-hyphenate-before: 2
   -webkit-hyphenate-after: 3
   hyphenate-lines: 3
-  background-color: $white
+  background-color: $background
   color: $darkGray
 
 
@@ -37,15 +37,21 @@ li, dt, th, td, tr
 
 
 h1 
-  font-size: em(28)
+  font-size: em(47.12)
+  @include breakpoint($xs)
+    font-size: em(41.8868)
+  @include breakpoint($xxs)
+    font-size: 7.6vw
+  
 
 h2 
-  font-size: em(24) 
+  font-size: em(29.124) 
 
 h1, h2, h3, h4, h5, h6  
   font-family: $decorativeFont
   // text-transform: uppercase
-  // letter-spacing: .12em
+  line-height: 1.5em
+  letter-spacing: .12em
   font-weight: normal
   word-break: break-word
 
@@ -54,7 +60,7 @@ p, li
   max-width: 60rem
 
 p:not(:first-child) 
-  margin-top: em(21)
+  margin-top: 1.5rem
 ul
   list-style: none
 a 
@@ -71,8 +77,8 @@ a
   &:hover, &:focus, &:active 
     // text-decoration: none  
     // $$darkGray: darken($darkGray, 25%)
-    color: $darkBlue
-    background-image: linear-gradient(to right, $darkBlue 0%, $darkBlue 100%)
+    color: $pink
+    background-image: linear-gradient(to right, $pink 0%, $pink 100%)
   &.reverse
     $darkenWhite: draken($white, 15%)
     color: $white
@@ -92,4 +98,5 @@ button
   background-color: transparent
 input, textarea
   @include placehodler-color($gray)
-
+img
+  width: 100%

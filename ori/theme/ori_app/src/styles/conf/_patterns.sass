@@ -26,8 +26,20 @@
 		width: 1px
 		height: 1px
 		position: absolute
-	  
-
+.baseRound
+	border-radius: 3px
+.semibold
+	font-weight: 600
+.bold
+	font-weight: bold
+.light
+	font-weight: 300
+.italic
+	font-syle: italic
+.normalStyle
+	font-style: normal
+.normalWeight
+	font-weight: normal
 .visible-hidden-xs 
 	@include breakpoint($xs) 
 		white-space: nowrap
@@ -38,34 +50,9 @@
 		position: absolute
 	  
 
-
-.registrationButton 
-
 	
-	&:disabled 
-		background-color: $gray
-		&__refer 
-			&:hover 
-				color: $darkGray $i
-			
-		
-		&:hover 
-			color: $darkGray $i
-			box-shadow: none
-	
-	// &__refer 
-	// 	color: $white $i
-	// 	padding: 1em 0
-	// 	display: block
-	// 	background-image: none $i
-	// 	&:hover 
-	// 		color: $white $i
-			// background-image: none $i 
-	&:hover, &:focus, &:active 
-		@extend %flyShadow
-		z-index: 3
-	
-
+.whiteTextShadow
+	text-shadow: -2px 1px 13px rgba(255, 255, 255, .8)
 .textShadow
 	text-shadow: -2px 1px 13px rgba(0, 0, 0, 0.35)
 
@@ -124,95 +111,7 @@
 		left: em(6.2, 28)
 		@extend %shadow
 		background-color: $orange
-	
-	
 
-
-// .description 
-// 	position: absolute
-// 	box-shadow: 0 10px 35px -1px $shadow
-// 	font: 
-// 		size: 18px $i
-// 		family: $mainFont
-	
-// 	text-align: left
-// 	text-transform: initial
-// 	&_purple 
-// 		background-color: $purple
-	
-// 	&_black 
-// 		background-color: $darkGray	
-	
-// 	opacity: 0
-// 	z-index: -1
-// 	@include round(em(2, 21))
-// 	font-size: em(24)
-// 	min-width: em(350, 21)
-// 	color: $white
-// 	padding:  em(21, 21) em(21, 21) em(32, 21)
-// 	transition: opacity .3s ease
-// 	&__title 
-// 		border-bottom: 1px solid #adadad
-// 		font-size: em(24)
-// 		padding-right: 1em
-// 		padding-bottom: .3em
-// 		justify-content: space-between
-// 		@include breakpoint($xxs)  
-// 			font-size: em(21)
-		
-// 		& .closeButton 
-// 			text-align: right
-			
-		
-	
-// 	&_inline 
-// 		top: 0 $i
-// 		bottom: auto $i
-	
-// 	&_beneath 
-// 		top: 100% $i
-// 		bottom: auto $i
-// 		// top: calc(100% + 1em)
-	
-// 	&_right 
-// 		right: 0 $i
-// 		left: auto $i
-// 		// right: calc(0 - 1em)
-
-	
-// 	&_left 
-// 		left: 0 $i
-// 		right: auto $i
-// 		// left: calc(0 - 1em)
-	
-// 	&_upstair 
-// 		bottom: 100% $i
-// 		top: auto $i
-// 		// bottom: calc(100% - 1em)
-	
-// 	@include breakpoint($xxs) 
-// 		min-width: 100vw$i
-// 		left: 0 $i
-// 		position: fixed
-	
-
-// .descriptionContent 
-// 	margin-top: 1em
-// 	& a 
-// 		color: $white $i
-// 		background-image: linear-gradient(to right, $white 0%, $white 100%) $i
-	
-
-// .shown_element 
-// 	opacity: 1 $i
-// 	z-index: 2 $i
-
-	
-
-// div[role="presentation"]
-// 	@extend %flyShadow
-// 	border: 1px solid $darkBlue $i
-// 	min-width: 	span(12)
 .controller 
 	max-width: em(300)
 	min-width: none
@@ -366,75 +265,21 @@
 	&_orange
 		background-color: $orange
 	@include flyShadow
-	
+
+.fewRound
+	border-radius: 3px
+.whiteBackground
+	background-color: #fff
+
 .orderButtons
 	@extend %relative
 .shown_element
 	opacity: 1
-.hidden_element
+	tranition: opcaity .3s ease-in
+.lazy
+	will-change: opacity
 	opacity: 0
 
-.cart
-	font-size: em(24)
-	width: em(300)
-	margin-top: em(1, 24)
-	transition: opacity .2s
-	box-shadow: inner 0 0 14;
-	z-index: 99
-	@extend %relative
-	@include breakpoint($xxs)
-		width: 75vw
-	&_order
-		width: 	span(12)
-		margin-top: em(21, 24)
-		& .cart__hint
-			width: 98%
-			border-right: 0 
-	&_hover
-		&_up, &_bottom
-			@extend %absolute
-			will-change: transform
-			@extend %flyShadow
-			cursor: move
-			z-index: 100
-		&_bottom
-			top: 105%
-			right: 0
-		&_up
-			bottom: 110%
-			left: 0
-
-	&__hint
-		@extend %absolute
-		left: 0
-		left: calc(0% + 3px)
-
-		top: 0
-		top: calc(0% + 3px)
-		border: 2px solid $darkBlue
-		border-top: 0
-		border-left: 0
-		color: $white
-		font-size: em(16, 24) $i
-		padding: .5em
-		text-align: center
-		width: span(5)
-		margin: 0 $i
-		background-color: $orange
-		z-index: -1
-		opacity: 0
-		will-change: opacity
-		transition: opacity .2s ease
-		&_shown
-			z-index: 105
-		&_empty,  &_shown
-			opacity: 1
-		&_empty
-			z-index: 1
-
-
-
-.cartProducts
 
 ::-webkit-scrollbar-track
 	// -webkit-box-shadow: inset 0 0 6px $shadow
@@ -465,57 +310,7 @@
     background-color: transparent;
 .centeredText
 	text-align: center	
-.orderedProducts
-	background-repeat: no-repeat
-	background-size: cover
-	background-position: center
 
-	overflow-y: auto
-	border-radius: 3px
-	border: 3px solid $darkBlue
-	height: em(165)
-	overflow-y: auto
-	&__product
-		flex-grow: 0
-		z-index: 101
-		@extend %relative
-		margin: 1em auto
-.deleteProductButton	
-	font-size: em(18)
-.cartProduct
-	background: #f7f7f7 no-repeat top right
-	background-size: 70%
-	@extend %relative
-	border-radius: 2px
-	@extend %shadow
-	width: em(105)
-	height: em(105)
-	cursor: pointer
-	&__name
-		max-width: span(7)
-		-webkit-box: block
-		-webkit-box-orient: vertical 
-		-webkit-line-clamp: 2
-		overflow: hidden
-		text-overflow: ellipsis
-		display: -webkit-box
-		left: 0
-		text-transform: none
-
-.productController, .cartProduct__name
-	color: $white
-	padding: .5em
-	
-	font-size: em(14, 24)
-	height: em((24 * 1.5) * 2 + (16 / 2 * 2), 24) 
-
-	background-color: $orange
-	@extend %absolute
-	bottom: 0
-.productController
-	right: 0
-	text-indent: 0.1em
-	max-width: span(4)
 
 
 
@@ -523,25 +318,9 @@
 	padding: 0 1.5rem
 	margin-right: auto
 	margin-left: auto
-	@include breakpoint($xxs)
-		padding: 0
-
-// @media (min-width: em(576)) 
-// 	.container 
-// 		max-width: em(650)
-  
+	
 
 
-// @media (min-width: em(778)) 
-// 	.container 
-//    		max-width: em(778)
-  
-
-
-// @media (min-width: em(992)) 
-//   	.container 
-//     	max-width: em(950)
-  
 input[type=number]::-webkit-inner-spin-button 
 	-webkit-appearance: none
 	display:blocks
@@ -566,38 +345,7 @@ div[data-id="tooltip"]
 input[type=number]:hover::-webkit-inner-spin-button 
 	opacity: 1
 	cursor:pointer
-.popupBackground
-	@extend %absolute
-	min-height: em(980)
-	overflow-y: auto
-	&:after, &
-		top: 0;
-		height: 100%
-		width: 100%
-		left: 0
-		z-index: 4
-		// -webkit-filter: blur(3px);
-  		// mask: url('#mask-linear');
-  		// filter: url('#filtre2');
-		// background: url('./../dist/background-black.png')
-	&:after
-		opacity: .4
-		content: ""
-		@extend %absolute
-		background: rgba(51, 51, 51, 0.5);
-		backdrop-filter: blur(4px);
 
-
-
-
-.formButton
-	background-color: $darkBlue
-	color: $white
-	margin-top: em(35)
-	&_product
-		@extend %absolute
-		bottom: em(150 / 2 - 25)
-		left: em(37)
 
 .serverError
 	color: $red
@@ -624,8 +372,6 @@ input[type=number]:hover::-webkit-inner-spin-button
 		&.fading-leave-active
 			transition: opacity .3s ease-in
 			opacity: 0.1
-.main
-	position: relative
 .translate
 	&-appear
 		transform: translateX(-200%)
@@ -650,19 +396,50 @@ input[type=number]:hover::-webkit-inner-spin-button
 			transition: opacity .3s ease-in
 			opacity: 0
 			// transform: translate(250%);
-
-.moreRefer
-	font-size: em(18)
-	@extend %absolute
-	bottom: em(29.34)
-	right: em(34.41)
-	&_product
+.dispableLinkHover
+	&:hover, &:hover, &:hover
+		background-image: none
+		color: currenCollor
+.prespective
+	transform-style: preserve-3d;
+	transform: perspective(800px);
+.awesomeButton
+	position: relative
+	display: flex
+	padding: 0 1.5rem
+	justify-content: center
+	align-items: center
+	height: em(47)
+	min-width: em(200)
+	text-decoration: none
+	text-align: center
+	cursor: pointer
+	user-select: none
+	color: $darkGray
+	z-index: 1
+	&::after
+		position: relative
+		display: inline-block
+		content: attr(data-title)
+		transition: transform .2s ease
+		font-weight: bold
+		letter-spacing: .01em
+		will-change: transform
+		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
+	&::before
+		content: ''
 		position: absolute
-		font-size: 1rem
 		top: 0
 		left: 0
-		padding: .1rem
-		background-color: $orange
-		max-height: 2rem
-		max-width: 6rem
-		color: $darkGray
+		bottom: 0
+		right: 0
+		// background: linear-gradient(135deg, #6e8efb, #a777e3)
+		background: $linkGradient
+		z-index: -1
+		border-radius: 4px
+		transition: box-shadow .5s ease, transform .2s ease
+		will-change: transform
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2)
+		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px))
+	&:hover::before
+		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)

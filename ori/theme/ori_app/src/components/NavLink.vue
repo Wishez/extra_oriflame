@@ -25,7 +25,8 @@
 	import router from './../router';
 	import Icon from './../templates/Icon.vue';
 
-	import {setTabPosition} from './../constants/pureFunctions';
+	import {setTabPosition, doBy} from './../constants/pureFunctions';
+
 	export default {
 		props: {
 			href: String,
@@ -33,8 +34,14 @@
 			index: String,
 		},
 		computed: {
-			isActive() {
-				return this.href === window.location.pathname;
+			isActive: {
+				get: function() { 
+					return this.href === window.location.pathname;
+				},
+				set: function(newValue) {
+
+				}
+
 			},
 			tab() {
 				return document.querySelector('.activeTab');
@@ -42,11 +49,17 @@
 		},
 		methods: {
 			go(event) {
-		      setTabPosition(this.tab, this.index);
-		      // isActive = this.href === window.location.pathname;
+				doBy(() => {
+		    		console.log('do');
+		      		setTabPosition(this.tab, this.index);
+		      	});
+
+		    	this.isActive = this.href === window.location.pathname;
 		    },
 		    highlight(event) {
-		    	setTabPosition(this.tab, this.index, 'translate');
+		    	doBy(() => {
+		    		setTabPosition(this.tab, this.index, 'translate');
+		    	});
 		    },
 		    
 		},
@@ -57,24 +70,19 @@
 </script>
 
 <style lang="sass">
-	$burgund: #941857
-	$i: !important
-	$white: #f2f2f2
-	$pink: #FA8BC4
-	$darkGray: #333
-	$linkGradient: linear-gradient(180deg, $pink 0% ,rgba(255, 255, 255, .35) 50%, $pink 100%), $pink
-	.navlinkContainer
+	@import '../styles/conf/_breakpoints.sass'
+	@import '../styles/conf/_colors.sass'
+
+	
+	
 	.iconBackground_navigation
 		background-color:  $burgund $i
 		color: $white $i
-	// &::after
-	// 	transform: translateX(-100%);
-	// 	heigth: 2px
-	// 	background-color: $burgund
-	// 	z-index: 2
-	.router-link-exact-active
+		@include breakpoint($xxs)
+			font-size: (18em /16)
+	
 	.activeTab
-		height: 2px
+		height: 4px
 		position: absolute
 		top: 0
 		z-index: 1
@@ -82,8 +90,10 @@
 		background-color: $burgund
 		min-width: 155px
 		transition: transform .3s ease-in, left .3s ease-in;
+		@include breakpoint($xs)
+			display: none
 	.navLink
-		border-top-width: 2px
+		border-top-width: 4px
 		border-top-style: solid
 		border-top-color: $pink
 		min-height: 54px
@@ -109,22 +119,44 @@
 			z-index: -1
 			background: $linkGradient
 			height: 100%
-		&:hover, &:focus
+		&:hover, &:focus, &:active
 			background-image: none
+			& .icon
 			&:after, &:before
 				transform: translate(0, 0)
+
+		@include breakpoint($xs)	
+			min-width: auto
+			padding-top: .5rem
+		@include breakpoint($xxs)
+			background: transparent
+			border-top: 0
+			color: $white
+			border: 2px solid transparent
+			font-size: (16em / 18)
+		&_active, &:hover, &:focus, &:active
+			color: $burgund
+			@include breakpoint($xxs)
+				color: $white
+			& .iconBackground
+				color: $darkGray $i
+				background-color: $white $i
+				// @include breakpoint($xxs)
+				// 	font-size: (18em / 18)
 
 		&_active
 			&:after, &:before
 				content: none
 			// border-top-color: $burgund 
-			background: $linkGradient
-			&:hover, &:focus
+			&, &:hover, &:focus
 				background: $linkGradient
-			
-			& .iconBackground
-				color: $darkGray $i
-				background-color: $white $i
-
+				@include breakpoint($xxs)
+					background: transparent
+			@include breakpoint($xxs)
+				background: transparent
+				border-bottom-color: $pink
+	.navLinkContainer
+		@include breakpoint($xs)
+			flex-grow: 1
 
 </style>

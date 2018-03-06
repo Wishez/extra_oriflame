@@ -1,3 +1,73 @@
+export const onMoveAwesomeButton = (e, boundingClientRect, docStyle) => {
+    const x = e.clientX - boundingClientRect.left
+    const y = e.clientY - boundingClientRect.top
+    
+    const xc = boundingClientRect.width/2
+    const yc = boundingClientRect.height/2
+    
+    const dx = x - xc
+    const dy = y - yc
+    
+    
+    docStyle.setProperty('--rx', `${ dy/-1 }deg`)
+    docStyle.setProperty('--ry', `${ dx/10 }deg`)
+};
+
+export const onLeaveAwesomeButton = (e, boundingClientRect, docStyle) => {
+   docStyle.setProperty('--ty', '0')
+  docStyle.setProperty('--rx', '0')
+  docStyle.setProperty('--ry', '0')
+};
+export const onDownAwesomeButton = (e, boundingClientRect, docStyle) => {
+  docStyle.setProperty('--tz', '-25px')
+};
+
+export const bindAweomeButtonEvents  = (element, ) => {  
+   const docStyle = document.documentElement.style;
+
+   const aElem = element;
+   const boundingClientRect = aElem.getBoundingClientRect();
+
+    
+   aElem.onmousemove = function(e) {
+
+    const x = e.clientX - boundingClientRect.left
+    const y = e.clientY - boundingClientRect.top
+    
+    const xc = boundingClientRect.width/2
+    const yc = boundingClientRect.height/2
+    
+    const dx = x - xc
+    const dy = y - yc
+    
+    
+    docStyle.setProperty('--rx', `${ dy/-1 }deg`)
+    docStyle.setProperty('--ry', `${ dx/10 }deg`)
+    
+  }
+
+  aElem.onmouseleave = function(e) {
+    
+    docStyle.setProperty('--ty', '0')
+    docStyle.setProperty('--rx', '0')
+    docStyle.setProperty('--ry', '0')
+    
+  }
+
+  aElem.onmousedown = function(e) {
+    
+    docStyle.setProperty('--tz', '-25px')
+    
+  }
+    
+};
+
+export const onMouseUpParentAwesomeButton = function() {
+    const docStyle = document.documentElement.style;
+
+    docStyle.setProperty('--tz', '-12px')
+}
+
 export const setTabPosition = (tab, index, action='set', linkWidth=155) => {
       switch (action) {
         case 'set':
@@ -19,6 +89,11 @@ export const setTabPosition = (tab, index, action='set', linkWidth=155) => {
 
 };
 
+export function doBy(callback, condition=window.innerWidth > 768) {
+  if (condition) {
+    callback();
+  }
+}
 export function transformName(name) {
   return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
 }

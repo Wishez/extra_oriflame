@@ -4,7 +4,9 @@
 <template>
   <div id="app">
   	<site-header/>
-    <router-view/>
+  	<div class="wrapper container">	
+    	<router-view/>
+  	</div>
   </div>
 </template>
 
@@ -16,13 +18,16 @@
 	  components: {
 	  	SiteHeader
 	  }
+	  
 	};
-	// if ('serviceWorker' in navigator) {
-	// 	navigator.serviceWorker.register('/js/sw.js')
-	//        .then(function(reg){
-	//             console.log('ServiceWorker registration successful with scope: ', reg.scope);
-	//        }).catch(function(err) {
-	//          console.log("No it didn't. This happened: ", err)
-	//        });
-	// }
 </script>
+
+<style	lang="sass">
+	@import './styles/conf/_sizes.sass'
+
+	.wrapper
+		max-width: 1085px
+		margin-top: $s77
+		margin-bottom: 	$s144
+	
+</style>
