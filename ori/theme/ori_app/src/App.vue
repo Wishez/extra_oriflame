@@ -26,7 +26,7 @@
 	@import './styles/conf/_sizes.sass'
 
 	.wrapper
-		max-width: 1085px
+		max-width: 1087px
 		margin-top: $s77
 		margin-bottom: 	$s144
 	

@@ -26,7 +26,14 @@
 				:paragraph="aboutItem.paragraph">
 			</about-item>
 		</section>
-		<section class="programm">
+		<section class="programm parent column">
+			<decorative-title>Бонусы со старта</decorative-title>
+			<p :class="['programm__paragraph', paragraph.position]"
+				v-for="paragraph in programmParagraphs"
+				:key="paragraph.id">
+				{{ paragraph.text }}
+			</p>
+			
 			
 		</section>
 		<section class="extraInfo">
@@ -43,6 +50,7 @@
 	import BlurryImageLoader from './../templates/BlurryImageLoader';
 	import AwesomeLink from './../components/AwesomeLink';
 	import AboutItem from './../components/AboutItem';
+	import DecorativeTitle from './../components/DecorativeTitle';
 
 	import {onMouseUpParentAwesomeButton} from './../constants/pureFunctions';
 
@@ -51,12 +59,14 @@
 	  components: {
 	  	BlurryImageLoader,
 	  	AwesomeLink,
-	  	AboutItem
+	  	AboutItem,
+	  	DecorativeTitle
 	  },
 	  data() {
 	  	return {
 	  		banner,
 	  		mobileBanner,
+
 	  		aboutItems: [
 	  			{
 	  				id: 1,
@@ -78,8 +88,22 @@
 	  				title: 'Погружение',
 	  				paragraph: 'Вы можете пройти регистрацию и стать членом нашей «банды». Помимо деятельности, вам будет дарован стартовый комплект приятных бонусов.'
 	  			}
-	  		]
-	  			
+	  		], // end aboutItems
+	  		programmParagraphs: [
+	  			{
+	  				id: 1,
+	  				text: 'Зарегистрировавшись, вы можете взять квест. Название этому квесту «Статовая программа». На самом деле, это одна из акций, которая доступна всем консультантам.',
+	  				position: 'v-s-start'
+	  			},{
+	  				id: 2,
+	  				text: 'Вам нужно будет размещать заказы. За эти заказы вы будете получать бонусные балы — внутренняя валюта Орифлейм.',
+	  				position: 'v-s-centered'
+	  			},{
+	  				id: 3,
+	  				text: 'Каждые 200 баллов, вы сможете выбрать разнообразные  предметы, на которые будут хорошие скидки. Ко всему прочему, бонусные баллы также принесут вам доход!',
+	  				position: 'v-s-end'
+	  			}
+	  		] // end aboutParagraphs
 	  	};
 	  },
 	  methods: {
@@ -91,20 +115,22 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='sass'>
 	// Variables and helpful functions
+	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_breakpoints.sass'
-	@import './../styles/conf/_helpers.sass'
 	
 	.banner
 		position: relative
 		z-index: 0
-		padding: 1.5rem 1.5rem 2rem
+		padding: .8rem 1.5rem 2rem
 		color: $white
 		&__title
 			@include breakpoint($sm-up)
 			    max-width: 75%;
 			@include breakpoint($xs)
 				margin-bottom: 1.5rem;
+		& a
+			margin-top: 1.5rem
 		&__button
 			color: $darkGray
 			
@@ -116,5 +142,9 @@
 	.imageContainer__image_banner, .imageContainer_banner
 		// max-height: em(166)
 		height: 100%
-
+	.programm
+		margin-top: em(77 - 29.124) $i
+		&__paragraph
+			margin-top: $s47 $i
+			max-width: em(522.54)
 </style>

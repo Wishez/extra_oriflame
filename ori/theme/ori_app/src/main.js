@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import './fonts.sass'
 import VueLazyload from 'vue-lazyload'
+import Tooltip from 'vue-directive-tooltip'
+import 'vue-directive-tooltip/css/index.css'
+
+Vue.use(Tooltip);
 
 Vue.use(VueLazyload,  {preLoad: 1.3,
   attempt: 1
