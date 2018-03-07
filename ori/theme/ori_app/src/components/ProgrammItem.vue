@@ -1,15 +1,7 @@
 <template>
-	<div @mousemove="onHoverItem" v-tooltip.top="{ html: tooltipId  }"
-		:class="['programmItem materialSadow', name ? 'programmItem_' + name : null]">
-
-		<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
-		<blurry-image-loader 
-			:src="src" 
-			modifier="programmItem"
-			className="materialShadow programmItem__image"
-		 />
+	<popper :class="['programmItem_' + name]" trigger="hover" :options="{placement: 'top'}">
 		
-		<article :id="tooltipId" class="programmItemDescription">
+		<article  :id="tooltipId" class="programmItemDescription popper">
 			<h2>{{ title }}</h2>
 			<p>{{ stepDescription.paragraph }}</p>
 			<ul>
@@ -19,18 +11,32 @@
 			</ul>
 		</article>
 
-		
-	</div>
+		<div @mousemove="onHoverItem"
+		 slot="reference" 
+			:class="['programmItem materialSadow']">
+
+			<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
+			<blurry-image-loader 
+				:src="src" 
+				modifier="programmItem"
+				className="materialShadow programmItem__image"
+			 />
+		</div>
+
+	</popper>
 </template>
 
 <script>
 	import BlurryImageLoader from './../templates/BlurryImageLoader';
 	import {timeout} from './../constants/pureFunctions';
+	import anime from 'animejs';
+	import Popper from 'vue-popperjs';
 
 	export default {
 		name: "ProgrammItem",
 		components: {
-			BlurryImageLoader
+			BlurryImageLoader,
+			"popper": Popper
 		},
 		data() {
 			return {
@@ -41,13 +47,15 @@
 			timeout(() => {
 				this.tooltip = document.getElementById(
 						this.tooltipId
-				).parentNode.parentNode;
+				);
+			  	
 			}, 2000);
 		},
 		computed: {
 			tooltipId: function() {
 				return 'tooltip_' + this.name;
 			},
+			
 			onHoverItem: function() {
 				const showUpOrBottom = (event, tooltipHeight, tooltipWidth) => {
 					const windowHeight = window.innerHeight;
@@ -77,12 +85,21 @@
 				return event => {				
 					const proportions = this.tooltip.getBoundingClientRect();
 					event.stopPropagation();
-			  		console.log(event)
-		  			this.tooltip.style.transform = `translate3d(${event.pageX - (proportions.width / 2)}px, ${event.pageY - showUpOrBottom(event, proportions.height)}px, 0px)`
+
+						anime({
+			  			targets: this.tooltip,
+			  			translateX: event.pageX - (proportions.width / 2),
+			  			translateY: event.pageY - showUpOrBottom(event, proportions.height),
+			  			elasticity: 100,
+			  			duration: 60
+			  		});
+			  		
+			  		// console.log(animation);
+		  			// this.tooltip.style.transform = `translate3d(${event.pageX - (proportions.width / 2)}px, ${event.pageY - showUpOrBottom(event, proportions.height)}px, 0px)`
 
 		  		};
 				
-			}
+			},
 		},
 		
 		props: {
@@ -126,10 +143,22 @@
 	@import './../styles/conf/_fonts.sass'
 	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_breakpoints.sass'
+	.programmItemDescription
+		// position: absolute
+	.fading
+		&-active
+			opacity: 1
+			transition: opacity.3s ease-in
+		&-leave
+			opacity: 0
+			transition: opacity.3s ease-in
+
 
 	.programmItem
 		position: relative
 		cursor: pointer
+		height: 100%
+		
 
 		&_first, &_second	
 			height: em(240)
