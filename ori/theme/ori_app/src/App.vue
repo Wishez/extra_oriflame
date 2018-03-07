@@ -4,9 +4,12 @@
 <template>
   <div id="app">
   	<site-header/>
-  	<div class="wrapper container">	
+  	<main class="wrapper container">	
     	<router-view/>
-  	</div>
+  	</main>
+  	<footer>
+  		
+  	</footer>
   </div>
 </template>
 
@@ -26,7 +29,7 @@
 	@import './styles/conf/_sizes.sass'
 
 	.wrapper
-		max-width: 1087px
+		max-width: 1129px
 		margin-top: $s77
 		margin-bottom: 	$s144
 	

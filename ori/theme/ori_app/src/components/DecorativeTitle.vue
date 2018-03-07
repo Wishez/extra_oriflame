@@ -27,13 +27,16 @@
 <style	lang="sass">
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_helpers.sass'
+	@import './../styles/conf/_breakpoints.sass'
 
 	.decorativeTitleContainer
 		&__title
 			min-width: 40%
-			padding: 0 1rem
+			padding: 0 1.5rem
 			text-align: center
 			max-width: em(340)
+			@include breakpoint($xxs)
+				max-width: 68.5%
 		&__divider
 		    height: 1px;
 		    background-color: $burgund

@@ -7,11 +7,19 @@ import './fonts.sass'
 import VueLazyload from 'vue-lazyload'
 import Tooltip from 'vue-directive-tooltip'
 import 'vue-directive-tooltip/css/index.css'
+import VueProgressiveImage from 'vue-progressive-image'
 
-Vue.use(Tooltip);
 
-Vue.use(VueLazyload,  {preLoad: 1.3,
-  attempt: 1
+// Vue.use(VueLazyload,  {preLoad: 1.3,
+//   attempt: 1
+// });
+Vue.use(Tooltip,{
+	delay: 500,
+	// placement: 'auto'
+});
+Vue.use(VueProgressiveImage, {
+  blur: 30,
+  delay: 1000
 });
 
 Vue.config.productionTip = false

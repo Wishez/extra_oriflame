@@ -1,22 +1,17 @@
 <template>
-	<picture :class="['imageContainer', modifier  ? 'imageContainer_' + modifier : '']">
-		<source :srcset="imageSrc" :media="defaultMedia ? defaultMedia : 'all'"/>
-		<slot></slot>
-		<img :class="['imageContainer__image', modifier  ? 'imageContainer__image_' + modifier : '', className ? className : '']" 
-			v-lazy="imageSrc" 
-			:alt="alt ?  alt : ''"
-		>
-	</picture>
+		<progressive-img
+		  :src="src"
+		  :placeholder="src"
+		  :class="['imageContainer', modifier  ? 'imageContainer_' + modifier : '', className ? className : '']" 
+		  :alt="alt ?  alt : ''"
+		  no-ratio
+		/>
+	
 </template>
 
 <script>
 	export default {
 		name: 'BlurryImageLoader',
-		data() {
-			return {
-		      imageSrc: this.smallSrc
-		    }
-		},
 		props: {
 			modifier: {
 				type: String,
@@ -26,7 +21,7 @@
 				type: String,
 				required: false
 			},
-			smallSrc: {
+			src: {
 				type: String,
 				required: true
 			},

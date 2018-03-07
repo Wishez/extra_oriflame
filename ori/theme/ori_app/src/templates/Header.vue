@@ -22,7 +22,7 @@
 				<nav-link  index='3' icon="fas fa-gift" href="/shares">Акции</nav-link>
 				<nav-link  index='4' icon="fas fa-video" href="/media">Медиа</nav-link>
 			</ul>
-			<div id="activePageDescription" hidden>Текущая страница</div>
+			<div id="active_page" hidden>Текущая страница</div>
 		</nav>
 	</header>
 </template>

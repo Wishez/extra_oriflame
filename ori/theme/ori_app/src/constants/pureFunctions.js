@@ -136,7 +136,7 @@ export const cookiesHandler = {
   }
 
 };
-export function timeout(callback, timeout) {
+export async function timeout(callback, timeout) {
   // stuff for animating goes here
   let pastTime = 0;
   function animate(time) {
