@@ -1,3 +1,42 @@
+export const listen = ({
+  element=window,
+  callback,
+  event='DOMContentLoaded'
+}) => {
+  element.addEventListener(event, callback);
+}
+
+export const doByYScroll = ({ 
+  target, 
+  offsetY=0,
+  condition=true,
+  onTrigger,
+  direction='bottom'
+}) => 
+{
+  const currentScrollPosition = target.scrollTop
+
+  if (condition)  {
+    switch (direction) {
+      case 'bottom':
+        if (currentScrollPosition > offsetY) {
+          onTrigger();
+        } 
+        break;
+      case 'top':
+        if (currentScrollPosition < offsetY) {
+          onTrigger();
+        }
+        break;
+      default:
+        throw new Error('You can use one of these directions: "top" or "bottom".');
+        break;
+    }
+  }
+
+
+};
+
 export const onMoveAwesomeButton = (e, boundingClientRect, docStyle) => {
     const x = e.clientX - boundingClientRect.left
     const y = e.clientY - boundingClientRect.top
@@ -89,9 +128,16 @@ export const setTabPosition = (tab, index, action='set', linkWidth=155) => {
 
 };
 
-export function doBy(callback, condition=window.innerWidth > 768) {
+export function doBy({
+  callback, 
+  condition=window.innerWidth > 768,
+  fallback=false
+}) {
   if (condition) {
     callback();
+  } else {
+    if (fallback) fallback()
+
   }
 }
 export function transformName(name) {

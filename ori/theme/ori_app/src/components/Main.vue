@@ -196,6 +196,7 @@
 	  				name: "fourthMan",
 	  				src: fourthManStepImage,
 	  				title: "Четвёртый шаг для мужчин",
+	  				titleModifier: 'center',
 	  				stepDescription: {
 	  					paragraph: "Завершающий шаг ー протеиновый завтрак, обогащённый витаминами для мужчин со скидкой 4 130₽ + 5% от суммы набора.",
 	  					items: [
@@ -212,6 +213,7 @@
 	  				title: "Последний шаг для женщин",
 	  				src: fourthWoomanStepImage,
 	  				name: "fourthWooman",
+	  				titleModifier: 'center',
 	  				stepDescription: {
 	  					paragraph: "Последний шаг ー полезная, питательная и здоровая еда для женщин со скидкой в 4 130₽ + 5% от суммы набора.",
 	  					items: [

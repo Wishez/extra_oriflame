@@ -1,14 +1,19 @@
 <template>
-	<popper :class="['programmItem_' + name]" trigger="hover" :options="{placement: 'top'}">
+	<popper :class="['programmItemContainer programmItem_' + name]" trigger="hover"
+		enter-active-class="fading-active"
+		leave-active-class="fading-leave">
 		
-		<article  :id="tooltipId" class="programmItemDescription popper">
-			<h2>{{ title }}</h2>
-			<p>{{ stepDescription.paragraph }}</p>
-			<ul>
-				<li :key="item.id" v-for="item in stepDescription.items">
-					{{ item.name }}
-				</li>
-			</ul>
+		<article  :id="tooltipId" class="programmItemDescription popper fewRound materialShadow">
+			<h2 class="italic programmItemDescription__title" >{{ title }}</h2>
+			<div class="programmItemDescriptionContent">
+				
+				<p>{{ stepDescription.paragraph }}</p>
+				<ul class="programmItemDescriptionBenifits">
+					<li class="" :key="item.id" v-for="item in stepDescription.items">
+						{{ item.name }}
+					</li>
+				</ul>
+			</div>
 		</article>
 
 		<div @mousemove="onHoverItem"
@@ -28,7 +33,7 @@
 
 <script>
 	import BlurryImageLoader from './../templates/BlurryImageLoader';
-	import {timeout} from './../constants/pureFunctions';
+	import {timeout, listen} from './../constants/pureFunctions';
 	import anime from 'animejs';
 	import Popper from 'vue-popperjs';
 
@@ -40,10 +45,18 @@
 		},
 		data() {
 			return {
-			
+				// isScreenScrolled: document.documentElement.scrollTop > 80 || document.body > 80; 
 			};
 		},
 		mounted: function() {
+
+			// liets
+			// window.addEventListener('scroll', (event) => {
+			// 	if (!this.isScreenScrolled && ) {
+			// 		this.isScreenScrolled  = '';
+			// 	}
+
+			// });
 			timeout(() => {
 				this.tooltip = document.getElementById(
 						this.tooltipId
@@ -63,40 +76,29 @@
 					// let additionalValue = 0;
 					// let x = 0;
 					let y = 0;
-					// if (event.clientY - tooltipHeight < windowHeight) {
-					// 	y = 0;
-						// if (event.clientX - tooltipWidth < 0) {
-						// 	x = tooltipWidth / 2 + 18;
-						// }
-						// // } else {
-
-						// // }
+					let place = 'top';
 						 
 					if (windowHeight / 2 < event.clientY) {
-						y =  tooltipHeight + 18;
-						this.tooltip.setAttribute('x-placement', 'top')
+						y =  tooltipHeight + 18 + 11.12484548825710754017;
 					} else {
-						y -= 18;
+						place = 'bottom';
+						y -= 18 + 11.12484548825710754017 //6.8756770631996956367;
 					}
 					
-					
+					this.tooltip.setAttribute('x-placement', place);
 					return y;
 				};
 				return event => {				
 					const proportions = this.tooltip.getBoundingClientRect();
 					event.stopPropagation();
 
-						anime({
+					anime({
 			  			targets: this.tooltip,
 			  			translateX: event.pageX - (proportions.width / 2),
 			  			translateY: event.pageY - showUpOrBottom(event, proportions.height),
-			  			elasticity: 100,
-			  			duration: 60
+			  			elasticity: 200,
+			  			duration: 1500
 			  		});
-			  		
-			  		// console.log(animation);
-		  			// this.tooltip.style.transform = `translate3d(${event.pageX - (proportions.width / 2)}px, ${event.pageY - showUpOrBottom(event, proportions.height)}px, 0px)`
-
 		  		};
 				
 			},
@@ -143,15 +145,20 @@
 	@import './../styles/conf/_fonts.sass'
 	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_breakpoints.sass'
-	.programmItemDescription
-		// position: absolute
+
+	$additionalPadding: $s77 / 2 
+
 	.fading
 		&-active
 			opacity: 1
-			transition: opacity.3s ease-in
+			z-index: 100
+			transition: opacity .3s ease-in
+			will-change: opacity
+
 		&-leave
 			opacity: 0
-			transition: opacity.3s ease-in
+			will-change: opacity
+			transition: opacity .3s ease-in
 
 
 	.programmItem
@@ -162,7 +169,8 @@
 
 		&_first, &_second	
 			height: em(240)
-			min-width: em(240)
+			@include breakpoint($sm-less)
+				height: em(341)
 
 		&[class*="fourth"]
 			height: em(393.72)
@@ -173,22 +181,42 @@
 			// @inlcude breakpoint($xs-up)
 			order: 2
 		&_third
-			min-width: em(554.88)
+			min-width: em(560) + $s77 - em(2) $i
 			height: em(554.51)
-			transform: translateY(-#{$s77})
-			// @inlcude breakpoint($xs-up)
+			margin-top: -#{$s77 + $s6}
 			order: 4
+			@include breakpoint($md)
+				$thidBlockWidth: 233.66 * 2
+				min-width: em($thidBlockWidth) + ($s77 * 2) $i
+			@include breakpoint($sm-less)
+				// margin-top: 0
+				order: 3
+			@include breakpoint($xs)
+				min-width: 100% $i
+
 		&_fourthWooman, &_fourthMan
-			min-width: em(406.59)
+			min-width: em(406.59) + $additionalPadding $i
 			height: em(393.72)
+		&_first,
+		&_second, 
+		&_fourthWooman, 
+		&_fourthMan
+			@include breakpoint($sm-less)
+				min-width: em(341) + ($s77 / 2) $i
+			@include breakpoint($xs)
+				min-width: em(327) $i
+
 
 		&_fourthWooman
 			// @inlcude breakpoint($xs-up)
 			order: 5
 			margin-top: $s77
 		&_fourthMan
-			// @inlcude breakpoint($xs-up)
 			order: 3
+		
+		&_fourthMan, &_third
+			@include breakpoint($sm-less)
+				margin-top: $s77
 
 		&:hover
 			.imageContainer_programmItem
@@ -200,12 +228,16 @@
 		.imageContainer_programmItem, &__title
 			will-change: filter
 			transition: filter .3s ease-in
-		.progressive-image-main
-			position: relative
-
+		.progressive-image
+			&-main, &-wrapper
+				height: 100%;
+			&-main
+				position: relative
+				display: block
+		
 		&__title
 			position: absolute
-			min-height: em(60.95)
+			height: em(60.95)
 			
 			padding: 0 1rem
 			z-index: 2
@@ -215,16 +247,96 @@
 			&_right
 				box-shadow: -3px 1px 6px 0 $shadow
 				right: 0
+			&_center
+				box-shadow: 0px 6px 6px -5px $shadow
+				min-width: 100%
 			&_first, &_second
 				bottom: 23.5%
-				min-height: 
-			
+				min-width: em(147.82)
+				@include breakpoint($sm-less)
+					min-width: em(210.75)
 			&_third
 				min-width: em(342.94)
 				bottom: 21.12%
+				@include breakpoint($sm-less) 
+					min-width: em(417.82)
+
+			&_first, &_second, &_third
+				@include breakpoint($xxs)
+					min-width: em(203)
 			&_fourthWooman, &_fourthMan
-				min-width: 100%
 				bottom: 24.28%
 
+	.programmItemContainer
+		flex: 1 0 25%
+		min-width: em(240) + ($s77 / 2)
+		padding: 0 $s77 / 2
+		@include breakpoint($sm-less)
+			height: auto
+			min-height: em(273)
+		@include breakpoint($xs)
+			padding: 0
+			margin-top: em(33)
+		&:not(.programmItem_third)
+			@include breakpoint($xs)
+				min-width: auto $i
+				max-width: calc(50% - #{$s18}) $i
+		&[class*="programmItem_"]
+			@include breakpoint($xxs)
+				min-width: 100% $i
+
+				max-width: none $i
+				min-height: em(240) + ($s77 / 2)
+				margin-top: 0
+				margin-bottom: 	$s47
 		
+	.programmItemDescriptionBenifits
+		font-weight: 200
+	.programmItemDescription 
+		background-color: $pink
+		text-align: left
+		border: 0
+		font-size: em(18, 16)
+		padding: $s18 $s18 $s29
+		max-width: em(346.1)
+		@include breakpoint($xxs)
+			width: 90vw
+			max-height: 55vh
+		&Content
+			overflow: auto
+			max-height: em(213.90605686032138442522) - $s77
+			margin-top: $s29
+			padding-right: $s18
+			p
+				margin-top: 0
+		&__title
+			font-size: $s25
+			letter-spacing: .1em
+		&.popper
+			border: 0 solid $burgund
+			&[x-placement^="left"]
+				border-left-width: $s6
+				.popper__arrow
+					border-width: 18px 0 18px 18px
+					border-color: transparent transparent transparent $pink
+			&[x-placement^="right"]
+				border-right-width: $s11
+				.popper__arrow
+					border-width: 18px 18px 18px 0
+					border-color: transparent $pink transparent transparent 
+			&[x-placement^="bottom"]
+				border-bottom-width: 6.8756770631996956367px
+				.popper__arrow
+					top: -18px
+					border-width: 0 18px 18px 18px
+					border-color: transparent transparent $pink transparent
+			&[x-placement^="top"]
+				border-top-width: $s6
+				.popper__arrow
+					bottom: -18px
+					border-width: 18px 18px 0 18px
+					border-color: $pink transparent transparent transparent 
+
+		
+
 </style>

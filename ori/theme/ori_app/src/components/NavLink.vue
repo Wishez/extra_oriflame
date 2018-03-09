@@ -1,12 +1,13 @@
 
 <template>
 	<li class="navLinkContainer" @click="go" @mouseenter="highlight">
-    	<router-link v-bind:class="{ 
+    	<router-link :class="{ 
     		navLink: true, 
     		parent: true, 
     		centered: true,
     		nowrap: true,
-    		column: true
+    		column: true,
+    		navLink_mobile: isPageScrolled
     	}"
 		  exact
 		  :data-index="index"
@@ -25,13 +26,18 @@
 	import router from './../router';
 	import Icon from './../templates/Icon.vue';
 
-	import {setTabPosition, doBy} from './../constants/pureFunctions';
+	import {setTabPosition, doBy, doByYScroll, listen} from './../constants/pureFunctions';
 
 	export default {
 		props: {
 			href: String,
 			icon: String,
 			index: String,
+		},
+		data() {
+			return {
+				isPageScrolled: false
+			};
 		},
 		computed: {
 			isActive: {
@@ -45,23 +51,41 @@
 			},
 			tab() {
 				return document.querySelector('.activeTab');
-			}
+			},
 		},
 		methods: {
 			go(event) {
-				doBy(() => {
-		    		console.log('do');
-		      		setTabPosition(this.tab, this.index);
+				doBy({
+					callback: () => {
+		      			setTabPosition(this.tab, this.index);
+		      		}
 		      	});
-
-		    	this.isActive = this.href === window.location.pathname;
+				this.$set(
+					this, // target
+					'isActive', // prop
+					this.href === window.location.pathname // value
+				);
+		    	
 		    },
 		    highlight(event) {
-		    	doBy(() => {
-		    		setTabPosition(this.tab, this.index, 'translate');
-		    	});
+		    	doBy({
+		    		callback: () => {
+		    			setTabPosition(this.tab, this.index, 'translate');
+		    		}
+		    	}); // end doBy
 		    },
 		    
+		},
+		mounted() {
+			const baseScrollOffset = this.$store.state.baseOffsetForTransform;
+			this.$set(this, 'isPageScrolled', this.$store.state.isPageScrolled);
+
+			listen({
+		  		event: 'scroll', 
+		  		callback: event => {		  			
+					this.$set(this, 'isPageScrolled', this.$store.state.isPageScrolled);
+			 	} // end callback
+			});// end listen
 		},
 		components: {
 			Icon
@@ -72,6 +96,7 @@
 <style lang="sass">
 	@import '../styles/conf/_breakpoints.sass'
 	@import '../styles/conf/_colors.sass'
+	@import '../styles/conf/_sizes.sass'
 
 	
 	
@@ -102,7 +127,7 @@
 		background-image:  none
 		font-weight: 300
 		padding-top: .27777777777777777778em
-		transition: border .3s ease-in, background-color .3s ease-in
+		transition: background-color .3s ease-in
 		position: relative
 		overflow: hidden
 		z-index: 0
@@ -130,12 +155,15 @@
 			padding-top: .5rem
 		@include breakpoint($xxs)
 			background: transparent
-			border-top: 0
+			border-color: transparent
 			color: $white
-			border: 2px solid transparent
+			border-width: $s3
+			border-style: solid 
 			font-size: (16em / 18)
+
 		&_active, &:hover, &:focus, &:active
 			color: $burgund
+			transition: border .3s ease-in, background-color .3s ease-in
 			@include breakpoint($xxs)
 				color: $white
 			& .iconBackground
@@ -143,7 +171,6 @@
 				background-color: $white $i
 				// @include breakpoint($xxs)
 				// 	font-size: (18em / 18)
-
 		&_active
 			&:after, &:before
 				content: none
@@ -155,7 +182,46 @@
 			@include breakpoint($xxs)
 				background: transparent
 				border-bottom-color: $pink
+		&_mobile
+			background: transparent
+			// border-top: 0
+			border-color: transparent
+
+			font-size: em(16)
+			min-width: auto
+			white-space: nowrap
+			overflow: visible;
+			@include breakpoint($xs-up)
+				padding: .5rem .5rem 0 $s25
+				max-width: em(67.772816512, 16)
+				color: $darkGray $i
+			@include breakpoint($xs)
+				color: $white $i
+			&.navLink_active, &:hover, &:focus, &:active
+				background: transparent
+				@include breakpoint($xs-up)
+					color: $burgund $i
+				.iconBackground
+					@include breakpoint($xs-up)
+						color: $white $i
+						background-color: $darkGray $i
+						
+			&:before
+				content: none
+			&.navLink_active				
+				background: transparent 
+				// border: 0
+
+				@include breakpoint($xs-up)
+					border-left-color: $burgund
+					// border-left: $s3 solid $burgund
+				@include breakpoint($xs)
+					border-top-color: $pink
+					// border-top: $s3 solid $pink
+
+		
 	.navLinkContainer
+		
 		@include breakpoint($xs)
 			flex-grow: 1
 

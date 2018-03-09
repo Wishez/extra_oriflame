@@ -1,6 +1,6 @@
 <template>
 	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '' ]">
-		<ul class="contactsList normalStyle semibold">
+		<ul class="unstyledList contactsList normalStyle semibold">
 			<li class="contact parent row nowrap v-centered">
 				<icon modifier="contact" icon="fab fa-viber"></icon>
 				<a class="contact__link" :href="`tel:${phone}`">{{ phone }}</a>

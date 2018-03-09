@@ -12,9 +12,11 @@
 			email="shiningfinger@list.ru"
 			modifier="header"
 		></contacts>
-		<nav @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
+		<nav id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
 			<ul class="nvaigationList parent wrap row h-end v-end v-s-end baseChild">
-				<li><figure class="activeTab" data-transformed="false"></figure></li>
+				<li aria-hidden="true" :class="{
+					'visible-hidden': isTabShown
+				}"><figure class="activeTab"  data-transformed="false"></figure></li>
 				<nav-link  index='0' icon="fas fa-home"
 					href="/">Главная</nav-link>
 				<nav-link  index='1' icon="fas fa-users" href="/registration">Регистрация</nav-link>
@@ -30,12 +32,19 @@
 <script>
 	import NavLink from './../components/NavLink';
 	import Contacts from './Contacts';
-	import {setTabPosition, doBy} from './../constants/pureFunctions';
+	import {setTabPosition, doBy, listen} from './../constants/pureFunctions';
+	// import ScrollMagic from 'scrollmagic';
+	// import 'debug.addIndicators';
 
 	export default {
 		components: {
 			NavLink,
 			Contacts
+		},
+		data() {
+			return {
+				isTabShown: true
+			};
 		},
 		computed: {
 			tab() {
@@ -43,18 +52,38 @@
 			}
 		},
 		mounted: function() {
-			// XS breakpoint is set default of the second positional argument.
-			doBy(() => {
-				const index = document.querySelector('.navLink_active').dataset.index;
-				
-				setTabPosition(this.tab, index);
+			
+			this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
+
+			listen({
+				event: 'scroll',
+				callback: () => {
+					this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
+				}
 			});
+
+			// The callback will execute when the viewport 
+			// will upper then 768px, and it is by default.
+			// You can change it just setting "condition"
+			// porperty in the doBy function's options..
+			doBy({
+				callback: () => {
+					const index = document.querySelector('.navLink_active').dataset.index;
+					
+					setTabPosition(this.tab, index);
+				}
+			});
+
+			
+
 		},
 		methods: {
 			clearTransformOfTabIfNedded () {
-				doBy(() => {
-					if (this.tab.dataset.transformed !== 'false')
-						setTabPosition(this.tab, 0, 'clearTranslate');
+				doBy({
+					callback: () => {
+						if (this.tab.dataset.transformed !== 'false')
+							setTabPosition(this.tab, 0, 'clearTranslate');
+					}
 				});
 			}
 		}
@@ -75,8 +104,18 @@
 	.navigation
 		min-width: 155em * 5 / 18
 		flex-grow: 0
+		right: 0
+		position: static
+		z-index: 10
+		&_fixed
+			position: fixed
+			min-width: auto
+			justify-content: center
+
+
 		@include breakpoint($xs)
 			min-width: 100%
+			max-height: em(65.5)
 	.nvaigationList
 		min-height: 58.4px
 		@include breakpoint($xxs)
@@ -91,7 +130,7 @@
 		font-size: $s29
 	.contactsContainer_header
 		@include breakpoint($xs)
-			padding: 1rem 1.5rem $i
+			padding: 0 1.5rem $s29 $i
 	.brand, .contactsContainer_header
 		@include breakpoint($xs)
 			min-width: 100%
@@ -106,11 +145,11 @@
 		font-style: italic
 		font-size: $s29
 		@include breakpoint($xs)
-			padding: 2rem 1.5rem 1.5rem 
+			padding: $s11 1.5rem
 		// position: absolute
 		// left: 3rem
 
 	.header
-		min-height: 88px
+		min-height: em(123.363469255968)
 		background-color: #333
 </style>

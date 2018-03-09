@@ -35,7 +35,7 @@
 .light
 	font-weight: 300
 .italic
-	font-syle: italic
+	font-style: italic
 .normalStyle
 	font-style: normal
 .normalWeight
@@ -282,6 +282,10 @@
 	will-change: opacity
 	opacity: 0
 
+.unstyledList li
+	margin-top: 0
+	&:before
+		content: none
 
 ::-webkit-scrollbar-track
 	// -webkit-box-shadow: inset 0 0 6px $shadow
@@ -291,7 +295,7 @@
 ::-webkit-scrollbar
 	opacity: .1
 	width: 14px
-	background-color: $darkGray
+	background-color: transparent
 	height: 75px
 ::-webkit-scrollbar-thumb
 	// background-clip: padding-box
@@ -302,7 +306,8 @@
 	margin: 0 auto
 	// border-radius: 10px
 
-	background-color: $orange
+	background-color: $burgund
+	box-shadow: -2px 2px 6px 0 $shadow
 ::-webkit-scrollbar-button 
     width: 0;
     height: 0;
