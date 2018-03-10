@@ -32,8 +32,8 @@
 </template>
 
 <script>
-	import BlurryImageLoader from './../templates/BlurryImageLoader';
-	import {timeout, listen} from './../constants/pureFunctions';
+	import BlurryImageLoader from './BlurryImageLoader';
+	import {timeout, listen} from '@/constants/pureFunctions';
 	import anime from 'animejs';
 	import Popper from 'vue-popperjs';
 

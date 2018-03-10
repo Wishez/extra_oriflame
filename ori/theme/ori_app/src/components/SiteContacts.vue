@@ -2,15 +2,15 @@
 	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '' ]">
 		<ul class="unstyledList contactsList normalStyle semibold">
 			<li class="contact parent row nowrap v-centered">
-				<icon modifier="contact" icon="fab fa-viber"></icon>
+				<base-icon modifier="contact" icon="fab fa-viber" />
 				<a class="contact__link" :href="`tel:${phone}`">{{ phone }}</a>
 			</li>
 			<li class="contact parent row nowrap v-centered">
-				<icon modifier="contact" icon="fas fa-at"></icon>
+				<base-icon modifier="contact" icon="fas fa-at"/>
 				<a class="contact__link" :href="`mailto:${email}`">{{ email }}</a>
 			</li>
 			<li v-if="address" class="contact parent row nowrap v-centered">
-				<icon modifier="contact" icon="fas fa-location-arrow"></icon>
+				<base-icon modifier="contact" icon="fas fa-location-arrow"/>
 				<a class="contact__link" @click="notFollow" :href="addressHref">{{ address }}</a>
 			</li>
 		</ul>
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-	import Icon from './Icon';
-	import {notFollow} from './../constants/pureFunctions'
+	import BaseIcon from '@/components/BaseIcon';
+	import {notFollow} from '@/constants/pureFunctions'
 
 	export default {
-		name: "Contacts",
+		name: "SiteContacts",
 		props: {
 			phone: String,
 			email: String,
@@ -31,7 +31,7 @@
 			modifier: String
 		},
 		components: {
-			Icon
+			BaseIcon
 		},
 		methods: {
 			notFollow

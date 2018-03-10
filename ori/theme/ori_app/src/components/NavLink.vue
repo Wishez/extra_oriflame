@@ -16,15 +16,14 @@
 		  activeClass="navLink_active"
 	      :to="href"
     	>
-    		<icon :icon="icon" modifier="navigation" v-if="icon"></icon>
+    		<base-icon :icon="icon" modifier="navigation" v-if="icon" />
       		<slot></slot>
     	</router-link>
   </li>
 </template>
 
 <script>
-	import router from './../router';
-	import Icon from './../templates/Icon.vue';
+	import BaseIcon from '@/components/BaseIcon';
 
 	import {setTabPosition, doBy, doByYScroll, listen} from './../constants/pureFunctions';
 
@@ -55,6 +54,9 @@
 		},
 		methods: {
 			go(event) {
+				
+				this.$store.state.animations.animateNavigationToDefaultState();
+
 				doBy({
 					callback: () => {
 		      			setTabPosition(this.tab, this.index);
@@ -88,7 +90,7 @@
 			});// end listen
 		},
 		components: {
-			Icon
+			BaseIcon
 		}
 	}
 </script>

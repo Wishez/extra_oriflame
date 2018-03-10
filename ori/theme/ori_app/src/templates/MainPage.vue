@@ -60,11 +60,11 @@
 	import fourthManStepImage from './../assets/images/programm/fourth_man.png'
  
 	// Components
-	import BlurryImageLoader from './../templates/BlurryImageLoader';
-	import AwesomeLink from './AwesomeLink';
-	import AboutItem from './AboutItem';
-	import DecorativeTitle from './DecorativeTitle';
-	import ProgrammItem from './ProgrammItem';
+	import BlurryImageLoader from '@/components/BlurryImageLoader';
+	import AwesomeLink from '@/components/AwesomeLink';
+	import AboutItem from '@/components/AboutItem';
+	import DecorativeTitle from '@/components/DecorativeTitle';
+	import ProgrammItem from '@/components/ProgrammItem';
 
 
 	import {onMouseUpParentAwesomeButton} from './../constants/pureFunctions';

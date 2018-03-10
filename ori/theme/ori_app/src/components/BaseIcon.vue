@@ -6,11 +6,20 @@
 
 <script>
 	export default {
-		name: 'Icon',
+		name: 'BaseIcon',
 		props: {
-			icon: String,
-			signification: String,
-			modifier: String
+			icon: {
+				type: String,
+				required: true,
+			},
+			signification: {
+				type: String,
+				required: false,
+			},
+			modifier: {
+				type: String,
+				required: false,
+			}
 		}
 	}
 

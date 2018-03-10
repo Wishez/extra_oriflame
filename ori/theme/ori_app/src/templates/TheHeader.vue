@@ -8,10 +8,10 @@
 					Oriflame
 			</h1>	
 		</router-link>
-		<contacts phone="+7 (985) 905-12-51" 
+		<site-contacts phone="+7 (985) 905-12-51" 
 			email="shiningfinger@list.ru"
 			modifier="header"
-		></contacts>
+		/>
 		<nav id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
 			<ul class="nvaigationList parent wrap row h-end v-end v-s-end baseChild">
 				<li aria-hidden="true" :class="{
@@ -30,16 +30,17 @@
 </template>
 
 <script>
-	import NavLink from './../components/NavLink';
-	import Contacts from './Contacts';
-	import {setTabPosition, doBy, listen} from './../constants/pureFunctions';
+	import NavLink from '@/components/NavLink';
+	import SiteContacts from '@/components/SiteContacts';
+	import {setTabPosition, doBy, listen} from '@/constants/pureFunctions';
 	// import ScrollMagic from 'scrollmagic';
 	// import 'debug.addIndicators';
 
 	export default {
+		name: "TheHeader",
 		components: {
 			NavLink,
-			Contacts
+			SiteContacts
 		},
 		data() {
 			return {

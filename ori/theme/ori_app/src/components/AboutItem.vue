@@ -37,7 +37,7 @@
 	$i: !important
 
 	.about
-		max-width: em(505)
+		max-width: em(523)
 		margin-bottom: $s29
 		padding-bottom: $s47 $i
 		border-left: 8px solid #941857;

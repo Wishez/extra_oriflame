@@ -2,35 +2,32 @@
 
 <template>
   <div id="app">
-  	<site-header/>
+  	<the-header/>
 
 	  	<main id="main" class="wrapper container">	
 	    	<router-view/>
 	  	</main>
-  	<footer>
-  		
-  	</footer>
+  	<the-footer />
   </div>
 </template>
 
 <script>
-	import SiteHeader from './templates/Header.vue';
-	import normalizeWheel from './lib/js/normwheel';
+	import TheHeader from '@/templates/TheHeader.vue';
+	import TheFooter from '@/templates/TheFooter.vue';
+	import normalizeWheel from '@/lib/js/normwheel';
 	import anime from 'animejs';
-	import {doByYScroll, listen, doBy} from './constants/pureFunctions';
+	import {doByYScroll, listen, doBy} from '@/constants/pureFunctions';
 
 	export default {
 	  name: 'App',
 	  components: {
-	  	SiteHeader,
+	  	TheHeader,
+	  	TheFooter
 	  },
 	  computed: {
 	  	// Cache the navigation element for manipulating!
 	  	navigation() {
 			return document.getElementById('navigationList');
-	  	},
-	  	navigationLinks() {
-			return document.getElementsByClassName('navLink');
 	  	},
 	  	spinLinks() {
 	  		return anime({
@@ -78,9 +75,9 @@
 	  	stretchNavigation() {
 	  		return anime({
   				targets: this.navigation,
-  				rotate: "-90deg",
+  				translateY: 160,
   				right: -109.656417116416,
-  				top: 160,
+  				rotate: "-90deg",
   				elasticity: 250,
   				duration: 3000,
   				begin: (anim) =>  {
@@ -136,7 +133,7 @@
 	  				targets: this.navigation,
 	  				rotate: "0deg",
 	  				scale: [
-	    				{ value: 1.2, 
+	    				{ value: 1.1, 
 	    				  duration: 500, 
 	    				  easing: 'easeInOutQuad' },
 	    				{ value: 1, 
@@ -150,6 +147,45 @@
 						this.navigation.classList.remove('navigation_fixed');
   					}
 	  			});
+	  		},
+	  		animateToDefaultState() {
+	  			return () => {
+	  				this.$store.commit('switchTransfromedMenuState', false);
+		  			// this.menuWasTransformed = false;
+		  			
+		  			doBy({ 
+						callback: () => {
+				  			this.wideNavigation.restart();
+							this.spinLinksToBasePosition.restart()
+						},
+						fallback: () => {
+							console.log('Execute mobile fallback')
+							this.mobileWideNavigation.restart();
+						}
+					});
+					
+					this.$store.commit('switchScrollPageState', false);
+	  			}
+	  		},
+	  		animateByScrollToBottom() {
+	  			return () => {
+	  				this.$store.commit('switchTransfromedMenuState', true);
+
+		  			doBy({ 
+						callback: () => {
+				  			this.stretchNavigation.restart();
+							this.spinLinks.restart();
+						},
+						fallback: () => {
+							console.log('Execute mobile fallback')
+							this.mobileStretchNavigation.restart();
+						}
+					});
+
+					// this.menuWasTransformed = true;
+			
+					this.$store.commit('switchScrollPageState', true);
+	  			}
 	  		}
 	  	
 	  },
@@ -161,6 +197,8 @@
 	  mounted: function()  {
 	  	const body = this.$store.state.rootElement;
 	  	let baseOffset = 0;
+
+
 	  	doBy({
 	  		callback: () => {
 				baseOffset = this.$store.state.baseOffsetForTransform;
@@ -168,11 +206,13 @@
 	  		fallback: () => {
 				baseOffset = this.$store.state.baseMobileOffsetForTransform;
 	  		}
-	  	})
-	  	this.$store.commit('switchScrollPageState', body.scrollTop <  baseOffset + 50);
+	  	});
+	  	this.$store.commit('setGlobalAnimations', {
+	  		name: 'animateNavigationToDefaultState',
+	  		callback: this.animateToDefaultState
+	  	});
 
-	  	// Cache context
-	  	const that = this;
+	  	this.$store.commit('switchScrollPageState', body.scrollTop <  baseOffset + 50);
 
 	  	listen({
 	  		event: 'scroll', 
@@ -180,60 +220,42 @@
 		  		// const normalized  = normalizeWheel(event);
 		  		
 		  		const fromTopOffset = body.scrollTop;
-
+		  		const menuWasTransformed = this.$store.state.menuWasTransformed
 		  		// Function for checking scroll position of the target element.
 			  	doByYScroll({
 			  		target: body,
-			  		condition: !this.menuWasTransformed,
+			  		condition: !menuWasTransformed,
 					offsetY: baseOffset  + 50,
-					onTrigger: () => {
-						console.log('trigger', baseOffset + 50)
-						doBy({ 
-							callback: () => {
-					  			this.stretchNavigation.restart();
-								this.spinLinks.restart();
-							},
-							fallback: () => {
-								console.log('Execute mobile fallback')
-								this.mobileStretchNavigation.restart();
-							}
-						});
-
-						this.menuWasTransformed = true;
-				
-						this.$store.commit('switchScrollPageState', true);
-						
-
-
-					}
+					onTrigger: this.animateByScrollToBottom
 			  	});
 		  	
 				doByYScroll({
 			  		target: body,
-			  		condition: this.menuWasTransformed,
+			  		condition: menuWasTransformed,
 					offsetY: baseOffset,
 					direction: "top",
-					onTrigger: () => {
-			  			// console.log(body.scrollTop);
-			  			this.menuWasTransformed = false;
+					onTrigger: this.animateToDefaultState
 
-			  			console.log('trigger', baseOffset)
-			  			doBy({ 
-							callback: () => {
-					  			this.wideNavigation.restart();
-								this.spinLinksToBasePosition.restart()
-							},
-							fallback: () => {
-								console.log('Execute mobile fallback')
-								this.mobileWideNavigation.restart();
-							}
-						});
+			  	// 		console.log('trigger', baseOffset)
+
+			  	// 		this.menuWasTransformed = false;
+
+			  	// 		doBy({ 
+						// 	callback: () => {
+					 //  			this.wideNavigation.restart();
+						// 		this.spinLinksToBasePosition.restart()
+						// 	},
+						// 	fallback: () => {
+						// 		console.log('Execute mobile fallback')
+						// 		this.mobileWideNavigation.restart();
+						// 	}
+						// });
 						
-						this.$store.commit('switchScrollPageState', false);
-					}
+						// this.$store.commit('switchScrollPageState', false);
+					// }
 			  	});
 				
-				}
+			}
 		}); // end scroll
 
 	  },

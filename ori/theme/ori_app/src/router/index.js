@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import MainPage from '@/components/Main'
-import RegistrationPage from '@/components/Registration'
-import BusinessPage from '@/components/Business'
-import MediaPage from '@/components/Media'
-import PersonalRoomPage from '@/components/PersonalRoom'
-import NotFound from '@/components/404'
-import SharesPage from '@/components/Shares'
-import SharePage from '@/components/Share'
+import MainPage from '@/templates/MainPage'
+import RegistrationPage from '@/templates/RegistrationPage'
+import BusinessPage from '@/templates/BusinessPage'
+import MediaPage from '@/templates/MediaPage'
+import PersonalRoomPage from '@/templates/PersonalRoomPage'
+import NotFound from '@/templates/404Page'
+import SharesPage from '@/templates/SharesPage'
+import SharePage from '@/templates/SharePage'
 
 Vue.use(VueRouter);
 
