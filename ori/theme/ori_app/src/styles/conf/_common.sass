@@ -45,8 +45,10 @@ h1
   
 
 h2 
-  font-size: em(29.124) 
+  font-size: $s29
 
+h3
+  font-size: $s25
 h1, h2, h3, h4, h5, h6  
   font-family: $decorativeFont
   // text-transform: uppercase
@@ -85,11 +87,12 @@ p
 ul
   list-style: none
 a 
-  transition: .2s ease
+  transition: color .2s ease-in, background.2s ease-in
   color: $darkGray
+
+  background-image: linear-gradient(to right, $darkGray  0%, $darkGray 100%)
   &, &:hover, &:focus, &:active
     text-decoration: none
-    background-image: linear-gradient(to right, $darkGray  0%, $darkGray 100%)
     background-repeat: repeat-x
     background-position: bottom
     background-size: 1px 1px

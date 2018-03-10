@@ -1,6 +1,13 @@
 <template>
-	<figure :class="['iconShadow iconBackground circle parent row centered',  modifier ? 'iconBackground_' + modifier : '']">
-		<i :class="[icon, 'iconBackground__icon', modifier ? 'iconBackground__icon_' + modifier : '']"></i>	
+	<figure :class="[
+		'iconShadow iconBackground circle parent row centered',  
+		modifier ? 'iconBackground_' + modifier : null, 
+		className ? className : null
+	]">
+		<i :class="[
+			icon, 
+			'iconBackground__icon', modifier ? 'iconBackground__icon_' + modifier : null
+		]"></i>	
 	</figure>
 </template>
 
@@ -17,6 +24,10 @@
 				required: false,
 			},
 			modifier: {
+				type: String,
+				required: false,
+			},
+			className: {
 				type: String,
 				required: false,
 			}

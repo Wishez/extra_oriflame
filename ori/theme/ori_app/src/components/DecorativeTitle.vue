@@ -1,5 +1,5 @@
 <template>	
-	<div :class="['decorativeTitleContainer parent row nowrap centered', className ? className : '']">
+	<div :class="['fullWidth decorativeTitleContainer parent row nowrap centered', className ? className : '']">
 		<hr :class="['grow decorativeTitleContainer__divider', modifier ? 'decorativeTitleContainer__divider' + modifier : '']">	
 		<h2 :class="['bold decorativeTitleContainer__title', modifier ? 'decorativeTitleContainer__title_' + modifier : '']">
 			<slot></slot>

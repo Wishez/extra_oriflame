@@ -6,7 +6,7 @@
     @click="notFollow"
     >
       <slot></slot>
-      <i class="externalLink__icon fas fa-external-link-alt"></i>
+      <i v-if="isIconShown" class="externalLink__icon fas fa-external-link-alt"></i>
    	</a>
 </template>
 
@@ -15,7 +15,21 @@
 
 	export default {
 		name: "ExternalLink",
+		computed: {
+			isIconShown() {
+				switch (this.showIcon) {
+					case "hide":
+						return false;
+					default:
+						return true;
+				}
+			}
+		},
 		props: {
+			showIcon: {
+				type: String,
+				required: false
+			},
 			to: {
 				type: String,
 				required: true
@@ -28,6 +42,7 @@
 				type: String,
 				required: false
 			},
+			
 		},
 		methods: {
 			notFollow
@@ -39,6 +54,7 @@
 	@import '../styles/conf/_colors.sass'
 
 	.externalLink
+		display: inline-block
 		// &:hover, &:focus, &:active
 		// 	color: $burgund
 </style>

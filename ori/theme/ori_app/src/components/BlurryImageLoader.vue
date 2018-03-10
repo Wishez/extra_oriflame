@@ -36,3 +36,12 @@
 		}
 	};
 </script>
+
+<style lang="sass">
+	.imageContainer
+		&_relative
+			.progressive-image-main
+				position: relative
+				display: block
+	
+</style>

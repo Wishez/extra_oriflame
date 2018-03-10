@@ -40,6 +40,12 @@
 	font-style: normal
 .normalWeight
 	font-weight: normal
+.whiteColor
+	color: $white
+.pinkColor
+	color: $pink
+.darkGrayColor
+	color: $darkGray
 .visible-hidden-xs 
 	@include breakpoint($xs) 
 		white-space: nowrap
@@ -272,7 +278,8 @@
 	border-radius: 3px
 .whiteBackground
 	background-color: #fff
-
+.darkGrayBackground
+	background-color: $darkGray
 .orderButtons
 	@extend %relative
 .shown_element
@@ -315,9 +322,10 @@
 
 ::-webkit-scrollbar-corner 
     background-color: transparent;
-.centeredText
+.textCentered
 	text-align: center	
-
+.textRight
+	text-align: right
 
 
 

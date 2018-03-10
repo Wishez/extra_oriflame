@@ -43,9 +43,19 @@
 			</div>
 			
 		</section>
-		<section class="extraInfo">
-			<decorative-title>Полезная информация</decorative-title>
-			<ul role="navigation" aria-describedby="aria-describedby" id="extraInfo">
+		<section class="extraInformation parent row wrap">
+			<decorative-title className="extraInformation__title container">Полезная информация</decorative-title>
+			<div class="container currentCatalog baseChild halfWidth">
+				<h3 class="currentCatalog__title">Текущий каталог</h3>
+				<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609" showIcon="hide" className="materialShadow currentCatalog__image">
+					<blurry-image-loader 
+						modifier="relative"
+						alt="Текущий каталог"
+						src="https://ru.oriflame.com/catalogue-image.png"/>
+				</external-link>
+			</div>
+			
+			<ul role="navigation" aria-describedby="aria-describedby" class="container baseChild extraInformation__navigation">
 				<li :key="link.id" v-for="link in extraInfoLinks">
 					<internal-link
 						:to="link.href" 
@@ -66,7 +76,7 @@
 			</ul>
 		</section>
 		<div hidden id="extraInfoNavigation" >
-			
+			Навигация по полезным ресурсам об Орифлейм
 		</div>
     </div>
 </template>
@@ -339,4 +349,32 @@
 	
 	.programmItems
 		margin-top: $s77
+	.currentCatalog
+		@include breakpoint($xxs)
+			order: 2
+			margin-top: $s47
+		&__title
+			margin-bottom: $s16
+	.extraInformation
+		
+		&__title
+			margin-bottom: $s47
+			.decorativeTitleContainer__title
+				@include breakpoint($xxs)
+					min-width: 80%
+
+		&__navigation
+			padding-top: em(39)
+			max-width: 25%
+			min-width: 45%
+			@include breakpoint($xxs)
+				max-width: none
+		&__image
+			min-height: em(500)
+	.extraInformation__title, .currentCatalog, .extraInformation__navigation
+		@include breakpoint($xxs)
+			padding: 0
+	.currentCatalog, .extraInformation__navigation
+		@include breakpoint($xxs)
+			min-width: 100%
 </style>

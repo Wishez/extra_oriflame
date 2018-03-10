@@ -2,23 +2,27 @@
 	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '' ]">
 		<ul class="unstyledList contactsList normalStyle semibold">
 			<li class="contact parent row nowrap v-centered">
-				<base-icon modifier="contact" icon="fab fa-viber" />
-				<a class="contact__link" :href="`tel:${phone}`">{{ phone }}</a>
+				<base-icon modifier="contact" className="darkGrayColor" icon="fab fa-viber" />
+				<a class="lightenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
 			</li>
 			<li class="contact parent row nowrap v-centered">
-				<base-icon modifier="contact" icon="fas fa-at"/>
-				<a class="contact__link" :href="`mailto:${email}`">{{ email }}</a>
+				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-at"/>
+				<a class="lightenHover contact__link" :href="`mailto:${email}`">{{ email }}</a>
 			</li>
 			<li v-if="address" class="contact parent row nowrap v-centered">
-				<base-icon modifier="contact" icon="fas fa-location-arrow"/>
-				<a class="contact__link" @click="notFollow" :href="addressHref">{{ address }}</a>
+				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-location-arrow"/>
+				<external-link :to="addressHref" className="contact__link lightenHover">
+					{{ address }}
+				</external-link>
 			</li>
 		</ul>
 	</address>
+	
 </template>
 
 <script>
 	import BaseIcon from '@/components/BaseIcon';
+	import ExternalLink from '@/components/ExternalLink';
 	import {notFollow} from '@/constants/pureFunctions'
 
 	export default {
@@ -31,7 +35,8 @@
 			modifier: String
 		},
 		components: {
-			BaseIcon
+			BaseIcon,
+			ExternalLink
 		},
 		methods: {
 			notFollow

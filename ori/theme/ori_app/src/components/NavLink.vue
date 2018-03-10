@@ -60,6 +60,8 @@
 						window.location.hash = currentLocation;
 
 						slideTo(hashResource);
+					} else {
+						slideTo('#main');
 					}
 
 					return this.href === currentLocation;

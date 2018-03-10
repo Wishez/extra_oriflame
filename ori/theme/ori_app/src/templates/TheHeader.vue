@@ -1,5 +1,5 @@
 <template>
-	<header  class="header parent row wrap cascadingShadow h-end" 
+	<header  class="darkGrayBackground header parent row wrap cascadingShadow h-end" 
 		itemscope
 		itemtype="https://schema.org/Organization"
 	>	
@@ -152,5 +152,4 @@
 
 	.header
 		min-height: em(123.363469255968)
-		background-color: #333
 </style>
