@@ -152,19 +152,19 @@
 	  			return () => {
 	  				this.$store.commit('switchTransfromedMenuState', false);
 		  			// this.menuWasTransformed = false;
+					this.$store.commit('switchScrollPageState', false);
 		  			
 		  			doBy({ 
 						callback: () => {
+							
 				  			this.wideNavigation.restart();
-							this.spinLinksToBasePosition.restart()
+							this.spinLinksToBasePosition.restart();
 						},
 						fallback: () => {
-							console.log('Execute mobile fallback')
 							this.mobileWideNavigation.restart();
 						}
 					});
 					
-					this.$store.commit('switchScrollPageState', false);
 	  			}
 	  		},
 	  		animateByScrollToBottom() {
@@ -235,24 +235,6 @@
 					offsetY: baseOffset,
 					direction: "top",
 					onTrigger: this.animateToDefaultState
-
-			  	// 		console.log('trigger', baseOffset)
-
-			  	// 		this.menuWasTransformed = false;
-
-			  	// 		doBy({ 
-						// 	callback: () => {
-					 //  			this.wideNavigation.restart();
-						// 		this.spinLinksToBasePosition.restart()
-						// 	},
-						// 	fallback: () => {
-						// 		console.log('Execute mobile fallback')
-						// 		this.mobileWideNavigation.restart();
-						// 	}
-						// });
-						
-						// this.$store.commit('switchScrollPageState', false);
-					// }
 			  	});
 				
 			}

@@ -44,8 +44,30 @@
 			
 		</section>
 		<section class="extraInfo">
-			
+			<decorative-title>Полезная информация</decorative-title>
+			<ul role="navigation" aria-describedby="aria-describedby" id="extraInfo">
+				<li :key="link.id" v-for="link in extraInfoLinks">
+					<internal-link
+						:to="link.href" 
+						:hashResource="link.hashResource"
+						v-if="!link.external"
+						className="darkenHover"
+					>
+						{{ link.text }}
+					</internal-link>
+					<external-link 
+						className="darkenHover"
+						:to="link.href" 
+						v-if="link.external">
+						{{ link.text }}
+					</external-link>
+					
+				</li>
+			</ul>
 		</section>
+		<div hidden id="extraInfoNavigation" >
+			
+		</div>
     </div>
 </template>
 
@@ -63,6 +85,8 @@
 	import BlurryImageLoader from '@/components/BlurryImageLoader';
 	import AwesomeLink from '@/components/AwesomeLink';
 	import AboutItem from '@/components/AboutItem';
+	import ExternalLink from '@/components/ExternalLink';
+	import InternalLink from '@/components/InternalLink';
 	import DecorativeTitle from '@/components/DecorativeTitle';
 	import ProgrammItem from '@/components/ProgrammItem';
 
@@ -76,7 +100,9 @@
 	  	AwesomeLink,
 	  	AboutItem,
 	  	DecorativeTitle,
-	  	ProgrammItem
+	  	ProgrammItem,
+	  	ExternalLink,
+	  	InternalLink
 	  },
 	  data() {
 	  	return {
@@ -227,10 +253,47 @@
 
 	  			} // end fourthMan
 	  		], // end programmItems
+	  		extraInfoLinks: [
+	  			{
+	  				id: 0,
+	  				text: "Бонусные баллы",
+	  				href: "/business",
+	  				hashResource:  '#scores'
+	  			},
+	  			{
+	  				id: 1,
+	  				text: "О регистрации",
+	  				href: "/registration",
+	  				hashResource:  '#description'
+	  			},
+	  			{
+	  				id: 2,
+	  				text: "Последние акции",
+	  				href: "/shares",
+	  				external: false  
+	  			},
+	  			{
+	  				id: 3,
+	  				text: "Интернет магазин",
+	  				href: "https://shining-present.ru",
+	  				external: true  
+	  			},
+	  			{
+	  				id: 4,
+	  				text: "О структуре бизнеса",
+	  				href: "/business",
+
+	  			},
+	  			{
+	  				id: 5,
+	  				text: "Видео об Орифлейм ",
+	  				href: "/media"
+	  			},
+	  		] // end extraInfoLinks
 	  	};
 	  },
 	  methods: {
-	  	onMouseUpParentAwesomeButton,
+	  	onMouseUpParentAwesomeButton
 	  }
 	}
 </script>

@@ -403,10 +403,15 @@ input[type=number]:hover::-webkit-inner-spin-button
 			transition: opacity .3s ease-in
 			opacity: 0
 			// transform: translate(250%);
-.dispableLinkHover
-	&:hover, &:hover, &:hover
+.disableLinkHover
+	&, &:hover, &:focus, &:active
 		background-image: none
 		color: currenCollor
+// .colorBurgundHover
+// 	&:hover, &:focus, &:active
+// 		color: $burgund
+
+
 .prespective
 	transform-style: preserve-3d;
 	transform: perspective(800px);

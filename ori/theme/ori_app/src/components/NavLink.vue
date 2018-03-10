@@ -25,7 +25,13 @@
 <script>
 	import BaseIcon from '@/components/BaseIcon';
 
-	import {setTabPosition, doBy, doByYScroll, listen} from './../constants/pureFunctions';
+	import {
+		setTabPosition, 
+		doBy, 
+		doByYScroll, 
+		listen,
+		slideTo
+	} from './../constants/pureFunctions';
 
 	export default {
 		props: {
@@ -39,9 +45,30 @@
 			};
 		},
 		computed: {
+			checkCurrenLocation() {
+				return () => {
+					let currentLocation = window.location.pathname;
+
+					const isHash = currentLocation.match(/#[^\/]/);
+
+					if (isHash) {
+						const index = isHash.index;
+						currentLocation = currentLocation.slice(0, index);
+
+						hashResource = currentLocation.slice(index);
+
+						window.location.hash = currentLocation;
+
+						slideTo(hashResource);
+					}
+
+					return this.href === currentLocation;
+				};
+				
+			},
 			isActive: {
 				get: function() { 
-					return this.href === window.location.pathname;
+					return this.checkCurrenLocation();
 				},
 				set: function(newValue) {
 
@@ -62,10 +89,11 @@
 		      			setTabPosition(this.tab, this.index);
 		      		}
 		      	});
+
 				this.$set(
 					this, // target
 					'isActive', // prop
-					this.href === window.location.pathname // value
+					this.checkCurrenLocation() // value
 				);
 		    	
 		    },
@@ -216,6 +244,8 @@
 
 				@include breakpoint($xs-up)
 					border-left-color: $burgund
+					border-left-width: $s3
+					border-left-style: solid
 					// border-left: $s3 solid $burgund
 				@include breakpoint($xs)
 					border-top-color: $pink

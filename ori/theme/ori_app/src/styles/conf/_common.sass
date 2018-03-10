@@ -87,33 +87,27 @@ ul
 a 
   transition: .2s ease
   color: $darkGray
-  &, &:hover, &:focus
+  &, &:hover, &:focus, &:active
     text-decoration: none
     background-image: linear-gradient(to right, $darkGray  0%, $darkGray 100%)
     background-repeat: repeat-x
     background-position: bottom
     background-size: 1px 1px
   
-
-  &:hover, &:focus, &:active 
-    // text-decoration: none  
+  &.lightenHover
+    &:hover, &:focus, &:active 
+      color: $pink
+      background-image: linear-gradient(to right, $pink 0%, $pink 100%)
     // $$darkGray: darken($darkGray, 25%)
-    color: $pink
-    background-image: linear-gradient(to right, $pink 0%, $pink 100%)
-  &.reverse
-    $darkenWhite: draken($white, 15%)
-    color: $white
-    background-image: linear-gradient(to right, $white  0%, $white 100%)
-    &:hover
-        color: $darkenWhite
-        background-image: linear-gradient(to right, $darkenWhite  0%, $darkenWhite 100%)
-
+  &.darkenHover   
+    &:hover, &:focus, &:active 
+      color: $burgund
+      background-image: linear-gradient(to right, $burgund 0%, $burgund 100%)
+  
 .mainColor
   color: #FA8BC4
-.cian
-  color: $cian
-.darkBlue
-  color: $darkBlue
+.burgund
+  color: $burgund
 
 button
   background-color: transparent
