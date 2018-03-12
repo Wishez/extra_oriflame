@@ -53,6 +53,7 @@ h1, h2, h3, h4, h5, h6
   font-family: $decorativeFont
   // text-transform: uppercase
   line-height: 1.5em
+  
   letter-spacing: .12em
   font-weight: normal
   word-break: break-word
@@ -96,12 +97,14 @@ a
     background-repeat: repeat-x
     background-position: bottom
     background-size: 1px 1px
-  
   &.lightenHover
     &:hover, &:focus, &:active 
       color: $pink
       background-image: linear-gradient(to right, $pink 0%, $pink 100%)
     // $$darkGray: darken($darkGray, 25%)
+  &.darkenLink
+    color: $burgund
+    background-image: linear-gradient(to right, $burgund 0%, $burgund 100%)    
   &.darkenHover   
     &:hover, &:focus, &:active 
       color: $burgund

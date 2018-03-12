@@ -51,6 +51,12 @@ $i: !important
   &::after 
     background-color: #{$color}
   
+@mixin generateAfterAndBefore($content)
+  position: relative
+  &::after, &::before
+    content: #{$content}
+    position: absolute
+    
 
   
 

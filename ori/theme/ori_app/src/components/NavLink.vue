@@ -30,7 +30,8 @@
 		doBy, 
 		doByYScroll, 
 		listen,
-		slideTo
+		slideTo,
+		timeout
 	} from './../constants/pureFunctions';
 
 	export default {
@@ -61,7 +62,7 @@
 
 						slideTo(hashResource);
 					} else {
-						slideTo('#main');
+						// slideTo('#main');
 					}
 
 					return this.href === currentLocation;
@@ -83,8 +84,9 @@
 		},
 		methods: {
 			go(event) {
-				
-				this.$store.state.animations.animateNavigationToDefaultState();
+				if(this.$store.state.menuWasTransformed) {
+					this.$store.state.animations.animateNavigationToDefaultState();
+				}
 
 				doBy({
 					callback: () => {
@@ -106,11 +108,22 @@
 		    		}
 		    	}); // end doBy
 		    },
-		    
+		     
 		},
 		mounted() {
 			const baseScrollOffset = this.$store.state.baseOffsetForTransform;
-			this.$set(this, 'isPageScrolled', this.$store.state.isPageScrolled);
+			
+			// this.$nextTick(() => {
+			// });
+			timeout(() => {
+				this.$set(
+					this, 
+					'isPageScrolled', 
+					this.$store.state.rootElement.scrollTop > baseScrollOffset + 50
+				);
+			}, 0)
+
+			
 
 			listen({
 		  		event: 'scroll', 

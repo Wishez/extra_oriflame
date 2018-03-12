@@ -1,5 +1,5 @@
 <template>
-	<header  class="darkGrayBackground header parent row wrap cascadingShadow h-end" 
+	<header  class="darkGrayBackground header parent row wrap materialShadow h-end" 
 		itemscope
 		itemtype="https://schema.org/Organization"
 	>	

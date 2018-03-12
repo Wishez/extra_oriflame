@@ -51,6 +51,7 @@
 	@import '../styles/conf/_breakpoints.sass'
 	.footer
 		padding: $s29
+		box-shadow: 0 -4px 6px $shadow
 		@include breakpoint($xs)
 			padding-bottom: em(124.586)
 	.contactsContainer_footer
@@ -71,7 +72,11 @@
 			text-align: left
 		@include breakpoint($xs)
 			margin-bottom: $s29
-	// .author
+		@include breakpoint($xs-only)
+			text-align: center
+	.author, .copyrigth
+		margin-left: 0
+		margin-right: 0
 		// @include breakpoint($md-less)
 			
 

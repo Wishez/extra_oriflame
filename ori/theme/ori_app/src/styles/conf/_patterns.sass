@@ -44,6 +44,8 @@
 	color: $white
 .pinkColor
 	color: $pink
+.burgundColor
+	color: $burgund
 .darkGrayColor
 	color: $darkGray
 .visible-hidden-xs 
@@ -120,159 +122,13 @@
 		@extend %shadow
 		background-color: $orange
 
-.controller 
-	max-width: em(300)
-	min-width: none
-	width: 100%
-	@extend %relative
-	&:not(:first-child) 
-		margin-top: em(12.35)
-	&_required 
-		color: $red
-	&__icon 
-		margin-bottom: .15em
-	&_small
-		max-width: em(175)
-	&__paragraph
-		@extend %absolute
-		bottom: .70em
-		left: 100.5%
-		font-weight: bold
-		left: calc(100% + .2em)
-		white-space: nowrap
-		display: block
-		overflow: hidden
-		text-overflow: ellipsis
-
-	&__input 
-		box-shadow: 0 0 15px $shadow
-		border-radius: 3px
-		min-width: span(12)
-		max-width: span(12)
-		font-size: em(18, 21)
-		padding: em(16) em(12.5)
-		@include round(em(2, 21))
-		background-color: #C4C4C4
-		border-width: 2px 
-		border-style: solid
-		transition: box-shadow .3s ease-in
-		&_whiteBg, &_textarea
-			background-color: $white
-		&_textarea
-			min-height: em(100)
-
-		&_red 
-			border-color:  $red
-		&:focus 
-			box-shadow: 0 7px 15px -1px $shadow
-			&:invalid 
-				border-color: #5C1D31	
-			
-			&:valid 
-				border-color: #437A67	
-				
-			
 	
-		&_select 
-			padding: 0 em(9)
-			& hr
-				display: none
-			& button
-				right: -9px $i
-
-	// 	padding: .5em
-	// 	margin-top: .5em
-	// 	max-height: em(200)
-		
-	
-
-	&__option
-		// background-color: #C4C4C4 $i
-		color: #4F4F4F $i
-		& .colorContainer
-			margin-left: 0
-			&__name
-				opacity: 1
-			&__color
-				margin: 0 .5em 0 0
-		&:hover
-			background-color: #4F4F4F $i
-			color: #F2F2F2 $i
-
-	&Icon 
-		margin-bottom: em(2.3)
-	&__error
-		color: $red
-		margin-top: em(6, 16)
-		font-size: em(16, 18)
-		text-align: left
-	&__label 
-		align-self: flex-end
-		font-size: em(18)
-	
-	&__checkbox 
-		-webkit-appearance: none
-		align-self: center
-		cursor: pointer
-		// padding: em(9)
-		height: em(26)
-		width: em(26)
-		border: 2px solid $purple
-		background-color: $gray
-		max-width: span(1)
-		margin-right: span(1) / 2
-		display: inline-block
-		position: relative
-		@include round(em(2))
-		&:checked:active 
-
-		
-		&:checked:after 
-			content: '\2714'
-			// font-size: em(15)
-			position: absolute
-			top: em(1)
-			left: em(3)
-			color: $darkGray
-		
-	
-	&__checkboxLabel 
-		color: $white
-		padding: .5em 0 .8em 1em 
-		max-width: span(10)
-		background-color: $red
-		@include round(em(2))
-	
-
-
 .restrictBlock 
 	margin: auto
 	max-width: em(1350)
 
 
-.button 
-	max-width: em(152)
-	
-	box-shadow: 0 0 15px $shadow
-	color: $darkGray
-	border: 2px solid $darkGray
-	border-radius: em(2)
-	padding: .75em .5em
-	background-color: transparent
-	min-width: em(95, 10)
-	@include round(em(2))
-	&_cian 
-		background-color: $cian
-	
-	&_black
-		background-color: $darkGray
-	&_black, &_darkBlue, &_cian 
-		color: $white
-	&_darkBlue
-		background-color: $darkBlue
-	&_orange
-		background-color: $orange
-	@include flyShadow
+
 
 .fewRound
 	border-radius: 3px
@@ -368,6 +224,19 @@ input[type=number]:hover::-webkit-inner-spin-button
 	font-weight: bold
 
 
+.fade-enter-active, .fade-appear-active, .fade-leave-active 
+  transition: opacity .5s;
+  will-change: opacity
+.fade-enter, .fade-leave-to, .fade-appear-to
+  opacity: 0;
+
+.fade-enter-active, .fade-leave-active 
+  transition: opacity .5s
+  will-change: opacity
+.fade-enter, .fade-leave-to
+  opacity: 0;
+
+
 .fading
 	&-appear
 		opacity: 0.1
@@ -414,7 +283,7 @@ input[type=number]:hover::-webkit-inner-spin-button
 .disableLinkHover
 	&, &:hover, &:focus, &:active
 		background-image: none
-		color: currenCollor
+		color: currentColor
 // .colorBurgundHover
 // 	&:hover, &:focus, &:active
 // 		color: $burgund
@@ -423,6 +292,100 @@ input[type=number]:hover::-webkit-inner-spin-button
 .prespective
 	transform-style: preserve-3d;
 	transform: perspective(800px);
+
+.button 
+	position: relative
+	padding: 0 1.5rem
+	height: em(47)
+	min-width: em(200)
+	cursor: pointer
+	user-select: none
+	z-index: 1
+	transition: all 0.3s
+	will-change: transform
+	transform-style: preserve-3d;
+	&, &_submit:after, &_submit:before
+		display: flex
+		justify-content: center
+		align-items: center
+	&_error, &_successful
+	    box-shadow: 0
+		
+	&_error
+		transform-origin: 50% 0%
+		transform: rotateX(90deg) translateY(-100%)
+		&:before
+			top: 100%
+			// background: #e96a6a
+			// color: #a33a3a
+			background-color: $red
+			color: darken($red, 25%)
+			content: 'Ошибка!'
+			font-weight: 700
+			transform-origin: 0% 0%
+			transform: rotateX(-90deg)
+	&_successful
+		transform-origin: 50% 100%
+		transform: rotateX(-90deg) translateY(100%)
+		&:after
+			top: -98%
+			// background: #7aca7c
+			// color: #358337
+			background-color: $validColor
+			color: darken($validColor, 25%)
+			content: 'Успех!'
+			transform-origin: 0% 100%;
+			transform: rotateX(90deg);
+			
+	&:hover, &:focus
+		transform: scale(1.02)
+	&:active
+		transform: scale(1.02) translateY(2px)
+
+
+	&_submit
+		&:after, &:before
+			box-shadow: 2px 4px 6px $shadow
+			text-shadow: -2px 1px 13px rgba(255, 255, 255, .8)
+			width: 100%
+			height: 100%
+			position: absolute
+			left: 0
+			border-radius: 2px
+	&_centered
+		margin: auto
+	&_burgund
+		background: $registrationButtonGradinet
+		color: $white
+
+	// &_awesome
+	// 	color: $darkGray
+	// 	&::after
+	// 		position: relative
+	// 		display: inline-block
+	// 		content: attr(data-title)
+	// 		transition: transform .2s ease
+	// 		font-weight: bold
+	// 		letter-spacing: .01em
+	// 		will-change: transform
+	// 		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
+	// 	&::before
+	// 		content: ''
+	// 		background: $linkGradient
+	// 		position: absolute
+	// 		top: 0
+	// 		left: 0
+	// 		bottom: 0
+	// 		right: 0
+	// 		z-index: 1
+	// 		border-radius: 4px
+	// 		transition: box-shadow .5s ease, transform .2s ease
+	// 		will-change: transform
+	// 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2)
+	// 		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px))
+	// 	&:hover::before
+	// 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
+	
 .awesomeButton
 	position: relative
 	display: flex

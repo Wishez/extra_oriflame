@@ -43,5 +43,6 @@
 			.progressive-image-main
 				position: relative
 				display: block
+				
 	
 </style>

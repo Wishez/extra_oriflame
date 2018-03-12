@@ -17,6 +17,7 @@
 		</article>
 
 		<div @mousemove="onHoverItem"
+			@mouseleave="onLeaveItem"
 		 slot="reference" 
 			:class="['programmItem materialSadow']">
 
@@ -45,6 +46,8 @@
 		},
 		data() {
 			return {
+				isHovered: false,
+				canTranslate: false
 				// isScreenScrolled: document.documentElement.scrollTop > 80 || document.body > 80; 
 			};
 		},
@@ -68,7 +71,6 @@
 			tooltipId: function() {
 				return 'tooltip_' + this.name;
 			},
-			
 			onHoverItem: function() {
 				const showUpOrBottom = (event, tooltipHeight, tooltipWidth) => {
 					const windowHeight = window.innerHeight;
@@ -88,17 +90,47 @@
 					this.tooltip.setAttribute('x-placement', place);
 					return y;
 				};
-				return event => {				
+
+				return event => {	
 					const proportions = this.tooltip.getBoundingClientRect();
+					const x = event.pageX - (proportions.width / 2);	
+					const y = event.pageY - showUpOrBottom(event, proportions.height);
 					event.stopPropagation();
 
-					anime({
-			  			targets: this.tooltip,
-			  			translateX: event.pageX - (proportions.width / 2),
-			  			translateY: event.pageY - showUpOrBottom(event, proportions.height),
-			  			elasticity: 200,
-			  			duration: 1500
-			  		});
+					if (!this.isHovered) {
+						console.log('hovered');
+						this.tooltip.style.transform = `translateX(${x}px) translateY(${y}px)`;
+
+						this.$set(
+							this,
+							'isHovered',
+							true
+						);
+
+						timeout(() => {
+							console.log('wait 500ms');
+							this.$set(
+								this,
+								'canTranslate',
+								true
+							);
+
+						}, 500)
+					} 
+
+					if (this.canTranslate) {
+
+						anime({
+				  			targets: this.tooltip,
+				  			translateX: x,
+				  			translateY: y,
+				  			elasticity: 200,
+				  			duration: 1500
+				  		});
+					}
+					
+
+
 		  		};
 				
 			},
@@ -136,6 +168,20 @@
 							value.items.length > 0); 
 				}
 			}
+		},
+		methods: {
+			onLeaveItem: function() {
+				this.$set(
+					this,
+					'isHovered',
+					false
+				);
+				this.$set(
+					this,
+					'canTranslate',
+					false
+				);
+			},
 		}
 	}
 </script>
@@ -149,13 +195,13 @@
 	$additionalPadding: $s77 / 2 
 
 	.fading
-		&-active
+		&-active, &-enter-to
 			opacity: 1
-			z-index: 100
 			transition: opacity .3s ease-in
 			will-change: opacity
 
 		&-leave
+			z-index: 100
 			opacity: 0
 			will-change: opacity
 			transition: opacity .3s ease-in

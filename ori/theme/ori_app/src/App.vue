@@ -170,6 +170,8 @@
 	  		animateByScrollToBottom() {
 	  			return () => {
 	  				this.$store.commit('switchTransfromedMenuState', true);
+	  				
+					this.$store.commit('switchScrollPageState', true);
 
 		  			doBy({ 
 						callback: () => {
@@ -184,7 +186,6 @@
 
 					// this.menuWasTransformed = true;
 			
-					this.$store.commit('switchScrollPageState', true);
 	  			}
 	  		}
 	  	

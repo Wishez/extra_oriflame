@@ -8,6 +8,9 @@ import VueLazyload from 'vue-lazyload'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import VueProgressiveImage from 'vue-progressive-image'
 import store from './store';
+import VeeValidate from 'vee-validate';
+
+Vue.use(VeeValidate);
 
 Vue.use(VueProgressiveImage, {
   blur: 30,
