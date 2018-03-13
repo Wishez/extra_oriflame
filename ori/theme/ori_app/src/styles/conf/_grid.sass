@@ -7,6 +7,13 @@ $gutters: 0
 	flex-grow: 1
 .fullWidth
 	min-width: 100%
+.fullWidth_xs
+	@include breakpoint($xs)
+		min-width: 100% !important
+.fullWidth_xxs
+	@include breakpoint($xxs)
+		min-width: 100% !important
+
 .halfWidth
 	min-width: 50%
 .parent 

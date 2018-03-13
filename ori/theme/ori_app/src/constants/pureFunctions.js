@@ -1,3 +1,6 @@
+import anime from 'animejs';
+
+
 export const listen = ({
   element=window,
   callback,
@@ -102,16 +105,25 @@ export async function doBy({
 
   }
 }
-export async function transformName(name) {
-  return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
+export function transformName(name) {
+  return `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`;
 }
 
 
-export const slideTo = async selector => {
+export const slideTo = async (selector, easing='easeInOutQuad') => {
   const element = document.querySelector(selector);
-  
-  if (element)
-    element.scrollIntoView({ behavior: 'smooth'});
+
+  if (element) {
+    anime({
+      targets: document.documentElement || document.body,
+      scrollTop: element.getBoundingClientRect().y - 49,
+      duration: 1000,
+      elasticity: 100,
+      easing
+    })
+  }
+  // if (element)
+  //   element.scrollIntoView({ behavior: 'smooth'});
 };
 
 export const cookiesHandler = {

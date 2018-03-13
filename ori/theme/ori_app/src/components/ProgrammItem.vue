@@ -1,8 +1,9 @@
 <template>
-	<popper :class="['programmItemContainer programmItem_' + name]" trigger="hover"
-		enter-active-class="fading-active"
+	<popper transition="1000" :class="['programmItemContainer programmItem_' + name]" trigger="hover"
+		enter-active-class="fading-enter"
 		leave-active-class="fading-leave">
 		
+		<!-- <transition appear name="fade"> -->
 		<article  :id="tooltipId" class="programmItemDescription popper fewRound materialShadow">
 			<h2 class="italic programmItemDescription__title" >{{ title }}</h2>
 			<div class="programmItemDescriptionContent">
@@ -15,19 +16,19 @@
 				</ul>
 			</div>
 		</article>
+		<!-- </transition>	 -->
+			<div @mousemove="onHoverItem"
+			 slot="reference" 
+				:class="['programmItem materialSadow']">
 
-		<div @mousemove="onHoverItem"
-			@mouseleave="onLeaveItem"
-		 slot="reference" 
-			:class="['programmItem materialSadow']">
-
-			<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
-			<blurry-image-loader 
-				:src="src" 
-				modifier="programmItem"
-				className="materialShadow programmItem__image"
-			 />
-		</div>
+				<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
+				<blurry-image-loader 
+					:src="src" 
+					modifier="programmItem"
+					className="materialShadow programmItem__image"
+				 />
+			</div>
+	
 
 	</popper>
 </template>
@@ -43,13 +44,6 @@
 		components: {
 			BlurryImageLoader,
 			"popper": Popper
-		},
-		data() {
-			return {
-				isHovered: false,
-				canTranslate: false
-				// isScreenScrolled: document.documentElement.scrollTop > 80 || document.body > 80; 
-			};
 		},
 		mounted: function() {
 
@@ -96,41 +90,14 @@
 					const x = event.pageX - (proportions.width / 2);	
 					const y = event.pageY - showUpOrBottom(event, proportions.height);
 					event.stopPropagation();
-
-					if (!this.isHovered) {
-						console.log('hovered');
-						this.tooltip.style.transform = `translateX(${x}px) translateY(${y}px)`;
-
-						this.$set(
-							this,
-							'isHovered',
-							true
-						);
-
-						timeout(() => {
-							console.log('wait 500ms');
-							this.$set(
-								this,
-								'canTranslate',
-								true
-							);
-
-						}, 500)
-					} 
-
-					if (this.canTranslate) {
-
-						anime({
-				  			targets: this.tooltip,
-				  			translateX: x,
-				  			translateY: y,
-				  			elasticity: 200,
-				  			duration: 1500
-				  		});
-					}
 					
-
-
+					anime({
+			  			targets: this.tooltip,
+			  			translateX: x,
+			  			translateY: y,
+			  			elasticity: 150,
+			  			duration: 60
+			  		});
 		  		};
 				
 			},
@@ -170,18 +137,7 @@
 			}
 		},
 		methods: {
-			onLeaveItem: function() {
-				this.$set(
-					this,
-					'isHovered',
-					false
-				);
-				this.$set(
-					this,
-					'canTranslate',
-					false
-				);
-			},
+			
 		}
 	}
 </script>
@@ -195,16 +151,17 @@
 	$additionalPadding: $s77 / 2 
 
 	.fading
-		&-active, &-enter-to
+		&-enter
+			opacity: 0
+		&-enter-to
+			transition: opacity 1s ease
 			opacity: 1
-			transition: opacity .3s ease-in
 			will-change: opacity
-
-		&-leave
+		&-enter, &-enter-to, &-leave, &-leave-to
+			will-change: opacity
+		&-leave, &-leave-to
 			z-index: 100
 			opacity: 0
-			will-change: opacity
-			transition: opacity .3s ease-in
 
 
 	.programmItem

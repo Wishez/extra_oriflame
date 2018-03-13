@@ -1,38 +1,54 @@
 <template>
 	<section class="registrationContent parent row wrap h-between">
 		<main-title>Регистрация</main-title>
+		<transition appear name="fading">
+			<slide-to-link className="registrationContent__slideLink fewRound" v-if="isMobile" selector="#registration">
+				Спуститься к регистрации
+			</slide-to-link>
+		</transition>
+		<!-- <a href="#registration" class="registrationContent__slideToLink" @click="toRegistration">Спуститься к регистрации</a> -->
 		<simple-litter modifier="registration"
-			 className=" registration" id="registration">
+			 className="parent centered registration" id="registration">
 			<form @submit.prevent="validateBeforeSubmit"
-			class="registrationForm registrationForm parent row wrap h-between v-centered perspective">
-					
+				method="POST"
+				class="registrationForm parent row wrap h-between v-centered perspective">
+						
 				<form-controller 
 					v-model="full_name"
 					:value="full_name"
 					:error="errors.first('full_name')"
-					:validation="{ 
+					v-validate="{ 
 						required: true, 
-						regex: /^\+?([A-Za-zА-Я-а-яёЁ\-]*\s)([ёЁA-Za-zА-Я-а-я\-]*)(\s[A-Za-zА-Я-а-я\-]*)?$/i
+						regex: regexp.regex_full_name
 					}"
-					regExp="^([A-Za-zА-Я-а-яёЁ\-]*)(\s[ёЁA-Za-zА-Я-а-я\-]*)(\s[A-Za-zА-Я-а-я\-]*)?$"
+					:onBlur="splitFullName"
 					name="full_name"
 					label="ФИО"
 					placeholder="Иванов Иван Иванович"
+					maxLength="230"
+					minLength="4"
+					:show="!response.success"
 				/>
 				<form-controller
-					error=""
+					:error="errors.first('birthday')"
 					name="birthday"
 					:value="''"
 					type="date"
 					label="Дата рождения"
 					:simpleInput="false"
 					modifier="notHidden"
+					:show="!response.success"
 				>
 					<datepicker 
 						v-model="birthday"
 						name="birthday"
-						wrapper-class="controller__input"
-						input-class="controller__input_date"
+						v-validate="{
+							required: true
+						}"
+						:wrapper-class="{
+							'controller__input': true,
+							'validBorder': !!birthday
+						}"
 						required
 						language="ru"
 						placeholder="01 Янв 1970">
@@ -40,75 +56,123 @@
 				</form-controller>	
 				<form-controller v-model="passport_data"
 					:value="passport_data"
-					error=""
-					
+					:error="errors.first('passport_data')"
+					v-validate="{
+						required: true
+					}"
 					name="passport_data"
 					label="Серия и номер паспорта"
 					placeholder="0000-00000"
+					maxLength="26"
+					minLength="2"
+					:show="!response.success"
 				/>
 				
 				<form-controller v-model="phone_number"
 					:value="phone_number"
 					:error="errors.first('phone_number')"
-					:onInput="checkError"
-					:validation="'required|numeric'"
+					v-validate="{ 
+						required: true, 
+						regex: regexp.regex_phone
+					}"
 					name="phone_number"
 					label="Номер телефона"
 					placeholder="+7 (985) 905-12-51"
+					maxLength="26"
+					minLength="2"
+					:show="!response.success"
 				/>
 				<form-controller v-model="email"
 					:value="email"
 					:error="errors.first('email')"
 					type="email"
-					:onInput="checkError"
-					validation="required|email"
+					v-validate="{ 
+						required: true, 
+						email: true,
+						regex: regexp.regex_email
+					}"
 					name="email"
 					label="Email"
 					placeholder="shiningfinger@list.ru"
+					maxLength="150"
+					minLength="3"
+					:show="!response.success"
 				/>
 				<form-controller v-model="city"
 					:value="city"
 					name="city"
-					error=""
-					
+					:error="errors.first('city')"
+					v-validate="{
+						required: true,
+						regex: regexp.regex_name
+					}"
 					label="Город"
 					placeholder="Лондон, Москва"
+					maxLength="50"
+					minLength="2"
+					:show="!response.success"
 				/>
 				<form-controller v-model="region"
 					:value="region"
-					name="user_region"
-					error=""
-					
+					name="region"
+					:error="errors.first('region')"
+					v-validate="{
+						required: true,
+						regex: regexp.regex_name
+					}"
 					label="Регион"
+					maxLength="100"
+					minLength="2"
 					placeholder="Московская область, Магаданская область"
+					:show="!response.success"
 				/>
 				<form-controller v-model="street"
 					:value="street"
 					name="street"
-					error=""
-						
+					:error="errors.first('street')"
+					v-validate="{
+						required: true,
+						regex: regexp.regex_name
+					}"
 					label="Улица"
 					placeholder="Тисовая, Пушкина"
+					maxLength="50"
+					minLength="1"
+					:show="!response.success"
 				/>
 				<form-controller v-model="num_home"
 					:value="num_home"
 					name="num_home"
-					error=""
-					type="number"
+					:error="errors.first('num_home')"
+					v-validate="{
+						required: true,
+						regex: regexp.regex_houseNum
+					}"
+					type="text"
 					label="Дом"
 					placeholder="1А"
 					modifier="small"
+					maxLength="6"
+					minLength="1"
+					:show="!response.success"
 				/>
 				<form-controller v-model="num_apartment"
 					:value="num_apartment"
-					error=""
+					:error="errors.first('num_apartment')"
+					v-validate="{
+						required: true,
+						numeric: true
+					}"
 					type="number"
 					name="num_apartment"
 					label="Квартира"
 					placeholder="123"
 					modifier="small"
+					:show="!response.success"
 				/>
-				<form-controller v-model="check_agreement"
+				<form-controller 
+					:show="!response.success"
+					v-model="check_agreement"
 					:value="check_agreement"
 					type="checkbox"
 					name="check_agreement"
@@ -120,14 +184,25 @@
 						id="check_agreement_label"
 						class="light">Вы ознакомились с <external-link className="normalWeight darkenLink" to="https://ru-eshop.oriflame.com/iframe/custom/ru/consultant/Registration.pdf">договором</external-link> и <external-link className="normalWeight darkenLink" to="https://ru-eshop.oriflame.com/iframe/custom/ru/consultant/Registration.pdf">условиями</external-link>?</label>
 				</form-controller>
+				<transition appear name="fade">
+					<p v-if="response.serverMessage"
+					   :class="{
+					   		'registrationForm__message': true,
+					   		'fullWidth': true,
+					   		'registrationForm__message_error': response.error,
+							'registrationForm__message_success': response.success,
+							'light': response.success,
+					   }"
+						>{{ response.serverMessage }}</p>
+				</transition>
 				<base-button 
-					:className="`button_centered button_submit  textShadow ${validation.state}`"
+					:className="
+						`button_centered button_submit textShadow${response.error ? ' button_error' : ''}${response.success ? ' button_successful' : ''}`"
 					modifier="burgund"
 					type="submit"
 					:disabled="!check_agreement">
-					Зарегистрироваться
+					{{ !response.requesting ? 'Зарегистрироваться' : 'Обработка...' }}
 				</base-button>
-
 			</form>
 		</simple-litter>
 		<simple-litter modifier="registration" className="registrationDescription" id="description">
@@ -151,38 +226,68 @@
 </template>
 
 <script>
+// Components
 import SimpleLitter from '@/components/SimpleLitter';
-import Datepicker from 'vuejs-datepicker';
 import BaseButton from '@/components/BaseButton';
 import InternalLink from '@/components/InternalLink';
 import ExternalLink from '@/components/ExternalLink';
 import MainTitle from '@/components/MainTitle';
 import FormController from '@/components/FormController';
+import SlideToLink from '@/components/SlideToLink';
+// Third party components
+import Datepicker from 'vuejs-datepicker';
 import russian from 'vee-validate/dist/locale/ru';
 
+// Third party functions
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+// Contants
+import {
+	regex_phone,
+	regex_email,
+	regex_full_name,
+	regex_name,
+	regex_houseNum
+} from '@/constants/validation';
+import {timeout, transformName} from '@/constants/pureFunctions';
+import {registrationUrl} from '@/constants/conf';
 export default {
   name: 'RegistrationPage',
-  data () {
-    return {
-    	full_name: "",
-      	birthday: "",
-      	passport_data: "",
-      	email: "",
-      	phone_number: "",
-      	city: "",
-      	region: "",
-      	street: "",
-      	num_home: "",
-      	num_apartment: "",
-      	validation: {
-      		state: ""
-      	},
-      	check_agreement: false,
-      	content: 'Страница Регистрации',
-    }
-  },
-  props: {
-    
+  data: () => ({
+	full_name: "",
+  	birthday: "",
+  	passport_data: "",
+  	email: "",
+  	phone_number: "",
+  	city: "",
+  	region: "",
+  	street: "",
+  	num_home: "",
+  	num_apartment: "",
+  	check_agreement: false,
+  	first_name: '',
+  	last_name: '',
+  	middle_name: '',
+  	response: {
+  		serverMessage: "",
+  		success: false,
+  		error: false,
+  		requestion: false
+  	},
+  	regexp: {
+      	regex_phone,
+		regex_email,
+		regex_full_name,
+		regex_name,
+		regex_houseNum
+  	},
+  	user_led: ""
+  }),
+  computed: {
+  	isMobile() {
+  		return window.innerWidth <= 480;
+  	}
   },
   components: {
   	SimpleLitter,
@@ -191,7 +296,8 @@ export default {
   	InternalLink,
   	BaseButton,
   	ExternalLink,
-  	Datepicker
+  	Datepicker,
+  	SlideToLink
   },
   methods: {
   	allowOrDisallowRegister(event) {
@@ -201,26 +307,148 @@ export default {
   			event.target.checked
   		);
   	},
-  	validateBeforeSubmit() {
+  	setResponseData(newResponseData) {
+		this.$set(
+  			this,
+  			'response',
+  			newResponseData
+  		);
+  	},
+  	splitFullName() {
+  		const partsSequances = ['last_name', 'first_name', 'middle_name'];
+  		const transformedFullName = this.full_name
+  				.split(' ')
+  				.map((name, i) => {
+  					const transformedName = transformName(name);
+  					const key = partsSequances[i];
+  					
+		  			this.$set(
+		  				this,
+		  				key,
+		  				transformedName
+		  			);
+
+		  			return transformedName;
+  				})
+  				.join(' ');
+  				
+  		this.$set(
+  			this,
+  			'full_name',
+  			transformedFullName
+  		);
+
+  	},
+  	validateBeforeSubmit(event) {
+  	  event.preventDefault();
       this.$validator.validateAll().then((result) => {
-        console.log(result);
+        ;
+       	// Reffer to response.
+	    const oldResponseData = this.response;
+
+		this.setResponseData({
+		...oldResponseData,
+		requesting: true,
+	  });
         if (result) {
           // eslint-disable-next-line
-          alert('Form Submitted!');
+          
+          const neededData = [
+          	'first_name',
+		  	'last_name',
+		  	'middle_name',
+		  	'birthday',
+		  	'passport_data',
+		  	'email',
+		  	'phone_number',
+		  	'city',
+		  	'region',
+		  	'street',
+		  	'num_home',
+		  	'num_apartment',
+		  	'user_led'
+		  ];
+		  const csrftoken = Cookies.get('csrftoken');
+		 
+		  const data = {};
+
+		  for (const key of neededData) {
+		  	data[key] = this[key];
+		  }
+
+          axios({
+          	method: 'post',
+          	url: registrationUrl,
+          	data,
+          	headers: {
+				'X-CSRFToken': csrftoken
+          	}
+          })
+          	.then(response => {
+
+ 				
+          		this.setResponseData({
+      				...oldResponseData,
+      				serverMessage: response.data,
+      				requesting: false,
+      				success: true
+      			});
+          	})
+          	.catch(error => {
+          		this.setResponseData({
+      				...oldResponseData,
+      				serverMessage: `Внутренняя ошибка сервера: ${error}`,
+      				requesting: false,
+      				error: true
+      			});
+
+          		timeout(() => {
+					this.setResponseData({
+          				...oldResponseData,
+          				error: false,
+          				serverMessage: ''
+          			});
+          			
+          		}, 3000);
+          	});
           return;
+        } else {
+			this.setResponseData({
+  				...oldResponseData,
+  				serverMessage: `Проверьте правильность введёных данных`,
+  				requesting: false,
+  				error: true
+  			});
+
+        	timeout(() => {
+				this.setResponseData({
+      				...oldResponseData,
+      				error: false,
+      				serverMessage: ''
+      			});
+      			
+      		}, 3000);
+        	
+        	
         }
 
-        alert('Correct them errors!');
       });
     },
     checkError(event) {
     	console.log('value', this[name]);
     	const name = event.target.name;
 		console.log('error', this.errors.first(name));
-					
     }
   },
   created() {
+  	const user_led_number = localStorage.user_led_number;
+
+	this.$set(
+		this,
+		'user_led',
+		user_led_number ? user_led_number : ""	
+	);
+
   	this.$validator.localize('ru', {
   		messages: russian.messages,
   		attributes: {
@@ -243,9 +471,33 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='sass' scoped>
 	@import '../styles/conf/_colors.sass'
-
+	@import '../styles/conf/_sizes.sass'
+	@import '../styles/conf/_breakpoints.sass'
+	.registrationContent__slideLink
+		display: block
+		margin: auto
+		position: relative
+		top: em(-29.512, 11)
+		font-size: $s11
+		background-image: none
+		border: 2px solid
+		padding: .5rem 1rem
+	.registrationDescription
+			margin-bottom: $s47 $i
 	// .controller__input_date:valid
+	.registration
+		@include breakpoint($xxs)
+			order: 3
 	// 	border: 3px solid $validColor
+	.registrationForm__message
+		margin: 0 0 $s29
+		&_success
+			// color: $validColor
+		&_error
+			color: $red
+	.validBorder
+		border-color: $validColor $i
+		transition: border-color .3s ease-in $i
 	.litter_registration
 		flex-grow: 0
 		flex-shrink: 0

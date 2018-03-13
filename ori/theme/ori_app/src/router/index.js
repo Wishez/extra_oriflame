@@ -45,6 +45,15 @@ const router = new VueRouter({
 		  	name: "MainPage"
 	 	},
 	 	{
+  			path: '/registration/:user_led_number',
+  			name: 'ReferalRegistrationPage',
+      		redirect: to => {
+      			localStorage.user_led_number = to.params.user_led_number;
+      			
+      			return '/registration';
+      		}	
+       	},
+	 	{
 	 		path: '*',
 		  	component: NotFound,
 		  	name: "404"
@@ -82,11 +91,7 @@ const router = new VueRouter({
 //   		name: 'SharePage',
 //       	component: SharePage
 //     },
-//     // {
-//   		// path: '/registration/:consultant_num',
-//   		// name: 'RegistrationPage',
-//     //   	component: RegistrationPage
-//     // },
+
 //     {
 //   		path: '*',
 //   		name: 'NotFound',

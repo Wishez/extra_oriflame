@@ -37,7 +37,7 @@
 			text-align: center
 			max-width: em(340)
 			@include breakpoint($xxs)
-				max-width: 68.5%
+				max-width: 85%
 		&__divider
 		    height: 1px;
 		    background-color: #C7C7C7

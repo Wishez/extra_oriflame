@@ -54,8 +54,8 @@
 						src="https://ru.oriflame.com/catalogue-image.png"/>
 				</external-link>
 			</div>
-			
-			<ul role="navigation" aria-describedby="aria-describedby" class="container baseChild extraInformation__navigation">
+
+			<ul role="navigation" aria-label="Навигация по полезным ресурсам" class="container baseChild extraInformation__navigation">
 				<li :key="link.id" v-for="link in extraInfoLinks">
 					<internal-link
 						:to="link.href" 
@@ -75,9 +75,6 @@
 				</li>
 			</ul>
 		</section>
-		<div hidden id="extraInfoNavigation" >
-			Навигация по полезным ресурсам об Орифлейм
-		</div>
     </div>
 </template>
 

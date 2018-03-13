@@ -7,13 +7,29 @@ export default new Vuex.Store({
   state: {
     rootElement: document.documentElement || document.body,
     isPageScrolled: false,
-    baseOffsetForTransform: 80,
+    baseOffsetForTransform: 90,
     baseMobileOffsetForTransform: 188,
     currentScrollPosition: 0,
     menuWasTransformed: false,
+    user_led_number: "",
     animations: {
 
-    }
+    },
+    // registration: {
+    //   full_name: "",
+    //   birthday: "",
+    //   passport_data: "",
+    //   email: "",
+    //   phone_number: "",
+    //   city: "",
+    //   region: "",
+    //   street: "",
+    //   num_apartment: "",
+    // },
+    // callback: {
+    //   full_name: "",
+    //   phone: ""
+    // }
   },
   mutations: {
     async switchScrollPageState(state, isScrolled) {

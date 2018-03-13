@@ -1,5 +1,5 @@
 <template>
-	<div :class="['container materialShadow fewRound whiteBackground litter', modifier ? 'litter_' + modifier : null, className]">
+	<div :class="['fullWidth_xxs container materialShadow fewRound whiteBackground litter', modifier ? 'litter_' + modifier : null, className]">
 		<slot></slot>
 	</div>
 </template>
@@ -28,6 +28,8 @@
 
 <style lang="sass" scoped>
 	@import '../styles/conf/_sizes.sass'
+	@import '../styles/conf/_breakpoints.sass'
+
 	.litter
 		padding-bottom: $s47
 		padding-top: $s47

@@ -18,12 +18,17 @@
 	import anime from 'animejs';
 	import {doByYScroll, listen, doBy} from '@/constants/pureFunctions';
 
+	const basicScroll = require('basicScroll');
+
 	export default {
 	  name: 'App',
 	  components: {
 	  	TheHeader,
 	  	TheFooter
 	  },
+	  data: () => ({
+		baseOffset: 0
+	  }),
 	  computed: {
 	  	// Cache the navigation element for manipulating!
 	  	navigation() {
@@ -73,11 +78,36 @@
 	  	// when an user scrolling from top of the page.
 	  	// You can play and restart it.
 	  	stretchNavigation() {
+	  		const baseOffset = this.baseOffset;
+
+	  		const instance = basicScroll.create({
+				from: baseOffset,
+				to: baseOffset + 100,
+				props: {
+					'--navigation-rotate': {
+						from: '0',
+						to: '-90deg',
+						// timing: 'elasticOut'
+					},
+					'--navigation-translate': {
+						from: '0',
+						to: '160px',
+						// timing: 'elasticOut'
+					},
+					'--navigation-scale': {
+						from: '1',
+						"50%": '1.1',
+						to: '1',
+						// timing: 'circInOut'
+					}
+				}
+			});
+
+			instance.start();
+
 	  		return anime({
   				targets: this.navigation,
-  				translateY: 160,
   				right: -109.656417116416,
-  				rotate: "-90deg",
   				elasticity: 250,
   				duration: 3000,
   				begin: (anim) =>  {
@@ -129,18 +159,21 @@
 	  	// the base position of the navigation 
 	  	// when an user comes back to top of the page.
 	  	wideNavigation() {
+	  		
+	  		
+	  		
 	  		return anime({
 	  				targets: this.navigation,
-	  				rotate: "0deg",
-	  				scale: [
-	    				{ value: 1.1, 
-	    				  duration: 500, 
-	    				  easing: 'easeInOutQuad' },
-	    				{ value: 1, 
-	    				  duration: 500, 
-	    				  delay: 200, 
-	    				  easing: 'easeInOutQuad' },
-	  				],
+	  				// rotate: "0deg",
+	  				// scale: [
+	    		// 		{ value: 1.1, 
+	    		// 		  duration: 500, 
+	    		// 		  easing: 'easeInOutQuad' },
+	    		// 		{ value: 1, 
+	    		// 		  duration: 500, 
+	    		// 		  delay: 200, 
+	    		// 		  easing: 'easeInOutQuad' },
+	  				// ],
 	  				elasticity: 200,
 	  				duration: 2000,
 	  				begin: (anim) => {
@@ -151,12 +184,10 @@
 	  		animateToDefaultState() {
 	  			return () => {
 	  				this.$store.commit('switchTransfromedMenuState', false);
-		  			// this.menuWasTransformed = false;
 					this.$store.commit('switchScrollPageState', false);
 		  			
 		  			doBy({ 
 						callback: () => {
-							
 				  			this.wideNavigation.restart();
 							this.spinLinksToBasePosition.restart();
 						},
@@ -183,37 +214,39 @@
 							this.mobileStretchNavigation.restart();
 						}
 					});
-
-					// this.menuWasTransformed = true;
-			
 	  			}
 	  		}
 	  	
 	  },
-	  data() {
-	  	return {
-	  		menuWasTransformed: false
-	  	}
-	  },
 	  mounted: function()  {
 	  	const body = this.$store.state.rootElement;
-	  	let baseOffset = 0;
 
 
 	  	doBy({
 	  		callback: () => {
-				baseOffset = this.$store.state.baseOffsetForTransform;
+				this.$set(
+					this,
+					'baseOffset',
+					this.$store.state.baseOffsetForTransform
+				);
 	  		},
 	  		fallback: () => {
-				baseOffset = this.$store.state.baseMobileOffsetForTransform;
+	  			this.$set(
+					this,
+					'baseOffset',
+					this.$store.state.baseMobileOffsetForTransform
+				);
 	  		}
 	  	});
+
+	  	const baseOffset = this.baseOffset;
+
 	  	this.$store.commit('setGlobalAnimations', {
 	  		name: 'animateNavigationToDefaultState',
 	  		callback: this.animateToDefaultState
 	  	});
 
-	  	this.$store.commit('switchScrollPageState', body.scrollTop <  baseOffset + 50);
+	  	this.$store.commit('switchScrollPageState', body.scrollTop <  baseOffset);
 
 	  	listen({
 	  		event: 'scroll', 
@@ -226,7 +259,7 @@
 			  	doByYScroll({
 			  		target: body,
 			  		condition: !menuWasTransformed,
-					offsetY: baseOffset  + 50,
+					offsetY: baseOffset,
 					onTrigger: this.animateByScrollToBottom
 			  	});
 		  	
@@ -246,9 +279,10 @@
 	};
 </script>
 
-<style	lang="sass">
+<style	lang="sass" scoped>
 	@import './styles/conf/_sizes.sass'
-
+	// .nvaigationList
+		
 	.wrapper
 		max-width: 1129px
 		margin-top: $s77

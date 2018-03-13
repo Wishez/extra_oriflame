@@ -38,7 +38,10 @@
 				if (this.hashResource) {
 					console.log('slide to', this.hashResource);
 					slideTo(this.hashResource);
-				}
+				} 
+				// else {
+					// slideTo('#main');
+				// }
 	  		
 				
 				this.$store.state.animations.animateNavigationToDefaultState();

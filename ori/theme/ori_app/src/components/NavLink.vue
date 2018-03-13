@@ -62,7 +62,7 @@
 
 						slideTo(hashResource);
 					} else {
-						// slideTo('#main');
+						slideTo('#main');
 					}
 
 					return this.href === currentLocation;

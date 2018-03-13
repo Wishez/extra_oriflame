@@ -12,8 +12,8 @@
 			email="shiningfinger@list.ru"
 			modifier="header"
 		/>
-		<nav id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
-			<ul class="nvaigationList parent wrap row h-end v-end v-s-end baseChild">
+		<nav role="navigation" aria-label="Навигация сайта" id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
+			<ul class="navigationList parent wrap row h-end v-end v-s-end baseChild">
 				<li aria-hidden="true" :class="{
 					'visible-hidden': isTabShown
 				}"><figure class="activeTab"  data-transformed="false"></figure></li>
@@ -32,9 +32,12 @@
 <script>
 	import NavLink from '@/components/NavLink';
 	import SiteContacts from '@/components/SiteContacts';
-	import {setTabPosition, doBy, listen} from '@/constants/pureFunctions';
-	// import ScrollMagic from 'scrollmagic';
-	// import 'debug.addIndicators';
+	import {
+		setTabPosition, 
+		doBy, 
+		listen, 
+		timeout
+	} from '@/constants/pureFunctions';
 
 	export default {
 		name: "TheHeader",
@@ -53,8 +56,10 @@
 			}
 		},
 		mounted: function() {
-			
-			this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
+			timeout(() => {
+				this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
+			}
+			, 0);
 
 			listen({
 				event: 'scroll',
@@ -105,6 +110,8 @@
 	.navigation
 		min-width: 155em * 5 / 18
 		flex-grow: 0
+		will-change: transform
+		transform: translateY(var(--navigation-translate)) scale(var(--navigation-scale)) !important
 		right: 0
 		position: static
 		z-index: 10
@@ -117,7 +124,9 @@
 		@include breakpoint($xs)
 			min-width: 100%
 			max-height: em(65.5)
-	.nvaigationList
+	.navigationList
+		transform: rotate(var(--navigation-rotate))
+		will-change: transform
 		min-height: 58.4px
 		@include breakpoint($xxs)
 			flex-wrap: nowrap

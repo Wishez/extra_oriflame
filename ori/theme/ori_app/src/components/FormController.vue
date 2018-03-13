@@ -1,42 +1,52 @@
 <template>
-	<div :class="[baseContainerClasses, 'controller', modifier ? 'controller_' + modifier : null]">
-		<transition appear name="fade">
-			<label 
-				@click="selectInput"
-				:class="['light controller__label', modifier ? 'controller__label_' + modifier : null]"
-				:id="`${name}_label`"
-				v-if="label && !error" :for="name" >
-				{{ label }}
-			</label>
-			<span v-if="error" class="controller__error">
-				{{ error }}
-			</span>
-		</transition>
+	<transition appear
+		name="fade">
+		<div v-if="show"
+			:class="[baseContainerClasses, 'controller', modifier ? 'controller_' + modifier : null, className]">
+			<transition name="fade">
+				<label 
+					@click="selectInput"
+					:class="['light controller__label', modifier ? 'controller__label_' + modifier : null]"
+					:id="`${name}_label`"
+					v-if="label && !error" :for="name" >
+					{{ label }}
+				</label>
+				<span v-if="error" class="controller__error">
+					{{ error }}
+				</span>
+			</transition>
 
-		<input 
-			v-if="simpleInput"
-			:class="{
-				'controller__input': true,
-				['controller__input_' + modifier]: !!modifier,
-				'controller__input_invalid': !!error
-			}"
-			
-			:required="required"
-			:type="type" 
-			:autocomplete="name" 
-			:placeholder="placeholder"
-			:name="name" 
-			:pattern="pattern"
-			:aria-labelledby="`${name}_label`"
-			:value="value" 
-			@input="updateValue($event.target, $event.target.value, onInput($event))"
-			@click="onClick"
-			v-validate="validation"
-		/>
-			<!-- @focus="selectAll" -->
-		<slot />
-		<span v-if="!/(checkbox|date)/.test(type)" class="controller__border"/>
-	</div>
+			<input 
+				v-if="simpleInput"
+				:class="{
+					'controller__input': true,
+					'controller__input_hasValue': !!value,
+					['controller__input_' + modifier]: !!modifier,
+					'controller__input_invalid': !!error
+				}"
+				:required="required"
+				:type="type" 
+				:autocomplete="name" 
+				:placeholder="placeholder"
+				:name="name" 
+				:pattern="pattern"
+				:aria-labelledby="`${name}_label`"
+				:value="value" 
+				@input="updateValue(
+					$event.target, 
+					$event.target.value, 
+					onInput($event)
+				)"
+				@click="onClick"
+				:minlength="minLength"
+				:maxlength="maxLength"
+				@blur="onBlur"
+			/>
+				<!-- @focus="selectAll" -->
+			<slot />
+			<span v-if="!/(checkbox|date)/.test(type)" class="controller__border"/>
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -48,13 +58,11 @@
 		data() {
 			return {
 				hasValue: false,
-				validation: false
 			}
 		},
 		computed:  {
 			pattern() {
 				const regExp = this.regExp;
-				console.log(regExp);
 				return regExp ? regExp : false;
 			}
 		},
@@ -67,13 +75,20 @@
 				required: false,
 				default: () => {}
 			},
+			show: {
+				type: Boolean,
+				required: false,
+				default: true
+			},
 			onInput: {
 				type: Function,
 				required: false,
-				default: function(event) {
-					console.log(this.error);
-
-				}
+				default: () => {}
+			},
+			onBlur: {
+				type: Function,
+				required: false,
+				default: () => {}
 			},
 			baseContainerClasses: {
 				type: String,
@@ -82,7 +97,18 @@
 			},
 			className: {
 				type: String,
-				required: false
+				required: false,
+				default: null
+			},
+			minLength: {
+				type: String,
+				required: false,
+				default: ''
+			},
+			maxLength: {
+				type: String,
+				required: false,
+				default: ''
 			},
 			regExp: {
 				type: String,
@@ -134,21 +160,22 @@
 		    	type: Function,
 		    	required: false,
 		    	default: function(element, value) {
-		    		if (!this.hasValue && value) {
-		    			element.classList.add('controller__input_hasValue');
-		    			this.$set(
-		    				this,
-		    				'hasValue',
-		    				true
-		    			);
-		    		} else if (this.hasValue && !value) {
-						element.classList.remove('controller__input_hasValue');
-						this.$set(
-		    				this,
-		    				'hasValue',
-		    				false
-		    			);
-		    		}
+		    // 		console.log(this.hasValue)
+		    // 		if (!this.hasValue && value) {
+		    // 			// element.classList.add('controller__input_hasValue');
+		    // 			// this.$set(
+		    // 			// 	this,
+		    // 			// 	'hasValue',
+		    // 			// 	true
+		    // 			// );
+		    // 		} else if (this.hasValue && !value) {
+						// // element.classList.remove('controller__input_hasValue');
+						// // this.$set(
+		    // // 				this,
+		    // // 				'hasValue',
+		    // // 				false
+		    // // 			);
+		    // 		}
 
 					this.$emit('input', value);
 		    	}
@@ -172,12 +199,14 @@
 	}
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import '../styles/conf/_sizes.sass'
 @import '../styles/conf/_colors.sass'
 @import '../styles/conf/_mixins.sass'
 @import '../styles/conf/_extentions.sass'
 @import "~susy/sass/_susy.scss"
+.vdp-datepicker input
+	cursor: pointer
 .controller 
 	overflow: hidden
 	min-width: none
@@ -190,7 +219,7 @@
 		margin-top: $s18
 	&_checkbox 
 		margin: $s29 auto $i
-		max-width: 65%
+		max-width: em(304)
 
 
 	&_small
@@ -211,7 +240,7 @@
 		z-index: 4
 		&::after, &::before	
 			content: ""
-			z-index: 3
+			
 		&, &::after, &::before
 			transition: transform .3s ease-in-out
 			position: absolute
@@ -224,8 +253,10 @@
 		// Error pseudo-element
 		&::before
 			background-color: $red
+			z-index: 4
 		// Sucessfull pseudo-element
 		&::after
+			z-index: 3
 			background-color: $validColor
 	&__input 
 		border-radius: 2px
@@ -258,10 +289,12 @@
 			&:valid
 				& + .controller__border::after
 					transform: translateX(0)
-			
 			&:invalid 
 				& + .controller__border::before
 					transform: translateX(0)
+		&_invalid
+			& + .controller__border::before
+				transform: translateX(0)
 		// &_hasValue:valid
 		// 	& + .controller__border::after
 		// 		transform: translateX(0)	
@@ -282,6 +315,7 @@
 			max-width: span(1)
 			margin-right: $s11
 			position: relative
+
 			&::before
 				content: ""
 				position: absolute
