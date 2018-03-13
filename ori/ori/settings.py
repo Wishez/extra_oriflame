@@ -31,6 +31,7 @@ DEBUG = True
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,8 +64,20 @@ DJANGO_APPS= [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
+    'corsheaders',
 ]
+CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'localhost:1234',
+    'localhost:8080'
+)
+
+CORS_ORIGIN_REGEX_WHITELIST = (
+    r'^(https?://)?(\w+\.)?google\.com$',
+    r'^(https?://)?localhost:[0-9]{2, 4}$'
+)
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
@@ -147,12 +160,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'#'smtp.yandex.ru'
-EMAIL_PORT = 587#465
-EMAIL_HOST_USER = 'shiningCollector@gmail.com' #'support@cosmeticsyou.ru'
-EMAIL_HOST_PASSWORD = 'ruking1488' #'Exedfljd_-_'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'shiningtests@gmail.com'
+EMAIL_HOST_PASSWORD = 'demonstration'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'support@cosmeticsyou.ru'
+DEFAULT_FROM_EMAIL = 'shiningtests@gmail.com'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

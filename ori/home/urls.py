@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from . import views
+from .views import *
 
 urlpatterns = [
-    url(r'^register_callback/', views.register_callback, name='register_callback'),
+    url(r'^registration/', registration, name='registration'),
+    url(r'^callback/', callback, name='callback'),
 ]
