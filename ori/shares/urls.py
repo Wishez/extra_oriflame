@@ -1,7 +1,18 @@
 from django.conf.urls import url
 from .views import *
+from .api.views import *
 
 urlpatterns = [
-    url(r'^$', SharesView.as_view(), name='shares'),
+    url(r'^$', SharesPageView.as_view(), name='shares'),
+    url(
+        r'^api/current/shares/$',
+        SharesListView.as_view(),
+        name='shares_list'
+    ),
+    url(
+        r'^api/current/share/(?P<uuid>[-\w]+)/$',
+        ShareView.as_view(),
+        name='share'
+    ),
 ]
 

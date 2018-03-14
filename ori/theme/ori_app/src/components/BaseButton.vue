@@ -64,13 +64,11 @@
 	button
 		cursor: pointer
 		&:disabled
-			background: none
+			opacity: .5
 			cursor: default
-			color: $shadow
 			&:hover, &:active, &:focus
 				transform: none
-				background: none
-				color: $shadow
+				// color: $shadow
 
 
 	button[aria-pressed]

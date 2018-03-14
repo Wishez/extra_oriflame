@@ -1,3 +1,13 @@
+.cropedText
+	overflow: hidden
+	text-overflow: ellipsis
+	display: flex
+	display: -webkit-box
+	-webkit-box-orient: vertical
+	&_6
+		-webkit-line-clamp: 6
+		height: (6px * 1.5 * 18)
+
 .visible-hidden 
 	white-space: nowrap
 	overflow: hidden
@@ -280,6 +290,9 @@ input[type=number]:hover::-webkit-inner-spin-button
 			transition: opacity .3s ease-in
 			opacity: 0
 			// transform: translate(250%);
+a.disableUnderline
+	background-image: none
+
 .disableLinkHover
 	&, &:hover, &:focus, &:active
 		background-image: none

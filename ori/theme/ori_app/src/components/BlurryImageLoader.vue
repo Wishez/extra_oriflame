@@ -2,7 +2,12 @@
 		<progressive-img
 		  :src="src"
 		  :placeholder="src"
-		  :class="['imageContainer', modifier  ? 'imageContainer_' + modifier : '', className ? className : '']" 
+		  :class="{
+		  	'imageContainer': true,
+		  	['imageContainer_' + modifier]: !!modifier,
+		  	[className]: !!className,
+		  	'imageContainer_relative': relative
+		  }" 
 		  :alt="alt ?  alt : ''"
 		  no-ratio
 		/>
@@ -16,6 +21,11 @@
 			modifier: {
 				type: String,
 				required: false
+			},
+			relative: {
+				type: Boolean,
+				required: false,
+				default: false
 			},
 			alt: {
 				type: String,

@@ -18,7 +18,7 @@
 		name: "InternalLink",
 		props: {
 			to: {
-				type: String,
+				type: [String, Object],
 				required: false
 			},
 			className: {

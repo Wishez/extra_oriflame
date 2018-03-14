@@ -5,12 +5,15 @@ from .models import Share
 @admin.register(Share, site=admin_site)
 class AdminShare(admin.ModelAdmin):
     list_per_page = 6
-    list_display = ('page_title', 'title', 'published_date', 'created_date',)
-    filter_fields = ('page_title', 'title', 'published_date', 'created_date',)
-    search_fields = ('page_title', 'title', 'published_date', 'created_date',)
+    list_display = ('page_title', 'title', 'published_date', 'created', 'modified',)
+    filter_fields = ('page_title', 'title', 'published_date', 'created', 'modified',)
+    search_fields = ('page_title', 'title', 'published_date', 'created', 'modified',)
     date_hierarchy = 'published_date'
     ordering = ('-published_date',)
-    prepopulated_fields = {'slug': ('page_title',)}
+    prepopulated_fields = {
+        'slug': ('page_title', 'title',),
+        'page_title': ('title',),
+    }
     fieldsets = (
         ('Базовая настройка страницы акции', {
             'fields': (
@@ -22,7 +25,7 @@ class AdminShare(admin.ModelAdmin):
             'fields': (
                 ('title',),
                 ('announce',),
-                ('additional_text'),
+                ('text'),
             ),
         },),
         ('Публикация', {
