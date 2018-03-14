@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^api/', include('home.urls')),
     url(r'^personal_room/', include('accounts.urls')),
     url(r'^registration/', include('accounts.urls')),
-    url(r'^share/', include('shares.urls')),
     url(r'^shares/', include('shares.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS

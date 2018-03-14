@@ -48,6 +48,7 @@ PROJECT_APPS  = [
     'accounts.apps.AccountsConfig',
     'shares.apps.SharesConfig',
     'myadmin',
+    'marks.apps.MarksConfig',
     'pages.apps.PagesConfig',
 ]
 
@@ -65,6 +66,8 @@ DJANGO_APPS= [
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
     'corsheaders',
+    'rest_framework',
+    'imagekit',
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -111,6 +114,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ori.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+    ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
