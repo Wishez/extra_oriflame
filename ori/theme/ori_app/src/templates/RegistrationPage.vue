@@ -8,7 +8,7 @@
 		</transition>
 		<!-- <a href="#registration" class="registrationContent__slideToLink" @click="toRegistration">Спуститься к регистрации</a> -->
 		<simple-litter modifier="registration"
-			 className="parent centered registration" id="registration">
+			 :className="` parent registration${response.success ? ' centered' : ''}`" id="registration">
 			<form @submit.prevent="validateBeforeSubmit"
 				method="POST"
 				class="registrationForm parent row wrap h-between v-centered perspective">
@@ -54,7 +54,7 @@
 						placeholder="01 Янв 1970">
 					</datepicker>
 				</form-controller>	
-				<form-controller v-model="passport_data"
+				<!-- <form-controller v-model="passport_data"
 					:value="passport_data"
 					:error="errors.first('passport_data')"
 					v-validate="{
@@ -66,7 +66,7 @@
 					maxLength="26"
 					minLength="2"
 					:show="!response.success"
-				/>
+				/> -->
 				
 				<form-controller v-model="phone_number"
 					:value="phone_number"
@@ -118,15 +118,15 @@
 					:error="errors.first('region')"
 					v-validate="{
 						required: true,
-						regex: regexp.regex_name
+						numeric: true
 					}"
-					label="Регион"
-					maxLength="100"
+					label="Почтовый Индекс"
+					maxLength="26"
 					minLength="2"
-					placeholder="Московская область, Магаданская область"
+					placeholder="12398765"
 					:show="!response.success"
 				/>
-				<form-controller v-model="street"
+				<!-- <form-controller v-model="street"
 					:value="street"
 					name="street"
 					:error="errors.first('street')"
@@ -139,8 +139,8 @@
 					maxLength="50"
 					minLength="1"
 					:show="!response.success"
-				/>
-				<form-controller v-model="num_home"
+				/> -->
+				<!-- <form-controller v-model="num_home"
 					:value="num_home"
 					name="num_home"
 					:error="errors.first('num_home')"
@@ -169,7 +169,7 @@
 					placeholder="123"
 					modifier="small"
 					:show="!response.success"
-				/>
+				/> -->
 				<form-controller 
 					:show="!response.success"
 					v-model="check_agreement"
@@ -257,14 +257,14 @@ export default {
   data: () => ({
 	full_name: "",
   	birthday: "",
-  	passport_data: "",
   	email: "",
   	phone_number: "",
   	city: "",
+  	// passport_data: "",
   	region: "",
-  	street: "",
-  	num_home: "",
-  	num_apartment: "",
+  	// street: "",
+  	// num_home: "",
+  	// num_apartment: "",
   	check_agreement: false,
   	first_name: '',
   	last_name: '',
@@ -358,14 +358,14 @@ export default {
 		  	'last_name',
 		  	'middle_name',
 		  	'birthday',
-		  	'passport_data',
 		  	'email',
 		  	'phone_number',
 		  	'city',
+		  	// 'passport_data',
 		  	'region',
-		  	'street',
-		  	'num_home',
-		  	'num_apartment',
+		  	// 'street',
+		  	// 'num_home',
+		  	// 'num_apartment',
 		  	'user_led'
 		  ];
 		  const csrftoken = Cookies.get('csrftoken');
@@ -454,14 +454,14 @@ export default {
   		attributes: {
   			full_name: "ФИО",
 	      	birthday: "дата рождения",
-	      	passport_data: "серия и номер пасспорта",
 	      	email: "e-mail",
 	      	phone_number: "номер телефона",
 	      	city: "город",
-	      	region: "регион",
-	      	street: "улица",
-	      	num_home: "номер дома",
-	      	num_apartment: "номер квартиры",
+	      	// passport_data: "серия и номер пасспорта",
+	      	region: "Почтовый индекс",
+	      	// street: "улица",
+	      	// num_home: "номер дома",
+	      	// num_apartment: "номер квартиры",
   		}
   	});
   }
@@ -483,6 +483,7 @@ export default {
 		border: 2px solid
 		padding: .5rem 1rem
 	.registrationDescription
+		@include breakpoint($xxs)
 			margin-bottom: $s47 $i
 	// .controller__input_date:valid
 	.registration

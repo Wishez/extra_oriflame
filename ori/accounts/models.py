@@ -89,7 +89,7 @@ class FullConsultant(ConsultantBase):
     phone_number = models.CharField(_('Номер телефона'), max_length=26)
 
     city = models.CharField(_('Город'), max_length=50)
-    region = models.CharField(_('Область'), max_length=50, blank=True, null=True)
+    region = models.CharField(_('Область'), max_length=100, blank=True, null=True)
 
     street = models.CharField(_('Улица'), max_length=50)
     num_home = models.CharField(_('Дом'), max_length=5)

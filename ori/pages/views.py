@@ -9,6 +9,8 @@ def get_single_model(Model):
     return Model.objects.get()
 
 class BaseView(TemplateView):
+    template_name = 'index.html'
+    
     def __init__(self):
         self.page_model = None
         self.page = None
@@ -52,7 +54,6 @@ class BaseView(TemplateView):
 
         callback = CallbackForm()
 
-        context['active_page'] = self.active_page
         context['site'] = Site.objects.get_current().domain
         context['callback'] = callback
         context['meta'] = self.meta
@@ -61,32 +62,21 @@ class BaseView(TemplateView):
         return self.set_additional_context(context)
 
 class HomeView(BaseView):
-    template_name = 'index.html'
-
     def __init__(self):
         super(HomeView, self).__init__()
         self.page_model = HomePage
-        self.active_page = 'home'
+
 
 class MediaView(BaseView):
-    template_name = 'media.html'
-
     def __init__(self):
         super(MediaView, self).__init__()
         self.page_model = MediaPage
-        self.active_page = 'media'
 class BusinessView(BaseView):
-    template_name = 'business.html'
-
     def __init__(self):
         super(BusinessView, self).__init__()
         self.page_model = BusinessPage
-        self.active_page = 'business'
 
 class ContactsView(BaseView):
-    template_name = 'contacts.html'
-
     def __init__(self):
         super(ContactsView, self).__init__()
         self.page_model = ContactsPage
-        self.active_page = 'contacts'
