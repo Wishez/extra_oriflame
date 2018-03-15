@@ -17,7 +17,13 @@ const router = new VueRouter({
 		{
 	 		path: '/share/:slug',
 		  	component: SharePage,
-		  	name: "SharePage"
+		  	name: "SharePage",
+		  	beforeEnter: (to, from, next) => {
+		  		localStorage.single_share_slug = to.params.slug;
+		  		
+		  		next()
+		  	},
+		  	
 	 	},
 	 	{
 	 		path: '/media',

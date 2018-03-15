@@ -13,7 +13,7 @@ export default new Vuex.Store({
   state: {
     rootElement: document.documentElement || document.body,
     isPageScrolled: false,
-    baseOffsetForTransform: 90,
+    baseOffsetForTransform: 25,
     baseMobileOffsetForTransform: 188,
     currentScrollPosition: 0,
     menuWasTransformed: false,
@@ -50,7 +50,6 @@ export default new Vuex.Store({
   actions: {
     dump(context, {key, value, callback=false}) {
       // Return Promise if there is no 'callback'.
-      console.log(`dump ${value} to ${key}`);
       if (!callback) {
         return idbKeyval.set(key, value);
       }
@@ -65,7 +64,6 @@ export default new Vuex.Store({
         });
     },
     load(context, {key, callback=false}) {
-      console.log('get', key);
       // Return Promise if there is no 'callback'.
       if (!callback) {        
         return idbKeyval.get(key);

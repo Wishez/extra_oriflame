@@ -53,6 +53,8 @@
 			.progressive-image-main
 				position: relative
 				display: block
+			.progressive-image-main, .progressive-image-wrapper
+				height: 100%
 				
 	
 </style>

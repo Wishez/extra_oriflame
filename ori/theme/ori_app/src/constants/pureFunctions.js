@@ -1,5 +1,7 @@
 import anime from 'animejs';
+import moment from 'moment';
 
+export const transformDate = (date, format='LL')  => moment(date).locale('ru').format(format);
 
 export const listen = ({
   element=window,

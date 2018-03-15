@@ -6,7 +6,6 @@
 				Спуститься к регистрации
 			</slide-to-link>
 		</transition>
-		<!-- <a href="#registration" class="registrationContent__slideToLink" @click="toRegistration">Спуститься к регистрации</a> -->
 		<simple-litter modifier="registration"
 			 :className="` parent registration${response.success ? ' centered' : ''}`" id="registration">
 			<form @submit.prevent="validateBeforeSubmit"
@@ -54,19 +53,6 @@
 						placeholder="01 Янв 1970">
 					</datepicker>
 				</form-controller>	
-				<!-- <form-controller v-model="passport_data"
-					:value="passport_data"
-					:error="errors.first('passport_data')"
-					v-validate="{
-						required: true
-					}"
-					name="passport_data"
-					label="Серия и номер паспорта"
-					placeholder="0000-00000"
-					maxLength="26"
-					minLength="2"
-					:show="!response.success"
-				/> -->
 				
 				<form-controller v-model="phone_number"
 					:value="phone_number"
@@ -126,50 +112,6 @@
 					placeholder="12398765"
 					:show="!response.success"
 				/>
-				<!-- <form-controller v-model="street"
-					:value="street"
-					name="street"
-					:error="errors.first('street')"
-					v-validate="{
-						required: true,
-						regex: regexp.regex_name
-					}"
-					label="Улица"
-					placeholder="Тисовая, Пушкина"
-					maxLength="50"
-					minLength="1"
-					:show="!response.success"
-				/> -->
-				<!-- <form-controller v-model="num_home"
-					:value="num_home"
-					name="num_home"
-					:error="errors.first('num_home')"
-					v-validate="{
-						required: true,
-						regex: regexp.regex_houseNum
-					}"
-					type="text"
-					label="Дом"
-					placeholder="1А"
-					modifier="small"
-					maxLength="6"
-					minLength="1"
-					:show="!response.success"
-				/>
-				<form-controller v-model="num_apartment"
-					:value="num_apartment"
-					:error="errors.first('num_apartment')"
-					v-validate="{
-						required: true,
-						numeric: true
-					}"
-					type="number"
-					name="num_apartment"
-					label="Квартира"
-					placeholder="123"
-					modifier="small"
-					:show="!response.success"
-				/> -->
 				<form-controller 
 					:show="!response.success"
 					v-model="check_agreement"
@@ -206,21 +148,23 @@
 			</form>
 		</simple-litter>
 		<simple-litter modifier="registration" className="registrationDescription" id="description">
-			<p class="registrationDescription__paragraph">
-				Для того, чтобы зарегистрироваться, вам не нужно делать какие-либо взносы до или после регистрации. Регистрация <strong>совершенно бесплатна</strong>!
-			</p>
-			<p class="registrationDescription__paragraph">
-				После регистрации, вы станете на <strong>первую ступень</strong> <internal-link 
-					className="burgundColor"
-					hashResource='ladder' 
-					to='business'>карьерной лестницы</internal-link> Орифлейм, откуда вы сможете сделать выбор — идти вверх по лестнице или просто пользоваться бонусами.
-			</p>
-			<p class="registrationDescription__paragraph">
-				Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в <internal-link className="burgundColor" to='shares'>акциях</internal-link>, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>.
-			</p>
-			<p class="registrationDescription__paragraph">
-				Но если вы  захотите <strong>устремиться вверх</strong> по лестнице, то вы всегда сможете опираться на наше крепкое плечо. Мы готовы поделиться с вами <strong>необходимыми знаниями и опытом</strong>, которые накопили путём проб и ошибок!
-			</p>
+			<transition-group appear name="fade">
+				<p class="registrationDescription__paragraph" key="0">
+					Для того, чтобы зарегистрироваться, вам не нужно делать какие-либо взносы до или после регистрации. Регистрация <strong>совершенно бесплатна</strong>!
+				</p>
+				<p key="1" class="registrationDescription__paragraph">
+					После регистрации, вы станете на <strong>первую ступень</strong> <internal-link 
+						className="burgundColor"
+						hashResource='ladder' 
+						to='business'>карьерной лестницы</internal-link> Орифлейм, откуда вы сможете сделать выбор — идти вверх по лестнице или просто пользоваться бонусами.
+				</p>
+				<p key="2" class="registrationDescription__paragraph">
+					Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в <internal-link className="burgundColor" to='shares'>акциях</internal-link>, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>.
+				</p>
+				<p class="registrationDescription__paragraph" key="3">
+					Но если вы  захотите <strong>устремиться вверх</strong> по лестнице, то вы всегда сможете опираться на наше крепкое плечо. Мы готовы поделиться с вами <strong>необходимыми знаниями и опытом</strong>, которые накопили путём проб и ошибок!
+				</p>
+			</transition-group>
 		</simple-litter>
 	</section>
 </template>

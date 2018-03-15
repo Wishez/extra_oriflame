@@ -233,18 +233,29 @@ input[type=number]:hover::-webkit-inner-spin-button
 .serverError, .successfull
 	font-weight: bold
 
+.slowFade
+	&-enter-active, &-appear-active, &-leave-active 
+		transition: opacity 1.5s ease-in		
+		will-change: opacity
+	&-enter, &-leave-to, &-appear-to
+		opacity: 0
+	&-enter-active, &-leave-active 
+		transition: opacity 1.5s ease-in-out
+		will-change: opacity
+	&-enter, &-leave-to
+		opacity: 0
+.fade
+	&-appear-active, &-leave-active, &-enter-active
+		transition: opacity .5s ease-in-out
+		will-change: opacity
+	&-enter, &-leave-to, &-appear-to
+		opacity: 0
 
-.fade-enter-active, .fade-appear-active, .fade-leave-active 
-  transition: opacity .5s;
-  will-change: opacity
-.fade-enter, .fade-leave-to, .fade-appear-to
-  opacity: 0;
-
-.fade-enter-active, .fade-leave-active 
-  transition: opacity .5s
-  will-change: opacity
-.fade-enter, .fade-leave-to
-  opacity: 0;
+	&-enter-active, &-leave-active 
+		transition: opacity .5s ease-in-out
+  		will-change: opacity
+	&-enter, &-leave-to
+		opacity: 0
 
 
 .fading
@@ -294,9 +305,9 @@ a.disableUnderline
 	background-image: none
 
 .disableLinkHover
-	&, &:hover, &:focus, &:active
-		background-image: none
-		color: currentColor
+	&:hover, &:focus, &:active
+		background-image: none $i
+		color: currentColor $i
 // .colorBurgundHover
 // 	&:hover, &:focus, &:active
 // 		color: $burgund
