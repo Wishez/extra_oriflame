@@ -26,7 +26,7 @@
 				}"
 				:required="required"
 				:type="type" 
-				:autocomplete="name" 
+				:autocomplete="autocomplete" 
 				:placeholder="placeholder"
 				:name="name" 
 				:pattern="pattern"
@@ -74,6 +74,11 @@
 				type: Function,
 				required: false,
 				default: () => {}
+			},
+			autocomplete: {
+				type: String,
+				required: false,
+				default: 'on'
 			},
 			show: {
 				type: Boolean,
@@ -265,15 +270,15 @@
 		border-bottom-width: 2px 
 		border-bottom-style: solid
 		border-bottom-color: $pink
+		&_burgund 
+			border-bottom-color: $burgund
 		transition: box-shadow .3s ease-in
 
 		&_whiteBg, &_textarea
 			background-color: $white
-		&_textarea
-			min-height: em(100)
 
-		&_red 
-			border-color:  $red
+		// &_burgund 
+		// 	border-color:  $red
 		// &:empty:focus
 		// 		// &::after, &::before
 		// 		// 	content: none

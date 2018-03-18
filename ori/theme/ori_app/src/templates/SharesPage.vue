@@ -49,7 +49,7 @@
 	    data: () => ({
 	    	shares: [],
 	    	requesting: false,
-	    	sharesQuantityToShow: 6
+	    	sharesQuantityToShow: 6,
 	    }),
 	    mounted() {
     		this.requestShares();
@@ -106,9 +106,6 @@
 	    	shrinkShares(shares) {
 	    		return shares.slice(0, this.sharesQuantityToShow);
 	    	}
-	    },
-	    updated() {
-	    	console.log(this.$store.state.shares.isRequesting);
 	    },
 	};
 </script>

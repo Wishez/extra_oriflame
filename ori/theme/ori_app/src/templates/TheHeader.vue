@@ -3,7 +3,8 @@
 		itemscope
 		itemtype="https://schema.org/Organization"
 	>	
-		<router-link to="/" class="grow brand parent centered row">
+		<router-link @focus="setDefaultMenuState"
+			to="/" class="grow brand parent centered row">
 			<h1 class="brand__title" itemprop="name">
 					Oriflame
 			</h1>	
@@ -36,7 +37,8 @@
 		setTabPosition, 
 		doBy, 
 		listen, 
-		timeout
+		timeout,
+		throttle
 	} from '@/constants/pureFunctions';
 
 	export default {
@@ -63,9 +65,9 @@
 
 			listen({
 				event: 'scroll',
-				callback: () => {
+				callback: throttle(() => {
 					this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
-				}
+				})
 			});
 
 			// The callback will execute when the viewport 
@@ -74,9 +76,14 @@
 			// porperty in the doBy function's options..
 			doBy({
 				callback: () => {
-					const index = document.querySelector('.navLink_active').dataset.index;
-					
-					setTabPosition(this.tab, index);
+					const currentNavigationLink = document.querySelector('.navLink_active');
+					if (currentNavigationLink) {
+						
+						setTabPosition(
+							this.tab, 
+							currentNavigationLink.dataset.index
+						);
+					}
 				}
 			});
 
@@ -84,6 +91,11 @@
 
 		},
 		methods: {
+			setDefaultMenuState() {
+				if(this.$store.state.menuWasTransformed) {
+					this.$store.state.animations.animateNavigationToDefaultState();
+				}
+			},
 			clearTransformOfTabIfNedded () {
 				doBy({
 					callback: () => {

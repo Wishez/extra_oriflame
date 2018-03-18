@@ -1,3 +1,11 @@
+.relative
+	@extend %relative
+.absolute
+	@extend %absolute
+.fixed
+	position: fixed
+	z-index: 10
+	
 .cropedText
 	overflow: hidden
 	text-overflow: ellipsis
@@ -155,7 +163,7 @@
 	will-change: opacity
 	opacity: 0
 
-.unstyledList li
+.unstyledList > li
 	margin-top: 0
 	&:before
 		content: none
@@ -256,7 +264,38 @@ input[type=number]:hover::-webkit-inner-spin-button
   		will-change: opacity
 	&-enter, &-leave-to
 		opacity: 0
+.topMargin
+	&_29
+		margin-top: $s29 $i
+	&_18
+		margin-top: $s18 $i
+	&_11
+		margin-top: $s11 $i
+.zeroTopMargin
+	margin-top: 0 $i
+.spacing
+	&_12
+		letter-spacing: .12em
+	&_15
+		letter-spacing: .15em
+	&_5
+		letter-spacing: .05em
+.fadeTranslateToTop
+	// &-appear-active, &-leave-active, &-enter-active
+	// 	transition: opacity .5s ease-in-out
+	// 	will-change: opacity
+	&-enter, &-leave-to
+		opacity: 0
+		transform: translateY(1.5rem)
 
+	&-enter-active, &-leave-active 
+		transition: opacity .3s ease-in, transform .3s ease-in-out 
+		transform: translateY(0)
+  		will-change: opacity, transform
+
+	&-enter, &-leave-to
+		transform: translateY(1.5rem)
+		opacity: 0
 
 .fading
 	&-appear

@@ -37,9 +37,18 @@
 </script>
 
 <style lang="sass">
+	@import '../styles/conf/_sizes.sass'
+	@import '../styles/conf/_colors.sass'
+	@import '../styles/conf/_breakpoints.sass'
+	
+	.iconBackground_navigation
+		background-color:  $burgund $i
+		color: $white $i
+		@include breakpoint($xxs)
+			font-size: (18em /16)
 	.iconBackground
-		height: 25px
-		width: 25px
+		height: $s25
+		width: $s25
 		background-color: #FA8BC4
 		transition: color .2s ease-in, background-color .2s ease-in
 	.iconBackground__icon

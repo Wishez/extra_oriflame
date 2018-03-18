@@ -31,11 +31,19 @@
 				type: String,
 				required: true,
 			},
+			offset: {
+				type: Number,
+				required: false,
+				default: 0
+			},
 		},
   	   	methods: {
 	    	gogo(event) {
 	    		event.preventDefault();
-    			slideTo(this.selector);
+    			slideTo({
+    				selector: this.selector,
+    				offset: this.offset
+    			});
     		},
 	    },
 	}

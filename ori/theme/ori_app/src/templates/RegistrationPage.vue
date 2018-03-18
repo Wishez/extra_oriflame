@@ -21,6 +21,7 @@
 						regex: regexp.regex_full_name
 					}"
 					:onBlur="splitFullName"
+					autocomplete="name"
 					name="full_name"
 					label="ФИО"
 					placeholder="Иванов Иван Иванович"
@@ -41,6 +42,7 @@
 					<datepicker 
 						v-model="birthday"
 						name="birthday"
+						autocomplete="bday"
 						v-validate="{
 							required: true
 						}"
@@ -61,6 +63,8 @@
 						required: true, 
 						regex: regexp.regex_phone
 					}"
+					autocomplete="tel"
+					type="tel"
 					name="phone_number"
 					label="Номер телефона"
 					placeholder="+7 (985) 905-12-51"
@@ -72,6 +76,7 @@
 					:value="email"
 					:error="errors.first('email')"
 					type="email"
+					autocomplete="email"
 					v-validate="{ 
 						required: true, 
 						email: true,
@@ -87,6 +92,7 @@
 				<form-controller v-model="city"
 					:value="city"
 					name="city"
+					autocomplete="address-level2"
 					:error="errors.first('city')"
 					v-validate="{
 						required: true,
@@ -102,6 +108,7 @@
 					:value="region"
 					name="region"
 					:error="errors.first('region')"
+					autocomplete="postal-code"
 					v-validate="{
 						required: true,
 						numeric: true
@@ -178,10 +185,11 @@ import ExternalLink from '@/components/ExternalLink';
 import MainTitle from '@/components/MainTitle';
 import FormController from '@/components/FormController';
 import SlideToLink from '@/components/SlideToLink';
+import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
+
 // Third party components
 import Datepicker from 'vuejs-datepicker';
 import russian from 'vee-validate/dist/locale/ru';
-
 // Third party functions
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -191,11 +199,11 @@ import {
 	regex_phone,
 	regex_email,
 	regex_full_name,
-	regex_name,
-	regex_houseNum
+	regex_name	
 } from '@/constants/validation';
 import {timeout, transformName} from '@/constants/pureFunctions';
 import {registrationUrl} from '@/constants/conf';
+
 export default {
   name: 'RegistrationPage',
   data: () => ({
@@ -224,7 +232,6 @@ export default {
 		regex_email,
 		regex_full_name,
 		regex_name,
-		regex_houseNum
   	},
   	user_led: ""
   }),
@@ -241,7 +248,8 @@ export default {
   	BaseButton,
   	ExternalLink,
   	Datepicker,
-  	SlideToLink
+  	SlideToLink,
+  	FadeTranslateTransitionGroup
   },
   methods: {
   	allowOrDisallowRegister(event) {

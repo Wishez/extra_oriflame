@@ -3,11 +3,11 @@
 		<ul class="unstyledList contactsList normalStyle">
 			<li class="contact parent row nowrap v-centered">
 				<base-icon modifier="contact" className="darkGrayColor" icon="fab fa-viber" />
-				<a class="lightenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
+				<a @focus="setDefaultMenuState" class="lightenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
 			</li>
 			<li class="contact parent row nowrap v-centered">
 				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-at"/>
-				<a class="lightenHover contact__link" :href="`mailto:${email}`">{{ email }}</a>
+				<a @focus="setDefaultMenuState" class="lightenHover contact__link" :href="`mailto:${email}`">{{ email }}</a>
 			</li>
 			<li v-if="address" class="contact parent row nowrap v-centered">
 				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-location-arrow"/>
@@ -39,7 +39,12 @@
 			ExternalLink
 		},
 		methods: {
-			notFollow
+			notFollow,
+			setDefaultMenuState() {
+				if(!this.address && this.$store.state.menuWasTransformed) {
+					this.$store.state.animations.animateNavigationToDefaultState();
+				}
+			},
 		}
 
 	}

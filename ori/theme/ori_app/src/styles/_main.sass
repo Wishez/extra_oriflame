@@ -8,3 +8,20 @@
 			margin-top: em(29.12)
 	p:not(:first-of-type)
 		margin-top: 1.5rem 
+
+.content
+	max-width: 800px
+	margin: 0 auto 0
+	font-size: $s25
+	line-height: 1.5
+	@include breakpoint($xs)
+		// font-size: $s25
+	@include breakpoint($xxs)
+		font-size: $s18
+	li
+		font-weight: 200
+	* + *
+		margin-top: $s29
+	a:hover
+		color: $burgund
+		background-image: $darkenLinkUnderlineGradient	

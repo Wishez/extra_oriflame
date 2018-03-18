@@ -2,18 +2,20 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import idbKeyval from 'idb-keyval';
 import shares from './shares';
+import personalRoom from './personalRoom'
 
 Vue.use(Vuex);
 
 
 export default new Vuex.Store({
   modules: {
-    shares
+    shares,
+    personalRoom
   },
   state: {
     rootElement: document.documentElement || document.body,
     isPageScrolled: false,
-    baseOffsetForTransform: 25,
+    baseOffsetForTransform: 45,
     baseMobileOffsetForTransform: 188,
     currentScrollPosition: 0,
     menuWasTransformed: false,

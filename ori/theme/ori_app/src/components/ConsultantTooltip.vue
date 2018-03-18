@@ -2,27 +2,24 @@
 	<popper transition="1000" :class="['programmItemContainer programmItem_' + name]" trigger="hover"
 		enter-active-class="fading-enter"
 		leave-active-class="fading-leave">
-			<base-tooltip 
-				:id="tooltipId"
-				:title="title"
-			>
-				<p>{{ stepDescription.paragraph }}</p>
-				<ul class="programmItemDescriptionBenifits">
-					<li class="light" :key="item.id" v-for="item in stepDescription.items">
-						{{ item.name }}
-					</li>
-				</ul>
-			</base-tooltip>
+		<base-tooltip 
+			:id="tooltipId"
+			:title="title"
+		>
+			<p :key="index"
+				v-for="(paragraph, index) in description" 
+				v-html="paragraph"
+			/>
+		</base-tooltip>
+
 		<tooltip-item-container 
 			:tooltipId="tooltipId"
-			className="programmItem materialSadow"
+			className="tooltip"
 			slot="reference">
-
-			<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
 			<blurry-image-loader 
 				:src="src" 
-				modifier="programmItem"
-				className="materialShadow programmItem__image"
+				:modifier="modifier"
+				className=""
 			 />
 		</tooltip-item-container>
 	</popper>
@@ -32,8 +29,8 @@
 	import BlurryImageLoader from './BlurryImageLoader';
 	import TooltipItemContainer from './TooltipItemContainer';
 	import BaseTooltip from './BaseTooltip';
-
 	import Popper from 'vue-popperjs';
+	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
 
 	export default {
 		name: "ProgrammItem",
@@ -41,7 +38,8 @@
 			BlurryImageLoader,
 			"popper": Popper,
 			TooltipItemContainer,
-			BaseTooltip
+			BaseTooltip,
+			FadeTranslateTransitionGroup
 		},
 		computed: {
 			tooltipId: function() {
@@ -66,19 +64,17 @@
 				type: String,
 				required: false
 			},
+			modifier: {
+				type: String,
+				required: false
+			},
 			src: {
 				type: String,
 				required: true
 			},
-			stepDescription: {
-				type: Object,
-				required: true,
-				validator(value) {
-					// The Validation of three values of the object.
-					return  value.paragraph &&
-						(Array.isArray(value.items) && 
-							value.items.length > 0); 
-				}
+			description: {
+				type: Array,
+				required: true
 			}
 		},
 	}

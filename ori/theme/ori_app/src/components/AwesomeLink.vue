@@ -44,7 +44,7 @@
 	  },
 	  methods: {
 	  	move: function(event) {
-	  		// console.log('move');
+	  		console.log('move');
 			onMoveAwesomeButton(event, this.boundingClientRect, this.docStyle);
 	  	},
 	  	leave: function(event) {

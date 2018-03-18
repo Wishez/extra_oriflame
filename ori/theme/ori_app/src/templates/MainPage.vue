@@ -15,16 +15,19 @@
     		/>
 
     	</section>
-		<section class="h-between blog parent row wrap" >
+    	<fade-translate-transition-group tag="section" className="h-between blog parent row wrap"
+    	:duration="1500">
 			<about-item
 				v-for="aboutItem in aboutItems" 
 				:key="aboutItem.id"
+				:data-index="aboutItem.id"
 				:title="aboutItem.title"
 				:paragraph="aboutItem.paragraph">
 			</about-item>
-		</section>
+		</fade-translate-transition-group>
 		<section class="programm parent column">
 			<decorative-title>Бонусы со старта</decorative-title>
+
 			<p :class="['programm__paragraph', paragraph.position]"
 				v-for="paragraph in programmParagraphs"
 				:key="paragraph.id">
@@ -89,6 +92,7 @@
 	import fourthManStepImage from './../assets/images/programm/fourth_man.png'
  
 	// Components
+	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
 	import BlurryImageLoader from '@/components/BlurryImageLoader';
 	import AwesomeLink from '@/components/AwesomeLink';
 	import AboutItem from '@/components/AboutItem';
@@ -109,7 +113,8 @@
 	  	DecorativeTitle,
 	  	ProgrammItem,
 	  	ExternalLink,
-	  	InternalLink
+	  	InternalLink,
+	  	FadeTranslateTransitionGroup
 	  },
 	  data() {
 	  	return {
@@ -135,7 +140,7 @@
 	  			{
 	  				id: 4,
 	  				title: 'Погружение',
-	  				paragraph: 'Вы можете пройти регистрацию и стать членом нашей «банды». Помимо деятельности, вам будет дарован стартовый комплект приятных бонусов.'
+	  				paragraph: 'Вы можете пройти регистрацию и стать членом нашей опытной команды. Помимо деятельности, вам будет всегда доступен стартовый комплект приятных бонусов.'
 	  			}
 	  		], // end aboutItems
 	  		programmParagraphs: [

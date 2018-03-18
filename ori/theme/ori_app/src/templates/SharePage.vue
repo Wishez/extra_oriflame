@@ -1,24 +1,23 @@
 <template>
 	<article class="singleShare parent column">
 		<!-- <transition  appear name="fade"> -->
-			<content-preloader v-if="Object.keys(share).length === 0" />
 		<!-- </transition> -->
 		<transition  appear name="fade">
-			<main-title modifier="share" v-if="share.title">
-				{{ share.title }}
+			<main-title modifier="share" v-if="notFound || share.title ">
+				{{ notFound ? 'Мы не нашли акцию, которую вы запрашивали' : share.title }}
 			</main-title>
-
 		</transition>
+		<content-preloader v-if="!share.title || notFound" />
 		<transition  appear name="fade">
-			<div v-if="share.published_date" class="fullWidth singleShare__meta parent centered">
+			<div v-if="share.published_date && !notFound" class="fullWidth singleShare__meta parent centered">
 				<time :datetime="transformDate(share.published_date, 'L'
 				)">
 					{{ transformDate(share.published_date) }}
 				</time>
 			</div>
 		</transition>
-		<transition appear name="slowFade">
-			<div v-html="share.text" class="singleShare__content"/>
+		<transition  v-leave="'fast'" appear name="slowFade">
+			<div v-if="!notFound" v-html="share.text" class="content"/>
 		</transition>
 		
 	</article>
@@ -52,15 +51,21 @@
 	    		title: '',
 	    		text: '',
 	    		img: null
-	    	}
+	    	},
+	    	notFound: false,
+	    	slug: ''
 	    }),
 	    mounted() {
+	    	this.$set(
+	    		this,
+	    		'slug',
+	    		localStorage.single_share_slug
+	    	);
+
 	    	this.requestShare();
+
 	    },
 	    computed: {
-	    	slug() {
-	    		return localStorage.single_share_slug;
-	    	},
 	    	
 	    },
 	    methods: {
@@ -84,7 +89,14 @@
 	    			{
 	    				success,
 	    				silent,
-	    				slug: this.slug
+	    				slug: this.slug,
+	    				raise404: () => {
+	    					this.$set(
+	    						this,
+	    						'notFound',
+	    						true
+	    					);
+	    				}
 	    			}
 	    		);
 	    	},
@@ -113,7 +125,23 @@
 				}); // end 'load' of SHARE_STORE
     			
 	    	}
-	    }
+	    },
+	    beforeRouteUpdate(to, from, next) {
+	    	this.$set(
+	    		this,
+	    		'slug',
+	    		to.params.slug
+	    	);
+	    	this.requestShare();
+	    	next();
+	    },
+	    beforeUpdate() {
+	    	this.$set(
+	    		this,
+	    		'notFound',
+	    		this.$store.state.shares.notFound
+	    	);
+	    },
 	};
 </script>
 
@@ -133,21 +161,7 @@
 			margin-top: $s6
 			font-family: $decorativeFont
 		&__content
-			max-width: 800px
-			margin: 0 auto 0
-			font-size: $s29
-			line-height: 1.5
-			@include breakpoint($xs)
-				font-size: $s25
-			@include breakpoint($xxs)
-				font-size: $s18
-			li
-				font-weight: 200
-			* + *
-				margin-top: $s29
-			a:hover
-				color: $burgund
-				background-image: $darkenLinkUnderlineGradient
+
 			// * 
 			// 	h2, h3, h4, h5, h6
 			// 		margin-top: $s47

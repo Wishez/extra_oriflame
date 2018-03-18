@@ -1,0 +1,1 @@
+export const CONSULTANT_DATA  = 'CONSULTANT_DATA';

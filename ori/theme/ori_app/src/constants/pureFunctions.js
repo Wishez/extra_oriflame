@@ -2,7 +2,24 @@ import anime from 'animejs';
 import moment from 'moment';
 
 export const transformDate = (date, format='LL')  => moment(date).locale('ru').format(format);
+export const selectText = element =>  {  
+    var doc = document
+        , text = element
+        , range, selection
+    ;
 
+    if (doc.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();
+        range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
 export const listen = ({
   element=window,
   callback,
@@ -111,18 +128,36 @@ export function transformName(name) {
   return `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`;
 }
 
+export const throttle = (callback, timeout=1000) => {
+  let isRunning = false;
 
-export const slideTo = async (selector, easing='easeInOutQuad') => {
+  return (event) => {
+      if (isRunning) return;
+
+      isRunning = true;
+
+      window.requestAnimationFrame(() => {
+          callback(event);
+            isRunning =false;
+      });
+  }
+}
+export const slideTo = ({selector, offset=0, easing='easeInOutQuad'}) => {
   const element = document.querySelector(selector);
-
+  // const additionalOffset = 47 + offset;
+  
   if (element) {
-    anime({
-      targets: document.documentElement || document.body,
-      scrollTop: element.getBoundingClientRect().y - 49,
-      duration: 1000,
-      elasticity: 100,
-      easing
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start' 
     })
+    // anime({
+    //   targets: document.documentElement || document.body,
+    //   scrollTop: element.getBoundingClientRect().y - offset,
+    //   duration: 1000,
+    //   elasticity: 100,
+    //   easing
+    // })
   }
   // if (element)
   //   element.scrollIntoView({ behavior: 'smooth'});

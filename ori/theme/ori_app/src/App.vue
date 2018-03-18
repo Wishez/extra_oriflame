@@ -16,7 +16,7 @@
 	import TheFooter from '@/templates/TheFooter.vue';
 	import normalizeWheel from '@/lib/js/normwheel';
 	import anime from 'animejs';
-	import {doByYScroll, listen, doBy} from '@/constants/pureFunctions';
+	import {doByYScroll, listen, doBy, throttle} from '@/constants/pureFunctions';
 
 	const basicScroll = require('basicScroll');
 
@@ -250,7 +250,7 @@
 
 	  	listen({
 	  		event: 'scroll', 
-	  		callback: event =>  {
+	  		callback: throttle(event =>  {
 		  		// const normalized  = normalizeWheel(event);
 		  		
 		  		const fromTopOffset = body.scrollTop;
@@ -271,7 +271,7 @@
 					onTrigger: this.animateToDefaultState
 			  	});
 				
-			}
+			})
 		}); // end scroll
 
 	  },

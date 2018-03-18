@@ -20,9 +20,9 @@ const router = new VueRouter({
 		  	name: "SharePage",
 		  	beforeEnter: (to, from, next) => {
 		  		localStorage.single_share_slug = to.params.slug;
-		  		
+
 		  		next()
-		  	},
+		  	}
 		  	
 	 	},
 	 	{
@@ -59,6 +59,16 @@ const router = new VueRouter({
       			return '/registration';
       		}	
        	},
+       	{
+  			path: '/personal_room/:consultant_number',
+  			name: 'PersonalRoomPage',
+  			component: PersonalRoomPage,
+      		beforeEnter: (to, from, next) => {
+      			localStorage.consultant_room_number = to.params.consultant_number;
+      			
+      			next();
+      		}	
+       	},
 	 	{
 	 		path: '*',
 		  	component: NotFound,
@@ -66,43 +76,5 @@ const router = new VueRouter({
 	 	},
 	]
 });
-
-// 	{
-//       path: '/',
-//       name: 'MainPage',
-//       component: MainPage
-//     },
-//     {
-//   		path: '/registration',
-//   		name: 'RegistrationPage',
-//       	component: RegistrationPage
-//     },
-//     {
-//   		path: '/business',
-//   		name: 'BusinessPage',
-//       	component: BusinessPage
-//     },
-//     {
-//   		path: '/shares',
-//   		name: 'SharesPage',
-//       	component: SharesPage
-//     },
-//     {
-//   		path: '/media',
-//   		name: 'MediaPage',
-//       	component: MediaPage
-//     },
-//     {
-//   		path: '/share/:slug',
-//   		name: 'SharePage',
-//       	component: SharePage
-//     },
-
-//     {
-//   		path: '*',
-//   		name: 'NotFound',
-//       	component: NotFound
-//     }
-// ];
 
 export default router;

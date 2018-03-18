@@ -142,13 +142,6 @@
 	@import '../styles/conf/_sizes.sass'
 
 	
-	
-	.iconBackground_navigation
-		background-color:  $burgund $i
-		color: $white $i
-		@include breakpoint($xxs)
-			font-size: (18em /16)
-	
 	.activeTab
 		height: 4px
 		position: absolute
