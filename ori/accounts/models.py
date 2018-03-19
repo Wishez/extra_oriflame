@@ -13,6 +13,44 @@ from model_utils import FieldTracker
 class ConsultantManager(models.Manager):
     use_for_related_fields = True
 
+    def get_consultant_data(self, consultant):
+        referral_consultant_data = {}
+        keys = [
+            'email',
+            'phone_number',
+            'consultant_num',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'registered_date',
+            'region',
+            'city',
+        ]
+        consultant_fields = consultant.__dict__
+
+
+        for key in keys:
+            if key in consultant_fields:
+                value = getattr(consultant, key, '')
+                referral_consultant_data[key] = value
+
+        return referral_consultant_data
+    def extract_referral_consultants_data(self, consultant):
+
+        consultants_lists = ['user_lead', 'user_lead_1', 'user_lead_2']
+        all_referral_consultants = []
+
+        for list in consultants_lists:
+            # Sugar.
+            referral_consultants = [self.get_consultant_data(referral_consultant)
+                                    for referral_consultant in getattr(consultant, list).all()]
+
+            all_referral_consultants += referral_consultants
+
+
+        print(all_referral_consultants)
+
+        return all_referral_consultants
     def is_consultant(self, consultant_num, **kwargs):
         return self.filter(consultant_num=consultant_num, **kwargs)
 
@@ -218,7 +256,7 @@ def set_refferal_data(instance, **kwargs):
     consultant_num = instance.consultant_num
     if consultant_num:
         current_site = Site.objects.get_current().domain
-        instance.url_to_personal_room = '%s/personal_room/room_%s' % (current_site, consultant_num)
+        instance.url_to_personal_room = '%s/personal_room/%s' % (current_site, consultant_num)
         instance.refferal_url = '%s/registration/%s' % (current_site, consultant_num)
     else:
         instance.url_to_personal_room = ""

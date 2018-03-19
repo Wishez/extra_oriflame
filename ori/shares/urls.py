@@ -10,7 +10,7 @@ urlpatterns = [
         name='shares_list'
     ),
     url(
-        r'^api/current/share/(?P<uuid>[-\w]+)/$',
+        r'^api/current/share/(?P<slug>[-\w]+)/$',
         ShareView.as_view(),
         name='share'
     ),

@@ -4,8 +4,7 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', RegistrationView.as_view(), name='registration'),
-    url(r'^success/$', SuccessView.as_view(), name='success'),
-    url(r'^(?P<consultant_num>[0-9]+)/$', RefferalRegistrationView.as_view(), name='refferal_register'),
-    url(r'^room_(?P<consultant_num>[0-9]+)/$', PersonalRoomPage.as_view(), name='personal_room'),
+    url(r'^(/?P/<consultant_num>[\w]+)/$', RegistrationView.as_view(), name='refferal_register'),
+    url(r'^api/room_(?P<consultant_num>[\w]+)/$', personal_room, name='personal_room'),
 ]
 
