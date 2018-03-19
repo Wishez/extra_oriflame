@@ -16,6 +16,11 @@
 		-webkit-line-clamp: 6
 		height: (6px * 1.5 * 18)
 
+.cropedLine
+	white-space: nowrap
+	text-overflow: ellipsis
+	overflow: hidden
+
 .visible-hidden 
 	white-space: nowrap
 	overflow: hidden
@@ -202,6 +207,8 @@
 	text-align: right
 
 
+.paddingContainer
+	padding: 1em 
 
 .container 
 	padding: 0 1.5rem
@@ -352,7 +359,7 @@ a.disableUnderline
 // 		color: $burgund
 
 
-.prespective
+.perspective
 	transform-style: preserve-3d;
 	transform: perspective(800px);
 
@@ -492,3 +499,6 @@ a.disableUnderline
 		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px))
 	&:hover::before
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
+.overflowHidden
+	overflow: hidden
+	overflow-y: hidden
