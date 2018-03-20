@@ -25,6 +25,7 @@ export const listen = ({
   callback,
   event='DOMContentLoaded'
 }) => {
+  // console.log('bind', event, 'for', element);
   element.addEventListener(event, callback);
 }
 
@@ -229,8 +230,13 @@ export const convertDate = date => {
     second: 'numeric'
   }); 
 };
-export const notFollow = event => {
+
+export const prevent = event => {
   event.preventDefault();
+  return false;
+}
+export const notFollow = event => {
+  prevent(event);
   
   const url = event.target.href;
     

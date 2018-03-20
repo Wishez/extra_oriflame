@@ -1,15 +1,25 @@
 <template>
 	<li :data-index="index"
 		tabindex="0"
+		@click="animate"
+		@keypress="animateByKey"
+		@blur="closeByBlur"
 		:class="{
 			['step overflowHidden fewRound materialShadow absolute']: true,
-			[`step_${modifier}`]: modifier
+			[`step_${modifier}`]: modifier,
+			'step_opened': opened
 		}"
+		:style="{
+			zIndex
+		}"
+		:aria-expanded="opened"
 	>
 		<h3 class="cropedLine step__title italic textCentered paddingContainer">{{ title }}</h3>
-		<div class="whiteBackground stepContent paddingContainer stepContent__paragraph zeroTopMargin">
-			<p class="stepContent__paragraph zeroTopMargin"  v-html="achieve" />
+		<div class="whiteBackground stepContent paddingContainer stepContent__paragraph zeroTopMargin normalWeight">
+			<p class="bold zeroTopMargin textCentered">{{ title }}</p>
+			<p class="stepContent__paragraph"  v-html="achieve" />
 			<p class="stepContent__paragraph" 	v-html="income" />
+			<p class="stepContent__paragraph" 	v-html="discount" v-if="discount" />
 			<h4 v-if="showBenifit" class="italic textCentered stepContent__subtitle">Бонусы по достижению</h4>
 			<ul v-if="showBenifit">
 				<li :key="benifitIndex" 
@@ -22,6 +32,7 @@
 </template>
 
 <script>
+	import anime from 'animejs';
 	export default {
 		name: "LadderStep",
 		props: {
@@ -38,6 +49,10 @@
 				type: String,
 				required: true,
 			},
+			discount: {
+				type: String,
+				required: false,
+			},
 			title: {
 				type: String,
 				required: true,
@@ -53,12 +68,17 @@
 			modifier: {
 				type: String,
 				required: false,
+			},
+			zIndex: {
+				type: Number,
+				required: false,
 			}
 		},
   	    components: {
 	    },
 	    mixins: [],
 	    data: () => ({
+	    	opened: false,
 	    }),
 	    beforeCreate() {
 	    },
@@ -71,11 +91,100 @@
 	    computed: {
 	    	showBenifit() {
 	    		return this.benifit.length
+	    	},
+	    	openStepAimation() {
+	    		const step = this.$el;
+
+	    		return anime({
+	    			targets: step,
+	    			translateY: '-322.48px',
+	    			
+	    			duration: 500,
+	    			easing: 'easeInOutCubic',
+	    			zIndex: 10,
+	    			scale:[
+	    				{
+	    					value: 1.0618, 
+	    					delay: 800,
+	    					duration: 300,
+	    					easing: 'easeInQuart'
+	    				}
+	    			],
+	    			elasticity: 100,
+	    			autoplay: false
+	    		}) 
+	    	},
+	    	closeStepAimation() {
+				const step = this.$el;
+				const zIndex = this.zIndex;
+
+	    		return anime({
+	    			targets: step,
+	    			translateY: [
+	    				{
+	    					value: 0,
+	    					delay: 318,
+	    					duration: 500
+	    				}
+	    			],
+	    			zIndex,
+	    			duration: 300,
+	    			easing: 'easeInOutCubic',
+	    			scale: 1,
+	    			elasticity: 100,
+	    			autoplay: false
+	    		}) 
 	    	}
 	    },
 	    methods: {
+	    	animate() {
+	    		if (this.opened) {
+	    			this.close();
+	    		} else {
+	    			this.open();
+	    		}
+	    	},
+	    	switchState(opened=false) {
+	    		this.$set(
+	    			this,
+	    			'opened',
+	    			opened
+	    		);
+	    		this.$store.commit(
+	    			'business/swtichOpenedState',
+	    			opened
+	    		);
+	    	},
+	    	open() {
+	    		this.switchState(true);
+	    		this.openStepAimation.restart();
+	    	},
+	    	close() {
+	    		this.switchState();
+				this.closeStepAimation.restart();
+	    	},
+	    	animateByKey(evnet) {	
+	    		switch(event.key.toUpperCase()) {
+
+	    			case 'ENTER':  
+	    				if (this.opened) {
+	    					this.close();
+			    		} else {
+			    			this.open();
+			    		}
+			    		return;
+			    	default:
+			    		return;
+	    		}
+	    	},
+	    	closeByBlur() {
+				if (this.opened) {
+	    			this.close();
+			    };
+	    	}
 	    },
 	    beforeUpdate() {
+
 	    },
 	    updated() {
 	    },
@@ -99,19 +208,27 @@
 			$scale: (1.618 * $index + 1)
 			margin-top: ($s29 * $priority) / (1.618 * $index + 1)
 			width: $lastElementWidth
+			max-width: $lastElementWidth
 			left: (100% - $lastElementWidth) / 2
-			z-index: $priority
+			
 			& .step__title
 				font-size: (25.936em / 18) - ((($index + 1) / $quantityElements) / 18)
 
 		$lastElementWidth: $lastElementWidth - $baseOffset
 
 	.step
-		top: em(170, 25)
-		transition: width .3s ease-in, left .3s ease-in, transform .3s ease, min-height .2s ease-in
+
+		// top: em(170, 25)
+		transition: width .3s ease-in, left .3s ease-in, transform .3s ease, min-height .2s ease-in, max-width .3s ease-in
+		max-width: 100%
 		cursor: pointer
 		z-index: 1
-		&:not(:first-of-type)
+		&_opened
+			.stepContent 
+				max-height: em(266.48, 25)
+				transition: max-height 1.75s ease
+
+			// position: fixed
 		
 
 
@@ -120,10 +237,12 @@
 		
 		
 	.stepContent
+		transition: max-height .5s ease
+		will-change: max-height
 		// max-height: em(266.48)
 		max-height: em(50, 25)
 		overflow-y: auto
-	.ladder_watch .step
+	.ladder_watch .step:not(.step_opened)
 		&:hover,&:focus, &:active 
 			transform: translateY(-4.44444444444444444444rem) $i
 			& .stepContent

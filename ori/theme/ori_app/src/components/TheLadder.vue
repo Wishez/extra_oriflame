@@ -6,7 +6,8 @@
 		<h2 class="baseChild ladderFold__title parent centered darkGrayBackground whiteColor relative">Карьерная лестница</h2>
 		<fade-translate-transition-group id="ladder"
 			:class="{
-				'ladder unstyledList absolute zeroTopMargin': true,
+				'ladder  unstyledList absolute zeroTopMargin': true,
+				'pseudo_elements pseudo_elements--absolute': true,
 				'ladder_watch': canWatchForSteps
 			}"
 			:delay="18"
@@ -18,9 +19,12 @@
 				:benifit="step.benifit"
 				:income="step.income"
 				v-if="range.indexOf(index) !== -1"
-				v-for="(step, index) in ladder" />
+				v-for="(step, index) in ladder" 
+				:zIndex="range[0] + 3 - index"
+				:discount="step.discount"
+			/>
 			<li aria-hidden="true" 
-				class="ladder__walls absolute perspective"
+				class="pseudo_elements pseudo_elements--absolute absolutePseusoElements ladder__walls absolute perspective"
 				:key="ladder.length"
 				:index="ladder.length" />
 		</fade-translate-transition-group>
@@ -51,7 +55,8 @@
 	    	ladder: ladder.reverse(),
 	    	range: [0, 1, 2],
 	    	lastDocumentScrollPosition: 0,
-	    	canWatchForSteps: true
+	    	canWatchForSteps: true,
+	    	canScrollingSteps: true
 	    }),
 	    beforeCreate() {
 	    },
@@ -60,13 +65,9 @@
 	    beforeMount () {
 	    },
 	    mounted() {
-	    	// const fold = this.$el;
+	    	
 	    	const ladder = this.ladderElement;
-			
-			// this.root.scrollTop = this.root.scrollTop; 
-	    	console.log(ladder);
-
-	    	// ladder.style.paddingRight = `${l.offsetWidth - child.clientWidth}px`;
+		
 	    	listen({
 	    		element: ladder,
 	    		event: 'wheel',
@@ -130,24 +131,22 @@
 
 	    	onScroll(event) {
 	    		
+	    		if (!this.$store.state.business.openedStep) {
+					const delta = -event.deltaY;
+					const lessThanZero = delta < 0;
+	
+	    			if (lessThanZero) {
+	    				this.decreseRange();
+	    			} else {
+	    				this.increaseRange();
+	    			}
+	    			
+	    			this.disableWatchState();
 
-				const delta = -event.deltaY;
-				const lessThanZero = delta < 0;
-				
-
-				// this.ladderElement.scrollTop = 0
-				// if (lessThanZero && ladder.) {
-				// }
-    			if (lessThanZero) {
-    				this.decreseRange();
-    			} else {
-    				this.increaseRange();
-    			}
-    			
-    			
-    			this.disableWatchState();
-				event.preventDefault();
-  				event.stopPropagation();
+	    			prevent(event);
+					// event.preventDefault();
+	  		// 		return false;
+	    		}
 				
 	    	},
 	    	increaseRange() {
@@ -179,6 +178,7 @@
 	    	}
 	    },
 	    beforeUpdate() {
+
 	    },
 	    updated() {
 	    },
@@ -187,29 +187,37 @@
 	};
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_breakpoints.sass'
 	$baseHeight: 80
 	.ladderFold
-		height: em($baseHeight * 4)
+		margin-top: $s144//em($baseHeight * 4)
 		&__title
 			height: em($baseHeight, 29)
 			padding-bottom: .5rem
-			box-shadow: 0 -9px 15px -10px rgba(0,0,0,.4)
+			box-shadow: 0 -9px 15px -10px rgba(0,0,0,.4), 0 6px 4px -2px rgba(0,0,0,.8)
 			z-index: 10
-
-
-
-
 
 	.ladder
 		bottom: 0
 		min-width: 90%
 		left: (100% - 90) / 2
-		height: em($baseHeight * 4)
+		height: em($baseHeight * 2.5)
 		z-index: 1
+		&:after, &:before
+		&:after
+			width: 80.75%
+			z-index: -1
+			height: em(90)
+			bottom: em(110.25)
+			border-radius: 2px
+			font-size: 18px
+			left: 9.5%
+			background-color: lighten($darkGray, 7.5%)
+		// &:before
+		// 	background: linear-gradient(to top, darken($darkGray, 5%) 0% , lighten($darkGray, 5%) 99%, $darkGray, 99%, $darkGray, 100%),$darkGray
 		&__walls
 			height: 100%
 			width: 110%
@@ -217,13 +225,12 @@
 			top: 0
 			z-index: 0
 			&:after, &:before
-				content: '' $i
-				position: absolute
+				border-radius: 2px
 				bottom: 0
-				height: 22%//em(115.55, 25)
+				height: 36%//em(115.55, 25)
 				width: 80%
 				top: auto
-				background-color: $darkGray
+				background: linear-gradient(to right,  $darkGray 0%, lighten($darkGray, 5%) 0%) $darkGray
 				z-index: -1
 			&:before
 				left: -33.5%

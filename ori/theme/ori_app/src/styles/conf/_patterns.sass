@@ -39,8 +39,33 @@
 	box-shadow: 2px 4px 6px 0 $shadow
 .cascadingShadow
 	box-shadow: 0 4px 15px 0 $shadow
-// .lowCascadingShadow
-// 	box-shadow: 0 4px 15px -1px $shadow
+
+.after:after
+.after_bsolute:after	
+.pseudo
+	&_elements
+		&:after, &:before
+			content: "" $i
+	&_elements--absolute
+		&:after, &:before
+			position: absolute
+	
+
+	&_after
+		&:after
+			content: ""
+		&--absolute
+			&:after
+				position: absolute
+	&_before
+		&:before
+			content: ""
+		&--absolute
+			&:before
+				position: absolute
+
+
+		
 .visible-hidden-smLess 
 	@include breakpoint($sm-less) 
 		white-space: nowrap

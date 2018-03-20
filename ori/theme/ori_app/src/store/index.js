@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import idbKeyval from 'idb-keyval';
 import shares from './shares';
 import personalRoom from './personalRoom'
+import business from './business'
 
 Vue.use(Vuex);
 
@@ -10,7 +11,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     shares,
-    personalRoom
+    personalRoom,
+    business
   },
   state: {
     rootElement: document.documentElement || document.body,
