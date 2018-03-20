@@ -589,7 +589,7 @@ html, body {
 
 body {
   position: relative;
-  font-family: "SourceSansPro", serif;
+  font-family: "ProximaNova", serif;
   font-size: 18px;
   line-height: 1.5em;
   word-break: break-word;
@@ -632,7 +632,7 @@ h2 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Ubuntu", sans-serif;
+  font-family: "PlayfairDisplay", sans-serif;
   font-weight: normal;
   word-break: break-word;
 }
@@ -714,6 +714,10 @@ input ::-moz-placeholder, textarea ::-moz-placeholder {
   width: 1px;
   height: 1px;
   position: absolute;
+}
+
+[hidden] {
+  display: none;
 }
 
 .materialCascadingShadow {
