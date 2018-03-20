@@ -3,7 +3,6 @@
 <template>
   <div id="app">
   	<the-header/>
-
 	  	<main id="main" class="wrapper container">	
 	    	<router-view/>
 	  	</main>

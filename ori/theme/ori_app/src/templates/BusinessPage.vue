@@ -11,30 +11,6 @@
 					v-for="(additionalParagraph, counter) in paragraph.additionalParagraphs"
 					v-html="additionalParagraph" />
 			</article>
-			<!-- <article :key="paragraphs.length"
-				>
-				<h2>Карьерная лестница</h2>
-				<fade-translate-transition-group
-					class="ladder unstyledList perspective">
-					<li :key="index"
-						:data-index="index"
-						v-for="(step, index) in ladder"
-						class="step fewRound materialShadow"
-					>
-						<h3 class="step__title italic textCentered paddingContainer">{{ step.title }}</h3>
-						<div class="whiteBackground stepContent paddingContainer stepContent__paragraph zeroTopMargin">
-							<p class="stepContent__paragraph zeroTopMargin"  v-html="step.achieve" />
-							<p class="stepContent__paragraph" 	v-html="step.income" />
-							<h4 v-if="step.benifit.length" class="italic textCentered stepContent__subtitle">Бонусы по достижению</h4>
-							<ul v-if="step.benifit.length">
-								<li :key="benifitIndex" 
-									v-for="(benifit, benifitIndex) in step.benifit" 
-									v-html="benifit"/>
-							</ul>
-						</div>
-					</li>
-				</fade-translate-transition-group>
-			</article> -->
 			<TheLadder :key="paragraphs.length" />
 		</fade-translate-transition-group>
 	</section>
@@ -48,7 +24,6 @@
 	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
 	
 	import TheLadder from '@/components/TheLadder';
-	// import {ladder} from '@/constants/business';
 
 	export default {
 		name: "BusinessPage",
@@ -122,6 +97,4 @@
 	@import './../styles/conf/_breakpoints.sass'
 	.ladder
 
-	.step__title
-		background-color: rgba($pink, .85)
 </style>
