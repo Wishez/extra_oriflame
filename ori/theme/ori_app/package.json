@@ -11,7 +11,8 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
+    "storybook": "start-storybook -p 9001 -c storybook"
   },
   "dependencies": {
     "animejs": "^2.2.0",
@@ -39,6 +40,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@storybook/vue": "^3.3.15",
     "autoprefixer": "^7.1.5",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
