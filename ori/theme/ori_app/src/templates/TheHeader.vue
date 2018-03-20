@@ -4,7 +4,9 @@
 		itemtype="https://schema.org/Organization"
 	>	
 		<router-link @focus="setDefaultMenuState"
-			to="/" class="grow brand parent centered row">
+			to="/"
+			@blur="transformMenu" 
+			@keypress="setDefaultMenuStateByPresingTab" class="grow brand parent centered row">
 			<h1 class="brand__title" itemprop="name">
 					Oriflame
 			</h1>	
@@ -12,18 +14,27 @@
 		<site-contacts phone="+7 (985) 905-12-51" 
 			email="shiningfinger@list.ru"
 			modifier="header"
+			@keypress="setDefaultMenuStateByPresingTab"
 		/>
 		<nav role="navigation" aria-label="Навигация сайта" id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
 			<ul class="navigationList parent wrap row h-end v-end v-s-end baseChild">
 				<li aria-hidden="true" :class="{
 					'visible-hidden': isTabShown
-				}"><figure class="activeTab"  data-transformed="false"></figure></li>
-				<nav-link  index='0' icon="fas fa-home"
-					href="/">Главная</nav-link>
-				<nav-link  index='1' icon="fas fa-users" href="/registration">Регистрация</nav-link>
-				<nav-link  index='2' icon="fas fa-handshake" href="/business">Бизнес</nav-link>
-				<nav-link  index='3' icon="fas fa-gift" href="/shares">Акции</nav-link>
-				<nav-link  index='4' icon="fas fa-video" href="/media">Медиа</nav-link>
+				}">
+					<figure class="activeTab"  data-transformed="false"></figure>
+				</li>
+				<!-- <nav-link /> -->
+				<nav-link
+					v-for="(link, index) in navigationLinks"
+					:key="index"
+					@keypress="setDefaultMenuStateByPresingTab" 
+					:index="index"
+					:icon="link.icon"
+					:href="link.href"
+					@blur="transformMenu" 
+				>
+					{{ link.name }} 
+				</nav-link>
 			</ul>
 			<div id="active_page" hidden>Текущая страница</div>
 		</nav>
@@ -47,17 +58,44 @@
 			NavLink,
 			SiteContacts
 		},
-		data() {
-			return {
-				isTabShown: true
-			};
-		},
+		data: () => ({
+			isTabShown: true,
+			navigationLinks: [
+				{
+					name: 'Главная',
+					href: '/',
+					icon: 'fas fa-home'
+				},
+				{
+					name: 'Регистрация',
+					href: '/registration',
+					icon: 'fas fa-users'
+				},
+				{
+					name: 'Бизнес',
+					href: '/business',
+					icon: 'fas fa-handshake'
+				},
+				{
+					name: 'Акции',
+					href: '/shares',
+					icon: 'fas fa-gift'
+				},
+				{
+					name: 'Медиа',
+					href: '/media',
+					icon: 'fas fa-video'
+				}
+			]
+			
+		}),
 		computed: {
 			tab() {
 				return document.querySelector('.activeTab');
 			}
 		},
 		mounted: function() {
+			console.log(this.$store.state.animations);
 			timeout(() => {
 				this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
 			}
@@ -91,6 +129,20 @@
 
 		},
 		methods: {
+			transformMenu() {
+				console.log('leave element by blur event');
+				this.$store.state.animations.transformMenuIfNeeded();
+			},
+			setDefaultMenuStateByPresingTab(event) {
+	  			switch (event.key) {
+	  				case 'TAB':
+	  					console.log('Will do action by the pressed tab.');
+	  					this.setDefaultMenuState();
+	  					break;
+	  				default: 
+	  					return;
+		  		}
+			},
 			setDefaultMenuState() {
 				if(this.$store.state.menuWasTransformed) {
 					this.$store.state.animations.animateNavigationToDefaultState();

@@ -36,9 +36,18 @@
 
 	export default {
 		props: {
-			href: String,
-			icon: String,
-			index: String,
+			href: {
+				type: String,
+				required: true
+			},
+			icon: {
+				type: String,
+				required: true
+			},
+			index: {
+				type: [String, Number],
+				required: true
+			}
 		},
 		data() {
 			return {

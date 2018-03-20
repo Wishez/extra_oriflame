@@ -163,16 +163,6 @@
 	  		
 	  		return anime({
 	  				targets: this.navigation,
-	  				// rotate: "0deg",
-	  				// scale: [
-	    		// 		{ value: 1.1, 
-	    		// 		  duration: 500, 
-	    		// 		  easing: 'easeInOutQuad' },
-	    		// 		{ value: 1, 
-	    		// 		  duration: 500, 
-	    		// 		  delay: 200, 
-	    		// 		  easing: 'easeInOutQuad' },
-	  				// ],
 	  				elasticity: 200,
 	  				duration: 2000,
 	  				begin: (anim) => {
@@ -209,7 +199,6 @@
 							this.spinLinks.restart();
 						},
 						fallback: () => {
-							console.log('Execute mobile fallback')
 							this.mobileStretchNavigation.restart();
 						}
 					});
@@ -244,14 +233,26 @@
 	  		name: 'animateNavigationToDefaultState',
 	  		callback: this.animateToDefaultState
 	  	});
+	  	// The function will trigger by `blur` event of the navigation links or the header's logo .
+		this.$store.commit('setGlobalAnimations', {
+			name: 'transformMenuIfNeeded',
+			callback: () => {
+				// Check state of menu-ransformation for 
+				// prevent the extra execute of the
+				//  navigation's animation's transformation.
+				if (!this.$store.state.menuWasTransformed) {
+					console.log('will transform');
+					this.animateByScrollToBottom();
+				}
+			}
+		});
 
 	  	this.$store.commit('switchScrollPageState', body.scrollTop <  baseOffset);
+
 
 	  	listen({
 	  		event: 'scroll', 
 	  		callback: throttle(event =>  {
-		  		// const normalized  = normalizeWheel(event);
-		  		
 		  		const fromTopOffset = body.scrollTop;
 		  		const menuWasTransformed = this.$store.state.menuWasTransformed
 		  		// Function for checking scroll position of the target element.
@@ -280,7 +281,6 @@
 
 <style	lang="sass" scoped>
 	@import './styles/conf/_sizes.sass'
-	// .nvaigationList
 		
 	.wrapper
 		max-width: 1129px
