@@ -1,7 +1,7 @@
 {
-  "name": "ori_app",
+  "name": "ExtraOri",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "The site for the oriflame a business-woman.",
   "author": "Filipp Zhuravlev <shiningfinger@list.ru>",
   "private": true,
   "scripts": {
@@ -55,6 +55,7 @@
     "copy-webpack-plugin": "^4.1.1",
     "cross-env": "^5.0.5",
     "cross-spawn": "^5.1.0",
+    "css-declaration-sorter": "^3.0.1",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "eslint": "^4.9.0",

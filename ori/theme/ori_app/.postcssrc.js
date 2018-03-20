@@ -8,7 +8,8 @@ module.exports = {
     // 	"grid": true
     // },
 	'postcss-import': {},
-	'postcss-cssnext': {},
+  'css-declaration-sorter': {order: 'smacss'}
+	// 'postcss-cssnext': {},
 	// 'postcss-simple-vars': {}, // Again, not necessarily recommended
 	// 'cssnano': {}
   }
