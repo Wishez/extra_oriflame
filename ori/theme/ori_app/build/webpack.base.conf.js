@@ -38,6 +38,7 @@ module.exports = {
         loader: 'eslint-loader',
         enforce: 'pre',
         include: [resolve('src'), resolve('test')],
+        // resolve('storybook')
         options: {
           formatter: require('eslint-friendly-formatter')
         }
@@ -50,8 +51,9 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('storybook')],
-        exclude: /node_modules/
+        include: [resolve('src'), resolve('test')],
+        // exclude: /node_modules/
+        //  resolve('storybook')
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

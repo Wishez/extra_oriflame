@@ -43,6 +43,7 @@
 .after:after
 .after_bsolute:after	
 .pseudo
+
 	&_elements
 		&:after, &:before
 			content: "" $i
@@ -57,6 +58,23 @@
 		&--absolute
 			&:after
 				position: absolute
+		&--negativeIndex
+			&:after
+				z-index: -1
+		&--round
+			&:after
+				border-radius: 50%
+		&--fullWidth
+			&:after
+				width: 100%
+		&--basePosition
+			&:after
+				left: 0
+				right: 0
+		&--fullHeight
+			&:after
+				height: 100%
+		
 	&_before
 		&:before
 			content: ""
@@ -74,6 +92,54 @@
 		width: 1px
 		height: 1px
 		position: absolute
+
+
+.font
+	&-size
+		&_29
+			font-size: $s29
+		&_47
+			font-size: $s47
+		&_25
+			font-size: $s25
+		&_18
+			font-size: $s18
+		&_16
+			font-size: $s16
+		&_77
+			font-size: $s77
+.index
+	&_negative
+		z-index: -1
+	&_positive
+		z-index: 1
+	&_big
+		z-index: 10
+.position
+	&Top
+		&_11
+			top: $s11
+		&_18
+			top: $s18
+	&Bottom
+		&_11
+			bottom: $s11
+		&_18
+			bottom: $s18
+		&_negative-18
+			bottom: -$s18
+	&Left
+		&_18
+			left: $s18
+		&_negative-18
+			left: -$s18
+	&Right
+		&_11
+			right: $s11
+		&_18
+			right: $s18
+		&_47
+			right: $s47	
 .baseRound
 	border-radius: 3px
 .semibold
@@ -114,69 +180,23 @@
 
 .cascadeShadow
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4)
-.imageContainer 
-	height: 100%
-		/* style */
-	&, &__image 
-		transition: .3s ease-in-out
-		width: span(12)
+// .imageContainer 
+// 	height: 100%
+// 		/* style */
+// 	&, &__image 
+// 		transition: .3s ease-in-out
+// 		width: span(12)
 	
-	&__image 
-		background-position: center 
-		background-repeat: no-repeat
-		background-size: cover
+// 	&__image 
+// 		background-position: center 
+// 		background-repeat: no-repeat
+// 		background-size: cover
 	
-
-.closeButton 
-	background-color: $darkGray
-	&, &::after 
-		@extend %round
-	@extend %absolute
-	border: 0 
-	z-index: 1
-	width: em(18)
-	height: em(18)
-	right: em(-8)
-	top: em(-9)
-	font-size: em(28)
-	box-shadow: -2px 2px 2px $shadow
-	will-change: transform
-	transition: transform .2s ease-in-out, box-shadow .3s ease
-	&:hover
-		transform: rotate(25deg)
-		box-shadow: 0 0 2px $shadow
-	&__bar
-		@extend %absolute
-		width: em(7)
-		height: em(1.1)
-		border-radius: 2px
-		background-color: $white
-		z-index: 3
-		left: em(9.7, 28)
-		top: em(15, 28)
-		&_right
-			transform: rotate(-45deg)
-		&_left
-			transform: rotate(45deg)
-
-	&::after 
-		content: ""
-		@extend %absolute
-		z-index: 2
-		width: em(11)
-		height: em(11)
-		top: em(6.3, 28)
-		left: em(6.2, 28)
-		@extend %shadow
-		background-color: $orange
 
 	
 .restrictBlock 
 	margin: auto
 	max-width: em(1350)
-
-
-
 
 .fewRound
 	border-radius: 3px
@@ -209,27 +229,24 @@
 	background-color: transparent
 	height: 75px
 ::-webkit-scrollbar-thumb
-	// background-clip: padding-box
 	border: 5px solid rgba(0, 0, 0, 0);
-	// width: 5px
 	height: 75px
-	
 	margin: 0 auto
-	// border-radius: 10px
-
 	background-color: $burgund
 	box-shadow: -2px 2px 6px 0 $shadow
 ::-webkit-scrollbar-button 
-    width: 0;
-    height: 0;
-    display: none;
+    width: 0
+    height: 0
+    display: none
 
 ::-webkit-scrollbar-corner 
-    background-color: transparent;
-.textCentered
-	text-align: center	
-.textRight
-	text-align: right
+    background-color: transparent
+
+.text
+	&Centered
+		text-align: center	
+	&Right
+		text-align: right
 
 
 .paddingContainer
@@ -244,7 +261,7 @@
 
 input[type=number]::-webkit-inner-spin-button 
 	-webkit-appearance: none
-	display:blocks
+	display: block
 	color: $darkGray
 	text-align:center
 	position:relative
@@ -305,6 +322,7 @@ input[type=number]:hover::-webkit-inner-spin-button
 		margin-top: $s11 $i
 .zeroTopMargin
 	margin-top: 0 $i
+
 .spacing
 	&_12
 		letter-spacing: .12em
@@ -312,10 +330,8 @@ input[type=number]:hover::-webkit-inner-spin-button
 		letter-spacing: .15em
 	&_5
 		letter-spacing: .05em
+
 .fadeTranslateToTop
-	// &-appear-active, &-leave-active, &-enter-active
-	// 	transition: opacity .5s ease-in-out
-	// 	will-change: opacity
 	&-enter, &-leave-to
 		opacity: 0
 		transform: translateY(1.5rem)
@@ -371,7 +387,7 @@ input[type=number]:hover::-webkit-inner-spin-button
 		&.translate-exit-active
 			transition: opacity .3s ease-in
 			opacity: 0
-			// transform: translate(250%);
+
 a.disableUnderline
 	background-image: none
 
@@ -379,151 +395,11 @@ a.disableUnderline
 	&:hover, &:focus, &:active
 		background-image: none $i
 		color: currentColor $i
-// .colorBurgundHover
-// 	&:hover, &:focus, &:active
-// 		color: $burgund
-
 
 .perspective
 	transform-style: preserve-3d;
 	transform: perspective(800px);
 
-.button 
-	position: relative
-	padding: 0 1.5rem
-	height: em(47)
-	min-width: em(200)
-	cursor: pointer
-	user-select: none
-	z-index: 1
-	transition: all 0.3s
-	will-change: transform
-	transform-style: preserve-3d;
-	&:hover, &:focus
-		transform: scale(1.02)
-	&:active
-		transform: scale(1.02) translateY(2px)
-	&, &_submit:after, &_submit:before
-		display: flex
-		justify-content: center
-		align-items: center
-	&_error, &_successful
-	    box-shadow: 0
-		
-	&_error
-		&, &:hover, &:focus
-			transform-origin: 50% 0%
-			transform: rotateX(90deg) translateY(-100%)
-		&:before
-			top: 100%
-			// background: #e96a6a
-			// color: #a33a3a
-			background-color: $red
-			// color: darken($red, 25%)
-			color: $white
-			content: 'Ошибка!'
-			font-weight: 700
-			transform-origin: 0% 0%
-			transform: rotateX(-90deg)
-	&_successful
-		&, &:hover, &:focus
-			transform-origin: 50% 100%
-			transform: rotateX(-90deg) translateY(100%)
-		&:after
-			top: -98%
-			// background: #7aca7c
-			// color: #358337
-			background-color: darken($validColor, 25%)
-			color: $white
-			content: 'Успех!'
-			transform-origin: 0% 100%;
-			transform: rotateX(90deg);
-			
-
-
-	&_submit
-		&:after, &:before
-			box-shadow: 2px 4px 6px $shadow
-			text-shadow: -2px 1px 13px $shadow //rgba(255, 255, 255, .8)
-			width: 100%
-			height: 100%
-			position: absolute
-			left: 0
-			border-radius: 2px
-	&_centered
-		margin: auto
-	&_burgund
-		background: $registrationButtonGradinet
-		color: $white
-
-	// &_awesome
-	// 	color: $darkGray
-	// 	&::after
-	// 		position: relative
-	// 		display: inline-block
-	// 		content: attr(data-title)
-	// 		transition: transform .2s ease
-	// 		font-weight: bold
-	// 		letter-spacing: .01em
-	// 		will-change: transform
-	// 		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
-	// 	&::before
-	// 		content: ''
-	// 		background: $linkGradient
-	// 		position: absolute
-	// 		top: 0
-	// 		left: 0
-	// 		bottom: 0
-	// 		right: 0
-	// 		z-index: 1
-	// 		border-radius: 4px
-	// 		transition: box-shadow .5s ease, transform .2s ease
-	// 		will-change: transform
-	// 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2)
-	// 		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px))
-	// 	&:hover::before
-	// 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
-	
-.awesomeButton
-	position: relative
-	display: flex
-	padding: 0 1.5rem
-	justify-content: center
-	align-items: center
-	height: em(47)
-	min-width: em(200)
-	text-decoration: none
-	text-align: center
-	cursor: pointer
-	user-select: none
-	color: $darkGray
-	z-index: 1
-	&::after
-		position: relative
-		display: inline-block
-		content: attr(data-title)
-		transition: transform .2s ease
-		font-weight: bold
-		letter-spacing: .01em
-		will-change: transform
-		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
-	&::before
-		content: ''
-		position: absolute
-		top: 0
-		left: 0
-		bottom: 0
-		right: 0
-		// background: linear-gradient(135deg, #6e8efb, #a777e3)
-		background: $linkGradient
-		z-index: -1
-		border-radius: 4px
-		transition: box-shadow .5s ease, transform .2s ease
-		will-change: transform
-		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2)
-		transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px))
-	&:hover::before
-		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
 .overflowHidden
 	overflow: hidden
 	overflow-y: hidden

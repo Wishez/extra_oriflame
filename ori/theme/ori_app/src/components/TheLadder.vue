@@ -2,8 +2,27 @@
 	<article 
 		@mouseenter="preventScrollPage"
 		@mouseleave="allowScrollPage" 
+		@touchstart="preventScrollPage"
+		@touchend="preventScrollPage" 
 		class="parent v-end ladderFold relative">
-		<h2 class="baseChild ladderFold__title parent centered darkGrayBackground whiteColor relative">Карьерная лестница</h2>
+		<h2 class="baseChild ladderFold__title parent centered darkGrayBackground whiteColor relative" 
+		>
+			Карьерная лестница
+			<arrow-button 
+				direction="down" 
+				className="positionTop_11 positionRight_47 absolute" 
+				modifier="ladder" label="Посмотреть предыдущие звания" 
+				:makeAction="onClickArrowButton"
+			/>
+			<arrow-button direction="up" 
+				className="absolute"  
+				modifier="ladder positionBottom_11 positionRight_11"
+				label="Посмотреть следующие звания"
+				:makeAction="onClickArrowButton"
+			/>
+		</h2>
+		<info-icon className="absolute 
+		index_big positionLeft_negative-18 positionBottom_negative-18 font-size_29" label="Подсказать подсказку" />
 		<fade-translate-transition-group id="ladder"
 			:class="{
 				'ladder  unstyledList absolute zeroTopMargin': true,
@@ -11,6 +30,7 @@
 				'ladder_watch': canWatchForSteps
 			}"
 			:delay="18"
+			
 		>
 			<ladder-step :title="step.title"
 				:key="index"
@@ -34,6 +54,10 @@
 <script>
 	import LadderStep from './LadderStep';
 	import FadeTranslateTransitionGroup from './FadeTranslateTransitionGroup';
+	import ArrowButton from '@/components/ArrowButton';
+	import InfoIcon from '@/components/InfoIcon';
+	
+
 	import {ladder} from '@/constants/business';
 	import {
 		listen, 
@@ -41,14 +65,15 @@
 		timeout,
 		prevent
 	} from '@/constants/pureFunctions';
-
 	export default {
 		name: "TheLadder",
 		props: {
 		},
   	    components: {
   	    	LadderStep,
-	    	FadeTranslateTransitionGroup
+	    	FadeTranslateTransitionGroup,
+	    	ArrowButton,
+	    	InfoIcon
 	    },
 	    mixins: [],
 	    data: () => ({
@@ -56,7 +81,9 @@
 	    	range: [0, 1, 2],
 	    	lastDocumentScrollPosition: 0,
 	    	canWatchForSteps: true,
-	    	canScrollingSteps: true
+	    	canScrollingSteps: true,
+	    	touched: false,
+	    	// lastY: 0
 	    }),
 	    beforeCreate() {
 	    },
@@ -73,8 +100,6 @@
 	    		event: 'wheel',
 	    		callback: throttle(this.onScroll)
 	    	})
-
-
 	    },
 	    computed: {
 	    	ladderElement() {
@@ -94,7 +119,6 @@
 	    	// I need scroll position for prevent scrolling 
 	    	// when an user scrolls the ladder.
 	    	noteLastDocumentScrollPosition() {
-	    		console.log(this.navigationStyles);
 	    		this.$set(
 	    			this,
 	    			'lastDocumentScrollPosition',
@@ -102,15 +126,24 @@
 	    		);
 	    	},
 	    	preventScrollPage() {
+	    		this.$store.commit(
+	    			'business/changeToucheState',
+	    		 	true
+	    		);
+
 	    		this.rootStyles.overflowY = "hidden";
 	    		this.rootStyles.paddingRight = '13.5px';
 	    		this.navigationStyles.marginRight = '13.5px';
 	    	},
 	    	allowScrollPage() {
+	    		this.$store.commit(
+	    			'business/changeToucheState'
+	    		);
 	    		this.rootStyles.overflowY = "auto";
 	    		this.rootStyles.paddingRight = 0;
 	    		this.navigationStyles.marginRight = 0;
 	    	},
+	    	// Make delay to prevent an user's fast scrolling the ladder.
 	    	disableWatchState(delay=1500) {
 	    		if (this.canWatchForSteps) {
 		    		this.$set(
@@ -128,26 +161,46 @@
     				}, delay);
 	    		}
 	    	},
-
+	    	onClickArrowButton(direction) {
+				return () => {
+	    			const isDownDirection = direction === 'down';
+	    			
+	    			this.onTouch(
+	    				event, 
+	    				isDownDirection
+	    			);
+				};
+	    	},
 	    	onScroll(event) {
 	    		
-	    		if (!this.$store.state.business.openedStep) {
+	    		
 					const delta = -event.deltaY;
-					const lessThanZero = delta < 0;
-	
-	    			if (lessThanZero) {
+					const isDownDirection = delta < 0;
+
+					// If condition is true, then the act will be for down direction. 
+	    			this.onTouch(
+	    				event, 
+	    				isDownDirection
+	    			);
+	    		
+				
+	    	},
+	    	// Abstract event for change steps' positions in the fold by scroll or touch.
+	    	onTouch(event, condition) {
+				if (!this.$store.state.business.openedStep) {
+
+					if (condition) {
+						// Go down
 	    				this.decreseRange();
 	    			} else {
+	    				// Go up
 	    				this.increaseRange();
 	    			}
 	    			
 	    			this.disableWatchState();
 
-	    			prevent(event);
-					// event.preventDefault();
-	  		// 		return false;
-	    		}
-				
+	    			prevent(event)
+    			}
 	    	},
 	    	increaseRange() {
 	    		const range = this.range;
@@ -192,6 +245,9 @@
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_breakpoints.sass'
 	$baseHeight: 80
+
+	.button_ladder
+		font-size: em(18, 25)
 	.ladderFold
 		margin-top: $s144//em($baseHeight * 4)
 		&__title

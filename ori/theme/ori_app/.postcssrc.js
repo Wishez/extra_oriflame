@@ -5,10 +5,10 @@ module.exports = {
   "plugins": {
     // to edit target browsers: use "browserlist" field in package.json
     // "autoprefixer": {
-    // 	"grid": true
-    // },
-	'postcss-import': {},
+    //  "grid": true
+	  "postcss-import": {},
   // 'css-declaration-sorter': {order: 'smacss'}
+    // },
 	// 'postcss-cssnext': {},
 	// 'postcss-simple-vars': {}, // Again, not necessarily recommended
 	// 'cssnano': {}

@@ -165,23 +165,6 @@
 		    	type: Function,
 		    	required: false,
 		    	default: function(element, value) {
-		    // 		console.log(this.hasValue)
-		    // 		if (!this.hasValue && value) {
-		    // 			// element.classList.add('controller__input_hasValue');
-		    // 			// this.$set(
-		    // 			// 	this,
-		    // 			// 	'hasValue',
-		    // 			// 	true
-		    // 			// );
-		    // 		} else if (this.hasValue && !value) {
-						// // element.classList.remove('controller__input_hasValue');
-						// // this.$set(
-		    // // 				this,
-		    // // 				'hasValue',
-		    // // 				false
-		    // // 			);
-		    // 		}
-
 					this.$emit('input', value);
 		    	}
 		    },

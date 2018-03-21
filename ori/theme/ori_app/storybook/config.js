@@ -1,23 +1,30 @@
-import { configure } from '@storybook/vue';
+// import { configure } from '@storybook/vue';
 
-import Vue from 'vue';
-import Vuex from 'vuex'; // Vue plugins
+// import Vue from 'vue';
+// import Vuex from 'vuex'; // Vue plugins
+// import VueRouter from 'vue-router';
 
-// Import your custom components.
-import AwesomeLink from '../src/components/AwesomeLink.vue';
+// // Import your custom components.
+// // import AwesomeLink from '../src/components/AwesomeLink.vue';
+// // import TheLadder from '../src/components/TheLadder.vue';
+// // import '../src/index.sass';
 
-// Install Vue plugins.
-Vue.use(Vuex);
+// Vue.config.devtools = true
+// // Install Vue plugins.
+// // Vue.use(VueRouter);
+// Vue.use(Vuex);
 
-// Register custom components.
-Vue.component('awesome-link', AwesomeLink);
+// // Register custom components.
+// // Vue.component('awesome-link', AwesomeLink);
 
-function loadStories() {
-  // You can require as many stories as you need.
-  require('../src/stories');
+// // Vue.component('the-ladder', TheLadder);
 
-  const req = require.context('../src/stories', true, /\.stories\.js$/);
-  req.keys().forEach(filename => req(filename));
-}
+// function loadStories() {
+//   // You can require as many stories as you need.
+//   require('../src/stories');
 
-configure(loadStories, module);
+//   const req = require.context('../src/stories', true, /\.stories\.js$/);
+//   req.keys().forEach(filename => req(filename));
+// }
+
+// configure(loadStories, module);

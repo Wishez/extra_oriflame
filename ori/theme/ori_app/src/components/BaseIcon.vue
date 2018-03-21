@@ -1,13 +1,16 @@
 <template>
 	<figure :class="[
-		'iconShadow iconBackground circle parent row centered',  
+		'iconShadow iconBackground circle parent row centered', 
 		modifier ? 'iconBackground_' + modifier : null, 
 		className ? className : null
 	]">
-		<i :class="[
-			icon, 
-			'iconBackground__icon', modifier ? 'iconBackground__icon_' + modifier : null
-		]"></i>	
+		<i :class="{
+			[icon]: icon,
+			'iconBackground__icon': true,
+			[`iconBackground__icon_${modifier}`]:  modifier
+		}" 
+			aria-hidden="true"
+		/>
 	</figure>
 </template>
 
@@ -18,10 +21,6 @@
 			icon: {
 				type: String,
 				required: true,
-			},
-			signification: {
-				type: String,
-				required: false,
 			},
 			modifier: {
 				type: String,

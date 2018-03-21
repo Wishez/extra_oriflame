@@ -14,7 +14,9 @@
 		}"
 		:aria-expanded="opened"
 	>
-		<h3 class="cropedLine step__title italic textCentered paddingContainer">{{ title }}</h3>
+		<h3 class="cropedLine step__title italic textCentered paddingContainer">
+			{{ title }}
+		</h3>
 		<div class="whiteBackground stepContent paddingContainer stepContent__paragraph zeroTopMargin normalWeight">
 			<p class="bold zeroTopMargin textCentered">{{ title }}</p>
 			<p class="stepContent__paragraph"  v-html="achieve" />
@@ -93,6 +95,7 @@
 	    		return this.benifit.length
 	    	},
 	    	openStepAimation() {
+
 	    		const step = this.$el;
 
 	    		return anime({
@@ -156,6 +159,7 @@
 	    		);
 	    	},
 	    	open() {
+	    		this.$el.focus();
 	    		this.switchState(true);
 	    		this.openStepAimation.restart();
 	    	},
@@ -219,7 +223,7 @@
 	.step
 
 		// top: em(170, 25)
-		transition: width .3s ease-in, left .3s ease-in, transform .3s ease, min-height .2s ease-in, max-width .3s ease-in
+		transition: all .3s ease-in
 		max-width: 100%
 		cursor: pointer
 		z-index: 1

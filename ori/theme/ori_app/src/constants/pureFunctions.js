@@ -129,7 +129,7 @@ export function transformName(name) {
   return `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`;
 }
 
-export const throttle = (callback, timeout=1000) => {
+export const throttle = (callback) => {
   let isRunning = false;
 
   return (event) => {
@@ -186,7 +186,7 @@ export const cookiesHandler = {
 
 };
 
-export async function timeout(callback, timeout) {
+export function timeout(callback, timeout) {
   // stuff for animating goes here
   let pastTime = 0;
   function animate(time) {
