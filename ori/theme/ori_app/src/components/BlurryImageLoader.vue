@@ -1,4 +1,4 @@
-<template>
+f<template>
 		<progressive-img
 		  :src="src"
 		  :placeholder="src"

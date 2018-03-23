@@ -159,7 +159,7 @@
 		left: 0
 		background-color: $burgund
 		min-width: 155px
-		transition: transform .3s ease-in, left .3s ease-in;
+		transition: transform .200s cubic-bezier(0.2, 0.0, 0.6, 1), left .150s cubic-bezier(0.2, 0.0, 0.6, 1)
 		@include breakpoint($xs)
 			display: none
 	.navLink

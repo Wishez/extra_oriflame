@@ -11,7 +11,7 @@
     			defaultMedia="(min-width: 481px)"
     			alt="Регистрация"
     			modifier="banner"
-    			className="materialShadow fewRound"
+    			className="materialShadow fewRound fullWidth"
     		/>
 
     	</section>
@@ -52,7 +52,7 @@
 				<h3 class="currentCatalog__title">Текущий каталог</h3>
 				<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609" showIcon="hide" className="materialShadow currentCatalog__image">
 					<blurry-image-loader 
-						modifier="relative"
+						relative
 						alt="Текущий каталог"
 						src="https://ru.oriflame.com/catalogue-image.png"/>
 				</external-link>

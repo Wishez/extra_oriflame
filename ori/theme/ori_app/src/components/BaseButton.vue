@@ -12,7 +12,7 @@
 			tabindex="0"
 			role="button"
 			@click="onClick"
-			@blur="onBlur"
+			@blur="makeActionByBlur"
 	
 	>
 		<slot></slot>
@@ -61,6 +61,10 @@
 				required: false,
 				default: null
 			},
+			onBlur: {
+				type: Function,
+				required:  false
+			}
 		},
 		methods: {
 			onClick: function(event) {
@@ -73,12 +77,17 @@
 					this.action(event);
 				}
 			},
-			onBlur: function() {
+			makeActionByBlur: function(event) {
 				this.$set(
 					this,
 					'pressed',
 					false
 				);
+				console.log(this.onBlur);
+				if (this.onBlur) {
+					console.log('blur triggered');
+					this.onBlur(event);
+				}
 			}
 		}
 	};
@@ -108,7 +117,7 @@
 		z-index: 1
 		transition: all 0.3s
 		will-change: transform
-		transform-style: preserve-3d;
+		transform-style: preserve-3d
 		&:hover, &:focus
 			transform: scale(1.02)
 		&:active
@@ -123,7 +132,7 @@
 		&_error
 			&, &:hover, &:focus
 				transform-origin: 50% 0%
-				transform: rotateX(90deg) translateY(-100%)
+				transform: rotateX(110deg) translateY(-100%)
 			&:before
 				top: 100%
 				// background: #e96a6a
@@ -161,7 +170,8 @@
 				left: 0
 				border-radius: 2px
 		&_centered
-			margin: auto
+			margin-left: auto
+			margin-right: auto
 		&_burgund
 			background: $registrationButtonGradinet
 			color: $white

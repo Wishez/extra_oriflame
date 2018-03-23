@@ -28,7 +28,7 @@
 			</h2>
 			<div :data-index="3" key="3"  class="parent row parent row v-centered">
 				<transition	 name="fadeTranslateToTop">
-					<span v-if="hintText" class="absolute hintText fewRound whiteBackground materialShadow container">
+					<span v-if="hintText" class="absolute hintText positionBottom_full-and-offset positionLeft_zero fewRound whiteBackground materialShadow container">
 						{{ hintText }}
 					</span> 
 				</transition>
@@ -337,8 +337,6 @@
 	.referralConsultantsLitter__search
 		max-width: em(333.75)
 	.hintText
-		bottom: calc(100% + #{$s6})
-		left: 0
 		padding-top: $s6
 		padding-bottom: $s6
 	.refferalsList

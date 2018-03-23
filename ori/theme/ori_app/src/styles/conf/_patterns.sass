@@ -5,7 +5,11 @@
 .fixed
 	position: fixed
 	z-index: 10
-	
+.static
+	&_xs
+		@include breakpoint($xs)
+			position: static
+
 .cropedText
 	overflow: hidden
 	text-overflow: ellipsis
@@ -39,7 +43,13 @@
 	box-shadow: 2px 4px 6px 0 $shadow
 .cascadingShadow
 	box-shadow: 0 4px 15px 0 $shadow
-
+.hover
+	&-color
+		&_white:hover
+			color: $white
+	&-backgroundColor
+		&_burgund:hover
+			background-color: $burgund
 .after:after
 .after_bsolute:after	
 .pseudo
@@ -83,7 +93,23 @@
 				position: absolute
 
 
-		
+.padding
+	&Container 
+		padding: 1em 
+		&_horizontal
+			padding-left: 1em
+			padding-right: 1em
+		&_vertical
+			padding-top: 1em
+			padding-bottom: $s29
+
+	&Right
+		&_47
+			padding-right: $s47
+		&_xs
+			&-zero
+				@include breakpoint($xs)
+					padding-right: 0
 .visible-hidden-smLess 
 	@include breakpoint($sm-less) 
 		white-space: nowrap
@@ -92,8 +118,62 @@
 		width: 1px
 		height: 1px
 		position: absolute
-
-
+.margin
+	&Left
+		&_29
+			margin-left: $s29
+		&_47
+			margin-left: $s47
+		&_18
+			margin-left: $s18
+		&_xs-18
+			@include breakpoint($xs)
+				margin-left: $s18
+	&Right
+		&_29
+			margin-right: $s29
+		&_47
+			margin-right: $s47
+		&_18
+			margin-right: $s18
+		&_xs-18
+			@include breakpoint($xs)
+				margin-right: $s18
+	&Top
+		&_zero
+			margin-top: 0
+			&-force
+				margin-top: 0 $i
+		&_11
+			margin-top: $s11
+		&_18
+			margin-top: $s18
+		&_29
+			margin-top: $s29
+		&_47
+			margin-top: $s47
+		&_18
+			margin-top: $s18
+		&_xs-11
+			@include breakpoint($xs)
+				margin-top: $s11
+		&_xs-18
+			@include breakpoint($xs)
+				margin-top: $s18
+	&Bottom
+		
+		&_29
+			margin-bottom: $s29
+		&_47
+			margin-bottom: $s47
+		&_18
+			margin-bottom: $s18
+		&_xs-11
+			@include breakpoint($xs)
+				margin-bottom: $s11
+		&_xs-18
+			@include breakpoint($xs)
+				margin-bottom: $s18
 .font
 	&-size
 		&_29
@@ -108,6 +188,13 @@
 			font-size: $s16
 		&_77
 			font-size: $s77
+		&_xs-41
+			@include breakpoint($xs)
+				font-size: $s41
+		&_xs-18
+			@include breakpoint($xs)
+				font-size: $s18
+
 .index
 	&_negative
 		z-index: -1
@@ -122,24 +209,53 @@
 		&_18
 			top: $s18
 	&Bottom
+		&_full-and-offset
+			bottom: calc(100% + #{$s6})
+		&_zero
+			bottom: 0
 		&_11
 			bottom: $s11
 		&_18
 			bottom: $s18
+		&_29
+			bottom: $s29
 		&_negative-18
 			bottom: -$s18
 	&Left
+		&_zero
+			left: 0
 		&_18
 			left: $s18
+		&_47
+			left: $s47
 		&_negative-18
 			left: -$s18
+		&_xs-18
+			@include breakpoint($xs) 
+				left: $s18
+		&_xs-77
+			@include breakpoint($xs) 
+				left: $s77
+		&_xxs-47
+			@include breakpoint($xxs)
+				left: $s47
 	&Right
 		&_11
 			right: $s11
 		&_18
 			right: $s18
+		&_29
+			right: $s29
 		&_47
 			right: $s47	
+		&_xs
+			&-auto
+				right: auto
+	&_horizontal-centered
+		&-xs
+			@include breakpoint($xs)
+				left: 50%
+				transform: translateX(-50%)
 .baseRound
 	border-radius: 3px
 .semibold
@@ -162,6 +278,9 @@
 	color: $burgund
 .darkGrayColor
 	color: $darkGray
+.background-color
+	&_pink
+		background-color: $pink
 .visible-hidden-xs 
 	@include breakpoint($xs) 
 		white-space: nowrap
@@ -245,12 +364,16 @@
 .text
 	&Centered
 		text-align: center	
+		&_xs
+			@include breakpoint($xs)
+				text-align: center	
+
 	&Right
 		text-align: right
+	&_nowrap
+		white-space: nowrap
 
 
-.paddingContainer
-	padding: 1em 
 
 .container 
 	padding: 0 1.5rem

@@ -143,25 +143,31 @@ export const throttle = (callback) => {
       });
   }
 }
-export const slideTo = ({selector, offset=0, easing='easeInOutQuad'}) => {
-  const element = document.querySelector(selector);
-  // const additionalOffset = 47 + offset;
+// https://gist.github.com/gordonbrander/2230317
+export const ID = function() {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
+export const slideTo = ({
+  selector=false,
+  element=false,
+  offset=0
+}) => {
+  if (selector) {
+    element = document.querySelector(selector);
+  }
   
   if (element) {
     element.scrollIntoView({
       behavior: 'smooth',
       block: 'start' 
-    })
-    // anime({
-    //   targets: document.documentElement || document.body,
-    //   scrollTop: element.getBoundingClientRect().y - offset,
-    //   duration: 1000,
-    //   elasticity: 100,
-    //   easing
-    // })
+    }); 
   }
-  // if (element)
-  //   element.scrollIntoView({ behavior: 'smooth'});
+  if (offset) {
+    document.documentElement.scrollTop -= offset;
+  }
 };
 
 export const cookiesHandler = {

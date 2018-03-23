@@ -58,39 +58,39 @@
 
 	
 	.baseTooltip 
-		background-color: $pink
-		text-align: left
-		border: 0
-		font-size: em(18, 16)
-		padding: $s18 $s18 $s29
-		max-width: em(346.1)
+		background-color: $pink $i
+		text-align: left $i
+		border: 0 $i
+		font-size: em(18, 16) $i
+		padding: $s18 $s18 $s29 $i
+		max-width: em(346.1) $i
 		@include breakpoint($xxs)
-			width: 90vw
-			max-height: 55vh
+			width: 90vw $i
+			max-height: 55vh $i
 		&.popper
-			border: 0 solid $burgund
+			border: 0 solid $burgund $i
 			&[x-placement^="left"]
-				border-left-width: $s6
+				border-left-width: $s6 $i
 				.popper__arrow
-					border-width: 18px 0 18px 18px
-					border-color: transparent transparent transparent $pink
+					border-width: 18px 0 18px 18px $i
+					border-color: transparent transparent transparent $pink $i
 			&[x-placement^="right"]
-				border-right-width: $s11
+				border-right-width: $s11 $i
 				.popper__arrow
-					border-width: 18px 18px 18px 0
-					border-color: transparent $pink transparent transparent 
+					border-width: 18px 18px 18px 0 $i
+					border-color: transparent $pink transparent  transparent  $i
 			&[x-placement^="bottom"]
-				border-bottom-width: 6.8756770631996956367px
+				border-bottom-width: 6.8756770631996956367px $i
 				.popper__arrow
-					top: -18px
-					border-width: 0 18px 18px 18px
-					border-color: transparent transparent $pink transparent
+					top: -18px $i
+					border-width: 0 18px 18px 18px $i
+					border-color: transparent transparent $pink  transparent $i
 			&[x-placement^="top"]
-				border-top-width: $s6
+				border-top-width: $s6 $i
 				.popper__arrow
-					bottom: -18px
-					border-width: 18px 18px 0 18px
-					border-color: $pink transparent transparent transparent 
+					bottom: -18px $i
+					border-width: 18px 18px 0 18px $i
+					border-color: $pink transparent transparent  transparent  $i
 		&Content
 			overflow: auto
 			max-height: em(213.90605686032138442522) - $s77

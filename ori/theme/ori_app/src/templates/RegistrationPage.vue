@@ -161,12 +161,12 @@
 				</p>
 				<p key="1" class="registrationDescription__paragraph">
 					После регистрации, вы станете на <strong>первую ступень</strong> <internal-link 
-						className="burgundColor"
+						className="darkenLink"
 						hashResource='ladder' 
 						to='business'>карьерной лестницы</internal-link> Орифлейм, откуда вы сможете сделать выбор — идти вверх по лестнице или просто пользоваться бонусами.
 				</p>
 				<p key="2" class="registrationDescription__paragraph">
-					Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в <internal-link className="burgundColor" to='shares'>акциях</internal-link>, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>.
+					Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в <internal-link className="darkenLink" to='shares'>акциях</internal-link>, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>.
 				</p>
 				<p class="registrationDescription__paragraph" key="3">
 					Но если вы  захотите <strong>устремиться вверх</strong> по лестнице, то вы всегда сможете опираться на наше крепкое плечо. Мы готовы поделиться с вами <strong>необходимыми знаниями и опытом</strong>, которые накопили путём проб и ошибок!
@@ -303,7 +303,6 @@ export default {
 		requesting: true,
 	  });
         if (result) {
-          // eslint-disable-next-line
           
           const neededData = [
           	'first_name',
@@ -313,13 +312,10 @@ export default {
 		  	'email',
 		  	'phone_number',
 		  	'city',
-		  	// 'passport_data',
 		  	'region',
-		  	// 'street',
-		  	// 'num_home',
-		  	// 'num_apartment',
 		  	'user_led'
 		  ];
+		  
 		  const csrftoken = Cookies.get('csrftoken');
 		 
 		  const data = {};
@@ -380,16 +376,9 @@ export default {
       			});
       			
       		}, 3000);
-        	
-        	
         }
 
       });
-    },
-    checkError(event) {
-    	console.log('value', this[name]);
-    	const name = event.target.name;
-		console.log('error', this.errors.first(name));
     }
   },
   created() {

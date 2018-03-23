@@ -7,12 +7,14 @@
 	    	<router-view/>
 	  	</main>
   	<the-footer />
+  	<the-callback />
   </div>
 </template>
 
 <script>
 	import TheHeader from '@/templates/TheHeader.vue';
 	import TheFooter from '@/templates/TheFooter.vue';
+	import TheCallback from '@/components/TheCallback.vue';
 	import normalizeWheel from '@/lib/js/normwheel';
 	import anime from 'animejs';
 	import {doByYScroll, listen, doBy, throttle} from '@/constants/pureFunctions';
@@ -23,7 +25,8 @@
 	  name: 'App',
 	  components: {
 	  	TheHeader,
-	  	TheFooter
+	  	TheFooter,
+	  	TheCallback
 	  },
 	  data: () => ({
 		baseOffset: 0
@@ -33,28 +36,41 @@
 	  	navigation() {
 			return document.getElementById('navigationList');
 	  	},
+	  	slideUpCallbackButton() {
+			return anime({
+  				targets: '.callback',
+  				elasticity: 50,
+  				translateY: 66,
+  				duration: 250
+  			});
+	  	},
+	  	slideDownCallbackButton() {
+	  		return anime({
+  				targets: '.callback',
+  				elasticity: 50,
+  				translateY: 0,
+  				duration: 250
+  			});
+	  	},
 	  	spinLinks() {
 	  		return anime({
   				targets: '.navLink',
   				rotate: [
   					{value: "90deg", 
-  					 duration: 1500, 
-  					 elasticity: 200,
+  					 duration: 250, 
+  					 elasticity: 0,
   					 easing: 'easeInOutBack'
   					},
   				],
   				scale: [
     				{ value: 1.1, 
-    				  duration: 750, 
-    				  delay: 250, 
+    				  duration: 370, 
+    				  delay: 100, 
     				  easing: 'easeOutBack' },
     				{ value: .9, 
-    				  duration: 500, 
+    				  duration: 150, 
     				  easing: 'easeInOutBack' },
-  				],
-  				begin: (anim) =>  {
-					
-				}
+  				]
   			});
 	  	},
 	  	spinLinksToBasePosition() {
@@ -62,15 +78,13 @@
   				targets: '.navLink',
   				rotate: "0",
   				elasticity: 0,
-  				duration: 1500,
+  				duration: 370,
   				scale: [
     				{ value: 1, 
-    				  duration: 1000, 
+    				  duration: 370, 
     				  easing: 'easeInOutQuad' },
-  				],
-  				begin: (anim) =>  {
-					
-				}
+  				]
+  				
   			});
 	  	},
 	  	// Animation object for the navigation 
@@ -79,36 +93,38 @@
 	  	stretchNavigation() {
 	  		const baseOffset = this.baseOffset;
 
-	  		const instance = basicScroll.create({
-				from: baseOffset,
-				to: baseOffset + 100,
-				props: {
-					'--navigation-rotate': {
-						from: '0',
-						to: '-90deg',
-						// timing: 'elasticOut'
-					},
-					'--navigation-translate': {
-						from: '0',
-						to: '160px',
-						// timing: 'elasticOut'
-					},
-					'--navigation-scale': {
-						from: '1',
-						"50%": '1.1',
-						to: '1',
-						// timing: 'circInOut'
-					}
-				}
-			});
+	  // 		const instance = basicScroll.create({
+			// 	from: baseOffset,
+			// 	to: baseOffset + 60,
+			// 	props: {
+			// 		'--navigation-rotate': {
+			// 			from: '0',
+			// 			to: '-90deg',
+			// 			// timing: 'elasticOut'
+			// 		},
+			// 		'--navigation-translate': {
+			// 			from: '0',
+			// 			to: '160px',
+			// 			// timing: 'elasticOut'
+			// 		},
+			// 		'--navigation-scale': {
+			// 			from: '1',
+			// 			"50%": '1.1',
+			// 			to: '1',
+			// 			// timing: 'circInOut'
+			// 		}
+			// 	}
+			// });
 
-			instance.start();
+			// instance.start();
 
 	  		return anime({
   				targets: this.navigation,
   				right: -109.656417116416,
-  				elasticity: 250,
-  				duration: 3000,
+  				elasticity: 100,
+  				rotate: '-90deg', 
+  				translateX: -150,
+  				duration: 500,
   				begin: (anim) =>  {
 					
 					this.navigation.classList.add('navigation_fixed');
@@ -121,15 +137,15 @@
 				targets: this.navigation,
   				scale: [
     				{ value: 1.04, 
-    				  duration: 500, 
+    				  duration: 350, 
     				  easing: 'easeOutSine' },
     				{ value: 1, 
-    				  duration: 500, 
+    				  duration: 350, 
     				  delay: 0, 
     				  easing: 'easeOutSine' },
   				],
   				bottom: 0,
-  				backgroundColor: {value: "#333", duration: 200},
+  				backgroundColor: {value: "#333", duration: 100},
   				begin: (anim) => {
 	  			
 					this.navigation.classList.add('navigation_fixed');
@@ -141,14 +157,14 @@
 	  				targets: this.navigation,
 	  				scale: [
 	    				{ value: 1.1, 
-	    				  duration: 500, 
+	    				  duration: 350, 
 	    				  easing: 'easeInOutQuad' },
 	    				{ value: 1, 
-	    				  duration: 500,  
+	    				  duration: 350,  
 	    				  easing: 'easeInOutQuad' },
 	  				],
 	  				elasticity: 200,
-	  				duration: 2000,
+	  				// duration: 350,
 	  				begin: anim => {
 						this.navigation.classList.remove('navigation_fixed');
 	  				}
@@ -164,7 +180,9 @@
 	  		return anime({
 	  				targets: this.navigation,
 	  				elasticity: 200,
-	  				duration: 2000,
+	  				duration: 350,
+	  				rotate: 0, 
+  					translateX: 0,
 	  				begin: (anim) => {
 						this.navigation.classList.remove('navigation_fixed');
   					}
@@ -182,6 +200,7 @@
 						},
 						fallback: () => {
 							this.mobileWideNavigation.restart();
+							this.slideUpCallbackButton.restart();
 						}
 					});
 					
@@ -200,6 +219,7 @@
 						},
 						fallback: () => {
 							this.mobileStretchNavigation.restart();
+							this.slideDownCallbackButton.restart();
 						}
 					});
 	  			}
