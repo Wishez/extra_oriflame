@@ -78,12 +78,11 @@ def personal_room(request, consultant_num):
             consultant_needed_data = User.objects.get_consultant_data(consultant)
             consultant_data = {
                 "referral_consultants_of_consultant": referral_consultants_of_consultant,
-                **consultant_needed_data,
                 # Sorry for the name of a consultant's referral_url.
                 # I am not a bad person.
                 # I sorry for myself, and i need some rest.
                 'referral_url': getattr(consultant, 'refferal_url', '')
-            }
+            } + consultant_needed_data
 
             return JsonResponse({
                 "consultant": consultant_data

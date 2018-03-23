@@ -2,15 +2,15 @@
 from django.shortcuts import render
 from .models import *
 from .forms import CallbackForm
-from django.utils import timezone
+
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from accounts.forms import RegistrationConsultantForm, RegistrationRefferalConsultantForm
 from accounts.views import extract_data, set_led_consultant
 from accounts.models import RefferalConsultant, RelatedConsultant, User
 from threading import Thread
 from accounts.parsers import *
 from pages.models import RegistrationPage
+
 import json
 # def index(request):
 #     #program = Program.objects.filter(published__lte=timezone.now()).order_by('-published')
@@ -27,10 +27,10 @@ import json
 def registration(request):
     if request.method == "POST":
         data = json.loads(request._body)
-        print('got', data)
+
 
         consultant_num = data["user_led"]
-        print(consultant_num, 'number')
+
         del data["user_led"]
 
         if data["middle_name"] == '':
@@ -65,13 +65,11 @@ def registration(request):
 @csrf_exempt
 def callback(request):
     if request.method == "POST":
-        print('post')
-        form = CallbackForm(data=request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-            print(form)
-            html = '<p>В скором времени, мы обработаем вашу заявку.<br /> Заранее, спасибо за ожидание!</p>'
-            return HttpResponse(html)
+        data = json.loads(request._body)
+        callback = Callback(**data)
+        callback.save()
+
+        html = '<p>Наша команда по обработке закзов консультации приняла вашу заявку! Ожидайте соединения;).</p>'
+        return HttpResponse(html)
 
     return HttpResponse('')
