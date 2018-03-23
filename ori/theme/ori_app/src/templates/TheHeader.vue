@@ -175,7 +175,7 @@
 		min-width: 155em * 5 / 18
 		flex-grow: 0
 		will-change: transform
-		transform: translateY(var(--navigation-translate)) scale(var(--navigation-scale)) !important
+		// transform: translateY(var(--navigation-translate)) scale(var(--navigation-scale)) !important
 		right: 0
 		position: static
 		z-index: 10
