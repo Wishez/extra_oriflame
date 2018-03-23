@@ -2,34 +2,43 @@
 	<article 
 		@mouseenter="preventScrollPage"
 		@mouseleave="allowScrollPage" 
-		@touchstart="preventScrollPage"
-		@touchend="preventScrollPage" 
 		class="parent v-end ladderFold relative">
-		<h2 class="baseChild ladderFold__title parent centered darkGrayBackground whiteColor relative" 
+		<h2 id="title" class="baseChild ladderFold__title parent centered darkGrayBackground textCentered_xs whiteColor relative" 
 		>
 			Карьерная лестница
 			<arrow-button 
 				direction="down" 
-				className="positionTop_11 positionRight_47 absolute" 
+				className="static_xs font-size_xs-41  positionTop_11 positionRight_47 absolute marginRight_xs-18" 
+				id="downArrowButton"
 				modifier="ladder" label="Посмотреть предыдущие звания" 
 				:makeAction="onClickArrowButton"
 			/>
 			<arrow-button direction="up" 
-				className="absolute"  
-				modifier="ladder positionBottom_11 positionRight_11"
+				id="upArrowButton"
+				className="absolute font-size_xs-41 static_xs  positionBottom_11 positionRight_11 marginLeft_xs-18 marginBottom_xs-11 marginTop_zero"
+				modifier="ladder"
 				label="Посмотреть следующие звания"
 				:makeAction="onClickArrowButton"
 			/>
 		</h2>
-		<info-icon className="absolute 
-		index_big positionLeft_negative-18 positionBottom_negative-18 font-size_29" label="Подсказать подсказку" />
+		<div>
+			
+		</div>
+		<user-notification className="absolute index_big positionLeft_negative-18 positionBottom_negative-18 positionLeft_zero positionLeft_xs-77 positionLeft_xxs-47" 
+			:relative="false"
+			classHint="ladderHint"
+		>
+			<p>Для прокрутки лестницы,  используйте колёсико мышки, либо кнопки в правой части коробки.</p>
+			<p>Для открытия, или сокрытия звания, достаточно кликнуть по нему.</p>
+		</user-notification>
 		<fade-translate-transition-group id="ladder"
 			:class="{
-				'ladder  unstyledList absolute zeroTopMargin': true,
+				'ladder index_positive unstyledList absolute zeroTopMargin': true,
 				'pseudo_elements pseudo_elements--absolute': true,
 				'ladder_watch': canWatchForSteps
 			}"
 			:delay="18"
+			:duration="370"
 			
 		>
 			<ladder-step :title="step.title"
@@ -55,8 +64,9 @@
 	import LadderStep from './LadderStep';
 	import FadeTranslateTransitionGroup from './FadeTranslateTransitionGroup';
 	import ArrowButton from '@/components/ArrowButton';
-	import InfoIcon from '@/components/InfoIcon';
-	
+	import UserNotification from '@/components/UserNotification';
+	// import Driver from 'driver.js';
+	import BaseButton from '@/components/BaseButton';
 
 	import {ladder} from '@/constants/business';
 	import {
@@ -65,34 +75,24 @@
 		timeout,
 		prevent
 	} from '@/constants/pureFunctions';
+
 	export default {
 		name: "TheLadder",
-		props: {
-		},
   	    components: {
   	    	LadderStep,
 	    	FadeTranslateTransitionGroup,
 	    	ArrowButton,
-	    	InfoIcon
+	    	UserNotification,
+	    	BaseButton
 	    },
 	    mixins: [],
 	    data: () => ({
 	    	ladder: ladder.reverse(),
 	    	range: [0, 1, 2],
-	    	lastDocumentScrollPosition: 0,
 	    	canWatchForSteps: true,
-	    	canScrollingSteps: true,
-	    	touched: false,
-	    	// lastY: 0
+	    	canScrollingSteps: true
 	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    },
-	    beforeMount () {
-	    },
 	    mounted() {
-	    	
 	    	const ladder = this.ladderElement;
 		
 	    	listen({
@@ -126,22 +126,40 @@
 	    		);
 	    	},
 	    	preventScrollPage() {
-	    		this.$store.commit(
-	    			'business/changeToucheState',
-	    		 	true
-	    		);
+	    		this.$store.dispatch('business/preventScrollPage', {
+						isMobile: this.$store.state.isUserFromMobileOrientation,
+						rootStyles: this.rootStyles,
+						navigationStyles: this.navigationStyles
+	    		});
+	    		// this.$store.commit(
+	    		// 	'business/changeToucheState',
+	    		//  	true
+	    		// );
+	    		// if (!) {
+		    	// 	this.rootStyles.overflowY = "hidden";
+		    	// 	this.rootStyles.paddingRight = '13.5px';
+		    	// 	this.navigationStyles.marginRight = '13.5px';
+	    		// }
 
-	    		this.rootStyles.overflowY = "hidden";
-	    		this.rootStyles.paddingRight = '13.5px';
-	    		this.navigationStyles.marginRight = '13.5px';
 	    	},
 	    	allowScrollPage() {
-	    		this.$store.commit(
-	    			'business/changeToucheState'
+	    		this.$store.dispatch(
+	    			'business/allowScrollPage',
+	    			{
+						isMobile: this.$store.state.isUserFromMobileOrientation,
+						rootStyles: this.rootStyles,
+						navigationStyles: this.navigationStyles
+	    			}
 	    		);
-	    		this.rootStyles.overflowY = "auto";
-	    		this.rootStyles.paddingRight = 0;
-	    		this.navigationStyles.marginRight = 0;
+	    		// this.$store.commit(
+	    		// 	'business/changeToucheState'
+	    		// );
+
+	    		// if (!this.$store.state.isUserFromMobileOrientation) {
+		    	// 	this.rootStyles.overflowY = "auto";
+		    	// 	this.rootStyles.paddingRight = 0;
+		    	// 	this.navigationStyles.marginRight = 0;
+	    		// }
 	    	},
 	    	// Make delay to prevent an user's fast scrolling the ladder.
 	    	disableWatchState(delay=1500) {
@@ -230,13 +248,6 @@
 	    		}
 	    	}
 	    },
-	    beforeUpdate() {
-
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
 	};
 </script>
 
@@ -245,23 +256,63 @@
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_breakpoints.sass'
 	$baseHeight: 80
-
+	$baseXsHeight: 109.656417116416
+	.ladderHint
+		@include breakpoint($xxs)
+			width: 83vw
+			margin-left: -$s47
 	.button_ladder
 		font-size: em(18, 25)
+		$fs-xxs-11: em(11, 34.8) 
+		&:first-of-type
+			order: -1
+			@include breakpoint($xs)
+				margin-top: em(-3.7773256768024697908)
+			@include breakpoint($xxs)
+				margin-left: $fs-xxs-11
+				margin-right: $fs-xxs-11
+		&:last-of-type
+
+			@include breakpoint($xs)
+				// justify-self: flex-end
+				align-self: flex-end
+			@include breakpoint($xxs)
+				margin: 0 $fs-xxs-11 $fs-xxs-11
+		@include breakpoint($xs)
+			font-size: em(25, 25)
+		@include breakpoint($xxs)
+			font-size: em(34.8, 25)
+		
+
 	.ladderFold
 		margin-top: $s144//em($baseHeight * 4)
 		&__title
 			height: em($baseHeight, 29)
+			padding-right: em(47, 29)
 			padding-bottom: .5rem
 			box-shadow: 0 -9px 15px -10px rgba(0,0,0,.4), 0 6px 4px -2px rgba(0,0,0,.8)
 			z-index: 10
-
+			@include breakpoint($xs)
+				height: em($baseXsHeight, 29)
+				font-size: em(32, 25)
+				align-items: flex-start
+				padding-top: em(25.89, 32)
+				padding-bottom: 0
+				padding-right: 0
+			@include breakpoint($xxs)
+				height: em($baseXsHeight, 23.5)
+				// padding-top: em(11, 32)
+				
+		
 	.ladder
 		bottom: 0
 		min-width: 90%
 		left: (100% - 90) / 2
 		height: em($baseHeight * 2.5)
-		z-index: 1
+		
+		@include breakpoint($xs) 
+			font-size: em(18, 25)
+			height: em($baseXsHeight * 2.5)
 		&:after, &:before
 		&:after
 			width: 80.75%
@@ -272,6 +323,8 @@
 			font-size: 18px
 			left: 9.5%
 			background-color: lighten($darkGray, 7.5%)
+			@include breakpoint($xxs)
+				height: em(31)
 		// &:before
 		// 	background: linear-gradient(to top, darken($darkGray, 5%) 0% , lighten($darkGray, 5%) 99%, $darkGray, 99%, $darkGray, 100%),$darkGray
 		&__walls

@@ -17,12 +17,13 @@ export default new Vuex.Store({
   state: {
     rootElement: document.documentElement || document.body,
     isPageScrolled: false,
-    baseOffsetForTransform: 45,
+    baseOffsetForTransform: 188,
     baseMobileOffsetForTransform: 188,
     currentScrollPosition: 0,
     menuWasTransformed: false,
     user_led_number: "",
     animations: {},
+    isUserFromMobileOrientation: window.innerWidth < 769
   },
   mutations: {
     async switchScrollPageState(state, isScrolled) {

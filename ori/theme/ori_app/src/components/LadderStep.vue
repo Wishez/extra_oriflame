@@ -14,7 +14,7 @@
 		}"
 		:aria-expanded="opened"
 	>
-		<h3 class="cropedLine step__title italic textCentered paddingContainer">
+		<h3 :id="titleId" class="cropedLine step__title italic textCentered paddingContainer">
 			{{ title }}
 		</h3>
 		<div class="whiteBackground stepContent paddingContainer stepContent__paragraph zeroTopMargin normalWeight">
@@ -35,6 +35,8 @@
 
 <script>
 	import anime from 'animejs';
+	import {slideTo, timeout, ID} from '@/constants/pureFunctions';
+
 	export default {
 		name: "LadderStep",
 		props: {
@@ -91,26 +93,31 @@
 	    mounted() {
 	    },
 	    computed: {
+	    	titleId() {
+	    		return `title${ID()}`
+	    	},
+	    	titleElement() {
+	    		return document.querySelector(`#${this.titleId}`);
+	    	},
 	    	showBenifit() {
 	    		return this.benifit.length
 	    	},
 	    	openStepAimation() {
-
 	    		const step = this.$el;
+	    		const isMobile = this.$store.state.isUserFromMobileOrientation;
 
 	    		return anime({
 	    			targets: step,
-	    			translateY: '-322.48px',
-	    			
-	    			duration: 500,
-	    			easing: 'easeInOutCubic',
+	    			translateY: isMobile ?  `-180.48px` : `-322.48px`,
+	    			duration: 242.10526315789473684211,
+	    			// easing: 'easeInOutCubic',
 	    			zIndex: 10,
 	    			scale:[
 	    				{
 	    					value: 1.0618, 
-	    					delay: 800,
-	    					duration: 300,
-	    					easing: 'easeInQuart'
+	    					delay: 300,
+	    					duration: 58.98888888888888888889,
+	    					// easing: 'easeInOut'
 	    				}
 	    			],
 	    			elasticity: 100,
@@ -123,21 +130,20 @@
 
 	    		return anime({
 	    			targets: step,
-	    			translateY: [
-	    				{
-	    					value: 0,
-	    					delay: 318,
-	    					duration: 500
-	    				}
-	    			],
-	    			zIndex,
-	    			duration: 300,
-	    			easing: 'easeInOutCubic',
+	    			translateY: {
+    					value: 0,
+    					delay: 100,
+    					duration: 242.10526315789473684211
+    				},
+	    			zIndex: {value: zIndex, duration: 100},
+	    			duration: 58.98888888888888888889,
+	    			// easing: 'easeInOutCubic',
 	    			scale: 1,
 	    			elasticity: 100,
 	    			autoplay: false
 	    		}) 
-	    	}
+	    	},
+	    	
 	    },
 	    methods: {
 	    	animate() {
@@ -147,25 +153,43 @@
 	    			this.open();
 	    		}
 	    	},
+	    	isNotMobile() {
+	    		return window.innerWidth > 768;
+	    	},
 	    	switchState(opened=false) {
 	    		this.$set(
 	    			this,
 	    			'opened',
 	    			opened
 	    		);
-	    		this.$store.commit(
-	    			'business/swtichOpenedState',
-	    			opened
-	    		);
+
+	    		if (this.isNotMobile())  {
+		    		this.$store.commit(
+		    			'business/swtichOpenedState',
+		    			opened
+		    		);
+	    		}
 	    	},
 	    	open() {
-	    		this.$el.focus();
+	    		
+	    		const isMobile = this.$store.state.isUserFromMobileOrientation;
+	    		
 	    		this.switchState(true);
 	    		this.openStepAimation.restart();
+
+	    		timeout(() => {
+	    			slideTo({
+	    				element: this.$el,
+	    				offset: isMobile ? 10 : 50
+	    			});
+	    		}, isMobile ? 420 : 620);
 	    	},
 	    	close() {
+	    		console.log('close with force blur');
+	    		this.$el.blur();
 	    		this.switchState();
 				this.closeStepAimation.restart();
+
 	    	},
 	    	animateByKey(evnet) {	
 	    		switch(event.key.toUpperCase()) {
@@ -221,16 +245,21 @@
 		$lastElementWidth: $lastElementWidth - $baseOffset
 
 	.step
-
-		// top: em(170, 25)
-		transition: all .3s ease-in
+		transition: all .230s cubic-bezier(0.4, 0.0, 0.2, 1)
 		max-width: 100%
 		cursor: pointer
 		z-index: 1
 		&_opened
+			@include breakpoint($xxs)
+				// position: fixed
+				// min-width: 80vw
+				// left: 2.5vw $i
+				// top: 7.5vh
 			.stepContent 
 				max-height: em(266.48, 25)
-				transition: max-height 1.75s ease
+				transition: max-height 600ms cubic-bezier(0.4, 0.0, 0.6, 1)
+				@include breakpoint($xxs) 
+					transition: max-height 428.57142857142857142857ms cubic-bezier(0.4, 0.0, 0.6, 1)
 
 			// position: fixed
 		
@@ -241,7 +270,7 @@
 		
 		
 	.stepContent
-		transition: max-height .5s ease
+		transition: max-height 18ms cubic-bezier(0.4, 0.0, 0.6, 1)
 		will-change: max-height
 		// max-height: em(266.48)
 		max-height: em(50, 25)
@@ -249,6 +278,10 @@
 	.ladder_watch .step:not(.step_opened)
 		&:hover,&:focus, &:active 
 			transform: translateY(-4.44444444444444444444rem) $i
+			@include breakpoint($xs)
+				transform: translateY(-2.74687542919928581239rem) $i
+
 			& .stepContent
 				max-height: em(100, 25) $i
+				
 </style>

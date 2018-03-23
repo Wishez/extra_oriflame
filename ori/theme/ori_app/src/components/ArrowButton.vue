@@ -5,7 +5,8 @@
 		:className="className"
 		:action="makeAction(direction)"
 	>
-		<base-icon className="darkGrayColor"
+		
+		<base-icon :id="id" className="hover-color_white hover-backgroundColor_burgund darkGrayColor"
 			:icon="`far fa-hand-point-${direction}`" />
 	</base-button>
 </template>
@@ -17,6 +18,10 @@
 	export default {
 		name: "ArrowButton",
 		props: {
+			id: {
+				type: String,
+				required: false
+			},
 			className: {
 				type: String,
 				required: false,
@@ -82,6 +87,12 @@
 </script>
 
 <style lang="sass" scoped>
-
+	@import '../styles/conf/_colors.sass'
+	@import '../styles/conf/_sizes.sass'
+	@import '../styles/conf/_breakpoints.sass'
 	
+	// 	&:hover
+	// 		background: $burgund
+	// 		color: $white
+
 </style>

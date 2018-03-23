@@ -4,11 +4,12 @@
 		:label="label"
 		:className="className"
 		:action="onClick"
+		:onBlur="onBlur"
 	>
 		<base-icon 
 			modifier="info"
 			className="darkGrayColor relative
-			index_positive pseudo_after pseudo_after--negativeIndex pseudo_after--basePosition
+			pseudo_after pseudo_after--negativeIndex pseudo_after--basePosition
 			pseudo_after--fullHeight
 			pseudo_after--fullWidth
 			pseudo_after--round pseudo_after--absolute font-size_29 "
@@ -39,34 +40,16 @@
 			onClick: {
 				type: Function,
 				required: false
+			},
+			onBlur: {
+				type: Function,
+				required: false
 			}
 		},
   	    components: {
   	    	BaseIcon,
   	    	BaseButton
 	    },
-	    mixins: [],
-	    data: () => ({
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    },
-	    computed: {
-	    },
-	    methods: {
-	    	
-	    },
-	    beforeUpdate() {
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
 	};
 </script>
 
@@ -76,18 +59,33 @@
 	@import './../styles/conf/_breakpoints.sass'
 
 	@keyframes pulsar
-		0% 
-			transform: scale(1.01)
-		40% 
-			transform: scale(1.111)
+		0%
+			transform: scale(1)
+			z-index: 1
+		30%
+			transform: scale(0.75)
+			will-change: transform
+		40%
+			transform: scale(1)
+			will-change: transform
+		45% 
+			transform: scale(1.2)
+			will-change: opacity, transform
+			// z-index: -1
+		50% 
+			transform: scale(1.4)
+			will-change: opacity, transform
 			opacity: .25
-		70%
-			transform: scale(1.2221)
+		55%
+			transform: scale(1.6)
+			will-change: opacity, transform
 			opacity: .1
-		100%
-			transform: scale(1.34431)
+		55%, 100% 
+			transform: scale(1.6)
+			will-change: opacity, transform
 			opacity: 0
 
+		
 
 
 	.iconBackground_info:after
@@ -96,8 +94,8 @@
 		opacity: .4
 		will-change: transform, opacity
 		animation-name: pulsar
-		animation-duration: 2000ms
-		// animation-delay: 3000ms
+		animation-duration: 4000ms
+		animation-delay: 2000ms
 		animation-iteration-count: infinite
-		animation-timing-function: cubic-bezier(0.31, 0.21, 1, 1.11)
+		animation-timing-function: ease-out //cubic-bezier(0.4, 0.0, 0.2, 1)//cubic-bezier(0.31, 0.21, 1, 1.11)
 </style>
