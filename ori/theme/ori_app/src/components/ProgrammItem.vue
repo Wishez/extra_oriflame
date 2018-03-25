@@ -2,21 +2,22 @@
 	<popper transition="1000" :class="['programmItemContainer programmItem_' + name]" trigger="hover"
 		enter-active-class="fading-enter"
 		leave-active-class="fading-leave">
-			<base-tooltip 
-				:id="tooltipId"
-				:title="title"
-			>
-				<p>{{ stepDescription.paragraph }}</p>
-				<ul class="programmItemDescriptionBenifits">
-					<li class="light" :key="item.id" v-for="item in stepDescription.items">
-						{{ item.name }}
-					</li>
-				</ul>
-			</base-tooltip>
+		<base-tooltip 
+			:id="tooltipId"
+			:title="title"
+		>
+			<p>{{ stepDescription.paragraph }}</p>
+			<ul class="programmItemDescriptionBenifits">
+				<li class="light" :key="item.id" v-for="item in stepDescription.items">
+					{{ item.name }}
+				</li>
+			</ul>
+		</base-tooltip>
 		<tooltip-item-container 
 			:tooltipId="tooltipId"
 			className="programmItem materialSadow"
-			slot="reference">
+			slot="reference"
+		>
 
 			<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
 			<blurry-image-loader 
@@ -127,7 +128,9 @@
 			order: 2
 		&_third
 			min-width: em(560) + $s77 - em(2) $i
-			height: em(554.51)
+			height: em(520)
+			& .progressive-image
+				max-height: em(520)
 			margin-top: -#{$s77 + $s6}
 			order: 4
 			@include breakpoint($md)
@@ -202,6 +205,7 @@
 					min-width: em(210.75)
 			&_third
 				min-width: em(342.94)
+
 				bottom: 21.12%
 				@include breakpoint($sm-less) 
 					min-width: em(417.82)
