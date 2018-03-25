@@ -1,5 +1,5 @@
 {
-  "name": "ori_app",
+  "name": "Oriflame",
   "short_name": "Oriflame",
   "icons": [
     {
@@ -15,6 +15,6 @@
   ],
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
 }
