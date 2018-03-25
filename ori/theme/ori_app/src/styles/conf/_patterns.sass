@@ -1,3 +1,5 @@
+.pointer
+	cursor: pointer
 .relative
 	@extend %relative
 .absolute
@@ -92,7 +94,10 @@
 			&:before
 				position: absolute
 
-
+.height
+	&_full
+		height: 100%
+			/* style */
 .padding
 	&Container 
 		padding: 1em 
@@ -110,6 +115,9 @@
 			&-zero
 				@include breakpoint($xs)
 					padding-right: 0
+	&Bottom
+		&_47
+			padding-bottom: $s47
 .visible-hidden-smLess 
 	@include breakpoint($sm-less) 
 		white-space: nowrap
@@ -152,8 +160,8 @@
 			margin-top: $s29
 		&_47
 			margin-top: $s47
-		&_18
-			margin-top: $s18
+		&_77
+			margin-top: $s77
 		&_xs-11
 			@include breakpoint($xs)
 				margin-top: $s11
@@ -174,8 +182,13 @@
 		&_xs-18
 			@include breakpoint($xs)
 				margin-bottom: $s18
+		&_xxs-11
+			@include breakpoint($xxs)
+				margin-bottom: $s11
 .font
 	&-size
+		&_11
+			font-size: $s11
 		&_29
 			font-size: $s29
 		&_47
@@ -370,6 +383,8 @@
 
 	&Right
 		text-align: right
+	&_left
+		text-align: left
 	&_nowrap
 		white-space: nowrap
 
@@ -460,12 +475,25 @@ input[type=number]:hover::-webkit-inner-spin-button
 		transform: translateY(1.5rem)
 
 	&-enter-active, &-leave-active 
-		transition: opacity .3s ease-in, transform .3s ease-in-out 
+		transition: opacity .2s ease-in, transform .2s ease-in-out 
 		transform: translateY(0)
   		will-change: opacity, transform
 
 	&-enter, &-leave-to
 		transform: translateY(1.5rem)
+		opacity: 0
+.fadeTranslateFromTop
+	&-enter, &-leave-to
+		opacity: 0
+		transform: translateY(-1.5rem)
+
+	&-enter-active, &-leave-active 
+		transition: opacity .2s ease-in, transform .2s ease-in-out 
+		transform: translateY(0)
+  		will-change: opacity, transform
+
+	&-enter, &-leave-to
+		transform: translateY(-1.5rem)
 		opacity: 0
 
 .fading

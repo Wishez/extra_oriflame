@@ -4,6 +4,9 @@ $susy: (use-custom: (em: true), columns: 12, gutters: 0, gutter-position: split,
 $border-box-sizing : true
 $gutters: 0
 
+.grid
+	&_four
+		min-width: 33%
 
 .fourWithPadding
 	min-width: calc(33% - #{$s29})
@@ -11,15 +14,21 @@ $gutters: 0
 	flex-grow: 1
 .fullWidth
 	min-width: 100%
-.fullWidth_xs
-	@include breakpoint($xs)
-		min-width: 100% !important
-.fullWidth_xxs
-	@include breakpoint($xxs)
-		min-width: 100% !important
+	&_xs
+		@include breakpoint($xs)
+			min-width: 100% !important
+	&_xxs
+		@include breakpoint($xxs)
+			min-width: 100% !important
+.notRestAlone:nth-last-child(2):nth-child(4n)
+	min-width: 66%
 
 .halfWidth
 	min-width: 50%
+	&_xs
+		@include breakpoint($xs)
+			min-width: 50% 
+
 .parent 
 	display: flex
 .row
