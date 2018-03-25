@@ -6,7 +6,8 @@ const personalRoom = {
   namespaced: true,
   state: {
     isRequesting: false,
-    notFound: false
+    notFound: false,
+    referralConsultantOpened: false
   },
   mutations: {
     // Abstract function for requesting data.
@@ -52,9 +53,15 @@ const personalRoom = {
           else
             console.log('error', error);
         });
+    },
+    changeInfoReferralConsultantState(state, opened) {
+        state.referralConsultantOpened = opened;
     }
   },
   actions: {
+    changeInfoConsultantState({commit}, opened=false) {
+        commit('changeInfoReferralConsultantState', opened);
+    },
      fetchConsultantData(context, {
       success, 
       reject=false,

@@ -68,7 +68,15 @@
 						:duration="500"
 
 					>
-						<li :data-index="index"
+						<info-consultant 
+							:data-index="index"
+							:key="index"
+							:index="index"
+							v-for="(referralConsultant, index) in referralConsultants" 
+							v-if="!referralConsultant.hidden"
+							:consultant="referralConsultant"
+						/>
+						<!-- <li :data-index="index"
 							:key="index"
 							class="refferalConsultant  topMargin_11"
 							v-for="(referralConsultant, index) in referralConsultants" 
@@ -82,7 +90,7 @@
 								</span>
 								
 								
-						</li>
+						</li> -->
 						<li :key="referralConsultants.length + 1"
 							:data-index="referralConsultants.length + 1" v-if="notFoundAnyReferrals">
 							<span class="normalWeight" >Консультант не найден. Вы можете найти желаемых консультантов по следующим характеристикам:</span>
@@ -114,6 +122,8 @@
 	import MainTitle from '@/components/MainTitle';
 	import SimpleLitter from '@/components/SimpleLitter';
 	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
+	import InfoConsultant from '@/components/InfoConsultant';
+
 	import {throttle, transformDate, timeout} from '@/constants/pureFunctions';
 	import {CONSULTANT_DATA} from '@/constants/personalRoom';
 
@@ -129,7 +139,8 @@
   	    	SlideToLink,
   	    	SimpleLitter,
   	    	FadeTranslateTransitionGroup,
-  	    	FormController
+  	    	FormController,
+  	    	InfoConsultant
 	    },
 	    mixins: [],
 	    data: () => ({
@@ -342,7 +353,6 @@
 	.refferalsList
 	.referralUrl
 		cursor: copy
-	.refferalConsultant
 		
 	.hintsList
 		&__lint
