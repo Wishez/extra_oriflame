@@ -11,9 +11,7 @@
 					Oriflame
 			</h1>	
 		</router-link>
-		<site-contacts phone="+7 (985) 905-12-51" 
-			email="shiningfinger@list.ru"
-			modifier="header"
+		<site-contacts modifier="header"
 			@keypress="setDefaultMenuStateByPresingTab"
 		/>
 		<nav role="navigation" aria-label="Навигация сайта" id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
@@ -95,7 +93,6 @@
 			}
 		},
 		mounted: function() {
-			console.log(this.$store.state.animations);
 			timeout(() => {
 				this.$set(this, 'isTabShown', this.$store.state.isPageScrolled);
 			}
@@ -130,13 +127,11 @@
 		},
 		methods: {
 			transformMenu() {
-				console.log('leave element by blur event');
 				this.$store.state.animations.transformMenuIfNeeded();
 			},
 			setDefaultMenuStateByPresingTab(event) {
 	  			switch (event.key) {
 	  				case 'TAB':
-	  					console.log('Will do action by the pressed tab.');
 	  					this.setDefaultMenuState();
 	  					break;
 	  				default: 
@@ -172,7 +167,7 @@
 	.header, .nvaigationList
 		position: relative
 	.navigation
-		min-width: 155em * 5 / 18
+		min-width: 155px * 5
 		flex-grow: 0
 		will-change: transform
 		// transform: translateY(var(--navigation-translate)) scale(var(--navigation-scale)) !important
@@ -189,6 +184,7 @@
 			min-width: 100%
 			max-height: em(65.5)
 	.navigationList
+		position: relative
 		transform: rotate(var(--navigation-rotate))
 		will-change: transform
 		min-height: 58.4px

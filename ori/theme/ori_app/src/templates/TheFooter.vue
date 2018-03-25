@@ -1,11 +1,9 @@
 <template>
 	<footer class="darkGrayBackground footer whiteColor parent h-around wrap v-end">
-		<site-contacts phone="+7 (985) 905-12-51" 
-			email="shiningfinger@list.ru"
+		<site-contacts 
 			modifier="footer"
-			address="ул. Животноводова д. 322"
-			addressHref="https://shining-present.ru"
-
+			:address="address"
+			:addressHref="addressHref"
 		/>
 		<p class="light container copyrigth textCentered">&copy;&nbsp;2018&nbsp;Сайт независимого консультанта<br/>
 			Создано с любовь к 
@@ -23,14 +21,17 @@
 
 	export default {
 		name: "TheFooter",
-		data() {
-			return {
-
-			};
-		},
 		components: {
 			SiteContacts,
 			ExternalLink
+		},
+		computed: {
+			address() { 
+				return window.localStorage.address;
+			},
+			addressHref() { 
+				return window.localStorage.addressHref;
+			}
 		},
 		props: {
 			className: {
