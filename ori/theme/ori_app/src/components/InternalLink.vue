@@ -11,7 +11,8 @@
 <script>
 	import router from '@/router';
 	import {
-		slideTo
+		slideTo,
+		timeout
 	} from './../constants/pureFunctions';
 
 	export default {
@@ -27,7 +28,8 @@
 			},
 			hashResource: {
 				type: String,
-				required: false
+				required: false,
+				default: '#main'
 			}
 		},
 		methods: {
@@ -35,15 +37,13 @@
 	  			event.preventDefault();
 	  			router.push({path: this.to});
 
-				if (this.hashResource) {
-					console.log('slide to', this.hashResource);
-					slideTo(this.hashResource);
-				} 
-				// else {
-					// slideTo('#main');
-				// }
+				timeout(() => {
+					slideTo({
+						selector: this.hashResource
+					});
+					
+				}, 100);
 	  		
-				
 				this.$store.state.animations.animateNavigationToDefaultState();
 		  	
 	  		}

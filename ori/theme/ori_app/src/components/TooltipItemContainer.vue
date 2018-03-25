@@ -7,8 +7,6 @@
 		 tabindex="0"
 		 @mouseleave="onMouseLeaveItem"
 	>
-		 <!-- @focus="onHoverItem"
-		 @blur="onMouseLeaveItem" -->
 		<slot/>
 	</div>
 </template>
@@ -29,6 +27,16 @@
 				type: String,
 				required: true,
 			},
+			move: {
+				type: Boolean,
+				required: false,
+				default: true
+			},
+			relativePosition: {
+				type: String,
+				required: false,
+				default: 'page'
+			}
 		},
   	    components: {
 	    },
@@ -50,7 +58,8 @@
 			}, 500);
 	    },
 	    computed: {
-	    	onHoverItem: function() {	    		
+	    	onHoverItem: function() {
+
 				const showUpOrBottom = (event, tooltipHeight, tooltipWidth) => {
 					const windowHeight = window.innerHeight;
 					const windowWidth = window.innerWidth;
@@ -69,16 +78,19 @@
 					this.tooltip.setAttribute('x-placement', place);
 					return y;
 				};
+				const position = this.relativePosition;
 
-				return event => {	
+				return this.move ? event => {	
 					this.$set(
 		    			this,
 		    			'expanded',
 		    			true
 		    		);
+
 					const proportions = this.tooltip.getBoundingClientRect();
-					const x = event.pageX - (proportions.width / 2);	
-					const y = event.pageY - showUpOrBottom(event, proportions.height);
+					const x = event[`${position}X`] - (proportions.width / 2);	
+					const y = event[`${position}Y`] - showUpOrBottom(event, proportions.height);
+
 					event.stopPropagation();
 					
 					anime({
@@ -88,7 +100,7 @@
 			  			elasticity: 150,
 			  			duration: 60
 			  		});
-		  		};
+		  		} : () => {};
 			}
 	    },
 	    methods: {

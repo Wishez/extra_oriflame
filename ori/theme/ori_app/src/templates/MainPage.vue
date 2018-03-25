@@ -323,6 +323,8 @@
 		padding: .8rem 1.5rem 2rem
 		color: $white
 		background-color: rgba(51, 51, 51, .4)
+		.progressive-image 
+			position: absolute $i
 		&__title
 			@include breakpoint($sm-up)
 			    max-width: 75%;

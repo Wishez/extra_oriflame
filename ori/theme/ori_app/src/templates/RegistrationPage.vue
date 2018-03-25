@@ -443,5 +443,5 @@ export default {
 	.litter_registration
 		flex-grow: 0
 		flex-shrink: 0
-		flex-basis: calc(50% - 1.5rem)
+		flex-basis: 40%
 </style>

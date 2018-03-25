@@ -44,12 +44,10 @@
 	  },
 	  methods: {
 	  	move: function(event) {
-	  		console.log('move');
 			onMoveAwesomeButton(event, this.boundingClientRect, this.docStyle);
 	  	},
 	  	leave: function(event) {
-	  		
-			onLeaveAwesomeButton(event, this.boundingClientRect, this.docStyle);;
+			onLeaveAwesomeButton(event, this.boundingClientRect, this.docStyle);
 	  	},
 	  	down: function(event) {
 	  		

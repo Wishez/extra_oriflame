@@ -83,7 +83,7 @@
 					'pressed',
 					false
 				);
-				console.log(this.onBlur);
+				
 				if (this.onBlur) {
 					console.log('blur triggered');
 					this.onBlur(event);
