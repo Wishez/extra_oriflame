@@ -9,8 +9,8 @@ def count_new_consultants(Model):
 
 
 class MyAdminSite(AdminSite):
-    site_header = 'Cosmeticsyou'
-    site_title = 'Песочница Cosmeticsyou'
+    site_header = 'Awesome'
+    site_title = 'Extra песочница'
     index_title = 'Панель администрирования'
 
 
