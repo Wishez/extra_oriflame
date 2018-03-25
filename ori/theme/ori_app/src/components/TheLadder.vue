@@ -3,7 +3,7 @@
 		@mouseenter="preventScrollPage"
 		@mouseleave="allowScrollPage" 
 		class="parent v-end ladderFold relative">
-		<h2 id="title" class="baseChild ladderFold__title parent centered darkGrayBackground textCentered_xs whiteColor relative" 
+		<h2 id="ladder" class="baseChild ladderFold__title parent centered darkGrayBackground textCentered_xs whiteColor relative" 
 		>
 			Карьерная лестница
 			<arrow-button 
@@ -28,8 +28,8 @@
 			:relative="false"
 			classHint="ladderHint"
 		>
-			<p>Для прокрутки лестницы,  используйте колёсико мышки, либо кнопки в правой части коробки.</p>
-			<p>Для открытия, или сокрытия звания, достаточно кликнуть по нему.</p>
+			<p>Для прокрутки лестницы, используйте колёсико мышки, либо кнопки вверх и вниз на чёрной коробке.</p>
+			<p>Для открытия звания достаточно кликнуть по нему. Для сокрытия, можно кликнуть на пустое пространство, либо на открытый элемент.</p>
 		</user-notification>
 		<fade-translate-transition-group id="ladder"
 			:class="{

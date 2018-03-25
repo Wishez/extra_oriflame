@@ -28,15 +28,32 @@
 	export default {
 		name: "SiteContacts",
 		props: {
-			phone: String,
-			email: String,
-			address: String,
-			addressHref: String,
-			modifier: String
+			// phone: String,
+			// email: String,
+			address: {
+				type: String,
+				required: false
+			},
+			addressHref: {
+				type: String,
+				required: false
+			},
+			modifier: {
+				type: String,
+				required: false
+			}
 		},
 		components: {
 			BaseIcon,
 			ExternalLink
+		},
+		computed: {
+			phone() {
+				return window.localStorage.phone;
+			},
+			email() {
+				return window.localStorage.email;
+			}
 		},
 		methods: {
 			notFollow,
@@ -45,7 +62,7 @@
 					this.$store.state.animations.animateNavigationToDefaultState();
 				}
 			},
-		}
+		},
 
 	}
 </script>

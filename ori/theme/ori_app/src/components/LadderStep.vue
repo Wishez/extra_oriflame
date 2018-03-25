@@ -185,7 +185,6 @@
 	    		}, isMobile ? 420 : 620);
 	    	},
 	    	close() {
-	    		console.log('close with force blur');
 	    		this.$el.blur();
 	    		this.switchState();
 				this.closeStepAimation.restart();
