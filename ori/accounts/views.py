@@ -20,7 +20,7 @@ class BaseRegistrationView(BaseView):
 
     def __init__(self):
         super(BaseRegistrationView, self).__init__()
-
+        self.page_model = RegistrationPage
 #
 def set_led_consultant(consultant_num, consultant_categories, consultants_models):
     index = 0
@@ -40,15 +40,6 @@ class RegistrationView(BaseRegistrationView):
     def __init__(self):
         super(RegistrationView, self).__init__()
 
-
-class SuccessView(BaseRegistrationView):
-    template_name = 'success.html'
-
-    def __init__(self):
-        super(SuccessView, self).__init__()
-
-
-
 def get_consultant(models, consultant_num):
     is_found = None
 
@@ -64,6 +55,7 @@ class PersonalRoomPage(BaseView):
 
     def __init__(self):
         super(PersonalRoomPage, self).__init__()
+
 
 
 def personal_room(request, consultant_num):
@@ -82,8 +74,8 @@ def personal_room(request, consultant_num):
                 # I am not a bad person.
                 # I sorry for myself, and i need some rest.
                 'referral_url': getattr(consultant, 'refferal_url', '')
-            } + consultant_needed_data
-
+            }
+            consultant_data.update(consultant_needed_data)
             return JsonResponse({
                 "consultant": consultant_data
             })

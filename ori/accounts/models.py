@@ -47,9 +47,6 @@ class ConsultantManager(models.Manager):
 
             all_referral_consultants += referral_consultants
 
-
-        print(all_referral_consultants)
-
         return all_referral_consultants
     def is_consultant(self, consultant_num, **kwargs):
         return self.filter(consultant_num=consultant_num, **kwargs)
@@ -127,11 +124,17 @@ class FullConsultant(ConsultantBase):
     phone_number = models.CharField(_('Номер телефона'), max_length=26)
 
     city = models.CharField(_('Город'), max_length=50)
-    region = models.CharField(_('Область'), max_length=100, blank=True, null=True)
+    region = models.CharField(
+        _('Почтовый Индекс'),
+        max_length=50
+    )
 
-    street = models.CharField(_('Улица'), max_length=50)
-    num_home = models.CharField(_('Дом'), max_length=5)
-    num_apartment = models.DecimalField(_('Квартира'), max_digits=999, decimal_places=1)
+    street = models.CharField(_('Улица'), max_length=50, blank=True,
+                              null=True)
+    num_home = models.CharField(_('Дом'), max_length=5, blank=True,
+                                null=True)
+    num_apartment = models.DecimalField(_('Квартира'), max_digits=999, decimal_places=1, blank=True,
+                                        null=True)
 
     email = models.EmailField(_('E-mail'))
 
