@@ -229,10 +229,9 @@ class EmailMessagesSetting(models.Model):
         choices=statuses,
         max_length=20,
     )
-    def __unicode__(self):
-        return _('Настройка отправляемых сообщений')
+
     def __str__(self):
-        return str(_('Настройка отправляемых сообщений'))
+        return self.is_active
     class Meta:
         verbose_name = _('Email сообщение')
         verbose_name_plural = _('Email сообщения')

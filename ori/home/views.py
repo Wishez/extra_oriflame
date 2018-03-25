@@ -69,7 +69,7 @@ def callback(request):
         callback = Callback(**data)
         callback.save()
 
-        html = '<p>Наша команда по обработке закзов консультации приняла вашу заявку! Ожидайте соединения;).</p>'
+        html = 'Наша команда по обработке закзов консультации приняла вашу заявку! Пожулайста, ожидайте соединения;).'
         return HttpResponse(html)
 
     return HttpResponse('')

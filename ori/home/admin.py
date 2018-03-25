@@ -44,7 +44,7 @@ class EmailAdmin(admin.ModelAdmin):
 
 
     )
-admin_site.register(Program)
-admin_site.register(Slider)
+# admin_site.register(Program)
+# admin_site.register(Slider)
 admin_site.register(EmailMessagesSetting, EmailAdmin)
 admin_site.register(Callback, CallbackAdmin)
