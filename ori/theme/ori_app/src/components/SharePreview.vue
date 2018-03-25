@@ -1,10 +1,10 @@
 <template>
 	<article :class="{
-		'sharePreview whiteBackground fewRound materialShadow parent column nowrap fourWithPadding': true,
-		['sharePreview_' + modifier]: !!modifier, 
-		[className]: !!className
+		'sharePreview overflowHidden whiteBackground fewRound materialShadow parent column nowrap fourWithPadding height_full paddingBottom_47': true,
+		['sharePreview_' + modifier]: modifier, 
+		[className]: className
 	}">
-		<h2 class="fullWidth sharePreview__title container">
+		<h2 class="fullWidth sharePreview__title marginTop_18 container">
 			<internal-link class="darkenLink sharePreview__title_link disableUnderline disableLinkHover" :to="url">
 				{{ title }}
 			</internal-link>
@@ -14,8 +14,8 @@
 			modifier="sharePreview" 
 			:src="image" 
 			relative
-			:alt="title" />
-		<div class="sharePreview__meta container fullWidth">
+		/>
+		<div class="sharePreview__meta marginTop_18 text_left container fullWidth">
 			<time :datetime="published">{{ published }}</time>
 		</div>
 		<p class="cropedText cropedText_6 sharePreview__announce container" v-html="announce" />
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-	import BlurryImageLoader from './BlurryImageLoader';
-	import InternalLink from './InternalLink';
+	import BlurryImageLoader from '@/components/BlurryImageLoader';
+	import InternalLink from '@/components/InternalLink';
 	import siteApi from '@/constants/conf';
 
 	export default {
@@ -106,55 +106,16 @@
 			will-change: transform
 			transition: transform .3s ease-in
 			&-wrapper
-		// 	&-wrapper, &-main
-		// 		height: 100% 
-
+	.shareContainer 
+		@include breakpoint($xxs)
+			padding: 0
 	
 	.sharePreview
-		cursor: pointer
-		// min-width: em(324)
-		padding-bottom: $s47
-		
-		// &:nth-of-type(6), &:nth-of-type(5)
-			// background-color: $darkGray
-			// color: $white
-			// @include breakpoint($md-up)
-			// 	max-width: calc(66.66666666666666666667% - #{$s29 / 2});
-			// 	flex-grow: 1
-			// 	min-width: 50%
-
-		@include breakpoint($sm-less)
-			min-width: calc(50% - #{$s47/2})
-		&:nth-of-type(6)
-			// @include breakpoint($sm-less)
-			// 	flex-grow: 1
-			// 	max-width: calc(50% - #{$s47/2})
-		// &:nth-of-type(7)
-		// 	@include breakpoint($sm-less)
-		// 		flex-grow: 1
-		// 		margin-left: auto
-		// 		margin-right: auto
-		// 		min-width: calc(75% - #{$s47/2})
-
-		@include breakpoint($xs)
-			min-width: calc(50% - #{$s29/2})
-
-		// &:nth-last-child(3n-1)
-		// 	@include breakpoint($xs)
-		// 		min-width: 100%
-		@include breakpoint($xxs)
-			min-width: 100%
 		&:hover 
 			.progressive-image-main
 				transform: scale(1.04)
 			.sharePreview__title_link
 				color:  lighten($burgund, 5%) $i
-
-		&__title
-			margin-top: $s18
 		&__meta
-			margin-top: $s18
 			color: #9E9E9E
-			text-align: left
-		&__announce
 </style>

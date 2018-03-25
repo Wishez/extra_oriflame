@@ -1,12 +1,11 @@
 <template>
 	<article class="singleShare parent column">
-		<!-- <transition  appear name="fade"> -->
-		<!-- </transition> -->
 		<transition  appear name="fade">
 			<main-title modifier="share" v-if="notFound || share.title ">
 				{{ notFound ? 'Мы не нашли акцию, которую вы запрашивали' : share.title }}
 			</main-title>
 		</transition>
+		
 		<content-preloader v-if="!share.title || notFound" />
 		<transition  appear name="fade">
 			<div v-if="share.published_date && !notFound" class="fullWidth singleShare__meta parent centered">
@@ -15,6 +14,13 @@
 					{{ transformDate(share.published_date) }}
 				</time>
 			</div>
+		</transition>
+		<transition  appear name="fade">
+			<blurry-image-loader :src="share.img" 
+				relative
+				className="fullWidth fewRound marginTop_47 materialShadow"
+				v-if="share.img"
+			/>
 		</transition>
 		<transition  v-leave="'fast'" appear name="slowFade">
 			<div v-if="!notFound" v-html="share.text" class="content"/>
@@ -26,6 +32,8 @@
 <script>
 	import ContentPreloader from '@/components/ContentPreloader';
 	import MainTitle from '@/components/MainTitle';
+	import BlurryImageLoader from '@/components/BlurryImageLoader';
+
 	import {SHARE_STORE, SHARES_STORE} from '@/constants/shares';
 	import {transformDate} from '@/constants/pureFunctions';
 
@@ -44,7 +52,8 @@
 		},
   	    components: {
   	    	MainTitle,
-  	    	ContentPreloader
+  	    	ContentPreloader,
+  	    	BlurryImageLoader
 	    },
 	    data: () => ({
 	    	share: {

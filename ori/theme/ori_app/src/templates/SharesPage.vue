@@ -9,14 +9,15 @@
 			name="fade" 
 			v-for="share in shares"
 			:key="share.uuid">
-			<share-preview 
-				className="littleChild"
-				:title="share.title"
-				:announce="share.announce"
-				:published="transformDate(share.published_date)"
-				:image="share.img"
-				:url="`/share/${share.slug}/`"
-			/>
+			<div class="baseChild marginBottom_47 shareContainer container grid_four fullWidth_xxs notRestAlone halfWidth_xs"> 
+				<share-preview 
+					:title="share.title"
+					:announce="share.announce"
+					:published="transformDate(share.published_date)"
+					:image="share.img"
+					:url="`/share/${share.slug}/`"
+				/>
+			</div>
 		</transition>
 	</section>
 </template>
@@ -109,3 +110,12 @@
 	    },
 	};
 </script>
+
+<style lang="sass" scoped>
+	@import '../styles/conf/_breakpoints.sass'
+	@import '../styles/conf/_sizes.sass'
+	@import '../styles/conf/_colors.sass'
+
+	.shareContainer
+
+</style>
