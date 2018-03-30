@@ -3,7 +3,7 @@
 	<a 
     :class="['externalLink', modifier ? 'externalLink_' + modifier : null, className ? className : null ]"
     v-bind:href="to"
-    @click="notFollow"
+    @click="gogo"
     >
       <slot></slot>
       <i v-if="isIconShown" class="externalLink__icon fas fa-external-link-alt"></i>
@@ -45,7 +45,9 @@
 			
 		},
 		methods: {
-			notFollow
+			gogo(event) {
+				notFollow(event, this.$el.href)
+			}
 		}
 	}
 </script>

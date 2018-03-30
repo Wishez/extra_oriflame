@@ -241,12 +241,14 @@ export const prevent = event => {
   event.preventDefault();
   return false;
 }
-export const notFollow = event => {
-  prevent(event);
+export const notFollow = (event, href) => {
   
-  const url = event.target.href;
-    
-  window.open(url);  
+  // const url = event.target.href;
+  // if (url) {
+    prevent(event);
+    window.open(href);  
+  // }
+  console.log(url, event.target) 
 };
 
 export function getArray(object) {

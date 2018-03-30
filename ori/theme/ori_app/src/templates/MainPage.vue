@@ -288,7 +288,7 @@
 	  			{
 	  				id: 3,
 	  				text: "Интернет магазин",
-	  				href: "https://shining-present.ru",
+	  				href: "https://www.oriflame.ru/",
 	  				external: true  
 	  			},
 	  			{
