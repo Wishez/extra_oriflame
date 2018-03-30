@@ -6,7 +6,7 @@
 			:id="tooltipId"
 			:title="title"
 		>
-			<p>{{ stepDescription.paragraph }}</p>
+			<p v-html="stepDescription.paragraph"/>
 			<ul class="programmItemDescriptionBenifits">
 				<li class="light" :key="item.id" v-for="item in stepDescription.items">
 					{{ item.name }}

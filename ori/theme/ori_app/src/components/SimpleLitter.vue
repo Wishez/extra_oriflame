@@ -31,7 +31,7 @@
 	@import '../styles/conf/_breakpoints.sass'
 
 	.litter
-		padding-bottom: $s47
+		padding-bottom: $s77
 		padding-top: $s47
 		min-width: calc(50% - 1.5rem)
 		margin: 0

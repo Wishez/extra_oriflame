@@ -66,6 +66,8 @@
 	@import '../styles/conf/_sizes.sass'
 	@import '../styles/conf/_breakpoints.sass'
 	@import '../styles/conf/_colors.sass'
+	.litter_callback 
+		padding-bottom: 0 $i
 	.callback
 		@include breakpoint($xs)
 			// right: $s18

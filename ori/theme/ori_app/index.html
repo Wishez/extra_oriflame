@@ -42,10 +42,17 @@
     <![endif]-->
   <script>
     (function() {
-      window.localStorage.address = "{{ settings.address }}";
-      window.localStorage.email = "{{ settings.email }}";
-      window.localStorage.phone = "{{ settings.phone }}";
-      window.localStorage.addressHref = "{{ settings.addressHref }}";
+      var contactsData = ["{{ settings.address }}", "{{ settings.email }}", "{{ settings.phone }}", "{{ settings.addressHref }}"];
+      var contactsKeys = ['address', 'email', 'phone', 'addressHref'];
+      var i = 0;
+
+      for (i; i < contactsData.length; i++) {
+        var contact = contactsData[i];
+        if (contact) {
+          var key = contactsKeys[i];
+          window.localStorage[key] = contactsData[i];        
+        }
+      }
     }());
   </script>
   {% if settings.widgets %}

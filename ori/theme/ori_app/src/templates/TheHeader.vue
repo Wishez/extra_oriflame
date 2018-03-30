@@ -6,12 +6,13 @@
 		<router-link @focus="setDefaultMenuState"
 			to="/"
 			@blur="transformMenu" 
-			@keypress="setDefaultMenuStateByPresingTab" class="grow brand parent centered row">
+			@keypress="setDefaultMenuStateByPresingTab" class="grow brand paddingBottom_11 parent centered row">
 			<h1 class="brand__title" itemprop="name">
 					Oriflame
 			</h1>	
 		</router-link>
 		<site-contacts modifier="header"
+			className="paddingBottom_11"
 			@keypress="setDefaultMenuStateByPresingTab"
 		/>
 		<nav role="navigation" aria-label="Навигация сайта" id="navigationList" @mouseenter="clearTransformOfTabIfNedded" class="navigation parent h-s-end wrap row h-end baseChild">
@@ -209,7 +210,6 @@
 		@include breakpoint($md-less)
 			padding-left: 5rem
 			justify-content: flex-start
-		padding-bottom: .5rem
 
 		color: #f2f2f2
 		font-style: italic

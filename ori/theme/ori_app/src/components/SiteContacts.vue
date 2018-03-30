@@ -1,5 +1,5 @@
 <template>
-	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '' ]">
+	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '', className ]">
 		<ul class="unstyledList contactsList normalStyle">
 			<li class="contact parent row nowrap v-centered">
 				<base-icon modifier="contact" className="darkGrayColor" icon="fab fa-viber" />
@@ -29,7 +29,11 @@
 		name: "SiteContacts",
 		props: {
 			// phone: String,
-			// email: String,
+			className: {
+				type: String,
+				required: false,
+				default: ''
+			},
 			address: {
 				type: String,
 				required: false
@@ -49,10 +53,10 @@
 		},
 		computed: {
 			phone() {
-				return window.localStorage.phone;
+				return window.localStorage.phone || '+7 (985) 905-12-51';
 			},
 			email() {
-				return window.localStorage.email;
+				return window.localStorage.email || 'shiningfinger@list.ru';
 			}
 		},
 		methods: {

@@ -1,9 +1,8 @@
 <template>
 	<section class="shares parent row wrap h-between">
 		<main-title>Последние акции</main-title>
-		<!-- <transition :leave="''" appear name="fade"> -->
-			<content-preloader v-if="!shares.length" />
-		<!-- </transition> -->
+
+		<content-preloader v-if="!shares.length" />
 
 		<transition appear 
 			name="fade" 
@@ -51,6 +50,7 @@
 	    	shares: [],
 	    	requesting: false,
 	    	sharesQuantityToShow: 6,
+	    	loaded: false
 	    }),
 	    mounted() {
     		this.requestShares();
@@ -64,6 +64,12 @@
 						'shares',
 						this.shrinkShares(shares)
 					);
+
+					this.$set(
+						this,
+						'loaded',
+						true	
+					)
 					
 					const namedShares = this.shares.reduce(
 							(composedShares, share) => ({

@@ -1,7 +1,9 @@
 <template>	
 	<article class="about materialShadow fewRound whiteBackground">
 		<h2 :class="['about__title', modifier ? 'about__title_' + modifier : '']">{{ title }}</h2>
-		<p :class="['about__paragraph', modifier ? 'about__paragraph_' + modifier : '']">{{ paragraph }}</p>
+		<p :class="['about__paragraph', modifier ? 'about__paragraph_' + modifier : '']"
+			v-html="paragraph"
+		/>
 		<slot></slot>
 	</article>
 </template>
@@ -46,6 +48,8 @@
 			max-width: calc(50% - #{29.127px / 2});
 		@include breakpoint($xxs)
 			max-width: none
+		&__title
+			margin-left: -4px
 
 	
 </style>

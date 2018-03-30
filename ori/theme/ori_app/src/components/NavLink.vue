@@ -176,6 +176,7 @@
 		position: relative
 		overflow: hidden
 		z-index: 0
+		padding-bottom: $s6 / 1.618
 		&::before, &::after
 			content: ""
 			width: 100%
