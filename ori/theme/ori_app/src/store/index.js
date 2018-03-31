@@ -43,14 +43,7 @@ export default new Vuex.Store({
       } else {
         state.animations[animations.name] = animations.callback;
       }
-    },
-    fetchSingleShare() {
-
-    },
-    fetchSharesListIfNeeded() {
-
-    },
-    
+    }    
   },
   actions: {
     dump(context, {key, value, callback=false}) {

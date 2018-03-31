@@ -1,5 +1,5 @@
 <template>
-	<router-link class="disableLinkHover" :to='href'>
+	<router-link class="disableLinkHover disableUnderline" :to='href'>
 		<span :class="['awesomeButton', className]"
 			@mousedown="down"
 			@mouseleave="leave"

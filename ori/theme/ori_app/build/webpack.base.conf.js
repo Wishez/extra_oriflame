@@ -40,7 +40,8 @@ module.exports = {
         include: [resolve('src'), resolve('test')],
         // resolve('storybook')
         options: {
-          formatter: require('eslint-friendly-formatter')
+          formatter: require('eslint-friendly-formatter'),
+          fix: true
         }
       },
       {
