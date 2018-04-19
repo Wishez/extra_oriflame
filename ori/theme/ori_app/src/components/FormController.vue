@@ -245,7 +245,7 @@
 		// Sucessfull pseudo-element
 		&::after
 			z-index: 3
-			background-color: $validColor
+			background-color: $green
 	&__input 
 		border-radius: 2px
 		width: 100%
@@ -310,7 +310,7 @@
 				width: 0
 				height: 0
 				border-style: solid
-				border-color: $validColor
+				border-color: $green
 				border-width: 0
 				bottom: -2px
 				left: -2px

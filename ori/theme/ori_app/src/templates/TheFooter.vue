@@ -1,5 +1,5 @@
 <template>
-	<footer class="darkGrayBackground footer whiteColor parent h-around wrap v-end">
+	<footer class="whiteBackground footer  parent h-around wrap v-end">
 		<site-contacts 
 			modifier="footer"
 			:address="address"
@@ -7,10 +7,10 @@
 		/>
 		<p class="light container copyrigth textCentered">&copy;&nbsp;2018&nbsp;Сайт независимого консультанта<br/>
 			Создано с любовь к 
-			<external-link className="normalWeight pinkColor lightenHover" to="https://oriflame.ru">Орифлейм</external-link>
+			<external-link className="normalWeight lightenHover" to="https://oriflame.ru">Орифлейм</external-link>
 		</p>
 		<p class="container author textRight light">Дизайн и разработка:<br/>
-			<external-link className="normalWeight pinkColor lightenHover" to="https://shining-present.ru">&#x2661;&nbsp;Филипп Журавлёв</external-link>
+			<external-link className="normalWeight lightenHover" to="https://shining-present.ru">&#x2661;&nbsp;Филипп Журавлёв</external-link>
 		</p>
 	</footer>
 </template>
@@ -52,7 +52,7 @@
 	@import '../styles/conf/_breakpoints.sass'
 	.footer
 		padding: $s29
-		box-shadow: 0 -4px 6px $shadow
+		box-shadow: 0 -4px 6px  1px rgba(0, 0, 0, 0.05)
 		@include breakpoint($xs)
 			padding-bottom: em(124.586)
 	.contactsContainer_footer

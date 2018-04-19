@@ -15,27 +15,27 @@ Vue.use(VueRouter);
 const router = new VueRouter({
 	mode: 'history',
 	routes: [
-		{
-	 		path: '/share/:slug',
-		  	component: SharePage,
-		  	name: "SharePage",
-		  	beforeEnter: (to, from, next) => {
-		  		localStorage.single_share_slug = to.params.slug;
+		// {
+	 // 		path: '/share/:slug',
+		//   	component: SharePage,
+		//   	name: "SharePage",
+		//   	beforeEnter: (to, from, next) => {
+		//   		localStorage.single_share_slug = to.params.slug;
 
-		  		next()
-		  	}
+		//   		next()
+		//   	}
 		  	
-	 	},
+	 // 	},
 	 	{
 	 		path: '/media',
 		  	component: MediaPage,
 		  	name: "MediaPage"
 	 	},
-	 	{
-	 		path: '/shares',
-		  	component: SharesPage,
-		  	name: "SharesPage"
-	 	},
+	 	// {
+	 	// 	path: '/shares',
+		 //  	component: SharesPage,
+		 //  	name: "SharesPage"
+	 	// },
 	 	{
 	 		path: '/business',
 		  	component: BusinessPage,

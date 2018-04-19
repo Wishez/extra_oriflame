@@ -9,9 +9,15 @@ module.exports = {
   env: {
     browser: true,
   },
+  extends: [
+    // 'plugin:vue/essential'
+      // "plugin:vue/recommended",
+      // "plugin:prettier/recommended"
+  ],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'html',
+    'vue'
   ],
   // add your custom rules here
   'rules': {

@@ -1,6 +1,13 @@
 <template>
-	<router-link class="disableLinkHover disableUnderline" :to='href'>
-		<span :class="['awesomeButton', className]"
+	<router-link 
+		:class="['disableLinkHover disableUnderline', containerClassName]" 
+		:to='href'>
+		<span :class="{
+			awesomeButton: true,
+			[className]: className,
+			awesomeButton_green: modifier == 'green',
+			awesomeButton_pink: modifier == 'pink',
+		}"
 			@mousedown="down"
 			@mouseleave="leave"
 			@mousemove="move"
@@ -23,7 +30,18 @@
 	  	},
 	  	className: {
 	  		type: String,
-	  		required: false
+	  		required: false,
+	  		default: ""
+	  	},
+	  	modifier: {
+	  		type: String,
+	  		required:false,
+	  		default: "pink"
+	  	},
+	  	containerClassName: {
+	  		type: String,
+	  		required: false,
+	  		default: ""
 	  	},
 	  	content: {
 	  		type: String,
@@ -75,6 +93,20 @@
 		user-select: none
 		color: $darkGray
 		z-index: 1
+		max-width: em(200)
+
+		&_green
+
+			&::before
+				background: $greenLinkGradient
+			&::after
+				// color: $white
+
+		&_pink
+
+			&::before
+				background: $linkGradient
+
 		&::after
 			position: relative
 			display: inline-block
@@ -84,6 +116,7 @@
 			letter-spacing: .01em
 			will-change: transform
 			transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))
+
 		&::before
 			content: ''
 			position: absolute
@@ -91,7 +124,7 @@
 			left: 0
 			bottom: 0
 			right: 0
-			background: $linkGradient
+			
 			z-index: -1
 			border-radius: 4px
 			transition: box-shadow .5s ease, transform .2s ease

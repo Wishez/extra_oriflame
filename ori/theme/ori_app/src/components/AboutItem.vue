@@ -2,9 +2,9 @@
 	<article class="about materialShadow fewRound whiteBackground">
 		<h2 :class="['about__title', modifier ? 'about__title_' + modifier : '']">{{ title }}</h2>
 		<p :class="['about__paragraph', modifier ? 'about__paragraph_' + modifier : '']"
-			v-html="paragraph"
-		/>
-		<slot></slot>
+		>
+			<slot></slot>
+		</p>
 	</article>
 </template>
 
@@ -18,15 +18,18 @@
 			},
 			paragraph: {
 				type: String,
-				required: true
+				required: false,
+				default: ''
 			},
 			modifier: {
 				type: String,
-				required: false
+				required: false,
+				default: ''
 			},
 			className: {
 				type: String,
-				required: false
+				required: false,
+				default: ''
 			}
 		}
 	};

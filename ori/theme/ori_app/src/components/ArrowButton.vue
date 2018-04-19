@@ -62,37 +62,13 @@
   	    	BaseIcon,
   	    	BaseButton
 	    },
-	    mixins: [],
-	    data: () => ({
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    },
-	    computed: {
-	    },
-	    methods: {
-	    },
-	    beforeUpdate() {
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
 	};
 </script>
 
 <style lang="sass" scoped>
-	@import '../styles/conf/_colors.sass'
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_breakpoints.sass'
-	
-	// 	&:hover
-	// 		background: $burgund
-	// 		color: $white
+@import '../styles/conf/_colors.sass'
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
+
 
 </style>

@@ -120,10 +120,10 @@
 
 	  		return anime({
   				targets: this.navigation,
-  				right: -109.656417116416,
+  				right: -80.656417116416,
   				elasticity: 100,
   				rotate: '-90deg', 
-  				translateX: -150,
+  				translateX: -115,
   				duration: 500,
   				begin: (anim) =>  {
 					
@@ -306,5 +306,6 @@
 		max-width: 1129px
 		margin-top: $s77
 		margin-bottom: 	$s144
+		padding-left: 1.5rem
 	
 </style>

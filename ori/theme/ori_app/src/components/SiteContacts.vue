@@ -1,6 +1,6 @@
 <template>
 	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '', className ]">
-		<ul class="unstyledList contactsList normalStyle">
+		<ul class="unstyledList contactsList normalStyle darkGrayColor semibold">
 			<li class="contact parent row nowrap v-centered">
 				<base-icon modifier="contact" className="darkGrayColor" icon="fab fa-viber" />
 				<a @focus="setDefaultMenuState" class="text_nowrap lightenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
@@ -9,7 +9,7 @@
 				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-at"/>
 				<a @focus="setDefaultMenuState" class="text_nowrap lightenHover contact__link" :href="`mailto:${email}`">{{ email }}</a>
 			</li>
-			<li v-if="address" class="contact parent row nowrap v-centered">
+			<li v-if="address" class="contact parent row nowrap v-centered ">
 				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-location-arrow"/>
 				<external-link :to="addressHref" className="contact__link lightenHover text_nowrap">
 					{{ address }}
@@ -91,7 +91,7 @@
 		&:not(:first-of-type)
 			margin-top:  (18em * 1.5 - 18) / 18
 		&__link
-			color: $white
+			// color: $white
 
 
 </style>

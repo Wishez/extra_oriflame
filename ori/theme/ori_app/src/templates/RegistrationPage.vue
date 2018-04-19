@@ -131,7 +131,7 @@
 				>
 					<label for="check_agreement"
 						id="check_agreement_label"
-						class="light">Вы ознакомились с <external-link className="normalWeight darkenLink" to="https://ru-eshop.oriflame.com/iframe/custom/ru/consultant/Registration.pdf">договором</external-link> и <external-link className="normalWeight darkenLink" to="https://ru-eshop.oriflame.com/iframe/custom/ru/consultant/Registration.pdf">условиями</external-link>?</label>
+						class="light">Вы ознакомились с <external-link className="normalWeight lightenHover" to="https://ru-eshop.oriflame.com/iframe/custom/ru/consultant/Registration.pdf">договором</external-link> и <external-link className="normalWeight lightenHover" to="https://ru-eshop.oriflame.com/iframe/custom/ru/consultant/Registration.pdf">условиями</external-link>?</label>
 				</form-controller>
 				<transition appear name="fade">
 					<p v-if="response.serverMessage"
@@ -155,21 +155,44 @@
 			</form>
 		</simple-litter>
 		<simple-litter modifier="registration" className="registrationDescription" id="description">
-			<transition-group appear name="fade">
-				<p class="registrationDescription__paragraph" key="0">
-					Для того, чтобы зарегистрироваться, вам не нужно делать какие-либо взносы до или после регистрации. Регистрация <strong>совершенно бесплатна</strong>!
+			<transition-group tag="article" appear name="fade">
+				<h2 :key="0" 
+					:data-index="0"
+					class="marginLeft_heading">Пройдя регистрацию</h2>
+				<p :key="1" 
+					:data-index="1"
+					class="registrationDescription__paragraph">
+					Вам будет предоставлена <strong>скидка от 20% на весь спектр продукции</strong> компании Oriflame.
+
+					<!-- Для того, чтобы зарегистрироваться, вам не нужно делать какие-либо взносы до или после регистрации. Регистрация <strong>совершенно бесплатна</strong>! -->
 				</p>
-				<p key="1" class="registrationDescription__paragraph">
-					После регистрации, вы станете на <strong>первую ступень</strong> <internal-link 
-						className="darkenLink"
+				<p :key="2" 
+					:data-index="2" class="registrationDescription__paragraph">
+					Вы сможете <strong>участвовать во множестве акций</strong> и <strong>получить подарки</strong>: <i>продукцию компании</i> Oriflame, <i>ценные призы</i> (вплоть до автомобилей), <i>денежные призы</i>, а также <i>путешествия за счёт фирмы</i>.
+
+					<!-- После регистрации, вы станете на <strong>первую ступень</strong> <internal-link 
+						className="lightenHover"
 						hashResource='ladder' 
-						to='business'>карьерной лестницы</internal-link> Орифлейм, откуда вы сможете сделать выбор — идти вверх по лестнице или просто пользоваться бонусами.
+						to='business'>карьерной лестницы</internal-link> Орифлейм, откуда вы сможете сделать выбор — идти вверх по лестнице или просто пользоваться бонусами. -->
 				</p>
-				<p key="2" class="registrationDescription__paragraph">
-					Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в <internal-link className="darkenLink" to='shares'>акциях</internal-link>, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>.
+				<p :key="3" 
+					:data-index="3" class="registrationDescription__paragraph"
+				>
+					Заказывать продукцию Oriflame можно <strong>с помощью интернета</strong>, а получать <strong>в удобном для Вас месте</strong>.
+
+					<!-- Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в акциях, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>. -->
 				</p>
-				<p class="registrationDescription__paragraph" key="3">
-					Но если вы  захотите <strong>устремиться вверх</strong> по лестнице, то вы всегда сможете опираться на наше крепкое плечо. Мы готовы поделиться с вами <strong>необходимыми знаниями и опытом</strong>, которые накопили путём проб и ошибок!
+				<p :key="4" 
+					:data-index="4"
+					class="registrationDescription__paragraph"
+				>
+					Вы сможете, если захотите, <strong>воспользоваться нашей системой</strong> для получения дохода, на базе маркетинга компании Oriflame без продаж. 
+					Более подробную информацию Вы можете получить пройдя по вкладке <external-link 
+						:to="businessUrl"
+						className="lightenHover" 
+					>«Бизнес»</external-link> в навигации.
+
+					<!-- Но если вы  захотите <strong>устремиться вверх</strong> по лестнице, то вы всегда сможете опираться на наше крепкое плечо. Мы готовы поделиться с вами <strong>необходимыми знаниями и опытом</strong>, которые накопили путём проб и ошибок! -->
 				</p>
 			</transition-group>
 		</simple-litter>
@@ -202,21 +225,18 @@ import {
 	regex_name	
 } from '@/constants/validation';
 import {timeout, transformName} from '@/constants/pureFunctions';
-import {registrationUrl} from '@/constants/conf';
+import {registrationUrl, businessUrl} from '@/constants/conf';
 
 export default {
   name: 'RegistrationPage',
   data: () => ({
+  	businessUrl,
 	full_name: "",
   	birthday: "",
   	email: "",
   	phone_number: "",
   	city: "",
-  	// passport_data: "",
   	region: "",
-  	// street: "",
-  	// num_home: "",
-  	// num_apartment: "",
   	check_agreement: false,
   	first_name: '',
   	last_name: '',
@@ -423,22 +443,22 @@ export default {
 		background-image: none
 		border: 2px solid
 		padding: .5rem 1rem
+		
 	.registrationDescription
 		@include breakpoint($xxs)
 			margin-bottom: $s47 $i
-	// .controller__input_date:valid
+	
 	.registration
 		@include breakpoint($xxs)
 			order: 3
-	// 	border: 3px solid $validColor
 	.registrationForm__message
 		margin: 0 0 $s29
 		&_success
-			// color: $validColor
+			
 		&_error
 			color: $red
 	.validBorder
-		border-color: $validColor $i
+		border-color: $green $i
 		transition: border-color .3s ease-in $i
 	.litter_registration
 		flex-grow: 0

@@ -84,14 +84,6 @@
 	    data: () => ({
 	    	opened: false,
 	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    },
 	    computed: {
 	    	titleId() {
 	    		return `title${ID()}`
@@ -210,13 +202,6 @@
 			    };
 	    	}
 	    },
-	    beforeUpdate() {
-
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
 	};
 </script>
 

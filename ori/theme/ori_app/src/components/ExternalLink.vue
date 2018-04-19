@@ -1,12 +1,19 @@
 
 <template>
 	<a 
-    :class="['externalLink', modifier ? 'externalLink_' + modifier : null, className ? className : null ]"
-    v-bind:href="to"
-    @click="gogo"
+		:class="{
+			'externalLink': !isCustomStyles,
+			[`externalLink_${modifier}`]: modifier,
+			[className]: className
+		}"
+    	v-bind:href="to"
+    	@click="gogo"
     >
-      <slot></slot>
-      <i v-if="isIconShown" class="externalLink__icon fas fa-external-link-alt"></i>
+      
+	      <slot></slot>
+	      <i v-if="isIconShown" 
+	      	 :class="`externalLink__icon fas fa-external-link-alt ${iconClass}`"></i>
+      
    	</a>
 </template>
 
@@ -26,6 +33,16 @@
 			}
 		},
 		props: {
+			isCustomStyles: {
+				type: Boolean,
+				required: false,
+				default: false
+			},
+			iconClass: {
+				type: String,
+				required: false,
+				default: ""
+			},
 			showIcon: {
 				type: String,
 				required: false

@@ -109,73 +109,57 @@
 
 	.programmItem
 		position: relative
-		cursor: pointer
-		height: 100%
-		
 
-		&_first, &_second	
-			height: em(240)
-			@include breakpoint($sm-less)
-				height: em(341)
-
-		&[class*="fourth"]
-			height: em(393.72)
-		&_first
-			// @inlcude breakpoint($xs-up)
-			order: 1
 		&_second
-			// @inlcude breakpoint($xs-up)
-			order: 2
+			min-width: 35%;
+			margin-top: $s77
+			@include breakpoint($xs)
+				display: flex;
+				align-items: flex-end
 		&_third
-			min-width: em(560) + $s77 - em(2) $i
-			height: em(520)
+			margin-top: $s77 * 1.618
+			
+
 			& .progressive-image
-				max-height: em(520)
-			margin-top: -#{$s77 + $s6}
-			order: 4
+
 			@include breakpoint($md)
 				$thidBlockWidth: 233.66 * 2
+				margin-top: $s77 + $s6
 				min-width: em($thidBlockWidth) + ($s77 * 2) $i
-			@include breakpoint($sm-less)
-				// margin-top: 0
-				order: 3
+			
+
+		&_fourthMan, &_third
 			@include breakpoint($xs)
 				min-width: 100% $i
-
-		&_fourthWooman, &_fourthMan
-			min-width: em(406.59) + $additionalPadding $i
-			height: em(393.72)
+		&_fourthMan
+			max-width: 67%
+			margin-left: auto
+			margin-top: $s77
+			margin: $s77 auto 0
+			@include breakpoint($md-less) 
+				margin-top: 0
+			@include breakpoint($xs)
+				max-width: none $i
 		&_first,
 		&_second, 
-		&_fourthWooman, 
 		&_fourthMan
 			@include breakpoint($sm-less)
 				min-width: em(341) + ($s77 / 2) $i
 			@include breakpoint($xs)
 				min-width: em(327) $i
-
-
-		&_fourthWooman
-			// @inlcude breakpoint($xs-up)
-			order: 5
-			margin-top: $s77
-		&_fourthMan
-			order: 3
 		
+
+		// &_fourthWooman
+		// 	margin-top: $s77
+
 		&_fourthMan, &_third
 			@include breakpoint($sm-less)
 				margin-top: $s77
 
-		&:hover
-			.imageContainer_programmItem
-				filter: blur(0)	
+		&:hover, &:focus
 			.programmItem__title		
-				filter: blur(2px)	
-		.imageContainer_programmItem
-			filter: blur(2px)
-		.imageContainer_programmItem, &__title
-			will-change: filter
-			transition: filter .3s ease-in
+				opacity: 1
+	
 		.progressive-image
 			&-main, &-wrapper
 				height: 100%;
@@ -186,9 +170,11 @@
 		&__title
 			position: absolute
 			height: em(60.95)
-			
+			will-change: opacity
+			transition: opacity .2s cubic-bezier(0.2, 0.0,0.4,1)
 			padding: 0 1rem
 			z-index: 2
+			opacity: .7
 			&_left
 				box-shadow: 3px 1px 6px 0 $shadow
 				left: 0
@@ -198,44 +184,49 @@
 			&_center
 				box-shadow: 0px 6px 6px -5px $shadow
 				min-width: 100%
-			&_first, &_second
-				bottom: 23.5%
-				min-width: em(147.82)
-				@include breakpoint($sm-less)
-					min-width: em(210.75)
-			&_third
-				min-width: em(342.94)
+			&_first
+				bottom: (351.64% / 1.618 * 100 / 351.64)
+				min-width: (274.33% / 1.618  * 100 / 274.33)
 
-				bottom: 21.12%
-				@include breakpoint($sm-less) 
-					min-width: em(417.82)
+			&_second
+				bottom: (276.79% / 1.618 / 1.618 * 100 / 276.79)
+				min-width: (301.35% / 1.618 * 100 / 301.35)
+			&_first
+			&_third
+				min-width: 100%
+				bottom: 0
 
 			&_first, &_second, &_third
 				@include breakpoint($xxs)
 					min-width: em(203)
-			&_fourthWooman, &_fourthMan
+			&_fourthMan
 				bottom: 24.28%
+
 
 	.programmItemContainer
 		flex: 1 0 25%
-		min-width: em(240) + ($s77 / 2)
 		padding: 0 $s77 / 2
+
 		@include breakpoint($sm-less)
 			height: auto
-			min-height: em(273)
+
 		@include breakpoint($xs)
 			padding: 0
 			margin-top: em(33)
+
 		&:not(.programmItem_third)
 			@include breakpoint($xs)
 				min-width: auto $i
-				max-width: calc(50% - #{$s18}) $i
+				max-width: calc(50% - #{$s18})
+
 		&[class*="programmItem_"]
 			@include breakpoint($xxs)
 				min-width: 100% $i
-
 				max-width: none $i
-				min-height: em(240) + ($s77 / 2)
 				margin-top: 0
-				margin-bottom: 	$s47
+
+			&:not(:last-of-type)
+				@include breakpoint($xxs)
+					margin-bottom: 	$s47
+
 </style>

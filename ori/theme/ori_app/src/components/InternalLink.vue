@@ -42,7 +42,7 @@
 						selector: this.hashResource
 					});
 					
-				}, 100);
+				}, 500);
 	  		
 				this.$store.state.animations.animateNavigationToDefaultState();
 		  	

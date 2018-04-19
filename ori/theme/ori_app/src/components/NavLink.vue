@@ -1,29 +1,43 @@
 
 <template>
-	<li class="navLinkContainer" @click="go" @mouseenter="highlight">
-    	<router-link :class="{ 
-    		navLink: true, 
-    		parent: true, 
-    		centered: true,
-    		nowrap: true,
-    		column: true,
+	<li role="presentation" 
+		class="navLinkContainer" 
+		@click="go" 
+		@mouseenter="highlight">
+    	<router-link v-if="!isExternalLink"
+    		:class="{ 
+    		'navLink parent centered nowrap column': true, 
     		navLink_mobile: isPageScrolled
     	}"
 		  exact
 		  :data-index="index"
 	      :aria-describedby="isActive ? 'active_page' : null"
-	      role="presentation"
 		  activeClass="navLink_active"
 	      :to="href"
     	>
     		<base-icon :icon="icon" modifier="navigation" v-if="icon" />
       		<slot></slot>
     	</router-link>
+    	
+    	<external-link
+    		v-if="isExternalLink"
+    		:className="`navLink parent centered nowrap column${isPageScrolled ? ' navLink_mobile' : ''}`"
+    		:data-index="index"
+		    :aria-describedby="isActive ? 'active_page' : null"
+		    :to="href"
+		    showIcon="hide"
+		    isCustomStyles
+    	>
+		    <!-- iconClass="absolute navLink__externalIcon" -->
+    		<base-icon :icon="icon" modifier="navigation" v-if="icon" />
+      		<slot></slot>
+    	</external-link>
   </li>
 </template>
 
 <script>
 	import BaseIcon from '@/components/BaseIcon';
+	import ExternalLink from '@/components/ExternalLink';
 
 	import {
 		setTabPosition, 
@@ -47,6 +61,11 @@
 			index: {
 				type: [String, Number],
 				required: true
+			},
+			isExternalLink: {
+				type: Boolean,
+				required: false,
+				default: false
 			}
 		},
 		data() {
@@ -140,7 +159,8 @@
 			});// end listen
 		},
 		components: {
-			BaseIcon
+			BaseIcon,
+			ExternalLink
 		}
 	}
 </script>
@@ -154,7 +174,7 @@
 	.activeTab
 		height: 4px
 		position: absolute
-		top: 0
+		bottom: 0
 		z-index: 1
 		left: 0
 		background-color: $burgund
@@ -163,10 +183,10 @@
 		@include breakpoint($xs)
 			display: none
 	.navLink
-		border-top-width: 4px
-		border-top-style: solid
-		border-top-color: $pink
-		min-height: 54px
+		border-bottom-width: 4px
+		border-bottom-style: solid
+		border-bottom-color: $darkenGreen
+		min-height: 67px
 		background-color: #fff
 		min-width: 155px
 		background-image:  none
@@ -177,6 +197,7 @@
 		overflow: hidden
 		z-index: 0
 		padding-bottom: $s6 / 1.618
+
 		&::before, &::after
 			content: ""
 			width: 100%
@@ -186,7 +207,7 @@
 			transition: transform .3s ease-in-out
 		
 		&::before
-			transform: translateY(-100%);
+			transform: translateY(-101%);
 			z-index: -1
 			background: $linkGradient
 			height: 100%
@@ -205,7 +226,7 @@
 			color: $white
 			border-width: $s3
 			border-style: solid 
-			font-size: (16em / 18)
+			font-size: (18em / 18)
 
 		&_active, &:hover, &:focus, &:active
 			color: $burgund
@@ -230,19 +251,20 @@
 				border-bottom-color: $pink
 		&_mobile
 			background: transparent
-			// border-top: 0
 			border-color: transparent
-
 			font-size: em(16)
 			min-width: auto
 			white-space: nowrap
-			overflow: visible;
+			overflow: visible
+
 			@include breakpoint($xs-up)
 				padding: .5rem .5rem 0 $s25
 				max-width: em(67.772816512, 16)
 				color: $darkGray $i
+
 			@include breakpoint($xs)
 				color: $white $i
+
 			&.navLink_active, &:hover, &:focus, &:active
 				background: transparent
 				@include breakpoint($xs-up)
