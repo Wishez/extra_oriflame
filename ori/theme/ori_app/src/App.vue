@@ -93,31 +93,6 @@
 	  	stretchNavigation() {
 	  		const baseOffset = this.baseOffset;
 
-	  // 		const instance = basicScroll.create({
-			// 	from: baseOffset,
-			// 	to: baseOffset + 60,
-			// 	props: {
-			// 		'--navigation-rotate': {
-			// 			from: '0',
-			// 			to: '-90deg',
-			// 			// timing: 'elasticOut'
-			// 		},
-			// 		'--navigation-translate': {
-			// 			from: '0',
-			// 			to: '160px',
-			// 			// timing: 'elasticOut'
-			// 		},
-			// 		'--navigation-scale': {
-			// 			from: '1',
-			// 			"50%": '1.1',
-			// 			to: '1',
-			// 			// timing: 'circInOut'
-			// 		}
-			// 	}
-			// });
-
-			// instance.start();
-
 	  		return anime({
   				targets: this.navigation,
   				right: -80.656417116416,
@@ -261,7 +236,6 @@
 				// prevent the extra execute of the
 				//  navigation's animation's transformation.
 				if (!this.$store.state.menuWasTransformed) {
-					console.log('will transform');
 					this.animateByScrollToBottom();
 				}
 			}
