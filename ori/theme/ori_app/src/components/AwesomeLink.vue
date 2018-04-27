@@ -5,8 +5,7 @@
 		<span :class="{
 			awesomeButton: true,
 			[className]: className,
-			awesomeButton_green: modifier == 'green',
-			awesomeButton_pink: modifier == 'pink',
+			[`awesomeButton_${modifier}`]: modifier
 		}"
 			@mousedown="down"
 			@mouseleave="leave"
@@ -101,7 +100,12 @@
 				background: $greenLinkGradient
 			&::after
 				// color: $white
+		&_burgund
 
+			&::before
+				background: $burgundLinkGradient
+			&::after
+				color: $white
 		&_pink
 
 			&::before

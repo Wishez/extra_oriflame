@@ -43,13 +43,14 @@
 
 	.about
 		max-width: em(523)
-		margin-bottom: $s29
-		padding-bottom: $s47 $i
+		margin-bottom: ($s29 + $s11)
+		padding-bottom: ($s47 + $s11) $i
 		border-left: 8px solid #941857;
 				
 		@include breakpoint($sm-less)
 			max-width: calc(50% - #{29.127px / 2});
-		@include breakpoint($xxs)
+
+		@include breakpoint($xs)
 			max-width: none
 		&__title
 			margin-left: -4px

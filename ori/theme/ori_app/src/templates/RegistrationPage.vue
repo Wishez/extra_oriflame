@@ -50,6 +50,7 @@
 							'controller__input': true,
 							'validBorder': !!birthday
 						}"
+						calendar-class="controller__input_datepicker"
 						required
 						language="ru"
 						placeholder="01 Янв 1970">
@@ -431,37 +432,39 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='sass' scoped>
-	@import '../styles/conf/_colors.sass'
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_breakpoints.sass'
-	.registrationContent__slideLink
-		display: block
-		margin: auto
-		position: relative
-		top: em(-29.512, 11)
-		font-size: $s11
-		background-image: none
-		border: 2px solid
-		padding: .5rem 1rem
+@import '../styles/conf/_colors.sass'
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
+.registrationContent__slideLink
+	display: block
+	margin: auto
+	position: relative
+	top: em(-29.512, 11)
+	font-size: $s11
+	background-image: none
+	border: 2px solid
+	padding: .5rem 1rem
+
+
+
+.registrationDescription
+	@include breakpoint($xxs)
+		margin-bottom: $s47 $i
+
+.registration
+	@include breakpoint($xxs)
+		order: 3
+.registrationForm__message
+	margin: 0 0 $s29
+	&_success
 		
-	.registrationDescription
-		@include breakpoint($xxs)
-			margin-bottom: $s47 $i
-	
-	.registration
-		@include breakpoint($xxs)
-			order: 3
-	.registrationForm__message
-		margin: 0 0 $s29
-		&_success
-			
-		&_error
-			color: $red
-	.validBorder
-		border-color: $green $i
-		transition: border-color .3s ease-in $i
-	.litter_registration
-		flex-grow: 0
-		flex-shrink: 0
-		flex-basis: 40%
+	&_error
+		color: $red
+.validBorder
+	border-color: $green $i
+	transition: border-color .3s ease-in $i
+.litter_registration
+	flex-grow: 0
+	flex-shrink: 0
+	flex-basis: 40%
 </style>

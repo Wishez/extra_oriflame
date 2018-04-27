@@ -222,16 +222,17 @@
 
 <style lang="sass" scoped>
 
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_breakpoints.sass'
-	@import '../styles/conf/_colors.sass'
-	.litter_callback
-		min-width: em(322.956186888460770432) $i
-		@include breakpoint($xxs)
-			max-height: 55vh
-			padding-bottom: 0 $i
-	.callbackForm
-		overflow: scroll
-		font-size: $s16
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
+@import '../styles/conf/_colors.sass'
+.litter_callback
+	min-width: em(322.956186888460770432) $i
+	@include breakpoint($xxs)
+		max-height: 55vh
+		padding-bottom: 0 $i
+		
+.callbackForm
+	overflow: auto
+	font-size: $s16
 
 </style>

@@ -5,7 +5,7 @@
 			[className]:  className
 		}">
 		<hr :class="{
-			'grow mainTitle__divider': true, 
+			'grow mainTitle__divider display_none-phone': true, 
 			[`mainTitle__divider_${modifier}`]:  modifier
 		}">	
 		<h1 :class="{
@@ -15,7 +15,7 @@
 			<slot></slot>
 		</h1>
 		<hr :class="{
-			'grow mainTitle__divider': true, 
+			'grow mainTitle__divider display_none-phone': true, 
 			[`mainTitle__divider_${modifier}`]:  modifier
 		}">	
 	</div>
@@ -44,16 +44,21 @@
 
 	.mainTitle
 		margin-bottom: $s47 
+
 		&__title
 			min-width: 40%
 			padding: 0 1.5rem
 			text-align: center
 			max-width: em(340)
+
 			@include breakpoint($xxs)
-				max-width: 85%
+				padding: 0
+				// max-width: 
 		&__divider
 		    height: 1px;
 		    background-color: #C7C7C7
+
+
 
 	
 </style>

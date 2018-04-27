@@ -3,7 +3,7 @@
 		name="fade">
 		<div v-if="show"
 			:class="[baseContainerClasses, 'controller', modifier ? 'controller_' + modifier : null, className]">
-			<transition name="fade">
+			<transition name="fadeIn">
 				<label 
 					@click="selectInput"
 					:class="['light controller__label', modifier ? 'controller__label_' + modifier : null]"
@@ -11,7 +11,8 @@
 					v-if="label && !error" :for="name" >
 					{{ label }}
 				</label>
-				<span v-if="error" class="controller__error">
+				<span v-else 
+					class="controller__error">
 					{{ error }}
 				</span>
 			</transition>
@@ -32,7 +33,7 @@
 				:pattern="pattern"
 				:aria-labelledby="`${name}_label`"
 				:value="value" 
-				@input="updateValue(
+				@input.trim="updateValue(
 					$event.target, 
 					$event.target.value, 
 					onInput($event)

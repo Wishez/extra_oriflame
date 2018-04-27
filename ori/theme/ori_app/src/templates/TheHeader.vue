@@ -26,6 +26,7 @@
                     <path d="M93.793 40.705h-2.452v6.498h2.452c2.084 0 3.433-1.471 3.433-3.31 0.123-1.717-1.349-3.188-3.433-3.188zM93.793 46.222h-1.349v-4.414h1.349c1.349 0 2.207 0.981 2.207 2.207 0.123 1.226-0.858 2.207-2.207 2.207z"></path>
             </svg>
 		</router-link>
+
 		<site-contacts modifier="header"
 			className="paddingBottom_11"
 			@keypress="setDefaultMenuStateByPresingTab"
@@ -48,7 +49,9 @@
 					@keypress="setDefaultMenuStateByPresingTab" 
 					@blur="transformMenu" 
 				>
-					{{ link.name }} 
+					<span class="navLink__label">
+						{{ link.name }}
+					</span> 
 				</nav-link>
 			</ul>
 			<div id="active_page" hidden>Текущая страница</div>
@@ -94,11 +97,11 @@
 					icon: 'fas fa-handshake',
 					isExternalLink: true
 				},
-				// {
-				// 	name: 'Акции',
-				// 	href: '/shares',
-				// 	icon: 'fas fa-gift'
-				// },
+				{
+					name: 'Акции',
+					href: '/shares',
+					icon: 'fas fa-gift'
+				},
 				{
 					name: 'Медиа',
 					href: '/media',
@@ -180,6 +183,10 @@
 	@import '../styles/conf/_helpers.sass'
 	@import '../styles/conf/_sizes.sass'
 
+	.navLink__label
+		@include breakpoint($xxs)
+			font-size: em(14)
+
 	$i: !important
 	.brandContainer
 		height: 100%
@@ -189,10 +196,9 @@
 	.header, .nvaigationList
 		position: relative
 	.navigation
-		min-width: 155px * 4
+		min-width: 155px * 5
 		flex-grow: 0
 		will-change: transform
-		
 		right: 0
 		position: static
 		z-index: 10
@@ -202,15 +208,23 @@
 			min-width: auto
 			justify-content: center
 
+		@include breakpoint($xs-up)
+			bottom: auto $i
 
 		@include breakpoint($xs)
 			min-width: 100%
-			// max-height: em(65.5)
+			background-color: currentColor
+			transform: none $i
+			right: 0 $i
+			
 	.navigationList
 		position: relative
-		transform: rotate(var(--navigation-rotate))
+		// transform: rotate(var(--navigation-rotate))
 		will-change: transform
 		min-height: 58.4px
+
+		@include breakpoint($xs)
+
 		@include breakpoint($xxs)
 			flex-wrap: nowrap
 	.brand__title
@@ -221,7 +235,7 @@
 		// max-width: em(322.956186888460770432, 29)
 	.contactsContainer_header
 		@include breakpoint($xs)
-			padding: 0 1.5rem $s29 $i
+			padding: 0 1rem 3rem 1.5rem  $i
 	.brand, .contactsContainer_header
 		@include breakpoint($xs)
 			min-width: 100%
@@ -238,7 +252,8 @@
 		// font-style: italic
 		font-size: $s29
 		@include breakpoint($xs)
-			padding: $s11 1.5rem
+			// padding: $s11 1.5rem
+			padding: 0 1rem .5rem 1.5rem
 		// position: absolute
 		// left: 3rem
 

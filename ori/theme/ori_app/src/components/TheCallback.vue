@@ -67,11 +67,12 @@
 	@import '../styles/conf/_breakpoints.sass'
 	@import '../styles/conf/_colors.sass'
 	.litter_callback 
-		padding-bottom: 0 $i
+		padding-top: $s18 + $s6 $i
+		padding-bottom: $s29 + $s6 $i
 	.callback
+
 		@include breakpoint($xs)
-			// right: $s18
 			bottom: em(84)
-			// left: auto
+			
 	
 </style>

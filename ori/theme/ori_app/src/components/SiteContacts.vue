@@ -1,7 +1,7 @@
 <template>
 	<address :class="['h-s-end parent v-centered contactsContainer', modifier ? 'contactsContainer_' + modifier : '', className ]">
 		<ul class="unstyledList contactsList normalStyle darkGrayColor semibold">
-			<li class="contact parent row nowrap v-centered">
+			<li class="contact parent row nowrap v-centered marginTop_zero">
 				<base-icon modifier="contact" className="darkGrayColor" icon="fab fa-viber" />
 				<a @focus="setDefaultMenuState" class="text_nowrap lightenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
 			</li>

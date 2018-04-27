@@ -7,11 +7,11 @@
 			:title="title"
 		>
 			<p v-html="stepDescription.paragraph"/>
-			<ul class="programmItemDescriptionBenifits">
+			<!-- <ul class="programmItemDescriptionBenifits">
 				<li class="light" :key="item.id" v-for="item in stepDescription.items">
 					{{ item.name }}
 				</li>
-			</ul>
+			</ul> -->
 		</base-tooltip>
 		<tooltip-item-container 
 			:tooltipId="tooltipId"
@@ -76,9 +76,10 @@
 				required: true,
 				validator(value) {
 					// The Validation of three values of the object.
-					return  value.paragraph &&
-						(Array.isArray(value.items) && 
-							value.items.length > 0); 
+					// &&
+						// (Array.isArray(value.items) && 
+						// 	value.items.length > 0); 
+					return  value.paragraph;
 				}
 			}
 		},

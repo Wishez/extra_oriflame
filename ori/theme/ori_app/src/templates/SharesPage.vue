@@ -1,13 +1,20 @@
 <template>
 	<section class="shares parent row wrap h-between">
 		<main-title>Последние акции</main-title>
-
 		<content-preloader v-if="!shares.length" />
-
-		<transition appear 
-			name="fade" 
+		<transition 
+			name="fade">
+			<p v-if="!shares.length && isNotShares"
+				class="fullWidth textCentered">
+				Акций нет, но мы их скоро добавим.
+			</p>
+		</transition>
+		<transition
 			v-for="share in shares"
-			:key="share.uuid">
+			:key="share.uuid"
+			name="fade" 
+			appear 
+		>
 			<div class="baseChild marginBottom_47 shareContainer container grid_four fullWidth_xxs notRestAlone halfWidth_xs"> 
 				<share-preview 
 					:title="share.title"
@@ -26,7 +33,8 @@
 	import ContentPreloader from '@/components/ContentPreloader';
 	import MainTitle from '@/components/MainTitle';
 	import {SHARES_STORE} from '@/constants/shares';
-	import {transformDate} from '@/constants/pureFunctions';
+	import {transformDate, timeout} from '@/constants/pureFunctions';
+	
 
 	export default {
 		name: "SharePage",
@@ -50,10 +58,17 @@
 	    	shares: [],
 	    	requesting: false,
 	    	sharesQuantityToShow: 6,
-	    	loaded: false
+	    	loaded: false,
+	    	isNotShares: false
+
 	    }),
 	    mounted() {
     		this.requestShares();
+			timeout(() => {
+				if (!this.loaded || this.shares.length) {
+					this.isNotShares = true;
+				}
+			}, 3000);
 	    },
 	    methods: {
 	    	transformDate,
@@ -65,11 +80,8 @@
 						this.shrinkShares(shares)
 					);
 
-					this.$set(
-						this,
-						'loaded',
-						true	
-					)
+					this.loaded = true;
+					
 					
 					const namedShares = this.shares.reduce(
 							(composedShares, share) => ({

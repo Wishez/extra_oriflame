@@ -186,7 +186,7 @@
 		border-bottom-width: 4px
 		border-bottom-style: solid
 		border-bottom-color: $darkenGreen
-		min-height: 67px
+		min-height: 70px
 		background-color: #fff
 		min-width: 155px
 		background-image:  none
@@ -211,21 +211,28 @@
 			z-index: -1
 			background: $linkGradient
 			height: 100%
+			@include breakpoint($xs)
+				content: none
+
+
 		&:hover, &:focus, &:active
 			background-image: none
 			& .icon
+
 			&:after, &:before
 				transform: translate(0, 0)
 
 		@include breakpoint($xs)	
 			min-width: auto
 			padding-top: .5rem
-		@include breakpoint($xxs)
+			transform: none $i
 			background: transparent
 			border-color: transparent
-			color: $white
-			border-width: $s3
 			border-style: solid 
+			border-width: $s3
+			color: $white
+
+		@include breakpoint($xxs)
 			font-size: (18em / 18)
 
 		&_active, &:hover, &:focus, &:active
@@ -244,8 +251,10 @@
 			// border-top-color: $burgund 
 			&, &:hover, &:focus
 				background: $linkGradient
+
 				@include breakpoint($xxs)
 					background: transparent
+
 			@include breakpoint($xxs)
 				background: transparent
 				border-bottom-color: $pink
@@ -276,6 +285,7 @@
 						
 			&:before
 				content: none
+
 			&.navLink_active				
 				background: transparent 
 				// border: 0

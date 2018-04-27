@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import idbKeyval from 'idb-keyval';
-// import shares from './shares';
+import shares from './shares';
 import personalRoom from './personalRoom'
 import business from './business'
 
@@ -10,7 +10,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    // shares,
+    shares,
     personalRoom,
     business
   },
@@ -23,19 +23,24 @@ export default new Vuex.Store({
     menuWasTransformed: false,
     user_led_number: "",
     animations: {},
-    isUserFromMobileOrientation: window.innerWidth < 769
+    isUserFromMobileOrientation: window.innerWidth < 769,
+
   },
   mutations: {
-    async switchScrollPageState(state, isScrolled) {
+    switchMobileDisplayState(state, isMobile) {
+        state.isUserFromMobileOrientation = isMobile;
+
+    },
+    switchScrollPageState(state, isScrolled) {
       state.isPageScrolled = isScrolled;
     },
-    async switchTransfromedMenuState(state, isTransfromed) {
+    switchTransfromedMenuState(state, isTransfromed) {
       state.menuWasTransformed = isTransfromed;
     },
-    async setCurrentScrollPosition(state, scrollPosition) {
+    setCurrentScrollPosition(state, scrollPosition) {
       state.currentScrollPosition = scrollPosition;
     },
-    async setGlobalAnimations(state, animations) {
+    setGlobalAnimations(state, animations) {
       if (Array.isArray(animations)) {
         animations.forEach(animation => {
           state.animations[animation.name] = animation.callback;

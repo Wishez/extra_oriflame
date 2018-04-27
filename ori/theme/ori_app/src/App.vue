@@ -31,6 +31,7 @@
 	  data: () => ({
 		baseOffset: 0
 	  }),
+	  
 	  computed: {
 	  	// Cache the navigation element for manipulating!
 	  	navigation() {
@@ -95,10 +96,10 @@
 
 	  		return anime({
   				targets: this.navigation,
-  				right: -80.656417116416,
+  				right: -110.656417116416,
   				elasticity: 100,
   				rotate: '-90deg', 
-  				translateX: -115,
+  				translateX: -145,
   				duration: 500,
   				begin: (anim) =>  {
 					
@@ -110,17 +111,18 @@
 	  	mobileStretchNavigation() {
 	  		return anime({
 				targets: this.navigation,
-  				scale: [
-    				{ value: 1.04, 
-    				  duration: 350, 
-    				  easing: 'easeOutSine' },
-    				{ value: 1, 
-    				  duration: 350, 
-    				  delay: 0, 
-    				  easing: 'easeOutSine' },
-  				],
+  				// scale: [
+    		// 		{ value: 1.04, 
+    		// 		  duration: 350, 
+    		// 		  easing: 'easeOutSine' },
+    		// 		{ value: 1, 
+    		// 		  duration: 350, 
+    		// 		  delay: 0, 
+    		// 		  easing: 'easeOutSine' },
+  				// ],
   				bottom: 0,
-  				backgroundColor: {value: "#333", duration: 100},
+  				duration: 350,
+  				// backgroundColor: {value: "#333", duration: 100},
   				begin: (anim) => {
 	  			
 					this.navigation.classList.add('navigation_fixed');
@@ -130,16 +132,16 @@
 	  	mobileWideNavigation() {
 	  		return anime({
 	  				targets: this.navigation,
-	  				scale: [
-	    				{ value: 1.1, 
-	    				  duration: 350, 
-	    				  easing: 'easeInOutQuad' },
-	    				{ value: 1, 
-	    				  duration: 350,  
-	    				  easing: 'easeInOutQuad' },
-	  				],
+	  				// scale: [
+	    		// 		{ value: 1.1, 
+	    		// 		  duration: 350, 
+	    		// 		  easing: 'easeInOutQuad' },
+	    		// 		{ value: 1, 
+	    		// 		  duration: 350,  
+	    		// 		  easing: 'easeInOutQuad' },
+	  				// ],
 	  				elasticity: 200,
-	  				// duration: 350,
+	  				duration: 350,
 	  				begin: anim => {
 						this.navigation.classList.remove('navigation_fixed');
 	  				}
@@ -204,7 +206,21 @@
 	  mounted: function()  {
 	  	const body = this.$store.state.rootElement;
 
+		listen({
+	  		event: 'resize',
+	  		callback: throttle(() => {
+	  			
+	  			const isMobileNow = this.$store.state.isUserFromMobileOrientation;
+	  			const isResizedToMobile = window.innerWidth < 768;
 
+	  			if (!isMobileNow && isResizedToMobile) {
+	  				this.$store.commit('switchMobileDisplayState', true); 
+	  			} else if (isMobileNow && !isResizedToMobile) {
+	  				this.$store.commit('switchMobileDisplayState', false); 
+
+	  			}
+	  		})
+	  	});
 	  	doBy({
 	  		callback: () => {
 				this.$set(

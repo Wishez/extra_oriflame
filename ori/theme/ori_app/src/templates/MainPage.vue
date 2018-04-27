@@ -1,18 +1,37 @@
 <template>
     <div class="mainContent">
-    	<section @mouseup="onMouseUpParentAwesomeButton" class="banner parent h-around v-centered prespective wrap">
+    	<section @mouseup="onMouseUpParentAwesomeButton" class="banner parent h-around v-centered prespective wrap marginCentered">
+			
     		<h1 class="bold banner__title textShadow">
-    			<span class="greenColor">Скидки от 20%</span> и <span class="greenColor">подарки</span> сразу после регистрации<span class="greenColor">.</span></h1>
+    			<span class="greenColor">Скидки от 20%</span> и <span class="greenColor">подарки</span> сразу после регистрации<span class="greenColor">.</span>
+    		</h1>
+    		<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+    		 	aria-label="Текущий каталог"
+    		 	showIcon="hide" 
+    		 	className=" banner__image disableUnderline"
+    		 >
+				<blurry-image-loader 
+					alt="Текущий каталог"
+					src="https://ru.oriflame.com/catalogue-image.png"/>
+			</external-link>
+			<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+				showIcon="hide" 
+				aria-label="Текущий каталог"
+				className=" banner__image disableUnderline fullWidth_xxs">
+				<blurry-image-loader 
+					alt="Текущий каталог"
+					src="https://ru.oriflame.com/catalogue-image.png"/>
+			</external-link>
     		<awesome-link label="Переход на страницу регистрации"
     				content="Регистрация" href="/registration" className="banner__button whiteTextShadow"></awesome-link>
 			
-    		<blurry-image-loader
+    		<!-- <blurry-image-loader
     			:src="banner"
     			defaultMedia="(min-width: 481px)"
     			alt="Регистрация"
     			modifier="banner"
     			className="materialShadow fewRound fullWidth"
-    		/>
+    		/> -->
 
     	</section>
     	<fade-translate-transition-group tag="section" className="h-between blog parent row wrap"
@@ -27,6 +46,15 @@
 				<p>
 					Компания Oriflame предлагает <strong>более 1000</strong> наименований <strong>прогрессивных продуктов</strong> по доступной цене &mdash; косметических средств, модных аксессуаров, ароматов, средств по уходу за телом, волосами и т.п., разработанных в Швеции <strong>по уникальным инновационным технологиям</strong>.
 				</p>
+				<awesome-link 
+					v-if="!$store.state.isUserFromMobileOrientation"
+					containerClassName="parent centered marginTop_29"
+
+					href="/registration" 
+					content="К регистрации"
+					modifier="burgund"
+					label="Перейти на страницу регистрации"
+				/>
 				<!-- Oriflame &mdash; европейский <strong>создатель и поставщик</strong> разнообразной продукции. С ней <strong>сотрудничают разные люди из различных стран</strong>. Она, как нам и вам, всегда готово предложить обширное количество <strong>косметики</strong>, <strong>аксессуаров</strong>, <strong>парфюмерии</strong> и всё то, что вы сможете найти в каталоге. -->
 			</about-item>
 			<about-item
@@ -41,6 +69,14 @@
 				<strong>Описание всех ароматов</strong> Oriflame вы можете найти здесь <external-link 
 				className="lightenHover"
 				to="https://media-cis-cdn.oriflame.com/-/media/RU/Files/My-Pages/Sell/Product-Expert/Product-guide/Fragrance04042016.ashx?u=0101010000&la=ru-RU)">руководстве по продукции</external-link>.</p>
+				<awesome-link 
+					v-if="$store.state.isUserFromMobileOrientation"
+					containerClassName="parent centered marginTop_29"
+					href="/registration" 
+					content="К регистрации"
+					modifier="burgund"
+					label="Перейти на страницу регистрации"
+				/>
 
 
 
@@ -57,6 +93,14 @@
 				<p>
 					Подробное описание вы можете прочитать здесь <external-link className="lightenHover" to="https://media-cis-cdn.oriflame.com/-/media/CIS/Images/My-Pages/Sell/Sell-Wellness/Wellness-product-guide/Wellness-product-guide.ashx?u=0101010000&la=ru-RU">Руководство по продукции Wellness</external-link>.
 				</p>
+				<!-- <awesome-link 
+					v-if="$store.state.isUserFromMobileOrientation"
+					containerClassName="parent centered marginTop_29 color_burgund"
+					href="/registration" 
+					content="Зарегистрироваться"
+					modifier="none"
+					label="Перейти на страницу регистрации"
+				/> -->
 
 				<!-- Oriflame создаёт продукцию под кодовым именем <strong>Wellness</strong>. Это <strong>сбалансированное</strong>, <strong>протеиновое</strong>, а самое главное, <strong>вкусное питание</strong>, которое тонизирует организм.  Над ним корпели, <strong>на протяжении, 15 лет</strong>. За это время, рабочая группа Wellness собрала <external-link to="https://media-cis-cdn.oriflame.com/-/media/CIS/Images/My-Pages/Sell/Sell-Wellness/Wellness-product-guide/Wellness-product-guide.ashx?u=0101010000&la=ru-RU">подробное  описание</external-link>, которые вы можете оценить. -->
 			</about-item>
@@ -76,7 +120,8 @@
 					<awesome-link 
 						containerClassName="parent centered marginTop_29"
 						href="/registration" 
-						content="Регистрация"
+						content="Зарегистрироваться"
+						className="min-width_240"
 						modifier="green"
 						label="Перейти на страницу регистрации"
 					/>
@@ -116,7 +161,7 @@
 			</div>
 			
 		</section>
-		<section class="extraInformation parent row wrap">
+		<!-- <section class="extraInformation parent row wrap">
 			<decorative-title className="extraInformation__title container">Полезная информация</decorative-title>
 			<div class="container currentCatalog baseChild halfWidth parent row wrap">
 				<h3 class="currentCatalog__title marginLeft_heading fullWidth">
@@ -157,17 +202,17 @@
 					
 				</li>
 			</ul>
-
+ -->
 		</section>
     </div>
 </template>
 
 <script>
 	// Images
-	import banner from './../assets/images/banner.png';
+	// import banner from './../assets/images/banner.png';
 
 	import {first, second, third, fourth } from "@/assets/images/programm";
-	import mobileBanner from './../assets/images/mobile-banner.png';
+	// import mobileBanner from './../assets/images/mobile-banner.png';
  
 	// Components
 	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
@@ -196,9 +241,9 @@
 	  },
 	  data() {
 	  	return {
-	  		banner: window.innerWidth <= 480 ? 
-	  			mobileBanner : 
-	  			banner,
+	  		// banner: window.innerWidth <= 480 ? 
+	  		// 	mobileBanner : 
+	  		// 	banner,
 	  		programmParagraphs: [
 	  			{
 	  				id: 1,
@@ -224,26 +269,26 @@
 	  				src: first,
 	  				name: "first",
 	  				stepDescription: {
-	  					paragraph: "Выполнив условия этого квеста вы приобретёте, <strong>совершенно бесплатно</strong>, набор продукции №1.",
-	  					items: [
-	  						{
-	  							name: 'Питательный крем для рук и тела',
-	  							id: 0
-	  						},
-	  						{
-	  							name: 'Крем-мыло «Молоко и мед – Золотая серия» (Код: 31604)',
-	  							id: 1
-	  						},
-	  						{
-	  							name: 'Увлажняющий крем для душа «Молоко и мед – Золотая серия» (Код: 31605)',
-	  							id: 2
-	  						},
-	  						{
-	  							name: 'Специальное смягчающее средство «Нежная забота» (Код: 1276)',
-	  							id: 3
-	  						},
+	  					paragraph: "Выполнив условия этого квеста <strong>вы получите, совершенно бесплатно</strong>, набор продукции №1.",
+	  				// 	items: [
+	  				// 		{
+	  				// 			name: 'Питательный крем для рук и тела',
+	  				// 			id: 0
+	  				// 		},
+	  				// 		{
+	  				// 			name: 'Крем-мыло «Молоко и мед – Золотая серия» (Код: 31604)',
+	  				// 			id: 1
+	  				// 		},
+	  				// 		{
+	  				// 			name: 'Увлажняющий крем для душа «Молоко и мед – Золотая серия» (Код: 31605)',
+	  				// 			id: 2
+	  				// 		},
+	  				// 		{
+	  				// 			name: 'Специальное смягчающее средство «Нежная забота» (Код: 1276)',
+	  				// 			id: 3
+	  				// 		},
 	  						
-	  					]
+	  				// 	]
 	  				}
 
 	  			}, // end first
@@ -254,17 +299,17 @@
 	  				name: "second",
 	  				titleModifier: 'right',
 	  				stepDescription: {
-	  					paragraph: "Выполнив эти условия ещё раз, в следующие 21 день, вы сможете забрать, дополнительно к набору №1, набор продукции №2.",
-	  					items: [
-	  						{
-	  							name: 'Губная помада «The ONE Colour Stylist» (оттенок «Дивный пион»)',
-	  							id: 0
-	  						},
-	  						{
-	  							name: 'Тушь для ресниц 5-в-11 «The ONE Wonderlash» (оттенок «Черный»)',
-	  							id: 1
-	  						},
-	  					]
+	  					paragraph: "Выполнив эти условия ещё раз, в следующие 21 день, <strong>вы получите, совершенно бесплатно</strong>,  дополнительно к набору №1, набор продукции №2.",
+	  					// items: [
+	  					// 	{
+	  					// 		name: 'Губная помада «The ONE Colour Stylist» (оттенок «Дивный пион»)',
+	  					// 		id: 0
+	  					// 	},
+	  					// 	{
+	  					// 		name: 'Тушь для ресниц 5-в-11 «The ONE Wonderlash» (оттенок «Черный»)',
+	  					// 		id: 1
+	  					// 	},
+	  					// ]
 	  				}
 
 	  			}, // end second
@@ -274,17 +319,17 @@
 	  				src: third,
 	  				name: "third",
 	  				stepDescription: {
-	  					paragraph: "Выполнив эти <strong>условия ещё раз</strong>, в следующие 21 день, у вас будет возможность выбрать <strong>один из трёх вариантов</strong> , дополнительно к набору №1 и №2, набор продукции №3.",
-	  					items: [
-	  						{
-	  							name: 'Продукты «Optimals Age ReviveАнти»: возрастной дневной и ночной крем, а также крем для кожи вокруг глаз (Код: 540211)',
-	  							id: 0
-	  						},
-	  						{
-	  							name: 'Туалетная вода «Eclat Femme» для нее(Код: 540212) или «Eclat Homme» для него (Код: 540213)',
-	  							id: 2
-	  						},
-	  					]
+	  					paragraph: "Выполнив эти <strong>условия ещё раз</strong>, в следующие 21 день, вы можете выбрать <strong>один из трёх вариантов</strong>, дополнительно к набору №1 и №2, набор продукции №3.",
+	  					// items: [
+	  					// 	{
+	  					// 		name: 'Продукты «Optimals Age ReviveАнти»: возрастной дневной и ночной крем, а также крем для кожи вокруг глаз (Код: 540211)',
+	  					// 		id: 0
+	  					// 	},
+	  					// 	{
+	  					// 		name: 'Туалетная вода «Eclat Femme» для нее(Код: 540212) или «Eclat Homme» для него (Код: 540213)',
+	  					// 		id: 2
+	  					// 	},
+	  					// ]
 	  				}
 
 	  			}, // end third
@@ -292,16 +337,16 @@
 	  				id: 3,
 	  				name: "fourthMan",
 	  				src: fourth,
-	  				title: "Завершающий шаг",
+	  				title: "Четвёртый шаг",
 	  				titleModifier: 'center',
 	  				stepDescription: {
-	  					paragraph: "Завершающий шаг ー протеиновый завтрак, обогащённый витаминами <strong>для мужчин, со скидкой 4 130₽ + 5% от суммы набора</strong>.",
-	  					items: [
-	  						{
-	  							name: '«Вэлнэс Пэк» для мужчин (Код: 540215)',
-	  							id: 0
-	  						}
-	  					]
+	  					paragraph: "Выполнив эти условия <strong>ещё раз, в следующие 21 день</strong>, вы можете выбрать один из двух вариантов, <strong> совершенно бесплатно</strong>, дополнительно к набору №1, №2 и №3, набор продукции №4.",
+	  					// items: [
+	  					// 	{
+	  					// 		name: '«Вэлнэс Пэк» для мужчин (Код: 540215)',
+	  					// 		id: 0
+	  					// 	}
+	  					// ]
 	  				}
 
 	  			}, // end fourthWooman
@@ -376,28 +421,66 @@
 		padding: $s18 1.5rem $s47
 		color: $white
 		background-color: rgba(51, 51, 51, .4)
-		.progressive-image 
-			position: absolute $i
+		max-width: 805px
+
 		&__title
+			z-index: 2
 			@include breakpoint($sm-up)
 			    max-width: 75%;
+
 			@include breakpoint($xs)
 				margin-bottom: 1.5rem;
+
 		& a
 			margin-top: 1.5rem
+
 		&__button
 			color: $darkGray
+
+		&__image
+			&:before
+				content: ""
+				z-index: 5
+				background-color: rgba(51, 51, 51, .4)
+
+			&, &:before	
+				position: absolute
+				height: 100%
+				width: 100%
+				top: 0
+
+			z-index: 0
+
+			max-width: 50%
+			margin-top: 0 $i
+
+			&:nth-of-type(1), &:before
+				left: 0
+			&:nth-of-type(2)
+				right: 0
 			
+
+			.progressive-image 
+				height: 100%
+				width: 100%
+
+			.progressive-image-main
+				@include breakpoint($xs)
+					height: 100%
+
 	.imageContainer_banner
 		position: absolute
 		top: 0
 		z-index: -1
 		left: 0
+
 		.progressive-image-main,.progressive-image-wrapper
 			height: 100%
+
 	.imageContainer_banner
 		// max-height: em(166)
 		height: 100%
+
 	.programm
 		margin-top: em(77 - 29.124) $i
 		&__paragraph

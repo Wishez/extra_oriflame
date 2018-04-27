@@ -1,5 +1,5 @@
 $susy: (use-custom: (em: true), columns: 12, gutters: 0, gutter-position: split, global-box-sizing: border-box)
-
+$i: !important
 @include border-box-sizing
 $border-box-sizing : true
 $gutters: 0
@@ -31,6 +31,10 @@ $gutters: 0
 
 .parent 
 	display: flex
+
+	&_force
+		display: flex $i
+
 .row
 	flex-direction: row
 .wrap

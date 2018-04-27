@@ -2,12 +2,14 @@
 	<figure :class="[
 		'iconShadow iconBackground circle parent row centered', 
 		modifier ? 'iconBackground_' + modifier : null, 
-		className ? className : null
+		className ? className : null,
+		modifier === 'contact' ? 'iconBackground_green' : 'iconBackground_pink'
 	]">
 		<i :class="{
 			[icon]: icon,
 			'iconBackground__icon': true,
-			[`iconBackground__icon_${modifier}`]:  modifier
+			[`iconBackground__icon_${modifier}`]:  modifier,
+
 		}" 
 			aria-hidden="true"
 		/>
@@ -38,6 +40,7 @@
 <style lang="sass">
 	@import '../styles/conf/_sizes.sass'
 	@import '../styles/conf/_colors.sass'
+	@import '../styles/conf/_animations.sass'
 	@import '../styles/conf/_breakpoints.sass'
 	
 	.iconBackground_navigation
@@ -45,11 +48,18 @@
 		color: $white $i
 		@include breakpoint($xxs)
 			font-size: (18em /16)
+
 	.iconBackground
 		height: $s25
 		width: $s25
-		background-color: #FA8BC4
-		transition: color .2s ease-in, background-color .2s ease-in
+		transition-property: color, background-color
+		transition-timing-function: $standart
+		transition-duration: .2s
+		&_pink
+			background-color: #FA8BC4
+		&_green
+			background-color: $darkenGreen
+
 	.iconBackground__icon
 		font-size:  0.77777777777777777778em
 	
