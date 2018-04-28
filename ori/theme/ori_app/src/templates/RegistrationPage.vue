@@ -7,7 +7,7 @@
 			</slide-to-link>
 		</transition>
 		<simple-litter modifier="registration"
-			 :className="` parent registration${response.success ? ' centered' : ''}`" id="registration">
+			 :className="`parent registration${response.success ? ' centered' : ''}`" id="registration">
 			<form @submit.prevent="validateBeforeSubmit"
 				method="POST"
 				class="registrationForm parent row wrap h-between v-centered perspective">
@@ -64,7 +64,7 @@
 						required: true, 
 						regex: regexp.regex_phone
 					}"
-					autocomplete="tel"
+					autocomplete="tel-national"
 					type="tel"
 					name="phone_number"
 					label="Номер телефона"
@@ -313,7 +313,11 @@ export default {
 
   	},
   	validateBeforeSubmit(event) {
+  	  if (!this.response.success) {
+
+
   	  event.preventDefault();
+
       this.$validator.validateAll().then((result) => {
         ;
        	// Reffer to response.
@@ -362,6 +366,7 @@ export default {
       				requesting: false,
       				success: true
       			});
+
           	})
           	.catch(error => {
           		this.setResponseData({
@@ -399,7 +404,9 @@ export default {
       		}, 3000);
         }
 
+
       });
+    }
     }
   },
   created() {

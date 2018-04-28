@@ -229,7 +229,7 @@
 	min-width: em(322.956186888460770432) $i
 	@include breakpoint($xxs)
 		max-height: 55vh
-		padding-bottom: 0 $i
+		
 		
 .callbackForm
 	overflow: auto

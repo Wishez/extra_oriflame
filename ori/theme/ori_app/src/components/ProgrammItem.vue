@@ -1,32 +1,46 @@
 <template>
-	<popper transition="1000" :class="['programmItemContainer programmItem_' + name]" trigger="hover"
+	<div :class="['programmItemContainer programmItem_' + name]" 
 		enter-active-class="fading-enter"
 		leave-active-class="fading-leave">
-		<base-tooltip 
+
+		
+	<!-- 	<base-tooltip 
 			:id="tooltipId"
 			:title="title"
 		>
-			<p v-html="stepDescription.paragraph"/>
-			<!-- <ul class="programmItemDescriptionBenifits">
-				<li class="light" :key="item.id" v-for="item in stepDescription.items">
-					{{ item.name }}
-				</li>
-			</ul> -->
-		</base-tooltip>
+		</base-tooltip> -->
 		<tooltip-item-container 
 			:tooltipId="tooltipId"
 			className="programmItem materialSadow"
 			slot="reference"
 		>
 
-			<p :class="['whiteBackground parent centered programmItem__title materialSadow', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">{{ title }}</p>
+			<h2 :class="['whiteBackground parent centered programmItem__title materialSadow font-size_base font-family_main itemContent', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">
+				{{ title }}
+			</h2>
+
 			<blurry-image-loader 
 				:src="src" 
 				modifier="programmItem"
 				className="materialShadow programmItem__image"
 			 />
+			<p v-html="stepDescription.paragraph"
+				:class="{
+					'fewRound programmItemDescription whiteBackground marginTop_zero itemContent': true,
+					[`programmItemDescription_${name}`]: name
+			}"/>
+			 <!-- <article 
+				:class="{
+					'fewRound materialShadow absolute programmItemDescription whiteBackground ': true
+			}"> -->
+				<!-- <div :class="{
+					'italic baseTooltipContent marginTop_18': true
+				}"> -->
+					
+				<!-- </div> -->
+			<!-- </article>	 -->
 		</tooltip-item-container>
-	</popper>
+	</div>
 </template>
 
 <script>
@@ -91,25 +105,29 @@
 	@import './../styles/conf/_fonts.sass'
 	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_breakpoints.sass'
+	@import './../styles/conf/_animations.sass'
 
 	$additionalPadding: $s77 / 2 
 
-	.fading
-		&-enter
-			opacity: 0
-		&-enter-to
-			transition: opacity 1s ease
-			opacity: 1
-			will-change: opacity
-		&-enter, &-enter-to, &-leave, &-leave-to
-			will-change: opacity
-		&-leave, &-leave-to
-			z-index: 100
-			opacity: 0
+	// .fading
+	// 	&-enter
+	// 		opacity: 0
+	// 	&-enter-to
+	// 		transition: opacity 1s ease
+	// 		opacity: 1
+	// 		will-change: opacity
+	// 	&-enter, &-enter-to, &-leave, &-leave-to
+	// 		will-change: opacity
+	// 	&-leave, &-leave-to
+	// 		z-index: 100
+	// 		opacity: 0
 
 
 	.programmItem
 		position: relative
+
+		@include breakpoint($xs)
+			box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.2)
 
 		&_second
 			min-width: 35%;
@@ -133,14 +151,18 @@
 			@include breakpoint($xs)
 				min-width: 100% $i
 		&_fourthMan
+
 			max-width: 67%
 			margin-left: auto
-			margin-top: $s77
+			margin-top: ($s77 + em(64))
 			margin: $s77 auto 0
+
 			@include breakpoint($md-less) 
-				margin-top: 0
+				margin-top: em(64)
+
 			@include breakpoint($xs)
 				max-width: none $i
+
 		&_first,
 		&_second, 
 		&_fourthMan
@@ -156,9 +178,11 @@
 		&_fourthMan, &_third
 			@include breakpoint($sm-less)
 				margin-top: $s77
+		&_fourthMan
+			@include breakpoint($xxs)
 
 		&:hover, &:focus
-			.programmItem__title		
+			.itemContent		
 				opacity: 1
 	
 		.progressive-image
@@ -169,39 +193,91 @@
 				display: block
 		
 		&__title
-			position: absolute
-			height: em(60.95)
-			will-change: opacity
-			transition: opacity .2s cubic-bezier(0.2, 0.0,0.4,1)
-			padding: 0 1rem
+			// position: absolute
+			// opacity: .7
+			// will-change: opacity
+			// transition: opacity .2s $standart
+
 			z-index: 2
-			opacity: .7
+			height: em(60.95)
+			padding: 0 1rem
+
+			bottom: (351.64% / 1.618 * 100 / 351.64)
+
 			&_left
 				box-shadow: 3px 1px 6px 0 $shadow
 				left: 0
+
 			&_right
 				box-shadow: -3px 1px 6px 0 $shadow
 				right: 0
+
 			&_center
 				box-shadow: 0px 6px 6px -5px $shadow
 				min-width: 100%
 			&_first
-				bottom: (351.64% / 1.618 * 100 / 351.64)
 				min-width: (274.33% / 1.618  * 100 / 274.33)
 
 			&_second
-				bottom: (276.79% / 1.618 / 1.618 * 100 / 276.79)
+				top: 0
+				@include breakpoint($md-up)
 				min-width: (301.35% / 1.618 * 100 / 301.35)
+				@include breakpoint($xs)
+					// bottom: (276.79% / 1.618  * 100 / 276.79)
+					top: auto
+
 			&_first
+
 			&_third
+				@include breakpoint($md-up)
+					bottom: 100%
+
 				min-width: 100%
-				bottom: 0
+
+				@include breakpoint($xs)
+					// bottom: (276.79% / 1.618 * 100 / 276.79)
+					
+				// bottom: 0
 
 			&_first, &_second, &_third
 				@include breakpoint($xxs)
 					min-width: em(203)
+
 			&_fourthMan
-				bottom: 24.28%
+				
+				@include breakpoint($md-less)
+					bottom: 100%
+
+			@include breakpoint($xs)
+				bottom: (276.79% / 1.618  * 100 / 276.79)
+			&_fourthMan
+				@include breakpoint($xxs)
+					top: 0
+					bottom: auto
+
+
+	.itemContent
+		position: absolute
+		opacity: .7
+		will-change: opacity
+		transition: opacity .2s $standart
+		z-index: 2
+
+	.programmItemDescription
+		padding: 1rem 1rem 1.618rem 1.618rem
+		width: 100%
+		
+		bottom: 0
+		border-bottom: $s6 solid $darkenGreen
+		max-height: 100%
+		font-size: 16px
+
+		@include breakpoint($xs)
+			position: relative
+			font-size: 1rem
+			border-top-right-radius: 0
+			border-top-left-radius: 0
+			box-shadow: none
 
 
 	.programmItemContainer
@@ -215,11 +291,12 @@
 			padding: 0
 			margin-top: em(33)
 
+
 		&:not(.programmItem_third)
 			@include breakpoint($xs)
 				min-width: auto $i
 				max-width: calc(50% - #{$s18})
-
+		
 		&[class*="programmItem_"]
 			@include breakpoint($xxs)
 				min-width: 100% $i

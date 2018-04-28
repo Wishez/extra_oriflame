@@ -122,6 +122,11 @@
 			padding-bottom: $s11
 		&_18
 			padding-bottom: $s18
+
+	&_horizontal
+		padding-left: rem(29)
+		padding-right: rem(18)
+
 .visible-hidden-smLess 
 	@include breakpoint($sm-less) 
 		white-space: nowrap
@@ -130,13 +135,33 @@
 		width: 1px
 		height: 1px
 		position: absolute
+
+.removeOffsetWithGrid
+	@supports (display: grid)
+		padding-left: 0
+		padding-right: 0
+		margin-bottom: 0
+.gap
+	&_increased
+		grid-gap: $s29
+
+.display
+	&_grid
+
+		@supports(display: grid)
+			display: grid
+
+.grid
+	&_base-columns
+		@supports (display: grid)
+			grid-template-columns: repeat(auto-fit, minmax(284px, 1fr))
 .margin
 	&Centered
 		margin-left: auto
 		margin-right: auto
 	&Left
 		&_heading
-			margin-left: -5px
+			margin-left: -3px
 		&_29
 			margin-left: $s29
 		&_47
@@ -195,7 +220,13 @@
 			@include breakpoint($xxs)
 				margin-bottom: $s11
 .font
+	&-family
+		&_main
+			font-family: $mainFont
 	&-size
+		&_base
+			font-size: 1em
+
 		&_11
 			font-size: $s11
 		&_29
@@ -225,11 +256,14 @@
 	&_big
 		z-index: 10
 .position
+	
+
 	&Top
 		&_11
 			top: $s11
 		&_18
 			top: $s18
+
 	&Bottom
 		&_full-and-offset
 			bottom: calc(100% + #{$s6})
@@ -243,6 +277,7 @@
 			bottom: $s29
 		&_negative-18
 			bottom: -$s18
+
 	&Left
 		&_zero
 			left: 0
@@ -261,6 +296,7 @@
 		&_xxs-47
 			@include breakpoint($xxs)
 				left: $s47
+
 	&Right
 		&_11
 			right: $s11
@@ -273,6 +309,7 @@
 		&_xs
 			&-auto
 				right: auto
+
 	&_horizontal-centered
 		&-xs
 			@include breakpoint($xs)

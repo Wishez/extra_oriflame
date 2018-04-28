@@ -1,4 +1,5 @@
-const siteApi = ''; //http://localhost:8000';
+// const siteApi = 'http://localhost:8000';
+const siteApi = '';
 export const registrationUrl = `${siteApi}/api/registration/`;
 export const callbackUrl = `${siteApi}/api/callback/`;
 export const sharesUrl = `${siteApi}/shares/api/current/shares/`;

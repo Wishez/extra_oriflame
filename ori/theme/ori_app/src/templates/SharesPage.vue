@@ -9,13 +9,15 @@
 				Акций нет, но мы их скоро добавим.
 			</p>
 		</transition>
-		<transition
-			v-for="share in shares"
-			:key="share.uuid"
+		<transition-group
+			v-if="shares.length"
+			tag="div"
 			name="fade" 
-			appear 
+			class="sharesList parent row wrap h-between display_grid gap_increased grid_base-columns"
 		>
-			<div class="baseChild marginBottom_47 shareContainer container grid_four fullWidth_xxs notRestAlone halfWidth_xs"> 
+			<div v-for="(share, index) in shares"
+				:key="index" 
+				class="baseChild marginBottom_47 shareContainer container grid_four fullWidth_xxs notRestAlone halfWidth_xs removeOffsetWithGrid"> 
 				<share-preview 
 					:title="share.title"
 					:announce="share.announce"
@@ -24,7 +26,7 @@
 					:url="`/share/${share.slug}/`"
 				/>
 			</div>
-		</transition>
+		</transition-group>
 	</section>
 </template>
 
@@ -135,5 +137,11 @@
 	@import '../styles/conf/_colors.sass'
 
 	.shareContainer
+
+	.sharesList
+		// @supports (display: grid)
+		// 	grid-template-columns: repeat(auto-fit, minmax(284px, 1fr))
+			
+
 
 </style>

@@ -2,6 +2,9 @@
 @function em($goal, $context: 18) 
   @return ($goal / $context) * 1em
 
+@function rem($goal, $context: 18) 
+  @return ($goal / $context) * 1rem
+
 @function adaptive($width, $height) 
   @return ($height / $width) * 100%
 

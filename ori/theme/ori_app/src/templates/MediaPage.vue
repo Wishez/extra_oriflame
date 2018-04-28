@@ -1,14 +1,14 @@
 <template>
     <section class="mediaContent">		
     	<main-title>Видео</main-title>
-    	<ul class="unstyledList videos wrap parent row">
+    	<transition-group tag="ul" class="unstyledList videos wrap parent row display_grid gap_increased grid_base-columns">
     		<lazy-video 
-    			:key="video.id" 
-    			v-for="video in videos" 
+    			v-for="(video, index) in videos" 
+    			:key="index" 
     			:src="video.embed" 
     			:label="video.label"
     		/>
-    	</ul>
+    	</transition-group>
     </section>
 </template>
 
@@ -47,9 +47,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='sass'>
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_colors.sass'
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_colors.sass'
 
-	.videos
-		margin: $s47 -#{$s29} 0
+.videos
+	margin: $s47 -#{$s29} 0
+
+	@supports (display: grid)
+		margin-left: 0
+		margin-right: 0 
 </style>

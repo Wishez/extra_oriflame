@@ -4,7 +4,7 @@
 		['sharePreview_' + modifier]: modifier, 
 		[className]: className
 	}">
-		<h2 class="fullWidth sharePreview__title marginTop_18 container">
+		<h2 class="fullWidth sharePreview__title marginTop_18 padding_horizontal marginLeft_heading">
 			<internal-link class="darkenLink sharePreview__title_link disableUnderline disableLinkHover" :to="url">
 				{{ title }}
 			</internal-link>
@@ -15,10 +15,10 @@
 			:src="image" 
 			relative
 		/>
-		<div class="sharePreview__meta marginTop_18 text_left container fullWidth">
+		<div class="sharePreview__meta marginTop_18 text_left padding_horizontal fullWidth">
 			<time :datetime="published">{{ published }}</time>
 		</div>
-		<p class="cropedText cropedText_6 sharePreview__announce container" v-html="announce" />
+		<p class="cropedText cropedText_6 sharePreview__announce padding_horizontal" v-html="announce" />
 	</article>
 </template>
 
@@ -67,55 +67,40 @@
   	    components: {
   	    	BlurryImageLoader,
   	    	InternalLink
-	    },
-	    mixins: [],
-	    data: () => ({
-	    	
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    	
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    },
-	    computed: {
-	    },
-	    methods: {
-	    },
-	    beforeUpdate() {
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
 	    }
 	};
 </script>
 
 <style lang="sass">
-	@import '../styles/conf/_colors.sass'
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_breakpoints.sass'
+@import '../styles/conf/_colors.sass'
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
 
-	.imageContainer_sharePreview
-		order: -1
-		height: em(203)		
-		.progressive-image-main
-			will-change: transform
-			transition: transform .3s ease-in
-			&-wrapper
-	.shareContainer 
-		@include breakpoint($xxs)
-			padding: 0
+.imageContainer_sharePreview
+	order: -1
+	height: em(203)		
+	.progressive-image-main
+		will-change: transform
+		transition: transform .3s ease-in
+		&-wrapper
+
+.shareContainer
+
+	@supports (display: grid)
+		padding-left: 0
+		padding-right: 0
+		margin-bottom: 0
+
+	@include breakpoint($xxs)
+		padding: 0
 	
-	.sharePreview
-		&:hover 
-			.progressive-image-main
-				transform: scale(1.04)
-			.sharePreview__title_link
-				color:  lighten($burgund, 5%) $i
-		&__meta
-			color: #9E9E9E
+.sharePreview
+	&:hover 
+		.progressive-image-main
+			transform: scale(1.04)
+		.sharePreview__title_link
+			color:  lighten($burgund, 5%) $i
+	&__meta
+		color: #9E9E9E
+
 </style>

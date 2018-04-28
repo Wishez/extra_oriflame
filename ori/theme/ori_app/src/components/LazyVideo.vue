@@ -1,7 +1,7 @@
 <template>
 	<li @click="loadVideo" 
 		:aria-labelledby="'video_' + src"
-		:class="['youtube baseChild', modifier ? 'youtube_' + modifier : null]"
+		:class="['youtube baseChild removeOffsetWithGrid', modifier ? 'youtube_' + modifier : null, className]"
 		tabindex="0"
 
 	>
@@ -44,11 +44,13 @@
 		props: {
 			className: {
 				type: String,
-				required: false
+				required: false,
+				default: ""
 			},
 			modifier: {
 				type: String,
-				required: false
+				required: false,
+				default: ""
 			},
 			src: {
 				type: String,
@@ -97,8 +99,17 @@
 		cursor: pointer
 		margin-bottom: 	$s25
 		padding: 0 $s25
+
+			
 		min-width: 30%
 		max-width: span(8)
+
+		@supports (display: grid)
+			margin-bottom: 0
+			padding-left: 0
+			padding-right: 0
+			margin-top: 0
+
 		@include breakpoint($sm-up)
 			// max-height: em(199.602093256156224)
 		@include breakpoint($sm-less) 
@@ -154,5 +165,8 @@
 		top: 0
 		left: 1.5rem
 		position: absolute
-
+		
+		@supports (display: grid)
+			width: 100%
+			left: 0
 </style>
