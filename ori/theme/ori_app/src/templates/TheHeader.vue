@@ -182,6 +182,7 @@
 	@import '../styles/conf/_breakpoints.sass'
 	@import '../styles/conf/_helpers.sass'
 	@import '../styles/conf/_sizes.sass'
+	@import '../styles/conf/_colors.sass'
 
 	.navLink__label
 		@include breakpoint($xxs)
@@ -192,6 +193,7 @@
 		height: 100%
 	.header
 		box-shadow: 0 5px 6px  2px rgba(0, 0, 0, 0.05)
+		background-color: $green
 
 	.header, .nvaigationList
 		position: relative

@@ -59,6 +59,7 @@
 			background-color: #FA8BC4
 		&_green
 			background-color: $darkenGreen
+			color: $white
 
 	.iconBackground__icon
 		font-size:  0.77777777777777777778em

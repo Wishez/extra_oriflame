@@ -1,30 +1,14 @@
 <template>
     <div class="mainContent">
-    	<section @mouseup="onMouseUpParentAwesomeButton" class="banner parent h-around v-centered prespective wrap marginCentered">
-			
-    		<h1 class="bold banner__title textShadow">
-    			<span class="greenColor">Скидки от 20%</span> и <span class="greenColor">подарки</span> сразу после регистрации<span class="greenColor">.</span>
-    		</h1>
-    		<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
-    		 	aria-label="Текущий каталог"
-    		 	showIcon="hide" 
-    		 	className=" banner__image disableUnderline"
-    		 >
-				<blurry-image-loader 
-					alt="Текущий каталог"
-					src="https://ru.oriflame.com/catalogue-image.png"/>
-			</external-link>
-			<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
-				showIcon="hide" 
-				aria-label="Текущий каталог"
-				className=" banner__image disableUnderline fullWidth_xxs">
-				<blurry-image-loader 
-					alt="Текущий каталог"
-					src="https://ru.oriflame.com/catalogue-image.png"/>
-			</external-link>
-    		<awesome-link label="Переход на страницу регистрации"
-    				content="Регистрация" href="/registration" className="banner__button whiteTextShadow"></awesome-link>
-			
+    	<section @mouseup="onMouseUpParentAwesomeButton" class="banner parent h-around v-centered wrap marginCentered materialShadow fewRound">
+			<div class="bannerInfo  wrap parent h-around prespective v-centered">
+	    		<h1 class="bold banner__title textShadow">
+	    			<span class="darkenGreenColor">Скидки от 20%</span> и <span class="darkenGreenColor">подарки</span> сразу после регистрации<span class="darkenGreenColor">.</span>
+	    		</h1>
+	    		
+	    		<awesome-link label="Переход на страницу регистрации"
+	    				content="Регистрация" href="/registration" className="banner__button whiteTextShadow"></awesome-link>
+			</div>
     		<!-- <blurry-image-loader
     			:src="banner"
     			defaultMedia="(min-width: 481px)"
@@ -32,6 +16,28 @@
     			modifier="banner"
     			className="materialShadow fewRound fullWidth"
     		/> -->
+
+    		<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+    		 	aria-label="Текущий каталог"
+    		 	showIcon="hide" 
+    		 	className="banner__image disableUnderline"
+
+    		 >
+				<blurry-image-loader 
+					alt="Текущий каталог"
+					src="https://ru.oriflame.com/catalogue-image.png"
+					relative/>
+			</external-link>
+			<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+				showIcon="hide" 
+				aria-label="Текущий каталог"
+				className=" banner__image disableUnderline fullWidth_xxs">
+				<blurry-image-loader 
+					alt="Текущий каталог"
+					src="https://ru.oriflame.com/catalogue-image.png"
+					relative
+					/>
+			</external-link>
 
     	</section>
     	<fade-translate-transition-group tag="section" className="h-between blog parent row wrap"
@@ -46,15 +52,7 @@
 				<p>
 					Компания Oriflame предлагает <strong>более 1000</strong> наименований <strong>прогрессивных продуктов</strong> по доступной цене &mdash; косметических средств, модных аксессуаров, ароматов, средств по уходу за телом, волосами и т.п., разработанных в Швеции <strong>по уникальным инновационным технологиям</strong>.
 				</p>
-				<awesome-link 
-					v-if="!$store.state.isUserFromMobileOrientation"
-					containerClassName="parent centered marginTop_29"
-
-					href="/registration" 
-					content="К регистрации"
-					modifier="burgund"
-					label="Перейти на страницу регистрации"
-				/>
+				
 				<!-- Oriflame &mdash; европейский <strong>создатель и поставщик</strong> разнообразной продукции. С ней <strong>сотрудничают разные люди из различных стран</strong>. Она, как нам и вам, всегда готово предложить обширное количество <strong>косметики</strong>, <strong>аксессуаров</strong>, <strong>парфюмерии</strong> и всё то, что вы сможете найти в каталоге. -->
 			</about-item>
 			<about-item
@@ -69,14 +67,7 @@
 				<strong>Описание всех ароматов</strong> Oriflame вы можете найти здесь <external-link 
 				className="lightenHover"
 				to="https://media-cis-cdn.oriflame.com/-/media/RU/Files/My-Pages/Sell/Product-Expert/Product-guide/Fragrance04042016.ashx?u=0101010000&la=ru-RU)">руководстве по продукции</external-link>.</p>
-				<awesome-link 
-					v-if="$store.state.isUserFromMobileOrientation"
-					containerClassName="parent centered marginTop_29"
-					href="/registration" 
-					content="К регистрации"
-					modifier="burgund"
-					label="Перейти на страницу регистрации"
-				/>
+			
 
 
 
@@ -117,14 +108,6 @@
 				<p>
 					Oriflame предлагает всевозможные крема, активаторы, инструменты и аксессуары для ухода за кожей, отдельную линию продукции для мужчин и многое другое.
 
-					<awesome-link 
-						containerClassName="parent centered marginTop_29"
-						href="/registration" 
-						content="Зарегистрироваться"
-						className="min-width_240"
-						modifier="green"
-						label="Перейти на страницу регистрации"
-					/>
 				</p>
 
 
@@ -137,8 +120,18 @@
 				/> -->
 			</about-item>
 			
-			
+			<awesome-link 
+				:key="4"
+				:data-index="4"
+				containerClassName="parent centered marginCentered marginTop_6"
+
+				href="/registration" 
+				content="Регистрация"
+				modifier="burgund"
+				label="Перейти на страницу регистрации"
+			/>
 		</fade-translate-transition-group>
+
 		<section class="programm parent column">
 			<decorative-title>Бонусы со старта</decorative-title>
 
@@ -159,6 +152,15 @@
 					:titleModifier="item.titleModifier"
 				/>
 			</div>
+
+			<awesome-link 
+				containerClassName="parent centered marginTop_47"
+				href="/registration" 
+				content="Зарегистрироваться"
+				className="min-width_240"
+				modifier="green"
+				label="Перейти на страницу регистрации"
+			/>
 			
 		</section>
 		<!-- <section class="extraInformation parent row wrap">
@@ -203,7 +205,7 @@
 				</li>
 			</ul>
  -->
-		</section>
+		<!-- </section> -->
     </div>
 </template>
 
@@ -410,117 +412,118 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='sass'>
-	// Variables and helpful functions
-	@import './../styles/conf/_sizes.sass'
-	@import './../styles/conf/_colors.sass'
-	@import './../styles/conf/_breakpoints.sass'
+// Variables and helpful functions
+@import './../styles/conf/_sizes.sass'
+@import './../styles/conf/_colors.sass'
+@import './../styles/conf/_breakpoints.sass'
+.bannerInfo
+	padding: $s18 $s29 $s47 $s47
+	color: $darkGray
 	
-	.banner
-		position: relative
-		z-index: 0
-		padding: $s18 1.5rem $s47
-		color: $white
-		background-color: rgba(51, 51, 51, .4)
-		max-width: 805px
+.banner
+	position: relative
+	z-index: 0
+	
+	background-color: #fff
+	max-width: 805px
 
-		&__title
-			z-index: 2
-			@include breakpoint($sm-up)
-			    max-width: 75%;
+	&__title
+		z-index: 2
+		@include breakpoint($sm-up)
+		    max-width: 70%;
 
-			@include breakpoint($xs)
-				margin-bottom: 1.5rem;
+		@include breakpoint($xs)
+			margin-bottom: 1.5rem;
 
-		& a
-			margin-top: 1.5rem
+	& a
+		margin-top: 1.5rem
 
-		&__button
-			color: $darkGray
+	&__button
+		color: $darkGray
 
-		&__image
-			&:before
-				content: ""
-				z-index: 5
-				background-color: rgba(51, 51, 51, .4)
+	&__image
+		order: -1
 
-			&, &:before	
-				position: absolute
-				height: 100%
-				width: 100%
-				top: 0
+		max-width: 50%
+		margin-top: 0 $i
 
-			z-index: 0
-
-			max-width: 50%
-			margin-top: 0 $i
-
-			&:nth-of-type(1), &:before
-				left: 0
-			&:nth-of-type(2)
-				right: 0
+		&:nth-of-type(1)
+			@include breakpoint($xxs)
+				display: none
 			
+		&:nth-of-type(2)
+			
+		
 
-			.progressive-image 
-				height: 100%
-				width: 100%
-
-			.progressive-image-main
-				@include breakpoint($xs)
-					height: 100%
-
-	.imageContainer_banner
-		position: absolute
-		top: 0
-		z-index: -1
-		left: 0
-
-		.progressive-image-main,.progressive-image-wrapper
+		.progressive-image 
 			height: 100%
+			width: 100%
 
-	.imageContainer_banner
-		// max-height: em(166)
+		.progressive-image-main
+			@include breakpoint($xs)
+				height: 100%
+
+.imageContainer_banner
+	position: absolute
+	top: 0
+	z-index: -1
+	left: 0
+
+	.progressive-image-main,.progressive-image-wrapper
 		height: 100%
 
-	.programm
-		margin-top: em(77 - 29.124) $i
-		&__paragraph
-			margin-top: $s47 $i
-			max-width: em(522.54)
+.imageContainer_banner
+	height: 100%
+
+.programm
+	margin-top: em(77 - 29.124) $i
+
+	&__paragraph
+		margin-top: $s47 $i
+		max-width: em(522.54)
+
+.programmItems
+	margin-top: $s77
+
+.currentCatalog
+
+	@include breakpoint($xs)
+		min-width: 100%
+		order: 2
+		margin-top: $s47
+
+	@include breakpoint($xxs)
+
+	&__title
+		margin-bottom: $s16
+	&__image
+		max-width: 50%
+
+.extraInformation
 	
-	.programmItems
-		margin-top: $s77
-	.currentCatalog
+	&__title
+		margin-bottom: $s47
+		.decorativeTitleContainer__title
+			@include breakpoint($xxs)
+				min-width: 80%
+
+	&__navigation
+		padding-top: em(39)
+		max-width: 25%
+		min-width: 45%
+
 		@include breakpoint($xs)
-			min-width: 100%
-			order: 2
-			margin-top: $s47
-		@include breakpoint($xxs)
+			max-width: none
 
-		&__title
-			margin-bottom: $s16
-		&__image
-			max-width: 50%
-	.extraInformation
-		
-		&__title
-			margin-bottom: $s47
-			.decorativeTitleContainer__title
-				@include breakpoint($xxs)
-					min-width: 80%
+	&__image
+		min-height: em(500)
 
-		&__navigation
-			padding-top: em(39)
-			max-width: 25%
-			min-width: 45%
-			@include breakpoint($xs)
-				max-width: none
+.extraInformation__title, .currentCatalog, .extraInformation__navigation
 
-		&__image
-			min-height: em(500)
-	.extraInformation__title, .currentCatalog, .extraInformation__navigation
-		@include breakpoint($xxs)
-			padding: 0
-	.currentCatalog, .extraInformation__navigation
-		@include breakpoint($xxs)
-			min-width: 100%
+	@include breakpoint($xxs)
+		padding: 0
+
+.currentCatalog, .extraInformation__navigation
+	@include breakpoint($xxs)
+		min-width: 100%
 </style>

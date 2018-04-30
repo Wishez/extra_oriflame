@@ -5,12 +5,12 @@
 			:address="address"
 			:addressHref="addressHref"
 		/>
-		<p class="light container copyrigth textCentered">&copy;&nbsp;2018&nbsp;Сайт независимого консультанта<br/>
+		<p class="light container copyrigth textRight">&copy;&nbsp;2018&nbsp;Сайт независимого консультанта<br/>
 			Создано с любовь к 
-			<external-link className="normalWeight lightenHover" to="https://oriflame.ru">Орифлейм</external-link>
+			<external-link className="normalWeight darkenHover" to="https://oriflame.ru">Орифлейм</external-link>
 		</p>
-		<p class="container author textRight light">Дизайн и разработка:<br/>
-			<external-link className="normalWeight lightenHover" to="https://shining-present.ru">&#x2661;&nbsp;Филипп Журавлёв</external-link>
+		<p v-if="false" class="container author textRight light">Дизайн и разработка:<br/>
+			<external-link className="normalWeight darkenHover" to="https://shining-present.ru">&#x2661;&nbsp;Филипп Журавлёв</external-link>
 		</p>
 	</footer>
 </template>
@@ -51,30 +51,39 @@
 	@import '../styles/conf/_sizes.sass'
 	@import '../styles/conf/_breakpoints.sass'
 	.footer
-		padding: $s29
+		background-color: $green
+		padding: $s29 $s29 $s47
 		box-shadow: 0 -4px 6px  1px rgba(0, 0, 0, 0.05)
+		
 		@include breakpoint($xs)
-			padding-bottom: em(124.586)
+			justify-content: space-between
+			padding-bottom: em(124.586 / 1.618)
+
 	.contactsContainer_footer
-		@include breakpoint($md-less)
-			min-width: 100%
-			padding: 0
-			margin-bottom: $s29
+
+		ul 
+			@include breakpoint($md-less)
+				padding: 0
+			
+
 	.copyrigth, .author
+
 		@include breakpoint($md-less)
-			min-width: 50%
+			// min-width: 50%
 			max-width: none !important
 			margin: 0
 			padding: 0
+
 		@include breakpoint($xs)
 			min-width: 100%
+
 	.copyrigth
-		@include breakpoint($md-less)
-			text-align: left
 		@include breakpoint($xs)
-			margin-bottom: $s29
-		@include breakpoint($xs-only)
-			text-align: center
+			margin-top: $s29
+			
+		// @include breakpoint($xs-only)
+		// 	text-align: right
+
 	.author, .copyrigth
 		margin-left: 0
 		margin-right: 0

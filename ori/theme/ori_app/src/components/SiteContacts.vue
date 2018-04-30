@@ -3,15 +3,15 @@
 		<ul class="unstyledList contactsList normalStyle darkGrayColor semibold">
 			<li class="contact parent row nowrap v-centered marginTop_zero">
 				<base-icon modifier="contact" className="darkGrayColor" icon="fab fa-viber" />
-				<a @focus="setDefaultMenuState" class="text_nowrap lightenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
+				<a @focus="setDefaultMenuState" class="text_nowrap darkenHover contact__link" :href="`tel:${phone}`">{{ phone }}</a>
 			</li>
 			<li class="contact parent row nowrap v-centered">
 				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-at"/>
-				<a @focus="setDefaultMenuState" class="text_nowrap lightenHover contact__link" :href="`mailto:${email}`">{{ email }}</a>
+				<a @focus="setDefaultMenuState" class="text_nowrap darkenHover contact__link" :href="`mailto:${email}`">{{ email }}</a>
 			</li>
-			<li v-if="address" class="contact parent row nowrap v-centered ">
+			<li v-if="address && address !== 'None'" class="contact parent row nowrap v-centered ">
 				<base-icon className="darkGrayColor" modifier="contact" icon="fas fa-location-arrow"/>
-				<external-link :to="addressHref" className="contact__link lightenHover text_nowrap">
+				<external-link :to="addressHref" className="contact__link darkenHover text_nowrap">
 					{{ address }}
 				</external-link>
 			</li>

@@ -11,11 +11,11 @@
 		</base-tooltip> -->
 		<tooltip-item-container 
 			:tooltipId="tooltipId"
-			className="programmItem materialSadow"
+			className="programmItem materialShadow"
 			slot="reference"
 		>
 
-			<h2 :class="['whiteBackground parent centered programmItem__title materialSadow font-size_base font-family_main itemContent', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">
+			<h2 :class="['whiteBackground parent centered programmItem__title  font-size_base font-family_main itemContent visible-hidden-xs', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">
 				{{ title }}
 			</h2>
 
@@ -26,7 +26,7 @@
 			 />
 			<p v-html="stepDescription.paragraph"
 				:class="{
-					'fewRound programmItemDescription whiteBackground marginTop_zero itemContent': true,
+					'fewRound programmItemDescription whiteBackground marginTop_zero': true,
 					[`programmItemDescription_${name}`]: name
 			}"/>
 			 <!-- <article 
@@ -135,30 +135,34 @@
 			@include breakpoint($xs)
 				display: flex;
 				align-items: flex-end
+
 		&_third
 			margin-top: $s77 * 1.618
 			
 
-			& .progressive-image
+			
+
+			@include breakpoint($md-less)
+				margin-top: $s77
 
 			@include breakpoint($md)
 				$thidBlockWidth: 233.66 * 2
-				margin-top: $s77 + $s6
 				min-width: em($thidBlockWidth) + ($s77 * 2) $i
 			
 
 		&_fourthMan, &_third
 			@include breakpoint($xs)
 				min-width: 100% $i
+
 		&_fourthMan
 
 			max-width: 67%
 			margin-left: auto
-			margin-top: ($s77 + em(64))
-			margin: $s77 auto 0
+			// margin-top: ($s77 + em(64))
+			margin: $s47 + $s18 auto 0
 
 			@include breakpoint($md-less) 
-				margin-top: em(64)
+				margin-top: 0
 
 			@include breakpoint($xs)
 				max-width: none $i
@@ -175,10 +179,13 @@
 		// &_fourthWooman
 		// 	margin-top: $s77
 
-		&_fourthMan, &_third
-			@include breakpoint($sm-less)
-				margin-top: $s77
 		&_fourthMan
+
+			@include breakpoint($sm-less)
+				margin-top: $s47
+
+		&_fourthMan
+
 			@include breakpoint($xxs)
 
 		&:hover, &:focus
@@ -204,6 +211,8 @@
 
 			bottom: (351.64% / 1.618 * 100 / 351.64)
 
+			
+
 			&_left
 				box-shadow: 3px 1px 6px 0 $shadow
 				left: 0
@@ -218,19 +227,24 @@
 			&_first
 				min-width: (274.33% / 1.618  * 100 / 274.33)
 
+			&_first, &_second
+				// bottom: 23.5%
+
 			&_second
-				top: 0
+				// top: 0
 				@include breakpoint($md-up)
 				min-width: (301.35% / 1.618 * 100 / 301.35)
 				@include breakpoint($xs)
 					// bottom: (276.79% / 1.618  * 100 / 276.79)
-					top: auto
+					// top: auto
 
 			&_first
 
 			&_third
-				@include breakpoint($md-up)
-					bottom: 100%
+
+				// bottom: 21.12%
+				// @include breakpoint($md-up)
+				// 	bottom: 100%
 
 				min-width: 100%
 
@@ -244,16 +258,16 @@
 					min-width: em(203)
 
 			&_fourthMan
-				
-				@include breakpoint($md-less)
-					bottom: 100%
+				// bottom: 24.28%
+				// @include breakpoint($md-less)
+					// bottom: 100%
 
-			@include breakpoint($xs)
-				bottom: (276.79% / 1.618  * 100 / 276.79)
-			&_fourthMan
-				@include breakpoint($xxs)
-					top: 0
-					bottom: auto
+			// @include breakpoint($xs)
+			// 	bottom: (276.79% / 1.618  * 100 / 276.79)
+			// &_fourthMan
+			// 	@include breakpoint($xxs)
+			// 		top: 0
+			// 		bottom: auto
 
 
 	.itemContent
@@ -272,8 +286,8 @@
 		max-height: 100%
 		font-size: 16px
 
+		position: relative
 		@include breakpoint($xs)
-			position: relative
 			font-size: 1rem
 			border-top-right-radius: 0
 			border-top-left-radius: 0
