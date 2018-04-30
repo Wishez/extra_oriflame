@@ -58,7 +58,7 @@ def registration(request):
             )
         ).start()
 
-        return HttpResponse('Вы успешно прошли регистрацию Вы успешно прошли регистрацию. Менеджер свяжется с вами в течение 12-ти часов. ')
+        return HttpResponse('Вы успешно прошли регистрацию. Менеджер свяжется с вами в течение 12-ти часов. ')
 
     return HttpResponse('')
 
@@ -69,7 +69,7 @@ def callback(request):
         callback = Callback(**data)
         callback.save()
 
-        html = 'Наша команда по обработке закзов консультации приняла вашу заявку! Пожулайста, ожидайте соединения;).'
+        html = 'Наша команда по обработке закзов консультации приняла вашу заявку! Пожалуйста, ожидайте соединения;).'
         return HttpResponse(html)
 
     return HttpResponse('')
