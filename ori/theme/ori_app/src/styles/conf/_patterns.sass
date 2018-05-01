@@ -172,6 +172,9 @@
 			@include breakpoint($xs)
 				margin-left: $s18
 	&Right
+		&_11
+			margin-right: $s11
+
 		&_29
 			margin-right: $s29
 		&_47
@@ -402,6 +405,14 @@
 	&:before
 		content: none
 
+.order
+	&_first
+		order: -1
+
+	&_last
+		order: 10
+
+		
 ::-webkit-scrollbar-track
 	// -webkit-box-shadow: inset 0 0 6px $shadow
 	// background-color: $darkGray

@@ -42,22 +42,30 @@
     	</section>
     	<fade-translate-transition-group tag="section" className="h-between blog parent row wrap"
     	:duration="1500">
-				<!-- v-for="aboutItem in aboutItems"  -->
+				
 			<about-item
 			 	:key="0"
 				:data-index="0"
+				:image="aboutImages.oriflame"
 				title="Наша компания"
+				className="parent column"
+
 			>
-				<p>Oriflame – <strong>европейская косметическая компания</strong> прямых продаж №1, с которой <strong>сотрудничают более 3 миллионов</strong> консультантов по всему миру, а годовой оборот компании составляет <strong>около 1,5 млрд евро</strong>.</p>
+
+				<p>
+					
+				Oriflame – <strong>европейская косметическая компания</strong> прямых продаж №1, с которой <strong>сотрудничают более 3 миллионов</strong> консультантов по всему миру, а годовой оборот компании составляет <strong>около 1,5 млрд евро</strong>.</p>
 				<p>
 					Компания Oriflame предлагает <strong>более 1000</strong> наименований <strong>прогрессивных продуктов</strong> по доступной цене &mdash; косметических средств, модных аксессуаров, ароматов, средств по уходу за телом, волосами и т.п., разработанных в Швеции <strong>по уникальным инновационным технологиям</strong>.
 				</p>
+
 				
 				<!-- Oriflame &mdash; европейский <strong>создатель и поставщик</strong> разнообразной продукции. С ней <strong>сотрудничают разные люди из различных стран</strong>. Она, как нам и вам, всегда готово предложить обширное количество <strong>косметики</strong>, <strong>аксессуаров</strong>, <strong>парфюмерии</strong> и всё то, что вы сможете найти в каталоге. -->
 			</about-item>
 			<about-item
 			 	:key="1"
 				:data-index="1"
+				:image="aboutImages.smell"
 				title="Царство ароматов"
 			>
 			<p>Все ароматы Oriflame создаются во Франции — <strong>в самом сердце парфюмерной промышленности</strong> мира, чтобы их <i>качество</i>, <i>новизна</i> и <i>неповторимость</i> <strong>соответствовали высочайшим требованиям</strong>.</p>
@@ -76,6 +84,7 @@
 			<about-item
 			 	:key="2"
 				:data-index="2"
+				:image="aboutImages.wellness"
 				title="Здоровье с Wellness"
 			>
 				<p>Продукция Wellness от Oriflame разработана с целью <strong>сбалансировать питание организма</strong> на клеточном уровне в условиях высокого темпа жизни и качества продуктов питания, которые предлагает нам современный мир, стать <i>более здоровыми</i>, <i>энергичными</i> и <i>счастливыми</i>.</p>
@@ -99,7 +108,9 @@
 			<about-item
 			 	:key="3"
 				:data-index="3"
-				title="Косметические средства"
+				:image="aboutImages.skin"
+				imageClass="aboutItemImage_big"
+				title="Уход за кожей"
 			>
 				<p>
 					Более 50 лет компания Oriflame занимается <strong>глубокими исследованиями в области ухода за кожей</strong> и <strong>разрабатывает новаторские высокоэффективные косметические средства</strong>, которые прошли клинические, дерматологические испытания и получили международную JMP сертификацию. 
@@ -210,204 +221,206 @@
 </template>
 
 <script>
-	// Images
-	// import banner from './../assets/images/banner.png';
+// Images
+// import banner from './../assets/images/banner.png';
 
-	import {first, second, third, fourth } from "@/assets/images/programm";
-	// import mobileBanner from './../assets/images/mobile-banner.png';
- 
-	// Components
-	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
-	import BlurryImageLoader from '@/components/BlurryImageLoader';
-	import AwesomeLink from '@/components/AwesomeLink';
-	import AboutItem from '@/components/AboutItem';
-	import ExternalLink from '@/components/ExternalLink';
-	import InternalLink from '@/components/InternalLink';
-	import DecorativeTitle from '@/components/DecorativeTitle';
-	import ProgrammItem from '@/components/ProgrammItem';
+import {first, second, third, fourth } from "@/assets/images/programm";
+// import mobileBanner from './../assets/images/mobile-banner.png';
+
+// Components
+import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
+import BlurryImageLoader from '@/components/BlurryImageLoader';
+import AwesomeLink from '@/components/AwesomeLink';
+import AboutItem from '@/components/AboutItem';
+import ExternalLink from '@/components/ExternalLink';
+import InternalLink from '@/components/InternalLink';
+import DecorativeTitle from '@/components/DecorativeTitle';
+import ProgrammItem from '@/components/ProgrammItem';
 
 
-	import {onMouseUpParentAwesomeButton} from './../constants/pureFunctions';
+import {onMouseUpParentAwesomeButton} from './../constants/pureFunctions';
+import aboutImages from '@/assets/images/about';
 
-	export default {
-	  name: 'MainPage',
-	  components: {
-	  	BlurryImageLoader,
-	  	AwesomeLink,
-	  	AboutItem,
-	  	DecorativeTitle,
-	  	ProgrammItem,
-	  	ExternalLink,
-	  	InternalLink,
-	  	FadeTranslateTransitionGroup
-	  },
-	  data() {
-	  	return {
-	  		// banner: window.innerWidth <= 480 ? 
-	  		// 	mobileBanner : 
-	  		// 	banner,
-	  		programmParagraphs: [
-	  			{
-	  				id: 1,
-	  				text: '<strong>Одна из многих</strong> акций, которые будут вам доступны <strong>после регистрации</strong> &mdash; это <i>«Стартовая программа»</i>.',
-	  				position: 'v-s-start'
-	  			},{
-	  				id: 2,
-	  				text: 'Данная акция устроена в <strong>виде квеста</strong>, суть которого заключается в поэтапном выполнение <strong>условий</strong> (мы оставили их ниже), а после <strong>получили подарок</strong> в виде наборов продукции Орифлэйм <strong>общей стоимостью 10 328 ₽</strong>.',
-	  				position: 'v-s-centered'
-	  			},{
-	  				id: 3,
-	  				text: `<h3 class="marginLeft_heading">Условия квеста:</h3> <ul class="unstyledList">
-	  					<li class="marginTop_29"><span class="semibold">Шаг №1:</span> необходимо приобретать продукцию Oriflame, <strong>в течении 21</strong>.</li>
-	  					<li class="marginTop_18"><span class="semibold">Шаг №2:</span> суммарная стоимость ваших покупок должна быть <strong>более 99 бонусных    баллов ББ</strong> (каждый продукт соответствует своему количеству ББ)</li>
-	  					</ul>`,
-	  				position: 'v-s-end'
-	  			}
-	  		], // end aboutParagraphs
-	  		programmItems: [
-	  			{
-	  				id: 0,
-	  				title: "Первый шаг",
-	  				src: first,
-	  				name: "first",
-	  				stepDescription: {
-	  					paragraph: "Выполнив условия этого квеста <strong>вы получите, совершенно бесплатно</strong>, набор продукции №1.",
-	  				// 	items: [
-	  				// 		{
-	  				// 			name: 'Питательный крем для рук и тела',
-	  				// 			id: 0
-	  				// 		},
-	  				// 		{
-	  				// 			name: 'Крем-мыло «Молоко и мед – Золотая серия» (Код: 31604)',
-	  				// 			id: 1
-	  				// 		},
-	  				// 		{
-	  				// 			name: 'Увлажняющий крем для душа «Молоко и мед – Золотая серия» (Код: 31605)',
-	  				// 			id: 2
-	  				// 		},
-	  				// 		{
-	  				// 			name: 'Специальное смягчающее средство «Нежная забота» (Код: 1276)',
-	  				// 			id: 3
-	  				// 		},
-	  						
-	  				// 	]
-	  				}
+export default {
+  name: 'MainPage',
+  components: {
+  	BlurryImageLoader,
+  	AwesomeLink,
+  	AboutItem,
+  	DecorativeTitle,
+  	ProgrammItem,
+  	ExternalLink,
+  	InternalLink,
+  	FadeTranslateTransitionGroup
+  },
+  data() {
+  	return {
+  		// banner: window.innerWidth <= 480 ? 
+  		// 	mobileBanner : 
+  		// 	banner,
+  		aboutImages,
+  		programmParagraphs: [
+  			{
+  				id: 1,
+  				text: '<strong>Одна из многих</strong> акций, которые будут вам доступны <strong>после регистрации</strong> &mdash; это <i>«Стартовая программа»</i>.',
+  				position: 'v-s-start'
+  			},{
+  				id: 2,
+  				text: 'Данная акция устроена в <strong>виде квеста</strong>, суть которого заключается в поэтапном выполнение <strong>условий</strong> (мы оставили их ниже), а после <strong>получили подарок</strong> в виде наборов продукции Орифлэйм <strong>общей стоимостью 10 328 ₽</strong>.',
+  				position: 'v-s-centered'
+  			},{
+  				id: 3,
+  				text: `<h3 class="marginLeft_heading">Условия квеста:</h3> <ul class="unstyledList">
+  					<li class="marginTop_29"><span class="semibold">Шаг №1:</span> необходимо приобретать продукцию Oriflame, <strong>в течении 21</strong>.</li>
+  					<li class="marginTop_18"><span class="semibold">Шаг №2:</span> суммарная стоимость ваших покупок должна быть <strong>более 99 бонусных    баллов ББ</strong> (каждый продукт соответствует своему количеству ББ)</li>
+  					</ul>`,
+  				position: 'v-s-end'
+  			}
+  		], // end aboutParagraphs
+  		programmItems: [
+  			{
+  				id: 0,
+  				title: "Первый шаг",
+  				src: first,
+  				name: "first",
+  				stepDescription: {
+  					paragraph: "Выполнив условия этого квеста <strong>вы получите, совершенно бесплатно</strong>, набор продукции №1.",
+  				// 	items: [
+  				// 		{
+  				// 			name: 'Питательный крем для рук и тела',
+  				// 			id: 0
+  				// 		},
+  				// 		{
+  				// 			name: 'Крем-мыло «Молоко и мед – Золотая серия» (Код: 31604)',
+  				// 			id: 1
+  				// 		},
+  				// 		{
+  				// 			name: 'Увлажняющий крем для душа «Молоко и мед – Золотая серия» (Код: 31605)',
+  				// 			id: 2
+  				// 		},
+  				// 		{
+  				// 			name: 'Специальное смягчающее средство «Нежная забота» (Код: 1276)',
+  				// 			id: 3
+  				// 		},
+  						
+  				// 	]
+  				}
 
-	  			}, // end first
-	  			{
-	  				id: 1,
-	  				title: "Второй шаг",
-	  				src: second,
-	  				name: "second",
-	  				titleModifier: 'right',
-	  				stepDescription: {
-	  					paragraph: "Выполнив эти условия ещё раз, в следующие 21 день, <strong>вы получите, совершенно бесплатно</strong>,  дополнительно к набору №1, набор продукции №2.",
-	  					// items: [
-	  					// 	{
-	  					// 		name: 'Губная помада «The ONE Colour Stylist» (оттенок «Дивный пион»)',
-	  					// 		id: 0
-	  					// 	},
-	  					// 	{
-	  					// 		name: 'Тушь для ресниц 5-в-11 «The ONE Wonderlash» (оттенок «Черный»)',
-	  					// 		id: 1
-	  					// 	},
-	  					// ]
-	  				}
+  			}, // end first
+  			{
+  				id: 1,
+  				title: "Второй шаг",
+  				src: second,
+  				name: "second",
+  				titleModifier: 'right',
+  				stepDescription: {
+  					paragraph: "Выполнив эти условия ещё раз, в следующие 21 день, <strong>вы получите, совершенно бесплатно</strong>,  дополнительно к набору №1, набор продукции №2.",
+  					// items: [
+  					// 	{
+  					// 		name: 'Губная помада «The ONE Colour Stylist» (оттенок «Дивный пион»)',
+  					// 		id: 0
+  					// 	},
+  					// 	{
+  					// 		name: 'Тушь для ресниц 5-в-11 «The ONE Wonderlash» (оттенок «Черный»)',
+  					// 		id: 1
+  					// 	},
+  					// ]
+  				}
 
-	  			}, // end second
-	  			{
-	  				id: 2,
-	  				title: "Третий шаг",
-	  				src: third,
-	  				name: "third",
-	  				stepDescription: {
-	  					paragraph: "Выполнив эти <strong>условия ещё раз</strong>, в следующие 21 день, вы можете выбрать <strong>один из трёх вариантов</strong>, дополнительно к набору №1 и №2, набор продукции №3.",
-	  					// items: [
-	  					// 	{
-	  					// 		name: 'Продукты «Optimals Age ReviveАнти»: возрастной дневной и ночной крем, а также крем для кожи вокруг глаз (Код: 540211)',
-	  					// 		id: 0
-	  					// 	},
-	  					// 	{
-	  					// 		name: 'Туалетная вода «Eclat Femme» для нее(Код: 540212) или «Eclat Homme» для него (Код: 540213)',
-	  					// 		id: 2
-	  					// 	},
-	  					// ]
-	  				}
+  			}, // end second
+  			{
+  				id: 2,
+  				title: "Третий шаг",
+  				src: third,
+  				name: "third",
+  				stepDescription: {
+  					paragraph: "Выполнив эти <strong>условия ещё раз</strong>, в следующие 21 день, вы можете выбрать <strong>один из трёх вариантов</strong>, дополнительно к набору №1 и №2, набор продукции №3.",
+  					// items: [
+  					// 	{
+  					// 		name: 'Продукты «Optimals Age ReviveАнти»: возрастной дневной и ночной крем, а также крем для кожи вокруг глаз (Код: 540211)',
+  					// 		id: 0
+  					// 	},
+  					// 	{
+  					// 		name: 'Туалетная вода «Eclat Femme» для нее(Код: 540212) или «Eclat Homme» для него (Код: 540213)',
+  					// 		id: 2
+  					// 	},
+  					// ]
+  				}
 
-	  			}, // end third
-	  			{
-	  				id: 3,
-	  				name: "fourthMan",
-	  				src: fourth,
-	  				title: "Четвёртый шаг",
-	  				titleModifier: 'center',
-	  				stepDescription: {
-	  					paragraph: "Выполнив эти условия <strong>ещё раз, в следующие 21 день</strong>, вы можете выбрать один из двух вариантов, <strong> совершенно бесплатно</strong>, дополнительно к набору №1, №2 и №3, набор продукции №4.",
-	  					// items: [
-	  					// 	{
-	  					// 		name: '«Вэлнэс Пэк» для мужчин (Код: 540215)',
-	  					// 		id: 0
-	  					// 	}
-	  					// ]
-	  				}
+  			}, // end third
+  			{
+  				id: 3,
+  				name: "fourthMan",
+  				src: fourth,
+  				title: "Четвёртый шаг",
+  				titleModifier: 'center',
+  				stepDescription: {
+  					paragraph: "Выполнив эти условия <strong>ещё раз, в следующие 21 день</strong>, вы можете выбрать один из двух вариантов, <strong> совершенно бесплатно</strong>, дополнительно к набору №1, №2 и №3, набор продукции №4.",
+  					// items: [
+  					// 	{
+  					// 		name: '«Вэлнэс Пэк» для мужчин (Код: 540215)',
+  					// 		id: 0
+  					// 	}
+  					// ]
+  				}
 
-	  			}, // end fourthWooman
-	  			// {
-	  			// 	id: 4,
-	  			// 	title: "Последний шаг для женщин",
-	  			// 	src: fourthWoomanStepImage,
-	  			// 	name: "fourthWooman",
-	  			// 	titleModifier: 'center',
-	  			// 	stepDescription: {
-	  			// 		paragraph: "Последний шаг ー полезная, питательная и здоровая еда <strong>для женщин, со скидкой в 4 130₽ + 5% от суммы набора</strong>.",
-	  			// 		items: [
-	  			// 			{
-	  			// 				name: '«Вэлнэс Пэк» для женщин (Код: 540214)',
-	  			// 				id: 0
-	  			// 			}
-	  						
-	  			// 		]
-	  			// 	}
+  			}, // end fourthWooman
+  			// {
+  			// 	id: 4,
+  			// 	title: "Последний шаг для женщин",
+  			// 	src: fourthWoomanStepImage,
+  			// 	name: "fourthWooman",
+  			// 	titleModifier: 'center',
+  			// 	stepDescription: {
+  			// 		paragraph: "Последний шаг ー полезная, питательная и здоровая еда <strong>для женщин, со скидкой в 4 130₽ + 5% от суммы набора</strong>.",
+  			// 		items: [
+  			// 			{
+  			// 				name: '«Вэлнэс Пэк» для женщин (Код: 540214)',
+  			// 				id: 0
+  			// 			}
+  						
+  			// 		]
+  			// 	}
 
-	  			// } // end fourthMan
-	  		], // end programmItems
-	  		extraInfoLinks: [
-	  			{
-	  				id: 0,
-	  				text: "Бонусные баллы",
-	  				href: "/business",
-	  				hashResource:  '#scores'
-	  			},
-	  			{
-	  				id: 1,
-	  				text: "О регистрации",
-	  				href: "/registration",
-	  				hashResource:  '#description'
-	  			},
-	  			{
-	  				id: 3,
-	  				text: "Интернет магазин",
-	  				href: "https://www.oriflame.ru/",
-	  				external: true  
-	  			},
-	  			{
-	  				id: 4,
-	  				text: "О структуре бизнеса",
-	  				href: "/business",
+  			// } // end fourthMan
+  		], // end programmItems
+  		extraInfoLinks: [
+  			{
+  				id: 0,
+  				text: "Бонусные баллы",
+  				href: "/business",
+  				hashResource:  '#scores'
+  			},
+  			{
+  				id: 1,
+  				text: "О регистрации",
+  				href: "/registration",
+  				hashResource:  '#description'
+  			},
+  			{
+  				id: 3,
+  				text: "Интернет магазин",
+  				href: "https://www.oriflame.ru/",
+  				external: true  
+  			},
+  			{
+  				id: 4,
+  				text: "О структуре бизнеса",
+  				href: "/business",
 
-	  			},
-	  			{
-	  				id: 5,
-	  				text: "Видео об Орифлейм ",
-	  				href: "/media"
-	  			},
-	  		] // end extraInfoLinks
-	  	};
-	  },
-	  methods: {
-	  	onMouseUpParentAwesomeButton
-	  }
-	}
+  			},
+  			{
+  				id: 5,
+  				text: "Видео об Орифлейм ",
+  				href: "/media"
+  			},
+  		] // end extraInfoLinks
+  	};
+  },
+  methods: {
+  	onMouseUpParentAwesomeButton
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -462,6 +475,16 @@
 		.progressive-image-main
 			@include breakpoint($xs)
 				height: 100%
+.aboutItemImage
+	max-width: 25%
+
+	&_big
+		max-width: 30%
+
+	@include breakpoint($xxs) 
+		max-width: 100%
+		margin: 0 auto .75rem
+
 
 .imageContainer_banner
 	position: absolute

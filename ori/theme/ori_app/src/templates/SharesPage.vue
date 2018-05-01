@@ -132,15 +132,19 @@
 </script>
 
 <style lang="sass" scoped>
-	@import '../styles/conf/_breakpoints.sass'
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_colors.sass'
+@import '../styles/conf/_breakpoints.sass'
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_colors.sass'
 
-	.shareContainer
+.shareContainer
 
-	.sharesList
-		// @supports (display: grid)
-		// 	grid-template-columns: repeat(auto-fit, minmax(284px, 1fr))
+.sharesList
+	min-width: 100%
+	
+	@include breakpoint($md-up)
+		@supports (display: grid)
+			grid-template-columns: repeat(auto-fit, (30ch, max-content))
+
 			
 
 

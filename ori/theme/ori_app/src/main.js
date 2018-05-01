@@ -10,6 +10,10 @@ import VueProgressiveImage from "vue-progressive-image";
 import store from "./store";
 import VeeValidate from "vee-validate";
 
+import BlurryImageLoader from '@/components/BlurryImageLoader';
+
+Vue.component('blurry-image-loader', BlurryImageLoader);
+
 Vue.use(VeeValidate);
 
 Vue.use(VueProgressiveImage, {

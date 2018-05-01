@@ -84,7 +84,8 @@
 		transition: transform .3s ease-in
 		&-wrapper
 
-.shareContainer
+.shareContainer 
+	max-width: 50ch
 
 	@supports (display: grid)
 		padding-left: 0
