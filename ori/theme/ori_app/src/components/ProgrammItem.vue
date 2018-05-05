@@ -1,103 +1,83 @@
 <template>
-	<div :class="['programmItemContainer programmItem_' + name]" 
-		enter-active-class="fading-enter"
-		leave-active-class="fading-leave">
+  <div 
+    :class="['programmItemContainer programmItem_' + name]" 
+    enter-active-class="fading-enter"
+    leave-active-class="fading-leave">
 
-		
-	<!-- 	<base-tooltip 
-			:id="tooltipId"
-			:title="title"
-		>
-		</base-tooltip> -->
-		<tooltip-item-container 
-			:tooltipId="tooltipId"
-			className="programmItem materialShadow"
-			slot="reference"
-		>
+	
+    <!--  <tooltip-item-container 
+      :tooltip-id="tooltipId"
+      class-name="programmItem materialShadow"
+      slot="reference"
+    > -->
+    <article class="programmItem materialShadow">
+    	
+    
 
-			<h2 :class="['whiteBackground parent centered programmItem__title  font-size_base font-family_main itemContent visible-hidden-xs', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">
-				{{ title }}
-			</h2>
+      <h2 :class="['whiteBackground parent centered programmItem__title  font-size_base font-family_main itemContent visible-hidden-xs', titleModifier ? 'programmItem__title_' + titleModifier : 'programmItem__title_left', 'programmItem__title_' + name]">
+        {{ title }}
+      </h2>
 
-			<blurry-image-loader 
-				:src="src" 
-				modifier="programmItem"
-				className="materialShadow programmItem__image"
-			 />
-			<p v-html="stepDescription.paragraph"
-				:class="{
-					'fewRound programmItemDescription whiteBackground marginTop_zero': true,
-					[`programmItemDescription_${name}`]: name
-			}"/>
-			 <!-- <article 
-				:class="{
-					'fewRound materialShadow absolute programmItemDescription whiteBackground ': true
-			}"> -->
-				<!-- <div :class="{
-					'italic baseTooltipContent marginTop_18': true
-				}"> -->
-					
-				<!-- </div> -->
-			<!-- </article>	 -->
-		</tooltip-item-container>
-	</div>
+      <blurry-image-loader 
+        :src="src" 
+        modifier="programmItem"
+        class-name="materialShadow programmItem__image"
+      />
+      <p 
+        :class="{
+          'fewRound programmItemDescription whiteBackground marginTop_zero': true,
+          [`programmItemDescription_${name}`]: name
+        }"
+        v-html="stepDescription.paragraph"
+      />
+    </article>
+  </div>
 </template>
 
 <script>
-	import BlurryImageLoader from './BlurryImageLoader';
-	import TooltipItemContainer from './TooltipItemContainer';
-	import BaseTooltip from './BaseTooltip';
-
-	import Popper from 'vue-popperjs';
-
-	export default {
-		name: "ProgrammItem",
-		components: {
-			BlurryImageLoader,
-			"popper": Popper,
-			TooltipItemContainer,
-			BaseTooltip
-		},
-		computed: {
-			tooltipId: function() {
-				return 'tooltip_' + this.name;
-			},
-		},
-		
-		props: {
-			className: {
-				type: String,
-				required: false
-			},
-			title: {
-				type: String,
-				required: true
-			},
-			name: {
-				type: String,
-				required: true
-			},
-			titleModifier: {
-				type: String,
-				required: false
-			},
-			src: {
-				type: String,
-				required: true
-			},
-			stepDescription: {
-				type: Object,
-				required: true,
-				validator(value) {
-					// The Validation of three values of the object.
-					// &&
-						// (Array.isArray(value.items) && 
-						// 	value.items.length > 0); 
-					return  value.paragraph;
-				}
-			}
-		},
-	}
+export default {
+  name: "ProgrammItem",
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    titleModifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    src: {
+      type: String,
+      required: true
+    },
+    stepDescription: {
+      type: Object,
+      required: true,
+      validator(value) {
+        // The Validation of three values of the object.
+        // &&
+        // (Array.isArray(value.items) &&
+        // 	value.items.length > 0);
+        return value.paragraph;
+      }
+    }
+  },
+  computed: {
+    tooltipId: function() {
+      return "tooltip_" + this.name;
+    }
+  }
+};
 </script>
 
 <style lang='sass'>
@@ -174,12 +154,10 @@
 				min-width: em(341) + ($s77 / 2) $i
 			@include breakpoint($xs)
 				min-width: em(327) $i
-		
-
-		// &_fourthWooman
-		// 	margin-top: $s77
+	
 
 		&_fourthMan
+			margin-top: $s18
 
 			@include breakpoint($sm-less)
 				margin-top: $s47

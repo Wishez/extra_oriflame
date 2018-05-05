@@ -1,6 +1,4 @@
-import {personalRoomUrl} from '@/constants/conf';
-
-
+import { personalRoomUrl } from "@/constants/conf";
 
 const personalRoom = {
   namespaced: true,
@@ -11,24 +9,17 @@ const personalRoom = {
   },
   mutations: {
     // Abstract function for requesting data.
-    fetchData(state, {
-        url, 
-        success, 
-        reject,
-        silent,
-        raise404
-    })  {
+    fetchData(state, { url, success, reject, silent, raise404 }) {
       if (!silent) {
         state.isRequesting = true;
       }
 
       return fetch(url)
         .then(response => {
-          
           if (!response.ok) {
             state.notFound = true;
 
-            if (raise404)  {
+            if (raise404) {
               raise404();
             }
             return false;
@@ -39,7 +30,7 @@ const personalRoom = {
         .then(data => {
           if (data) {
             state.notFound = false;
-            
+
             success(data.consultant);
 
             if (!silent) {
@@ -48,36 +39,34 @@ const personalRoom = {
           }
         })
         .catch(error => {
-          if (reject)
-            reject(error);
-          else
-            console.log('error', error);
+          if (reject) reject(error);
+          else console.log("error", error);
         });
     },
     changeInfoReferralConsultantState(state, opened) {
-        state.referralConsultantOpened = opened;
+      state.referralConsultantOpened = opened;
     }
   },
   actions: {
-    changeInfoConsultantState({commit}, opened=false) {
-        commit('changeInfoReferralConsultantState', opened);
+    changeInfoConsultantState({ commit }, opened = false) {
+      commit("changeInfoReferralConsultantState", opened);
     },
-     fetchConsultantData(context, {
-      success, 
-      reject=false,
-      silent=false,
-      consultant_number,
-      raise404=false
-    }) {
-
-      context.commit(
-        'fetchData', 
-        {
-          url: `${personalRoomUrl}/room_${consultant_number}/`,
-          success, 
-          reject,
-          silent,
-          raise404
+    fetchConsultantData(
+      context,
+      {
+        success,
+        reject = false,
+        silent = false,
+        consultant_number,
+        raise404 = false
+      }
+    ) {
+      context.commit("fetchData", {
+        url: `${personalRoomUrl}/room_${consultant_number}/`,
+        success,
+        reject,
+        silent,
+        raise404
       });
     }
   }

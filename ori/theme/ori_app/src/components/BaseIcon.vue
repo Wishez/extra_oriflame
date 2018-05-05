@@ -1,40 +1,43 @@
 <template>
-	<figure :class="[
-		'iconShadow iconBackground circle parent row centered', 
-		modifier ? 'iconBackground_' + modifier : null, 
-		className ? className : null,
-		modifier === 'contact' ? 'iconBackground_green' : 'iconBackground_pink'
-	]">
-		<i :class="{
-			[icon]: icon,
-			'iconBackground__icon': true,
-			[`iconBackground__icon_${modifier}`]:  modifier,
+  <figure 
+    :class="{
+      'iconShadow iconBackground circle parent row centered': true, 
+      ['iconBackground_' + $store.state.currentSiteTheme.contactIconStyle ]: modifier === 'contact', 
+      ['iconBackground_' + modifier]: modifier,
+      [className] : className
+  }">
+    <i 
+      :class="{
+        [icon]: icon,
+        'iconBackground__icon': true,
+        [`iconBackground__icon_${modifier}`]: modifier,
 
-		}" 
-			aria-hidden="true"
-		/>
-	</figure>
+      }" 
+      aria-hidden="true"
+    />
+  </figure>
 </template>
 
 <script>
-	export default {
-		name: 'BaseIcon',
-		props: {
-			icon: {
-				type: String,
-				required: true,
-			},
-			modifier: {
-				type: String,
-				required: false,
-			},
-			className: {
-				type: String,
-				required: false,
-			}
-		}
-	}
-
+export default {
+  name: "BaseIcon",
+  props: {
+    icon: {
+      type: String,
+      required: true
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    }
+  }
+};
 </script>
 
 <style lang="sass">
@@ -55,6 +58,7 @@
 		transition-property: color, background-color
 		transition-timing-function: $standart
 		transition-duration: .2s
+
 		&_pink
 			background-color: #FA8BC4
 		&_green

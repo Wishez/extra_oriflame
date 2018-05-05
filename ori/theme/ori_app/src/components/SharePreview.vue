@@ -1,74 +1,72 @@
 <template>
-	<article :class="{
-		'sharePreview overflowHidden whiteBackground fewRound materialShadow parent column nowrap fourWithPadding height_full paddingBottom_47': true,
-		['sharePreview_' + modifier]: modifier, 
-		[className]: className
-	}">
-		<h2 class="fullWidth sharePreview__title marginTop_18 padding_horizontal marginLeft_heading">
-			<internal-link class="darkenLink sharePreview__title_link disableUnderline disableLinkHover" :to="url">
-				{{ title }}
-			</internal-link>
-		</h2>
-		<blurry-image-loader 
-			v-if="image" 
-			modifier="sharePreview" 
-			:src="image" 
-			relative
-		/>
-		<div class="sharePreview__meta marginTop_18 text_left padding_horizontal fullWidth">
-			<time :datetime="published">{{ published }}</time>
-		</div>
-		<p class="cropedText cropedText_6 sharePreview__announce padding_horizontal" v-html="announce" />
-	</article>
+  <article 
+    :class="{
+      'sharePreview overflowHidden whiteBackground fewRound materialShadow parent column nowrap fourWithPadding height_full paddingBottom_47': true,
+      ['sharePreview_' + modifier]: modifier, 
+      [className]: className
+  }">
+    <h2 class="fullWidth sharePreview__title marginTop_18 padding_horizontal marginLeft_heading">
+      <internal-link 
+        :to="url"
+        class="darkenLink sharePreview__title_link disableUnderline disableLinkHover" 
+      >
+        {{ title }}
+      </internal-link>
+    </h2>
+    <blurry-image-loader 
+      v-if="image" 
+      :src="image" 
+      modifier="sharePreview" 
+      relative
+    />
+    <div class="sharePreview__meta marginTop_18 text_left padding_horizontal fullWidth">
+      <time :datetime="published">{{ published }}</time>
+    </div>
+    <p 
+      class="cropedText cropedText_6 sharePreview__announce padding_horizontal" 
+      v-html="announce" />
+  </article>
 </template>
 
 <script>
-	import BlurryImageLoader from '@/components/BlurryImageLoader';
-	import InternalLink from '@/components/InternalLink';
-	import siteApi from '@/constants/conf';
+import siteApi from "@/constants/conf";
 
-	export default {
-		name: "SharePreview",
-		props: {
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			modifier: {
-				type: String,
-				required: false,
-			},
-			title: {
-				type: String,
-				required: true,
-			},
-			published: {
-				required: true,
-				validator: function(value) {
-					return value === null || typeof value === 'string';
-				}
-			},
-			announce: {
-				type: String,
-				required: true,
-			},
-			url: {
-				type: String,
-				required: true,
-			},
-			image: {
-				required: true,
-				validator: function(value) {
-					return value === null || typeof value === 'string';
-				}
-			},
-		},
-  	    components: {
-  	    	BlurryImageLoader,
-  	    	InternalLink
-	    }
-	};
+export default {
+  name: "SharePreview",
+
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    published: {
+      type: String,
+      required: true
+    },
+    announce: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      required: true
+    }
+  }
+};
 </script>
 
 <style lang="sass">

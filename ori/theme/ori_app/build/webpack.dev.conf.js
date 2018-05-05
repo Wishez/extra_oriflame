@@ -22,7 +22,13 @@ module.exports = merge(baseWebpackConfig, {
   },
   devServer: {
     host: '0.0.0.0',
-    port: 8080
+    port: 8080,
+    hot: true,
+    contentBase: false, // since we use CopyWebpackPlugin.
+    compress: true,
+    watchOptions: {
+      poll: config.dev.poll,
+    },
   },
   // cheap-module-eval-source-map is faster for development
   devtool: '#cheap-module-eval-source-map',

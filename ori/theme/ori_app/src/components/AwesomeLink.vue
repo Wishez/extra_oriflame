@@ -1,77 +1,80 @@
 <template>
-	<router-link 
-		:class="['disableLinkHover disableUnderline', containerClassName]" 
-		:to='href'>
-		<span :class="{
-			awesomeButton: true,
-			[className]: className,
-			[`awesomeButton_${modifier}`]: modifier
-		}"
-			@mousedown="down"
-			@mouseleave="leave"
-			@mousemove="move"
-			:data-title="content"
-			:aria-label="label"
-		>
-		</span>
-	</router-link>
+  <router-link 
+    :class="['disableLinkHover disableUnderline', containerClassName]" 
+    :to="href">
+    <span 
+      :class="{
+        awesomeButton: true,
+        [className]: className,
+        [`awesomeButton_${modifier}`]: modifier
+      }"
+      :data-title="content"
+      :aria-label="label"
+      @mousedown="down"
+      @mouseleave="leave"
+      @mousemove="move"
+    />
+  </router-link>
 </template>
 
 <script>
-	import {onMoveAwesomeButton, onLeaveAwesomeButton, onDownAwesomeButton} from './../constants/pureFunctions';
+import {
+  onMoveAwesomeButton,
+  onLeaveAwesomeButton,
+  onDownAwesomeButton
+} from "./../constants/pureFunctions";
 
-	export default {
-	  name: 'AwesomeLink',
-	  props: {
-	  	href: {
-	  		type: String,
-	  		required: true
-	  	},
-	  	className: {
-	  		type: String,
-	  		required: false,
-	  		default: ""
-	  	},
-	  	modifier: {
-	  		type: String,
-	  		required:false,
-	  		default: "pink"
-	  	},
-	  	containerClassName: {
-	  		type: String,
-	  		required: false,
-	  		default: ""
-	  	},
-	  	content: {
-	  		type: String,
-	  		required: true
-	  	},
-	  	label: {
-	  		type: String,
-	  		required: true
-	  	}
-	  },
-	  computed: {
-	  	docStyle() {
-	  		return document.documentElement.style;
-	  	},
-	  	boundingClientRect() {
-	  		return this.$el.getBoundingClientRect();
-	  	}
-	  },
-	  methods: {
-	  	move: function(event) {
-			onMoveAwesomeButton(event, this.boundingClientRect, this.docStyle);
-	  	},
-	  	leave: function(event) {
-			onLeaveAwesomeButton(event, this.boundingClientRect, this.docStyle);
-	  	},
-	  	down: function(event) {
-	  		
-	  		onDownAwesomeButton(event, this.boundingClientRect, this.docStyle);
-	  	}
-	  }
-	}
+export default {
+  name: "AwesomeLink",
+  props: {
+    href: {
+      type: String,
+      required: true
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: "pink"
+    },
+    containerClassName: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    content: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    docStyle() {
+      return document.documentElement.style;
+    },
+    boundingClientRect() {
+      return this.$el.getBoundingClientRect();
+    }
+  },
+  methods: {
+    move: function(event) {
+      onMoveAwesomeButton(event, this.boundingClientRect, this.docStyle);
+    },
+    leave: function(event) {
+      onLeaveAwesomeButton(event, this.boundingClientRect, this.docStyle);
+    },
+    down: function(event) {
+      onDownAwesomeButton(event, this.boundingClientRect, this.docStyle);
+    }
+  }
+};
 </script>
 
 <style lang="sass" scoped>
@@ -139,4 +142,3 @@
 			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
 	
 </style>
-

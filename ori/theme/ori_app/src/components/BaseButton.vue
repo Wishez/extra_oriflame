@@ -1,96 +1,91 @@
 <template>	
-	<button :class="{
-			'unstyledButton': unstyled,
-			'button materialShadow fewRound': !unstyled, 
-			[`button_${modifier}`] : modifier, 
-			[className]: className
-		}"
-			:aria-pressed="pressed" 
-			:type="type ? type : 'button'"
-			:aria-label="label"
-			:disabled="disabled"
-			tabindex="0"
-			role="button"
-			@click="onClick"
-			@blur="makeActionByBlur"
+  <button 
+    :class="{
+      'unstyledButton': unstyled,
+      'button materialShadow fewRound': !unstyled, 
+      [`button_${modifier}`] : modifier, 
+      [className]: className
+    }"
+    :aria-pressed="pressed" 
+    :type="type ? type : 'button'"
+    :aria-label="label"
+    :disabled="disabled"
+    tabindex="0"
+    role="button"
+    @click="onClick"
+    @blur="makeActionByBlur"
 	
-	>
-		<slot></slot>
-	</button>
+  >
+    <slot/>
+  </button>
 </template>
 <script	>
-	export default {
-		name: 'BaseButton',
-		data() {
-			return {
-				pressed: false
-			};
-		},
-		props: {
-			modifier: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			unstyled: {
-				type: Boolean,
-				required: false,
-				default: false
-			},
-			disabled: {
-				type: Boolean,
-				required: false,
-				default: false
-			},
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			action: {
-				type: Function,
-				required: false
-			},
-			type: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			label: {
-				type: String,
-				required: false,
-				default: null
-			},
-			onBlur: {
-				type: Function,
-				required:  false
-			}
-		},
-		methods: {
-			onClick: function(event) {
-				this.$set(
-					this,
-					'pressed',
-					!this.pressed	
-				);
-				if (this.action) {
-					this.action(event);
-				}
-			},
-			makeActionByBlur: function(event) {
-				this.$set(
-					this,
-					'pressed',
-					false
-				);
-				
-				if (this.onBlur) {
-					console.log('blur triggered');
-					this.onBlur(event);
-				}
-			}
-		}
-	};
+export default {
+  name: "BaseButton",
+  props: {
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    unstyled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    action: {
+      type: Function,
+      required: false,
+      default: () => {}
+    },
+    type: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    label: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    onBlur: {
+      type: Function,
+      required: false,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      pressed: false
+    };
+  },
+  methods: {
+    onClick: function(event) {
+      this.$set(this, "pressed", !this.pressed);
+      if (this.action) {
+        this.action(event);
+      }
+    },
+    makeActionByBlur: function(event) {
+      this.$set(this, "pressed", false);
+
+      if (this.onBlur) {
+        console.log("blur triggered");
+        this.onBlur(event);
+      }
+    }
+  }
+};
 </script>
 <style lang="sass" scoped>
 	@import '../styles/conf/_colors.sass'

@@ -1,53 +1,55 @@
 <template>
-	<article :id="id" 
-		:class="{
-			'baseTooltip popper fewRound materialShadow': true,
-			[className]: className,
-			[`baseTooltip_${modifier}`]: modifier
-		}">
-			<h2 :class="{
-				'italic baseTooltip__title marginLeft_heading': true,
-				[`baseTooltip__title_${modifier}`]: modifier
-			}" >
-				{{ title }}
-			</h2>
-			<div :class="{
-				'italic baseTooltipContent marginTop_18': true,
-				[`baseTooltipContent_${modifier}`]: modifier
-			}">
-				<slot />
-			</div>
-	</article>
+  <article 
+    :id="id" 
+    :class="{
+      'baseTooltip popper fewRound materialShadow': true,
+      [className]: className,
+      [`baseTooltip_${modifier}`]: modifier
+  }">
+    <h2 
+      :class="{
+        'italic baseTooltip__title marginLeft_heading': true,
+        [`baseTooltip__title_${modifier}`]: modifier
+    }" >
+      {{ title }}
+    </h2>
+    <div 
+      :class="{
+        'italic baseTooltipContent marginTop_18': true,
+        [`baseTooltipContent_${modifier}`]: modifier
+    }">
+      <slot />
+    </div>
+  </article>
 </template>
 
 <script>
-	export default {
-		name: "BaseTooltip",
-		props: {
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			modifier: {
-				type: String,
-				required: false,
-			},
-			title: {
-				type: String,
-				required: true,
-			},
-			id: {
-				type: String,
-				required: true,
-			},
-			modifier: {
-				type: String,
-				required: false
-			}
-		},
-
-	};
+export default {
+  name: "BaseTooltip",
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: null
+    },
+    modifier: {
+      type: String,
+      required: false
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    id: {
+      type: String,
+      required: true
+    },
+    modifier: {
+      type: String,
+      required: false
+    }
+  }
+};
 </script>
 
 <style lang="sass">

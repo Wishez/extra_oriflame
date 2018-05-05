@@ -1,56 +1,54 @@
 <template>
-	<base-button unstyled
-		:modifier="modifier"
-		:label="label"
-		:className="className"
-		:action="onClick"
-		:onBlur="onBlur"
-	>
-		<base-icon 
-			modifier="info"
-			className="darkGrayColor relative
+  <base-button 
+    :modifier="modifier"
+    :label="label"
+    :class-name="className"
+    :action="onClick"
+    :on-blur="onBlur"
+    unstyled
+  >
+    <base-icon 
+      :icon="`fas fa-info`" 
+      modifier="info"
+      class-name="darkGrayColor relative
 			pseudo_after pseudo_after--negativeIndex pseudo_after--basePosition
 			pseudo_after--fullHeight
 			pseudo_after--fullWidth
 			pseudo_after--round pseudo_after--absolute font-size_29 "
-			:icon="`fas fa-info`" />
-	</base-button>
+    />
+  </base-button>
 </template>
 
 <script>
-	import BaseIcon from '@/components/BaseIcon';
-	import BaseButton from '@/components/BaseButton';
-
-	export default {
-		name: "InfoIcon",
-		props: {
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			modifier: {
-				type: String,
-				required: false,
-			},
-			label: {
-				type: String,
-				required: true
-			},
-			onClick: {
-				type: Function,
-				required: false
-			},
-			onBlur: {
-				type: Function,
-				required: false
-			}
-		},
-  	    components: {
-  	    	BaseIcon,
-  	    	BaseButton
-	    },
-	};
+export default {
+  name: "InfoIcon",
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    label: {
+      type: String,
+      required: true
+    },
+    onClick: {
+      type: Function,
+      required: false,
+      default: () => {}
+    },
+    onBlur: {
+      type: Function,
+      required: false,
+      default: () => {}
+    }
+  }
+};
 </script>
 
 <style lang="sass" scoped>

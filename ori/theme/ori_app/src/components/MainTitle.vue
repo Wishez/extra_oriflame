@@ -1,40 +1,46 @@
 <template>	
-	<div :class="{
-			'fullWidth mainTitle parent row nowrap centered': true,
-			[`mainTitle_${modifier}`]: modifier, 
-			[className]:  className
-		}">
-		<hr :class="{
-			'grow mainTitle__divider display_none-phone': true, 
-			[`mainTitle__divider_${modifier}`]:  modifier
-		}">	
-		<h1 :class="{
-			'italic semibold mainTitle__title': true, 
-			[`mainTitle__title_${modifier}`]:  modifier
-		}">
-			<slot></slot>
-		</h1>
-		<hr :class="{
-			'grow mainTitle__divider display_none-phone': true, 
-			[`mainTitle__divider_${modifier}`]:  modifier
-		}">	
-	</div>
+  <div 
+    :class="{
+      'fullWidth mainTitle parent row nowrap centered': true,
+      [`mainTitle_${modifier}`]: modifier, 
+      [className]: className
+  }">
+    <hr 
+      :class="{
+        'grow mainTitle__divider display_none-phone': true, 
+        [`mainTitle__divider_${modifier}`]: modifier
+    }">	
+    <h1 
+      :class="{
+        'italic semibold mainTitle__title': true, 
+        [`mainTitle__title_${modifier}`]: modifier
+    }">
+      <slot/>
+    </h1>
+    <hr 
+      :class="{
+        'grow mainTitle__divider display_none-phone': true, 
+        [`mainTitle__divider_${modifier}`]: modifier
+    }">	
+  </div>
 </template>
 
 <script>
-	export default {
-		name: "DecorativeTitle",
-		props: {
-			modifier: {
-				type: String,
-				required: false
-			},
-			className: {
-				type: String,
-				required: false	
-			}
-		}
-	};
+export default {
+  name: "DecorativeTitle",
+  props: {
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    }
+  }
+};
 </script>
 
 <style	lang="sass">

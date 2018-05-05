@@ -38,9 +38,9 @@ module.exports = {
         loader: 'eslint-loader',
         enforce: 'pre',
         include: [resolve('src'), resolve('test')],
-        // , resolve('storybook')
         options: {
           formatter: require('eslint-friendly-formatter'),
+          emitWarning: !config.dev.showEslintErrorsInOverlay,
           fix: true
         }
       },

@@ -1,22 +1,25 @@
 <template>
-	<div @mousemove="onHoverItem"
-		 :class="{
-		 	[className]: className
-		 }"
-		 :aria-expanded="expanded"
-		 tabindex="0"
-		 @mouseleave="onMouseLeaveItem"
-	>
-		<slot/>
-	</div>
+  <div 
+@mousemove="onHoverItem"
+       :class="{
+         [className]: className
+       }"
+       :aria-expanded="expanded"
+       tabindex="0"
+       @mouseleave="onMouseLeaveItem"
+  >
+    <slot/>
+  </div>
 </template>
 
 <script>
-	import anime from 'animejs';
-	import {timeout} from '@/constants/pureFunctions';
+import anime from "animejs";
+import { timeout } from "@/constants/pureFunctions";
 
-	export default {
-		name: "TolltipItemContainer",
+export default {
+  name: "TolltipItemContainer",
+  	    components: {
+	    },
 		props: {
 			className: {
 				type: String,
@@ -38,25 +41,10 @@
 				default: 'page'
 			}
 		},
-  	    components: {
-	    },
-	    mixins: [],
-	    data: () => ({
-	    	expanded: false
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    	timeout(() => {
-				this.tooltip = document.getElementById(
-					this.tooltipId
-				);
-			}, 500);
-	    },
+  mixins: [],
+  data: () => ({
+    expanded: false
+  }),
 	    computed: {
 	    	onHoverItem: function() {
 
@@ -103,16 +91,26 @@
 		  		} : () => {};
 			}
 	    },
-	    methods: {
-	    	onMouseLeaveItem() {
-	    		this.$set(
-	    			this,
-	    			'expanded',
-	    			false
-	    		);
-	    	},
-	    }
-	};
+	    beforeCreate() {
+	    },
+	    created() {
+	    },
+	    beforeMount () {
+	    },
+	    mounted() {
+	    	timeout(() => {
+				this.tooltip = document.getElementById(
+					this.tooltipId
+				);
+			}, 500);
+	    },
+  },
+  methods: {
+    onMouseLeaveItem() {
+      this.$set(this, "expanded", false);
+    }
+  }
+};
 </script>
 
 <style lang="sass" scoped>

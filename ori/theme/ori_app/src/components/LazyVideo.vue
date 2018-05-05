@@ -1,86 +1,85 @@
 <template>
-	<li @click="loadVideo" 
-		:aria-labelledby="'video_' + src"
-		:class="['youtube baseChild removeOffsetWithGrid', modifier ? 'youtube_' + modifier : null, className]"
-		tabindex="0"
+  <li 
+    :aria-labelledby="'video_' + src"
+    :class="['youtube baseChild removeOffsetWithGrid', modifier ? 'youtube_' + modifier : null, className]"
+    tabindex="0"
+    @click="loadVideo" 
 
-	>
-		<transition name="fade">
-			<blurry-image-loader 
-				v-if="!showVideo"
-				modifier="relative"
-				className="materialShadow fewRound"
-				:src="'https://img.youtube.com/vi/' + src + '/sddefault.jpg'"
-			/>
-	    </transition>
-	    <transition name="fade">
-			<button v-if="!showVideo" class="play-button"></button>
-		</transition>
-		<transition name="fade">
-			<iframe 
-				v-if="showVideo"
-				frameborder="0"
-				class="materialShadow fewRound"
-				:src="'https://www.youtube.com/embed/'+ this.src +'?rel=0&showinfo=0&autoplay=1'"
-				allowfullscreen=""
-			/>
-		</transition>
-		<div hidden :id="'video_' + src">
-			{{ label }}
-		</div>
-	</li>
+  >
+    <transition name="fade">
+      <blurry-image-loader 
+        v-if="!showVideo"
+        :src="'https://img.youtube.com/vi/' + src + '/sddefault.jpg'"
+        modifier="relative"
+        class-name="materialShadow fewRound"
+      />
+    </transition>
+    <transition name="fade">
+      <button 
+        v-if="!showVideo" 
+        class="play-button"/>
+    </transition>
+    <transition name="fade">
+      <iframe 
+        v-if="showVideo"
+        :src="`https://www.youtube.com/embed/'${src}?rel=0&showinfo=0&autoplay=1`"
+        frameborder="0"
+        class="materialShadow fewRound"
+        allowfullscreen=""
+      />
+    </transition>
+    <div 
+      :id="'video_' + src"
+      hidden>
+      {{ label }}
+    </div>
+  </li>
 </template>
 
 <script>
-	import BlurryImageLoader from './BlurryImageLoader'
+export default {
+  name: "LazyVideo",
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    src: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      showVideo: false
+    };
+  },
+  methods: {
+    loadVideo(event) {
+      this.$set(this, "showVideo", true);
+      // const iframe = document.createElement( 'iframe' )
+      //     	const element = this.$el;
 
-	export default {
-		name: "LazyVideo",
-		data() {
-			return {
-				showVideo: false
-			}
-		},
-		props: {
-			className: {
-				type: String,
-				required: false,
-				default: ""
-			},
-			modifier: {
-				type: String,
-				required: false,
-				default: ""
-			},
-			src: {
-				type: String,
-				required: true
-			},
-			label: {
-				type: String,
-				required: true
-			}	
-		},
-		methods: {
-			loadVideo(event) {
-				this.$set(this, 'showVideo', true);
-				// const iframe = document.createElement( 'iframe' )
-		  //     	const element = this.$el;
+      //     	iframe.setAttribute( 'frameborder', '0' )
+      //     	iframe.setAttribute( 'allowfullscreen', '' )
+      //     	// iframe.setAttribute( 'src', 'https://www.youtube.com/embed/'+ this.src +'?rel=0&showinfo=0&autoplay=1' )
+      //     	iframe.classList.add('materialShadow fewRound');
 
-		  //     	iframe.setAttribute( 'frameborder', '0' )
-		  //     	iframe.setAttribute( 'allowfullscreen', '' )
-		  //     	// iframe.setAttribute( 'src', 'https://www.youtube.com/embed/'+ this.src +'?rel=0&showinfo=0&autoplay=1' )
-		  //     	iframe.classList.add('materialShadow fewRound');		
-
-		  //     	element.innerHTML = '';
-		  //     	element.appendChild( iframe )
-			}
-		},
-		components: {
-			BlurryImageLoader
-		}
-	};
-	
+      //     	element.innerHTML = '';
+      //     	element.appendChild( iframe )
+    }
+  }
+};
 </script>
 
 <style lang="sass">

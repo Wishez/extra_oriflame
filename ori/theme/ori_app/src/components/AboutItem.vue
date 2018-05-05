@@ -1,60 +1,61 @@
 <template>	
-	<article :class="{
-		'about materialShadow fewRound whiteBackground' : true,
-		[className]: className
-	}">
-		<h2 :class="['about__title parent row wrap v-end', modifier ? 'about__title_' + modifier : '']">{{ title }} 
-			<blurry-image-loader 
-				v-if="image"
-				:src="image"
-				:className="`aboutItemImage order_first fewRound materialShadow marginRight_11 ${imageClass}`"
-				aria-hidden="true"
-				role="presentation"
-				relative
-			/>
-		</h2>
-		<!-- <p :class="['about__paragraph', modifier ? 'about__paragraph_' + modifier : '']"
+  <article 
+    :class="{
+      'about materialShadow fewRound whiteBackground' : true,
+      [className]: className
+  }">
+    <h2 :class="['about__title parent row wrap v-end', modifier ? 'about__title_' + modifier : '']">{{ title }} 
+      <blurry-image-loader 
+        v-if="image"
+        :src="image"
+        :class-name="`aboutItemImage order_first fewRound materialShadow marginRight_11 ${imageClass}`"
+        aria-hidden="true"
+        role="presentation"
+        relative
+      />
+    </h2>
+    <!-- <p :class="['about__paragraph', modifier ? 'about__paragraph_' + modifier : '']"
 		>
 		</p> -->
-		<slot></slot>
-	</article>
+    <slot/>
+  </article>
 </template>
 
 <script>
-	export default {
-		name: "AboutItem",
-		props: {
-			title: {
-				type: String,
-				required: true
-			},
-			paragraph: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			modifier: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			className: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			image: {
-				type: String,
-				required: false,
-				default: ""
-			},
-			imageClass: {
-				type: String,
-				required: false,
-				default: ""
-			}
-		}
-	};
+export default {
+  name: "AboutItem",
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    paragraph: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    image: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    imageClass: {
+      type: String,
+      required: false,
+      default: ""
+    }
+  }
+};
 </script>
 
 <style lang="sass">
