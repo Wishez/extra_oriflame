@@ -259,7 +259,11 @@ import {
   regex_name
 } from "@/constants/validation";
 import { timeout, transformName } from "@/constants/pureFunctions";
-import { registrationUrl, businessUrl } from "@/constants/conf";
+import {
+  registrationUrl,
+  businessUrl,
+  baseRegistrationConversion
+} from "@/constants/conf";
 
 export default {
   name: "RegistrationPage",
@@ -389,8 +393,18 @@ export default {
                   requesting: false,
                   success: true
                 });
-                if (typeof gtag_report_conversion !== "undefined") {
-                  gtag_report_conversion();
+
+                if (typeof makeGtagRegistrationConversion !== "undefined") {
+                  const conversionId = this.$store.state.currentSiteTheme
+                    .conversionId;
+
+                  // Регистрация.
+                  makeGtagRegistrationConversion(
+                    undefined,
+                    baseRegistrationConversion
+                  );
+                  // Регистрация с темой.
+                  makeGtagRegistrationConversion(undefined, conversionId);
                 }
               })
               .catch(error => {

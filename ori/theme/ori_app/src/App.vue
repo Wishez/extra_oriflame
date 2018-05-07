@@ -199,17 +199,14 @@ export default {
     const bodyStyles = body.style;
 
     this.$nextTick(() => {
+      const choosenTheme = localStorage.currentShareBeautySiteTheme;
       const randomTheme =
         siteThemes[
-          localStorage.currentShareBeautySiteTheme ||
-            siteThemesKeys[Math.ceil(Math.random() * 3) - 1]
+          choosenTheme || siteThemesKeys[Math.ceil(Math.random() * 3) - 1]
         ];
 
       const configuration = {
-        topBottomBackgroundColor: randomTheme.topBottomBackgroundColor,
-        contactIconStyle: randomTheme.contactIconStyle,
-        bannerType: randomTheme.bannerType,
-        logoColor: randomTheme.logoColor
+        ...randomTheme
       };
 
       const configurationProperties = [

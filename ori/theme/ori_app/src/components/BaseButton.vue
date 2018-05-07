@@ -80,7 +80,6 @@ export default {
       this.$set(this, "pressed", false);
 
       if (this.onBlur) {
-        console.log("blur triggered");
         this.onBlur(event);
       }
     }

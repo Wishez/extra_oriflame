@@ -26,8 +26,9 @@ export default new Vuex.Store({
     currentSiteTheme: {}
   },
   mutations: {
-    setSiteTheme(state, themeName) {
-      state.currentSiteTheme = themeName;
+    setSiteTheme(state, choosenTheme) {
+      state.currentSiteTheme = choosenTheme;
+      localStorage.currentShareBeautySiteTheme = choosenTheme.id;
     },
     switchMobileDisplayState(state, isMobile) {
       state.isUserFromMobileOrientation = isMobile;
