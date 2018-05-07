@@ -8,7 +8,7 @@
     <p class="light container copyrigth textRight">&copy;&nbsp;2018&nbsp;Сайт независимого консультанта<br>
       Создано с любовь к 
       <external-link 
-        class-name="normalWeight darkenHover" 
+        class-name="copyrigth__refer normalWeight darkenHover" 
         to="https://oriflame.ru">Орифлейм</external-link>
     </p>
     <p 
@@ -85,6 +85,8 @@ export default {
 			min-width: 100%
 
 	.copyrigth
+    &, & a
+      color: var(--logoColor, $white)
 		@include breakpoint($xs)
 			margin-top: $s29
 			
