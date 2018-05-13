@@ -18,7 +18,6 @@ class MessageParser():
         self.consultant = consultant
         # Проверка на обычноое ообщение
         if isMessageKey:
-
             self.email_setting  = EmailMessagesSetting.objects.get(is_active='Активная группа')
             setting = self.email_setting
             self.message = getattr(setting, message, '')
@@ -115,8 +114,6 @@ class MessageParser():
             ).send()
 
 
-
-import time
 def create_user_and_notify_about(user, page):
     user.save()
 
@@ -126,11 +123,8 @@ def create_user_and_notify_about(user, page):
         'after_register_subject',
         isMessageKey=True
     )
-
-
-
     birthday = '%s' % user.birthday
-    print(birthday)
+    
 
     middle_name = getattr(user, 'middle_name', '')
 
@@ -182,10 +176,3 @@ def send_sms_notification(page, consultant):
             body=message,
             from_=phone_from
         )
-
-
-        # api.send_sms(
-        #     body=message,
-        #     from_phone=phone_from,
-        #     to=phones_to
-        # )

@@ -60,34 +60,5 @@
   {% endif %}
   {% block internal_page_script %}
   {% endblock %}
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118062323-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-118062323-1');
-  gtag('set', {'user_id': 'USER_ID'});
-
-  function makeGtagRegistrationConversion(url, send_to) {
-    var callback = function () {
-      if (typeof(url) != 'undefined') {
-        window.location = url;
-      }
-    };
-    
-    gtag('event', 'conversion', {
-        'send_to': send_to,
-        'event_callback': callback
-    });
-
-    return false;
-  }
-</script>
-
-
-
   </body>
 </html>
