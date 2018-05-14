@@ -24,10 +24,10 @@ const router = new VueRouter({
 
 		  		next()
 		  	}
-		  	
+
 	 	},
 	 	{
-	 		path: '/media',
+	 		path: '/videos',
 		  	component: MediaPage,
 		  	name: "MediaPage"
 	 	},
@@ -56,9 +56,9 @@ const router = new VueRouter({
   			name: 'ReferalRegistrationPage',
       		redirect: to => {
       			localStorage.user_led_number = to.params.user_led_number;
-      			
+
       			return '/registration';
-      		}	
+      		}
        	},
        	{
   			path: '/personal_room/:consultant_number',
@@ -66,9 +66,9 @@ const router = new VueRouter({
   			component: PersonalRoomPage,
       		beforeEnter: (to, from, next) => {
       			localStorage.consultant_room_number = to.params.consultant_number;
-      			
+
       			next();
-      		}	
+      		}
        	},
 	 	{
 	 		path: '*',

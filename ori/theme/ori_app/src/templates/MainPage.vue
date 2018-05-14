@@ -5,7 +5,7 @@
     			<span class="mainColor">Скидки от 20%</span> и <span class="mainColor">подарки</span> сразу после регистрации<span class="mainColor">.</span></h1>
     		<awesome-link label="Переход на страницу регистрации"
     				content="Регистрация" href="/registration" className="banner__button whiteTextShadow"></awesome-link>
-			
+
     		<blurry-image-loader
     			:src="banner"
     			defaultMedia="(min-width: 481px)"
@@ -18,7 +18,7 @@
     	<fade-translate-transition-group tag="section" className="h-between blog parent row wrap"
     	:duration="1500">
 			<about-item
-				v-for="aboutItem in aboutItems" 
+				v-for="aboutItem in aboutItems"
 			 	:key="aboutItem.id"
 				:data-index="aboutItem.id"
 				:title="aboutItem.title"
@@ -34,8 +34,8 @@
 				v-html="paragraph.text"
 			/>
 			<div class="programmItems parent h-between row wrap">
-				
-				<programm-item 
+
+				<programm-item
 					:src="item.src"
 					:title="item.title"
 					:key="item.id"
@@ -45,14 +45,14 @@
 					v-for='item in programmItems'
 				/>
 			</div>
-			
+
 		</section>
 		<section class="extraInformation parent row wrap">
 			<decorative-title className="extraInformation__title container">Полезная информация</decorative-title>
 			<div class="container currentCatalog baseChild halfWidth">
 				<h3 class="currentCatalog__title">Текущий каталог</h3>
 				<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609" showIcon="hide" className="materialShadow currentCatalog__image">
-					<blurry-image-loader 
+					<blurry-image-loader
 						relative
 						alt="Текущий каталог"
 						src="https://ru.oriflame.com/catalogue-image.png"/>
@@ -62,20 +62,20 @@
 			<ul role="navigation" aria-label="Навигация по полезным ресурсам" class="container baseChild extraInformation__navigation">
 				<li :key="link.id" v-for="link in extraInfoLinks">
 					<internal-link
-						:to="link.href" 
+						:to="link.href"
 						:hashResource="link.hashResource"
 						v-if="!link.external"
 						className="darkenHover"
 					>
 						{{ link.text }}
 					</internal-link>
-					<external-link 
+					<external-link
 						className="darkenHover"
-						:to="link.href" 
+						:to="link.href"
 						v-if="link.external">
 						{{ link.text }}
 					</external-link>
-					
+
 				</li>
 			</ul>
 		</section>
@@ -91,7 +91,7 @@
 	import thirdStepImage from './../assets/images/programm/third.png'
 	import fourthWoomanStepImage from './../assets/images/programm/fourth_wooman.png'
 	import fourthManStepImage from './../assets/images/programm/fourth_man.png'
- 
+
 	// Components
 	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
 	import BlurryImageLoader from '@/components/BlurryImageLoader';
@@ -119,8 +119,8 @@
 	  },
 	  data() {
 	  	return {
-	  		banner: window.innerWidth <= 480 ? 
-	  			mobileBanner : 
+	  		banner: window.innerWidth <= 480 ?
+	  			mobileBanner :
 	  			banner,
 	  		aboutItems: [
 	  			{
@@ -184,7 +184,7 @@
 	  							name: 'Специальное смягчающее средство «Нежная забота» (Код: 1276)',
 	  							id: 3
 	  						},
-	  						
+
 	  					]
 	  				}
 
@@ -260,7 +260,7 @@
 	  							name: '«Вэлнэс Пэк» для женщин (Код: 540214)',
 	  							id: 0
 	  						}
-	  						
+
 	  					]
 	  				}
 
@@ -283,13 +283,13 @@
 	  				id: 2,
 	  				text: "Последние акции",
 	  				href: "/shares",
-	  				external: false  
+	  				external: false
 	  			},
 	  			{
 	  				id: 3,
 	  				text: "Интернет магазин",
 	  				href: "https://www.oriflame.ru/",
-	  				external: true  
+	  				external: true
 	  			},
 	  			{
 	  				id: 4,
@@ -300,7 +300,7 @@
 	  			{
 	  				id: 5,
 	  				text: "Видео об Орифлейм ",
-	  				href: "/media"
+	  				href: "/videos"
 	  			},
 	  		] // end extraInfoLinks
 	  	};
@@ -317,14 +317,14 @@
 	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_breakpoints.sass'
-	
+
 	.banner
 		position: relative
 		z-index: 0
 		padding: $s18 1.5rem $s47
 		color: $white
 		background-color: rgba(51, 51, 51, .4)
-		.progressive-image 
+		.progressive-image
 			position: absolute $i
 		&__title
 			@include breakpoint($sm-up)
@@ -335,7 +335,7 @@
 			margin-top: 1.5rem
 		&__button
 			color: $darkGray
-			
+
 	.imageContainer_banner
 		position: absolute
 		top: 0
@@ -351,7 +351,7 @@
 		&__paragraph
 			margin-top: $s47 $i
 			max-width: em(522.54)
-	
+
 	.programmItems
 		margin-top: $s77
 	.currentCatalog
@@ -361,7 +361,7 @@
 		&__title
 			margin-bottom: $s16
 	.extraInformation
-		
+
 		&__title
 			margin-bottom: $s47
 			.decorativeTitleContainer__title

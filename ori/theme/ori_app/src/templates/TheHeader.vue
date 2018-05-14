@@ -1,15 +1,15 @@
 <template>
-	<header  class="darkGrayBackground header parent row wrap materialShadow h-end" 
+	<header  class="darkGrayBackground header parent row wrap materialShadow h-end"
 		itemscope
 		itemtype="https://schema.org/Organization"
-	>	
+	>
 		<router-link @focus="setDefaultMenuState"
 			to="/"
-			@blur="transformMenu" 
+			@blur="transformMenu"
 			@keypress="setDefaultMenuStateByPresingTab" class="grow brand paddingBottom_11 parent centered row">
 			<h1 class="brand__title" itemprop="name">
 					Oriflame
-			</h1>	
+			</h1>
 		</router-link>
 		<site-contacts modifier="header"
 			className="paddingBottom_11"
@@ -26,13 +26,13 @@
 				<nav-link
 					v-for="(link, index) in navigationLinks"
 					:key="index"
-					@keypress="setDefaultMenuStateByPresingTab" 
+					@keypress="setDefaultMenuStateByPresingTab"
 					:index="index"
 					:icon="link.icon"
 					:href="link.href"
-					@blur="transformMenu" 
+					@blur="transformMenu"
 				>
-					{{ link.name }} 
+					{{ link.name }}
 				</nav-link>
 			</ul>
 			<div id="active_page" hidden>Текущая страница</div>
@@ -44,9 +44,9 @@
 	import NavLink from '@/components/NavLink';
 	import SiteContacts from '@/components/SiteContacts';
 	import {
-		setTabPosition, 
-		doBy, 
-		listen, 
+		setTabPosition,
+		doBy,
+		listen,
 		timeout,
 		throttle
 	} from '@/constants/pureFunctions';
@@ -82,11 +82,11 @@
 				},
 				{
 					name: 'Медиа',
-					href: '/media',
+					href: '/videos',
 					icon: 'fas fa-video'
 				}
 			]
-			
+
 		}),
 		computed: {
 			tab() {
@@ -106,7 +106,7 @@
 				})
 			});
 
-			// The callback will execute when the viewport 
+			// The callback will execute when the viewport
 			// will upper then 768px, and it is by default.
 			// You can change it just setting "condition"
 			// porperty in the doBy function's options..
@@ -114,16 +114,16 @@
 				callback: () => {
 					const currentNavigationLink = document.querySelector('.navLink_active');
 					if (currentNavigationLink) {
-						
+
 						setTabPosition(
-							this.tab, 
+							this.tab,
 							currentNavigationLink.dataset.index
 						);
 					}
 				}
 			});
 
-			
+
 
 		},
 		methods: {
@@ -135,7 +135,7 @@
 	  				case 'TAB':
 	  					this.setDefaultMenuState();
 	  					break;
-	  				default: 
+	  				default:
 	  					return;
 		  		}
 			},
@@ -195,7 +195,7 @@
 		&:hover, &:focus,  &:active
 			background-image: none
 			color: #f7f7f7
-			
+
 	.brand__title
 		font-weight: bold
 		font-size: $s29
