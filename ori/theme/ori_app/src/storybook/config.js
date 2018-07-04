@@ -40,37 +40,10 @@ Vue.use(VueProgressiveImage, {
   delay: 1000
 });
 
-// Register custom components.
-// Vue.component('awesome-link', AwesomeLink);
-// Vue.component('awesome-link', FadeTraslateTransitionGroup);
-
-// Vue.component('the-ladder', TheLadder);
-
-// Vue.component('about-item', AboutItem);
-
-// Vue.component('info-icon', InfoIcon);
-
-// Vue.component('arrow-button', ArrowButton);
-
-// Vue.component('base-icon', BaseIcon);
-
-// Vue.component('base-button', BaseButton);
-
-// Vue.component('blurry-image-loader', BlurryImageLoader);
-
-// Vue.component('content-preloader', ContentPreloader);
-
-// Vue.component('main-title', MainTitle);
-
-// Vue.component('decorative-title', DecorativeTitle);
-// // Vue.component('programm-item', ProgrammItem);
-
 function registerComponents() {
   const requireComponent = require.context('../components', false,  /\.vue$/);
   
   requireComponent.keys().forEach(fileName => {
-    console.log(fileName);
-
     const componentConfig = requireComponent(fileName);
 
     const componentName = upperFirst(

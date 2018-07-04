@@ -6,6 +6,22 @@ import store from '../store';
 import router from '../router';
 import './index.sass';
 
+const StoryContainer = () => (
+  {
+		template: `<div class="simpleWrapper parent centered">
+    	<slot><slot/>
+		</div>`,
+		props: {
+			className: {
+				type: String,
+				required:false ,
+				default: ''
+			}
+		},
+	}
+);
+
+Vue.component('StoryContainer', StoryContainer);
 
 storiesOf('The Ladder', module)
   .add('Карьерная лестница', 
@@ -101,4 +117,83 @@ storiesOf('About Item', module)
 					
   		</div>`
 		})
+	);
+
+
+const buttonsState = {
+	error: false,
+	success: false
+}
+
+function changeStateOf({
+	field,
+	isClicked
+}) {
+	buttonsState[field] = isClicked;
+}
+
+storiesOf('Base Button', module)
+	.add('Обычная розовая кнопка',
+		() =>
+		({
+			store,
+			template: `<div class="parent centered simpleWrapper">
+					<base-button 
+          class-name="textShadow"
+          modifier="burgund"
+        >
+          Click me!
+        </base-button>
+  		</div>`
+		})
+	)
+	.add('Кнопка успешной регистрации',
+		() =>
+		({
+			store,
+			template: `<div class="parent centered simpleWrapper">
+					<base-button 
+						:class-name="isClicked ? 'textShadow button_submit button_successful' : 'textShadow button_submit'"
+						:action="changeState"
+						modifier="burgund"
+						type="submit"
+					>
+							{{ name }}
+						</base-button>
+					</div>`,
+				data: () => ({
+					name: 'Click on button!',
+					isClicked: false
+				}),
+				methods: {
+					changeState() {
+						this.isClicked = !this.isClicked;
+					}
+				}
+		})
+	)
+		.add('Кнопка с ошибкой',
+			() =>
+			({
+				store,
+				template: `<div class="blog parent centered simpleWrapper">
+					<base-button 
+						:class-name="isClicked ? 'textShadow button_submit button_error' : 'textShadow button_submit'"
+						:action="changeState"
+						modifier="burgund"
+						type="submit"
+					>
+							{{ name }}
+						</base-button>
+					</div>`,
+				data: () => ({
+					name: 'Click on button!',
+					isClicked: false
+				}),
+				methods: {
+					changeState() {
+						this.isClicked = !this.isClicked;
+					}
+				}
+			})
 	);

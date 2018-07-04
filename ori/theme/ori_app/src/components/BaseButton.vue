@@ -179,7 +179,7 @@ button
 		color: $darkGray
 
 .button[aria-pressed]
-	outline: none
-	box-shadow: 1.5px 1.5px 1px #FFF, -1.5px -1.5px 1px #fff , -3px -3px 1px $burgund, 3px 3px 1px $burgund
+	// outline: none
+	// box-shadow: 1.5px 1.5px 1px #FFF, -1.5px -1.5px 1px #fff , -3px -3px 1px $burgund, 3px 3px 1px $burgund
 
 </style>
