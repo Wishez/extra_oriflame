@@ -34,8 +34,7 @@ export default {
 		padding-top: $s47
 		min-width: calc(50% - 1.5rem)
 		margin: 0
-		// @inclue breakpoint($xxs-up)
-			// max-width: calc(50% - 1.5rem)
+		
 		> *:first-of-type
 			margin-top: 0
 </style>
