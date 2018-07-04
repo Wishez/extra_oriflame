@@ -231,7 +231,7 @@ class EmailMessagesSetting(models.Model):
     )
 
     def __str__(self):
-        return self.is_active
+        return '%s' % self.is_active
     class Meta:
         verbose_name = _('Email сообщение')
         verbose_name_plural = _('Email сообщения')

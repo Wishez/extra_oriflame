@@ -18,6 +18,7 @@ class MessageParser():
         self.consultant = consultant
         # Проверка на обычноое ообщение
         if isMessageKey:
+
             self.email_setting  = EmailMessagesSetting.objects.get(is_active='Активная группа')
             setting = self.email_setting
             self.message = getattr(setting, message, '')
@@ -41,7 +42,7 @@ class MessageParser():
             'phone_number',
             'email',
             'region',
-            'birthday',
+            # 'birthday',
             'city'
         ]
 
@@ -81,12 +82,12 @@ class MessageParser():
             if fill_variable:
                 message = message.replace(
                     pattern,
-                    fill_variable
+                    '%s' % fill_variable
                 )
 
                 subject = subject.replace(
                     pattern,
-                    fill_variable
+                    '%s' % fill_variable
                 )
 
         self.message = message
@@ -114,6 +115,8 @@ class MessageParser():
             ).send()
 
 
+
+import time
 def create_user_and_notify_about(user, page):
     user.save()
 
@@ -123,8 +126,10 @@ def create_user_and_notify_about(user, page):
         'after_register_subject',
         isMessageKey=True
     )
-    birthday = '%s' % user.birthday
-    
+
+
+
+    # birthday = '%s' % user.birthday
 
     middle_name = getattr(user, 'middle_name', '')
 
@@ -137,12 +142,9 @@ def create_user_and_notify_about(user, page):
         'Почтовый индекс: {{region}}\n'
         'Город: {{city}}\n'
         '\nК панели администрирования: https://{{site}}/admin/accounts/user/\n' % (middle_name),
-        # 'Дата рождения: {{full_name}}'
-        # 'ФИО: {{full_name}}'
-        # 'ФИО: {{full_name}}',
         'Новый консультант присоединился к нашим рядам.',
         isMessageKey=False,
-        recipients=["shiningfinger@list.ru", "Golubevigor3@rambler.ru", "origol@rambler.ru"]
+        recipients=["shiningfinger@list.ru"]
     )()
 
 
