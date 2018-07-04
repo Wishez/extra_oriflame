@@ -6,12 +6,13 @@ import store from '../store';
 import router from '../router';
 import './index.sass';
 
+
 storiesOf('The Ladder', module)
   .add('Карьерная лестница', 
   	() => 
   	({
   		store,
-  		template: `<div class="wrapper container paddingTop_144 font-size_25">
+  		template: `<div class="simpleWrapper businessPage">
   			<the-ladder/>
   		</div>`
   	})

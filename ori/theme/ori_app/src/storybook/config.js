@@ -6,6 +6,9 @@ import VueRouter from 'vue-router';
 import VueProgressiveImage from 'vue-progressive-image'
 import VeeValidate from 'vee-validate';
 
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+
 // Import your custom components.
 import AwesomeLink from '../components/AwesomeLink.vue';
 import TheLadder from '../components/TheLadder.vue';
@@ -15,24 +18,21 @@ import BaseIcon from '../components/BaseIcon.vue';
 import ArrowButton from '../components/ArrowButton.vue';
 import BlurryImageLoader from '../components/BlurryImageLoader.vue';
 import BaseButton from '../components/BaseButton.vue';
-import ProgrammItem from '../components/ProgrammItem.vue';
+// import ProgrammItem from '../components/ProgrammItem.vue';    
 import DecorativeTitle from '../components/DecorativeTitle.vue';
 import ContentPreloader from '../components/ContentPreloader.vue';
 import MainTitle from '../components/MainTitle.vue';
+import FadeTraslateTransitionGroup from '../components/FadeTranslateTransitionGroup.vue';
+
 
 import store from '../store';
-import '../js/font-awesome'
-
-import 'vue-popperjs/dist/css/vue-popper.css'
+import '../js/font-awesome.js';
 import '../index.sass';
 import '../fonts.sass';
 
 Vue.config.devtools = true
 // Install Vue plugins.
 Vue.use(VueRouter);
-
-
-
 Vue.use(VeeValidate);
 
 Vue.use(VueProgressiveImage, {
@@ -41,29 +41,47 @@ Vue.use(VueProgressiveImage, {
 });
 
 // Register custom components.
-Vue.component('awesome-link', AwesomeLink);
+// Vue.component('awesome-link', AwesomeLink);
+// Vue.component('awesome-link', FadeTraslateTransitionGroup);
 
-Vue.component('the-ladder', TheLadder);
+// Vue.component('the-ladder', TheLadder);
 
-Vue.component('about-item', AboutItem);
+// Vue.component('about-item', AboutItem);
 
-Vue.component('info-icon', InfoIcon);
+// Vue.component('info-icon', InfoIcon);
 
-Vue.component('arrow-button', ArrowButton);
+// Vue.component('arrow-button', ArrowButton);
 
-Vue.component('base-icon', BaseIcon);
+// Vue.component('base-icon', BaseIcon);
 
-Vue.component('base-button', BaseButton);
+// Vue.component('base-button', BaseButton);
 
-Vue.component('blurry-image-loader', BlurryImageLoader);
+// Vue.component('blurry-image-loader', BlurryImageLoader);
 
-Vue.component('content-preloader', ContentPreloader);
+// Vue.component('content-preloader', ContentPreloader);
 
-Vue.component('main-title', MainTitle);
+// Vue.component('main-title', MainTitle);
 
-Vue.component('decorative-title', DecorativeTitle);
-Vue.component('programm-item', ProgrammItem);
+// Vue.component('decorative-title', DecorativeTitle);
+// // Vue.component('programm-item', ProgrammItem);
 
+function registerComponents() {
+  const requireComponent = require.context('../components', false,  /\.vue$/);
+  
+  requireComponent.keys().forEach(fileName => {
+    console.log(fileName);
+
+    const componentConfig = requireComponent(fileName);
+
+    const componentName = upperFirst(
+      camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, ''))
+    );
+
+    Vue.component(componentName, componentConfig.default || componentConfig);
+  });
+}
+
+registerComponents();
 
 function loadStories() {
   // You can require as many stories as you need.
