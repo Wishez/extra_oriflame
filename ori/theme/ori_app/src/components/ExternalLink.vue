@@ -77,6 +77,4 @@ export default {
 
 	.externalLink
 		display: inline-block
-		// &:hover, &:focus, &:active
-		// 	color: $burgund
 </style>
