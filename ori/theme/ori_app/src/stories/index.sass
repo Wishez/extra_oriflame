@@ -1,9 +1,10 @@
 @import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
 
 .simpleWrapper
 	max-width: 800px
 	min-height: $s144 * 2.5
-	padding: $s77 0 $s233
+	padding: $s77 1.25rem $s233 1.5rem
 	margin: 0 auto
 	
 .paddingTop
@@ -12,3 +13,11 @@
 
 .ladderFold__title.ladderFold__title
 	top: .6em
+
+.aboutItemImage
+	max-width: 25%
+	flex: 1
+
+	@include breakpoint($xs)
+		min-width: 100%
+		margin-bottom: .75rem

@@ -14,9 +14,6 @@
         relative
       />
     </h2>
-    <!-- <p :class="['about__paragraph', modifier ? 'about__paragraph_' + modifier : '']"
-		>
-		</p> -->
     <slot/>
   </article>
 </template>
