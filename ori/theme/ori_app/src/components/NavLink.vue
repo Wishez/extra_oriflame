@@ -120,9 +120,7 @@ export default {
   },
   mounted() {
     const baseScrollOffset = this.$store.state.baseOffsetForTransform;
-
-    // this.$nextTick(() => {
-    // });
+    
     timeout(() => {
       this.$set(
         this,

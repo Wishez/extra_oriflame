@@ -228,7 +228,7 @@ storiesOf('External Link', module)
 	);
 
 storiesOf('NavLink', module)
-	.add('Cсылка навигации',
+	.add('Cсылки навигации',
 		() =>
 		({
 			router,
@@ -261,12 +261,12 @@ storiesOf('NavLink', module)
 		})
 	)
 
-	.add('Мобильная ссылка',
+	.add('Мобильные ссылки',
 		() =>
 		({
 			router,
 			store,
-			template: `<div class="parent row wrap centered simpleWrapper">
+			template: `<div class="parent row wrap centered simpleWrapper fillVH">
 				<nav>
 					<ul class="navigationList parent wrap column h-center v-end baseChild">
 						<nav-link
@@ -293,7 +293,8 @@ storiesOf('NavLink', module)
 			</div>`,
 
 			beforeMount() {
-				
+				window.scroll(0, 400);
+
 				this.$store.state.baseOffsetForTransform = 0;
 				this.$store.state.rootElement.scrollTop = 600;
 			}
