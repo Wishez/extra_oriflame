@@ -49,8 +49,7 @@ export default {
 		const showUpOrBottom = (event, tooltipHeight, tooltipWidth) => {
 			const windowHeight = window.innerHeight;
 			const windowWidth = window.innerWidth;
-			// let additionalValue = 0;
-			// let x = 0;
+
 			let y = 0;
 			let place = 'top';
 					
