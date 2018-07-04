@@ -3,9 +3,9 @@
 <template>
   <div id="app">
     <the-header/>
-    <main 
-      id="main" 
-      class="wrapper container">	
+    <main
+      id="main"
+      class="wrapper container">
       <router-view/>
     </main>
     <the-footer />
@@ -28,8 +28,6 @@ import {
 } from "@/constants/pureFunctions";
 import { siteThemes, siteThemesKeys } from "@/constants/conf";
 
-const basicScroll = require("basicScroll");
-
 export default {
   name: "App",
   components: {
@@ -46,6 +44,7 @@ export default {
     navigation() {
       return document.getElementById("navigationList");
     },
+
     slideUpCallbackButton() {
       return anime({
         targets: ".callback",
@@ -54,6 +53,7 @@ export default {
         duration: 250
       });
     },
+
     slideDownCallbackButton() {
       return anime({
         targets: ".callback",
@@ -62,6 +62,7 @@ export default {
         duration: 250
       });
     },
+
     spinLinks() {
       return anime({
         targets: ".navLink",
@@ -103,6 +104,7 @@ export default {
         ]
       });
     },
+
     // Animation object for the navigation
     // when an user scrolling from top of the page.
     // You can play and restart it.
@@ -126,7 +128,6 @@ export default {
         targets: this.navigation,
         bottom: 0,
         duration: 350,
-        // backgroundColor: {value: "#333", duration: 100},
         begin: anim => {
           this.navigation.classList.add("navigation_fixed");
         }
@@ -194,34 +195,7 @@ export default {
     }
   },
   beforeMount() {
-    const body = document.documentElement || document.body;
-
-    const bodyStyles = body.style;
-
-    this.$nextTick(() => {
-      const choosenTheme = localStorage.currentShareBeautySiteTheme;
-      const randomTheme =
-        siteThemes[
-          choosenTheme || siteThemesKeys[Math.ceil(Math.random() * 3) - 1]
-        ];
-
-      const configuration = {
-        ...randomTheme
-      };
-
-      const configurationProperties = [
-        "topBottomBackgroundColor",
-        "contactIconStyle",
-        "bannerType",
-        "logoColor"
-      ];
-
-      configurationProperties.forEach(property => {
-        bodyStyles.setProperty(`--${property}`, configuration[property]);
-      });
-
-      this.$store.commit("setSiteTheme", randomTheme);
-    });
+    this.setTheme();
   },
   mounted: function() {
     const body = this.$store.state.rootElement;
@@ -239,6 +213,7 @@ export default {
         }
       })
     });
+
     doBy({
       callback: () => {
         this.$set(this, "baseOffset", this.$store.state.baseOffsetForTransform);
@@ -258,13 +233,10 @@ export default {
       name: "animateNavigationToDefaultState",
       callback: this.animateToDefaultState
     });
-    // The function will trigger by `blur` event of the navigation links or the header's logo .
+
     this.$store.commit("setGlobalAnimations", {
       name: "transformMenuIfNeeded",
       callback: () => {
-        // Check state of menu-ransformation for
-        // prevent the extra execute of the
-        //  navigation's animation's transformation.
         if (!this.$store.state.menuWasTransformed) {
           this.animateByScrollToBottom();
         }
@@ -295,17 +267,47 @@ export default {
         });
       })
     }); // end scroll
+  },
+
+  methods: {
+    setTheme() {
+      const body = document.documentElement || document.body;
+
+      const bodyStyles = body.style;
+
+      this.$nextTick(() => {
+        const choosenTheme = localStorage.currentShareBeautySiteTheme;
+        const randomTheme = siteThemes["white"];
+
+        const configuration = {
+          ...randomTheme
+        };
+
+        const configurationProperties = [
+          "topBottomBackgroundColor",
+          "contactIconStyle",
+          "bannerType",
+          "logoColor"
+        ];
+
+        configurationProperties.forEach(property => {
+          bodyStyles.setProperty(`--${property}`, configuration[property]);
+        });
+
+        this.$store.commit("setSiteTheme", randomTheme);
+      });
+    }
   }
 };
 </script>
 
 <style	lang="sass" scoped>
 	@import './styles/conf/_sizes.sass'
-		
+
 	.wrapper
 		max-width: 1129px
 		margin-top: $s77
 		margin-bottom: 	$s144
 		padding-left: 1.5rem
-	
+
 </style>

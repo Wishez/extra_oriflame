@@ -12,7 +12,7 @@ export const siteThemes = {
     id: "white",
     topBottomBackgroundColor: "#fff",
     contactIconStyle: "green",
-    bannerType: "decorative",
+    bannerType: "catalog", // or decorative
     logoColor: "#333",
     conversionId: "AW-807007303/dcSwCIDvyIEBEMfo54AD"
   },

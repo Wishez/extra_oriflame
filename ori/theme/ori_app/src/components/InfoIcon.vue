@@ -1,5 +1,5 @@
 <template>
-  <base-button 
+  <base-button
     :modifier="modifier"
     :label="label"
     :class-name="className"
@@ -7,8 +7,8 @@
     :on-blur="onBlur"
     unstyled
   >
-    <base-icon 
-      :icon="`fas fa-info`" 
+    <base-icon
+      :icon="`fas fa-info`"
       modifier="info"
       class-name="darkGrayColor relative
 			pseudo_after pseudo_after--negativeIndex pseudo_after--basePosition
@@ -56,44 +56,4 @@ export default {
 	@import './../styles/conf/_colors.sass'
 	@import './../styles/conf/_breakpoints.sass'
 
-	@keyframes pulsar
-		0%
-			transform: scale(1)
-			z-index: 1
-		30%
-			transform: scale(0.75)
-			will-change: transform
-		40%
-			transform: scale(1)
-			will-change: transform
-		45% 
-			transform: scale(1.2)
-			will-change: opacity, transform
-			// z-index: -1
-		50% 
-			transform: scale(1.4)
-			will-change: opacity, transform
-			opacity: .25
-		55%
-			transform: scale(1.6)
-			will-change: opacity, transform
-			opacity: .1
-		55%, 100% 
-			transform: scale(1.6)
-			will-change: opacity, transform
-			opacity: 0
-
-		
-
-
-	.iconBackground_info:after
-		transform: scale(1)
-		background-color: $burgund
-		opacity: .4
-		will-change: transform, opacity
-		animation-name: pulsar
-		animation-duration: 4000ms
-		animation-delay: 2000ms
-		animation-iteration-count: infinite
-		animation-timing-function: ease-out //cubic-bezier(0.4, 0.0, 0.2, 1)//cubic-bezier(0.31, 0.21, 1, 1.11)
 </style>

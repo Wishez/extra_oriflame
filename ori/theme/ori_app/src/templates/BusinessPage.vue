@@ -1,21 +1,21 @@
 <template>
   <section class="businessPage">
     <main-title>Внутренняя структура</main-title>
-    <fade-translate-transition-group 
-      tag="div" 
+    <fade-translate-transition-group
+      tag="div"
       class="content">
-      <article 
+      <section
         v-for="(paragraph, index) in paragraphs"
         :key="index"
         :data-index="index"
       >
-        <h2 :id="paragraph.id">{{ paragraph.title }}</h2>		
-        <p v-html="paragraph.text" />		
-        <p 
+        <h2 :id="paragraph.id">{{ paragraph.title }}</h2>
+        <p v-html="paragraph.text" />
+        <p
           v-for="(additionalParagraph, counter) in paragraph.additionalParagraphs"
           :key="counter"
           v-html="additionalParagraph" />
-      </article>
+      </section>
       <TheLadder :key="paragraphs.length" />
     </fade-translate-transition-group>
   </section>
@@ -23,6 +23,7 @@
 
 <script>
 import TheLadder from "@/components/TheLadder";
+import { businessUrl } from "@/constants/conf";
 
 export default {
   name: "BusinessPage",
@@ -77,22 +78,9 @@ export default {
       }
     ]
   }),
-  computed: {},
-  beforeCreate() {},
-  created() {},
-  beforeMount() {},
-  mounted() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeDestroy() {},
-  methods: {}
+
+  beforeMount() {
+    window.open(businessUrl);
+  }
 };
 </script>
-
-<style lang="sass">
-	@import './../styles/conf/_sizes.sass'
-	@import './../styles/conf/_colors.sass'
-	@import './../styles/conf/_breakpoints.sass'
-	.ladder
-
-</style>

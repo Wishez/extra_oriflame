@@ -1,20 +1,20 @@
 <template>
-  <header 
-    class="whiteBackground header parent row wrap materialShadow h-end" 
+  <header
+    class="whiteBackground header parent row wrap materialShadow h-end"
     itemscope
     itemtype="https://schema.org/Organization"
-  >	
-    <router-link 
+  >
+    <router-link
       to="/"
       class="grow brand paddingBottom_11 parent centered row disableUnderline"
       @focus="setDefaultMenuState"
-      @blur="transformMenu" 
-      @keypress="setDefaultMenuStateByPresingTab" 
+      @blur="transformMenu"
+      @keypress="setDefaultMenuStateByPresingTab"
     >
-      <svg 
-        class="brand__title" 
-        itemprop="name" 
-        viewBox="0 0 173 64" 
+      <svg
+        class="brand__title"
+        itemprop="name"
+        viewBox="0 0 173 64"
         aria-hidden="true">
         <path d="M74.912 45.609l-1.594-4.904h-0.981l-1.594 4.904-1.594-4.904h-1.226l2.207 6.621h0.981l1.716-4.659 1.594 4.659h0.981l2.207-6.621h-1.226z"/>
         <path d="M18.268 43.525h33.349v0.981h-33.349v-0.981z"/>
@@ -35,30 +35,29 @@
       </svg>
     </router-link>
 
-    <site-contacts 
+    <site-contacts
       modifier="header"
       class-name="paddingBottom_11"
       @keypress="setDefaultMenuStateByPresingTab"
     />
-    <nav 
-      id="navigationList" 
-      role="navigation" 
-      aria-label="Навигация сайта" 
+    <nav
+      id="navigationList"
+      role="navigation"
+      aria-label="Навигация сайта"
       class="navigation parent h-s-end wrap row h-end baseChild"
-      @mouseenter="clearTransformOfTabIfNedded" 
+      @mouseenter="clearTransformOfTabIfNedded"
     >
       <ul class="navigationList parent wrap row h-end v-end v-s-end baseChild">
-        <li 
+        <li
           :class="{
             'visible-hidden': isTabShown
           }"
-          aria-hidden="true" 
+          aria-hidden="true"
         >
-          <figure 
-            class="activeTab" 
+          <figure
+            class="activeTab"
             data-transformed="false"/>
         </li>
-        <!-- <nav-link /> -->
         <nav-link
           v-for="(link, index) in navigationLinks"
           :key="index"
@@ -66,16 +65,16 @@
           :index="index"
           :icon="link.icon"
           :href="link.href"
-          @keypress="setDefaultMenuStateByPresingTab" 
-          @blur="transformMenu" 
+          @keypress="setDefaultMenuStateByPresingTab"
+          @blur="transformMenu"
         >
           <span class="navLink__label">
             {{ link.name }}
-          </span> 
+          </span>
         </nav-link>
       </ul>
-      <div 
-        id="active_page" 
+      <div
+        id="active_page"
         hidden>Текущая страница</div>
     </nav>
   </header>
@@ -91,8 +90,6 @@ import {
   timeout,
   throttle
 } from "@/constants/pureFunctions";
-
-import { businessUrl } from "@/constants/conf";
 
 export default {
   name: "TheHeader",
@@ -115,9 +112,9 @@ export default {
       },
       {
         name: "Бизнес",
-        href: businessUrl,
-        icon: "fas fa-handshake",
-        isExternalLink: true
+        href: "/business",
+        icon: "fas fa-handshake"
+        // isExternalLink: true
       },
       {
         name: "Акции",
@@ -232,7 +229,7 @@ export default {
 			background-color: currentColor
 			transform: none $i
 			right: 0 $i
-			
+
 	.navigationList
 		position: relative
 		// transform: rotate(var(--navigation-rotate))
@@ -264,7 +261,7 @@ export default {
 			padding-left: 5rem
 			justify-content: flex-start
 
-		
+
 		// font-style: italic
 		font-size: $s29
 		@include breakpoint($xs)

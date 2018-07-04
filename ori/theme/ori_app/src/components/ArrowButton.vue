@@ -1,15 +1,16 @@
 <template>
-  <base-button 
+  <base-button
     :modifier="modifier"
     :label="label"
     :class-name="className"
     :action="makeAction(direction)"
     unstyled
   >
-		
-    <base-icon 
-      :id="id" 
-      :icon="`far fa-hand-point-${direction}`" 
+
+    <base-icon
+      :id="id"
+      :icon="`far fa-hand-point-${direction}`"
+      modifier="pink"
       class-name="hover-color_white hover-backgroundColor_burgund darkGrayColor"
     />
   </base-button>

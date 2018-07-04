@@ -181,7 +181,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "theme", 'ori_app', 'dist'),
+    # os.path.join(BASE_DIR, "theme", 'ori_app', 'dist'),
 ]
 LOGGING = {
     'version': 1,
