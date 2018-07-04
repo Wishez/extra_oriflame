@@ -129,7 +129,7 @@ export default {
         "isPageScrolled",
         this.$store.state.rootElement.scrollTop > baseScrollOffset + 50
       );
-    }, 0);
+    }, 10);
 
     listen({
       event: "scroll",
