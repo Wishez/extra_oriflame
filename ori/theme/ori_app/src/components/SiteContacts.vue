@@ -98,16 +98,17 @@ export default {
 
 
 	.contactsList
-		// padding-left: 1.5rem
 		letter-spacing: .06rem
 		padding-right: 5rem
 		min-width: (260em / 18)
+
 		@include breakpoint($md-less)
 			padding-top: 1.5rem
 			padding-bottom: 1.5rem
+
 		@include breakpoint($xs)
 			padding: 0
-			// justify-self: center
+			
 	.contact
 		&:not(:first-of-type)
 			margin-top:  (18em * 1.5 - 18) / 18
