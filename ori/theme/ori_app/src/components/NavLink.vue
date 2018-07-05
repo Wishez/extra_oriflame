@@ -9,7 +9,7 @@
       v-if="!isExternalLink"
       :class="{ 
         'navLink parent centered nowrap column': true, 
-        navLink_mobile: isPageScrolled
+        navLink_mobile: isPageScrolled || isMobile
       }"
       :to="href"
       :data-index="index"
@@ -27,7 +27,7 @@
     	
     <external-link
       v-if="isExternalLink"
-      :class-name="`navLink parent centered nowrap column${isPageScrolled ? ' navLink_mobile' : ''}`"
+      :class-name="`navLink parent centered nowrap column${isPageScrolled || isMobile ? ' navLink_mobile' : ''}`"
       :data-index="index"
       :aria-describedby="isActive ? 'active_page' : null"
       :to="href"
@@ -80,6 +80,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isMobile: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -120,7 +125,7 @@ export default {
   },
   mounted() {
     const baseScrollOffset = this.$store.state.baseOffsetForTransform;
-    
+
     timeout(() => {
       this.$set(
         this,

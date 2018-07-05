@@ -145,6 +145,7 @@ export default {
         }, delay);
       }
     },
+    
     onClickArrowButton(direction) {
       return (event) => {
         const isDownDirection = direction === "down";

@@ -266,13 +266,14 @@ storiesOf('NavLink', module)
 		({
 			router,
 			store,
-			template: `<div class="parent row wrap centered simpleWrapper fillVH">
+			template: `<div class="parent row wrap centered simpleWrapper">
 				<nav>
 					<ul class="navigationList parent wrap column h-center v-end baseChild">
 						<nav-link
 								:index="0"
 								icon="fas fa-thumbs-down"
 								href="/"
+								is-mobile
 						>
 							<span class="navLink__label">
 								True
@@ -283,6 +284,7 @@ storiesOf('NavLink', module)
 								:index="1"
 								icon="fas fa-thumbs-down"
 								href="/to"
+								is-mobile
 						>
 							<span class="navLink__label">
 								False
@@ -292,12 +294,12 @@ storiesOf('NavLink', module)
 				</nav>
 			</div>`,
 
-			beforeMount() {
-				window.scroll(0, 400);
+			// beforeMount() {
+			// 	window.scroll(0, 400);
 
-				this.$store.state.baseOffsetForTransform = 0;
-				this.$store.state.rootElement.scrollTop = 600;
-			}
+			// 	this.$store.state.baseOffsetForTransform = 0;
+			// 	this.$store.state.rootElement.scrollTop = 600;
+			// }
 		}),
 		
 	);
