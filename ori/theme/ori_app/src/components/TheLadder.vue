@@ -145,9 +145,9 @@ export default {
         }, delay);
       }
     },
-    
+
     onClickArrowButton(direction) {
-      return (event) => {
+      return event => {
         const isDownDirection = direction === "down";
 
         this.onTouch(event, isDownDirection);
