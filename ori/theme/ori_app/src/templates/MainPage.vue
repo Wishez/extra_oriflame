@@ -50,8 +50,8 @@
           relative
         />
       </external-link>
-
     </section>
+
     <fade-translate-transition-group 
       :duration="1500"
       tag="section" 
@@ -66,17 +66,14 @@
         class-name="parent column"
 
       >
-
         <p>
 					
           Oriflame – <strong>европейская косметическая компания</strong> прямых продаж №1, с которой <strong>сотрудничают более 3 миллионов</strong> консультантов по всему миру, а годовой оборот компании составляет <strong>около 1,5 млрд евро</strong>.</p>
         <p>
           Компания Oriflame предлагает <strong>более 1000</strong> наименований <strong>прогрессивных продуктов</strong> по доступной цене &mdash; косметических средств, модных аксессуаров, ароматов, средств по уходу за телом, волосами и т.п., разработанных в Швеции <strong>по уникальным инновационным технологиям</strong>.
         </p>
-
-				
-        <!-- Oriflame &mdash; европейский <strong>создатель и поставщик</strong> разнообразной продукции. С ней <strong>сотрудничают разные люди из различных стран</strong>. Она, как нам и вам, всегда готово предложить обширное количество <strong>косметики</strong>, <strong>аксессуаров</strong>, <strong>парфюмерии</strong> и всё то, что вы сможете найти в каталоге. -->
       </about-item>
+
       <about-item
         :key="1"
         :data-index="1"
@@ -89,12 +86,8 @@
         <p>
           <strong>Описание всех ароматов</strong> Oriflame вы можете найти здесь <external-link 
             class-name="lightenHover"
-            to="https://media-cis-cdn.oriflame.com/-/media/RU/Files/My-Pages/Sell/Product-Expert/Product-guide/Fragrance04042016.ashx?u=0101010000&la=ru-RU)">руководстве по продукции</external-link>.</p>
-			
-
-
-
-            <!-- Завлекающие ароматы Oriflame <strong>создаются во Франции</strong>. К ним также прикладывают руку <strong>парфюмеры их города Грасс</strong>! Совместными усилиями, создаётся <strong>качественный и неповторимый в запахе</strong> продукт.<br/>Возможно, вас заинтересует это краткое <external-link to="https://media-cis-cdn.oriflame.com/-/media/RU/Files/My-Pages/Sell/Product-Expert/Product-guide/Fragrance04042016.ashx?u=0101010000&la=ru-RU)">руководство по ароматам</external-link>. -->
+            to="https://media-cis-cdn.oriflame.com/-/media/RU/Files/My-Pages/Sell/Product-Expert/Product-guide/Fragrance04042016.ashx?u=0101010000&la=ru-RU)">руководстве по продукции</external-link>.
+        </p>
       </about-item>
       <about-item
         :key="2"
@@ -110,8 +103,6 @@
             class-name="lightenHover" 
             to="https://media-cis-cdn.oriflame.com/-/media/CIS/Images/My-Pages/Sell/Sell-Wellness/Wellness-product-guide/Wellness-product-guide.ashx?u=0101010000&la=ru-RU">Руководство по продукции Wellness</external-link>.
         </p>
-
-        <!-- Oriflame создаёт продукцию под кодовым именем <strong>Wellness</strong>. Это <strong>сбалансированное</strong>, <strong>протеиновое</strong>, а самое главное, <strong>вкусное питание</strong>, которое тонизирует организм.  Над ним корпели, <strong>на протяжении, 15 лет</strong>. За это время, рабочая группа Wellness собрала <external-link to="https://media-cis-cdn.oriflame.com/-/media/CIS/Images/My-Pages/Sell/Sell-Wellness/Wellness-product-guide/Wellness-product-guide.ashx?u=0101010000&la=ru-RU">подробное  описание</external-link>, которые вы можете оценить. -->
       </about-item>
 			
       <about-item
@@ -127,17 +118,7 @@
 
         <p>
           Oriflame предлагает всевозможные крема, активаторы, инструменты и аксессуары для ухода за кожей, отдельную линию продукции для мужчин и многое другое.
-
         </p>
-
-
-        <!-- <strong>Главный продукт</strong> Oriflame &mdash; это <strong>косметика</strong>. Специалисты разрабатывают её уже <strong>более 50-ти лет</strong>. Они её <strong>испытывают</strong> разными научными способами и <strong>улучшают</strong>, проводя разные научные исследования. После того, как они <strong>убеждаются в качестве и надёжности</strong> косметики, Oriflame преподносит её всем желающим. Но для партнёров, Oriflame даёт <i>лучшие условия</i>.
-				<awesome-link 
-					containerClassName="parent centered"
-					href="/registration" 
-					content="Регистрация" 
-					label="Перейти на страницу регистрации"
-				/> -->
       </about-item>
 			
       <awesome-link 
