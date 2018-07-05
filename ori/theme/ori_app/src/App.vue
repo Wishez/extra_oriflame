@@ -19,6 +19,7 @@ import TheFooter from "@/templates/TheFooter.vue";
 import TheCallback from "@/components/TheCallback.vue";
 import normalizeWheel from "@/lib/js/normwheel";
 import anime from "animejs";
+
 import {
   doByYScroll,
   listen,
