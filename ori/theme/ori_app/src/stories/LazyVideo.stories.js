@@ -4,7 +4,7 @@ import store from '../store';
 import router from '../router';
 
 storiesOf('Lazy Video', module)
-    .add('Едининчая',
+    .add('Клип',
         () => ({
             template: `<div class="parent row wrap centered simpleWrapper">
                 <fade-translate-transition-group 

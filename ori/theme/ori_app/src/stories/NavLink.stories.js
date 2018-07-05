@@ -49,7 +49,7 @@ storiesOf('NavLink', module)
 					<ul class="navigationList parent wrap column h-center v-end baseChild">
 						<nav-link
 								:index="0"
-								icon="fas fa-thumbs-down"
+								icon="fas fa-thumbs-up"
 								href="/"
 								is-mobile
 						>
