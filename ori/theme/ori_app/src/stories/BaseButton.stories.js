@@ -66,4 +66,41 @@ storiesOf('Base Button', module)
 				}
 			}
 		})
+	)
+	.add('Недоступная кнопка',
+		() =>
+		({
+			template: `<div class="parent column centered simpleWrapper">
+						<base-button 
+							:action="changeState(true)"
+							:disabled="isAllowed"
+							class-name="marginBottom_18"
+							modifier="burgund"
+							type="submit"
+						>
+							{{ controllerText }}
+						</base-button>
+
+						<base-button 
+							:action="changeState(false)"
+							:disabled="!isAllowed"
+							modifier="burgund"
+							type="submit"
+						>
+							{{ name }}
+						</base-button>
+					</div>`,
+			data: () => ({
+				name: 'Сделать недоступной',
+				isAllowed: false,
+				controllerText: 'Сделать досутпной'
+			}),
+			methods: {
+				changeState(isAllowed) {
+					return () => {
+						this.isAllowed = isAllowed;
+					}
+				}
+			}
+		})
 	);
