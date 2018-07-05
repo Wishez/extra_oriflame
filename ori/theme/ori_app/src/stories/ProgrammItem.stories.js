@@ -47,18 +47,21 @@ storiesOf('Programm Item', module)
     		router,
     		store,
     		template: `<div class="parent row wrap centered paddingTop_77 paddingBottom_big">
-              <div class="programmItems parent h-between row wrap">
-				
-                <programm-item 
-                    v-for="(item, index) in items"
-                    :key="index"
-                    :src="item.src"
-                    :title="item.title"
-                    :name="item.name"
-                    :step-description="item.stepDescription"
-                    :title-modifier="item.titleModifier"
-                />
-            </div>
+				<fade-translate-transition-group 
+					tag="div"
+					:delay="50" 
+					class-name="programmItems parent h-between row wrap">
+					
+					<programm-item 
+						v-for="(item, index) in items"
+						:key="index"
+						:src="item.src"
+						:title="item.title"
+						:name="item.name"
+						:step-description="item.stepDescription"
+						:title-modifier="item.titleModifier"
+					/>
+				</fade-translate-transition-group>
             </div>`,
     		data() {
     			return {
