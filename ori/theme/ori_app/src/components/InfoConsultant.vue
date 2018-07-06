@@ -16,6 +16,7 @@
         </h3>
         <fade-translate-transition-group
           :duration="500"
+          :delay="100"
         >
           <li 
             v-if="consultant.consultant_num"
@@ -67,8 +68,8 @@
       <div 
         v-if="!isInfoShown" 
         class="consultantPreview parent row v-centered h-between wrap">	
-        <span class="spacing_12 consultantPreview__name marginBottom_xxs-11">	
-          {{ `${consultant.first_name} ${consultant.last_name}` }} 
+        <span class="spacing_12 consultantPreview__name marginBottom_xxs-11 parent v-centered wrap row">	
+          <span class="cropedLine previewName">{{ `${consultant.first_name} ${consultant.last_name}` }}</span>
           {{ `${consultant.consultant_num ? `— ${consultant.consultant_num}` : ''}` }}
         </span>
 				
@@ -112,8 +113,6 @@ export default {
   }),
   computed: {
     someConsultantIsNotOpened() {
-      console.log(this.$store);
-      console.log(this.$store.state.personalRoom);
       return !this.$store.state.personalRoom.referralConsultantOpened;
     },
     consultantId() {
@@ -133,23 +132,27 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_colors.sass'
-	@import '../styles/conf/_breakpoints.sass'
-	.refferalConsultant
-		margin-top: $s18
-		&:not(:last-of-type) .consultantPreview 
-			@include breakpoint($xxs)
-				border-bottom: 1px solid #E0E0E0
-	.consultantPreview 
-		@include breakpoint($xxs)
-			justify-content: center
-		&__name
-		&__button
-			@include breakpoint($xxs)
-				order: -1
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_colors.sass'
+@import '../styles/conf/_breakpoints.sass'
+.refferalConsultant
+  margin-top: $s18
 
-	.referralConsultantsLitter
-		transition: all .5s cubic-bazier(0.6, 0.0, 0.2, 1)
+  &:not(:last-of-type) .consultantPreview 
+    @include breakpoint($xxs)
+      border-bottom: 1px solid #E0E0E0
+.consultantPreview 
+  @include breakpoint($xxs)
+    justify-content: center
+  &__name
+  &__button
+    @include breakpoint($xxs)
+      order: -1
 
+.referralConsultantsLitter
+  transition: all .5s cubic-bazier(0.6, 0.0, 0.2, 1)
+
+.previewName
+  max-width: 160px
+  display: inline-block
 </style>

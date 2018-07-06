@@ -283,28 +283,27 @@ export default {
         }
       });
     },
+
     requestConsultantData() {
       const loadConsultatnDataCallback = consultantData => {
         let silent = false;
-        // See a locale share's congruence of
-        // a needed in the view.
+
         if (
           consultantData &&
           consultantData.consultant_num === this.consultant_num
         ) {
-          // I need it, and i set silent mode and cache to the view's state the share.
           silent = true;
 
           this.$set(this, "consultant", consultantData);
         }
-        // Next, i update DB.
+
         this.fetchAndDumpConsultantData(consultantData, silent);
-      }; // end
+      };
 
       this.$store.dispatch("load", {
         key: CONSULTANT_DATA,
         callback: loadConsultatnDataCallback
-      }); // end 'load' of CONSULTANT_DATA
+      });
     }
   },
   beforeRouteUpdate(to, from, next) {
