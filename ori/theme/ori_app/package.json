@@ -12,7 +12,8 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "storybook": "start-storybook -p 9000 -c src/storybook"
+    "storybook": "start-storybook -p 9000 -c src/storybook",
+    "buildstories": "build-storybook -c src/storybook -o .out"
   },
   "dependencies": {
     "animejs": "^2.2.0",
