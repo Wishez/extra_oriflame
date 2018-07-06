@@ -49,7 +49,6 @@
         @click="onClick"
         @blur="onBlur"
       >
-      <!-- @focus="selectAll" -->
       <slot />
       <span 
         v-if="!/(checkbox|date)/.test(type)" 

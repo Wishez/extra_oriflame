@@ -179,6 +179,7 @@
         </base-button>
       </form>
     </simple-litter>
+
     <simple-litter 
       id="description"
       modifier="registration" 
@@ -192,34 +193,29 @@
           :key="0" 
           :data-index="0"
           class="marginLeft_heading">Пройдя регистрацию</h2>
+          
         <p 
           :key="1" 
           :data-index="1"
           class="registrationDescription__paragraph">
           Вам будет предоставлена <strong>скидка от 20% на весь спектр продукции</strong> компании Oriflame.
-
-          <!-- Для того, чтобы зарегистрироваться, вам не нужно делать какие-либо взносы до или после регистрации. Регистрация <strong>совершенно бесплатна</strong>! -->
         </p>
+
         <p 
           :key="2" 
           :data-index="2" 
           class="registrationDescription__paragraph">
           Вы сможете <strong>участвовать во множестве акций</strong> и <strong>получить подарки</strong>: <i>продукцию компании</i> Oriflame, <i>ценные призы</i> (вплоть до автомобилей), <i>денежные призы</i>, а также <i>путешествия за счёт фирмы</i>.
-
-          <!-- После регистрации, вы станете на <strong>первую ступень</strong> <internal-link 
-						className="lightenHover"
-						hashResource='ladder' 
-						to='business'>карьерной лестницы</internal-link> Орифлейм, откуда вы сможете сделать выбор — идти вверх по лестнице или просто пользоваться бонусами. -->
         </p>
+
         <p 
           :key="3" 
           :data-index="3" 
           class="registrationDescription__paragraph"
         >
           Заказывать продукцию Oriflame можно <strong>с помощью интернета</strong>, а получать <strong>в удобном для Вас месте</strong>.
-
-          <!-- Кстати, в число бонусов входит скидки <strong>от 20 до 32%</strong>, возможность участвовать в акциях, где вы, вероятно, найдёте для себя что-нибудь <strong>интересное</strong> и <strong>полезное</strong>. Также, вас ждут специальные, будоражущие воображение,  <strong>распродажи</strong>. -->
         </p>
+
         <p 
           :key="4" 
           :data-index="4"
@@ -230,8 +226,6 @@
             :to="businessUrl"
             class-name="lightenHover" 
           >«Бизнес»</external-link> в навигации.
-
-          <!-- Но если вы  захотите <strong>устремиться вверх</strong> по лестнице, то вы всегда сможете опираться на наше крепкое плечо. Мы готовы поделиться с вами <strong>необходимыми знаниями и опытом</strong>, которые накопили путём проб и ошибок! -->
         </p>
       </transition-group>
     </simple-litter>
@@ -316,11 +310,7 @@ export default {
         email: "e-mail",
         phone_number: "номер телефона",
         city: "город",
-        // passport_data: "серия и номер пасспорта",
         region: "Почтовый индекс"
-        // street: "улица",
-        // num_home: "номер дома",
-        // num_apartment: "номер квартиры",
       }
     });
   },
@@ -403,6 +393,7 @@ export default {
                     undefined,
                     baseRegistrationConversion
                   );
+
                   // Регистрация с темой.
                   makeGtagRegistrationConversion(undefined, conversionId);
                 }
