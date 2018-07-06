@@ -8,7 +8,9 @@
       <slide-to-link 
         v-if="isMobile" 
         class-name="registrationContent__slideLink fewRound" 
-        selector="#registration">
+        selector="#registration"
+        modifier="button"
+      >
         Спуститься к регистрации
       </slide-to-link>
     </transition>
@@ -444,14 +446,9 @@ export default {
 @import '../styles/conf/_sizes.sass'
 @import '../styles/conf/_breakpoints.sass'
 .registrationContent__slideLink
-	display: block
 	margin: auto
-	position: relative
 	top: em(-29.512, 11)
-	font-size: $s11
-	background-image: none
-	border: 2px solid
-	padding: .5rem 1rem
+  font-size: $s11
 
 
 

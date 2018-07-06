@@ -52,5 +52,12 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-	
+.slideToLink
+  &_button
+    display: block
+    position: relative
+    background-image: none
+    border: 2px solid
+    padding: .5rem 1rem
+
 </style>
