@@ -1,27 +1,29 @@
 <template>	
-	<div :class="['fullWidth decorativeTitleContainer parent row nowrap centered', className ? className : '']">
-		<hr :class="['grow decorativeTitleContainer__divider', modifier ? 'decorativeTitleContainer__divider' + modifier : '']">	
-		<h2 :class="['bold decorativeTitleContainer__title', modifier ? 'decorativeTitleContainer__title_' + modifier : '']">
-			<slot></slot>
-		</h2>
-		<hr :class="['grow decorativeTitleContainer__divider', modifier ? 'decorativeTitleContainer__divider' + modifier : '']">	
-	</div>
+  <div :class="['fullWidth decorativeTitleContainer parent row nowrap centered', className ? className : '']">
+    <hr :class="['grow decorativeTitleContainer__divider', modifier ? 'decorativeTitleContainer__divider' + modifier : '']">	
+    <h2 :class="['bold decorativeTitleContainer__title', modifier ? 'decorativeTitleContainer__title_' + modifier : '']">
+      <slot/>
+    </h2>
+    <hr :class="['grow decorativeTitleContainer__divider', modifier ? 'decorativeTitleContainer__divider' + modifier : '']">	
+  </div>
 </template>
 
 <script>
-	export default {
-		name: "DecorativeTitle",
-		props: {
-			modifier: {
-				type: String,
-				required: false
-			},
-			className: {
-				type: String,
-				required: false	
-			}
-		}
-	};
+export default {
+  name: "DecorativeTitle",
+  props: {
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    }
+  }
+};
 </script>
 
 <style	lang="sass">

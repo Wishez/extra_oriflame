@@ -1,68 +1,55 @@
 <template>
-	<base-button 
-		label="Открыть оформление консультации"
-		:action="action"
-		unstyled
-		className="callbackButton fewRound materialShadow"
-	>
-		<blurry-image-loader 
-			alt="Закзать обратный вызов"
-			className="callbackButton__icon"
-			relative
-			:src="callbackIcon" />
-	</base-button>
+  <base-button 
+    :action="action"
+    label="Открыть оформление консультации"
+    unstyled
+    class-name="callbackButton fewRound materialShadow"
+  >
+    <blurry-image-loader 
+      :src="callbackIcon" 
+      alt="Закзать обратный вызов"
+      class-name="callbackButton__icon"
+      relative
+    />
+  </base-button>
 </template>
 
 <script>
-	import BlurryImageLoader from '@/components/BlurryImageLoader';
-	import BaseButton from '@/components/BaseButton';
-	import callbackIcon from './../assets/images/icons/callback.png';
-	
+import callbackIcon from "./../assets/images/icons/callback.png";
 
-	export default {
-		name: "CallbackButton",
-		props: {
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			modifier: {
-				type: String,
-				required: false,
-			},
-			action: {
-				type: Function,
-				required: true
-			}
-		},
-  	    components: {
-  	    	BlurryImageLoader,
-  	    	BaseButton
-	    },
-	    mixins: [],
-	    data: () => ({
-	    	callbackIcon
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    },
-	    computed: {
-	    },
-	    methods: {
-	    },
-	    beforeUpdate() {
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
-	};
+export default {
+  name: "CallbackButton",
+
+  mixins: [],
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    action: {
+      type: Function,
+      required: true
+    }
+  },
+  data: () => ({
+    callbackIcon
+  }),
+  computed: {},
+  beforeCreate() {},
+  created() {},
+  beforeMount() {},
+  mounted() {},
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  methods: {}
+};
 </script>
 
 <style lang="sass" scoped>

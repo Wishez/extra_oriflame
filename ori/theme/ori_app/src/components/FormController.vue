@@ -1,190 +1,200 @@
 <template>
-	<transition appear
-		name="fade">
-		<div v-if="show"
-			:class="[baseContainerClasses, 'controller', modifier ? 'controller_' + modifier : null, className]">
-			<transition name="fade">
-				<label 
-					@click="selectInput"
-					:class="['light controller__label', modifier ? 'controller__label_' + modifier : null]"
-					:id="`${name}_label`"
-					v-if="label && !error" :for="name" >
-					{{ label }}
-				</label>
-				<span v-if="error" class="controller__error">
-					{{ error }}
-				</span>
-			</transition>
+  <transition 
+    name="fade"
+    appear
+  >
+    <div 
+      v-if="show"
+      :class="[baseContainerClasses, 'controller', modifier ? 'controller_' + modifier : null, className]">
+      <transition name="fadeIn">
+        <label 
+          v-if="label && !error" 
+          :class="['light controller__label', modifier ? 'controller__label_' + modifier : null]"
+          :id="`${name}_label`"
+          :for="name" 
+          @click="selectInput"
+        >
+          {{ label }}
+        </label>
+        <span 
+          v-else 
+          class="controller__error">
+          {{ error }}
+        </span>
+      </transition>
 
-			<input 
-				v-if="simpleInput"
-				:class="{
-					'controller__input': true,
-					'controller__input_hasValue': !!value,
-					['controller__input_' + modifier]: !!modifier,
-					'controller__input_invalid': !!error
-				}"
-				:required="required"
-				:type="type" 
-				:autocomplete="autocomplete" 
-				:placeholder="placeholder"
-				:name="name" 
-				:pattern="pattern"
-				:aria-labelledby="`${name}_label`"
-				:value="value" 
-				@input="updateValue(
-					$event.target, 
-					$event.target.value, 
-					onInput($event)
-				)"
-				@click="onClick"
-				:minlength="minLength"
-				:maxlength="maxLength"
-				@blur="onBlur"
-			/>
-				<!-- @focus="selectAll" -->
-			<slot />
-			<span v-if="!/(checkbox|date)/.test(type)" class="controller__border"/>
-		</div>
-	</transition>
+      <input 
+        v-if="simpleInput"
+        :class="{
+          'controller__input': true,
+          'controller__input_hasValue': !!value,
+          ['controller__input_' + modifier]: !!modifier,
+          'controller__input_invalid': !!error
+        }"
+        :required="required"
+        :type="type" 
+        :autocomplete="autocomplete" 
+        :placeholder="placeholder"
+        :name="name" 
+        :pattern="pattern"
+        :aria-labelledby="`${name}_label`"
+        :value="value" 
+        :minlength="minLength"
+        :maxlength="maxLength"
+        @input="updateValue(
+          $event.target, 
+          $event.target.value, 
+          onInput($event)
+        )"
+        @click="onClick"
+        @blur="onBlur"
+      >
+      <slot />
+      <span 
+        v-if="!/(checkbox|date)/.test(type)" 
+        class="controller__border"/>
+    </div>
+  </transition>
 </template>
 
 <script>
-	import {timeout} from '@/constants/pureFunctions';
-	import AwesomeMask from 'awesome-mask';
+import { timeout } from "@/constants/pureFunctions";
+import AwesomeMask from "awesome-mask";
 
-	export default {
-		name: "FormController",
-		data() {
-			return {
-				hasValue: false,
-			}
-		},
-		computed:  {
-			pattern() {
-				const regExp = this.regExp;
-				return regExp ? regExp : false;
-			}
-		},
-		directives: {
-			'mask': AwesomeMask
-		},
-		props: {
-			onClick: {
-				type: Function,
-				required: false,
-				default: () => {}
-			},
-			autocomplete: {
-				type: String,
-				required: false,
-				default: 'on'
-			},
-			show: {
-				type: Boolean,
-				required: false,
-				default: true
-			},
-			onInput: {
-				type: Function,
-				required: false,
-				default: () => {}
-			},
-			onBlur: {
-				type: Function,
-				required: false,
-				default: () => {}
-			},
-			baseContainerClasses: {
-				type: String,
-				required: false,
-				default: 'v-start parent column'
-			},
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			minLength: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			maxLength: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			regExp: {
-				type: String,
-				required: false,
-				default: ''
-			},
-			modifier: {
-				type: String,
-				required: false
-			},
-			value: {
-		      type: [String, Boolean],
-		      required: true,
-		      default: ''
-		    },
-		    name: {
-		      type: String,
-		      required: true
-		    },
-		    type: {
-		      type: String,
-		      default: "text"
-		    },
-		    error: {
-		      type: String,
-		      default: ''
-		    },
-		    simpleInput: {
-				type: Boolean,
-		      	default: true,
-		      	required: false
-		    },
-		    label: {
-		      type: String,
-		      default: '',
-		      required: false
-		    },
-		    placeholder: {
-		    	type: String,
-		      	default: '',
-		      	required: false
-		    },
-		    required: {
-				type: Boolean,
-		      	default: true,
-		      	required: false
-		    },
-		    updateValue: {
-		    	type: Function,
-		    	required: false,
-		    	default: function(element, value) {
-					this.$emit('input', value);
-		    	}
-		    },
-		},
-		methods: {
-			selectAll: function (event) {
-		      // Workaround for Safari bug
-		      // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
-		      timeout(function () {
-		      	event.target.select()
-		      }, 0)
-		    },
-		    selectInput: function(event)  {
-		    	document
-		    		.querySelector(`[name="${event.target.getAttribute('for')}"]`)
-		    		.focus();
-		    	
-		    } 
-		}
-	}
+export default {
+  name: "FormController",
+  directives: {
+    mask: AwesomeMask
+  },
+  props: {
+    onClick: {
+      type: Function,
+      required: false,
+      default: () => {}
+    },
+    autocomplete: {
+      type: String,
+      required: false,
+      default: "on"
+    },
+    show: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    onInput: {
+      type: Function,
+      required: false,
+      default: () => {}
+    },
+    onBlur: {
+      type: Function,
+      required: false,
+      default: () => {}
+    },
+    baseContainerClasses: {
+      type: String,
+      required: false,
+      default: "v-start parent column"
+    },
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    minLength: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    maxLength: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    regExp: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    value: {
+      type: [String, Boolean],
+      required: true,
+      default: ""
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      required: false,
+      default: "text"
+    },
+    error: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    simpleInput: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    label: {
+      type: String,
+      default: "",
+      required: false
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    required: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    updateValue: {
+      type: Function,
+      required: false,
+      default: function(element, value) {
+        this.$emit("input", value);
+      }
+    }
+  },
+  data() {
+    return {
+      hasValue: false
+    };
+  },
+  computed: {
+    pattern() {
+      const regExp = this.regExp;
+      return regExp ? regExp : false;
+    }
+  },
+  methods: {
+    selectAll: function(event) {
+      // Workaround for Safari bug
+      // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+      timeout(function() {
+        event.target.select();
+      }, 0);
+    },
+    selectInput: function(event) {
+      document
+        .querySelector(`[name="${event.target.getAttribute("for")}"]`)
+        .focus();
+    }
+  }
+};
 </script>
 
 <style lang="sass">
@@ -193,6 +203,8 @@
 @import '../styles/conf/_mixins.sass'
 @import '../styles/conf/_extentions.sass'
 @import "~susy/sass/_susy.scss"
+@import '../styles/conf/_animations.sass'
+
 .vdp-datepicker input
 	cursor: pointer
 .controller 
@@ -245,7 +257,7 @@
 		// Sucessfull pseudo-element
 		&::after
 			z-index: 3
-			background-color: $validColor
+			background-color: $green
 	&__input 
 		border-radius: 2px
 		width: 100%
@@ -303,6 +315,7 @@
 			max-width: span(1)
 			margin-right: $s11
 			position: relative
+			background-color: transparent
 
 			&::before
 				content: ""
@@ -310,13 +323,14 @@
 				width: 0
 				height: 0
 				border-style: solid
-				border-color: $validColor
+				border-color: $green
 				border-width: 0
 				bottom: -2px
 				left: -2px
 				border-radius: 2px
-				transition: height .3s ease-in, width .3s ease-in, border .1s ease
+				transition: height .3s $sharp, width .3s $sharp, border .1s $sharp
 				background-color: transparent
+
 			&:checked:before
 				width: calc(100% + 4px)
 				height: calc(100% + 4px)
@@ -348,17 +362,9 @@
 		margin-top: $s6
 		
 	&__label 
-		// align-self: flex-end
+		
 		cursor: pointer
 		font-size: em(21)
 	
 	
-		
-	
-	// &__checkboxLabel 
-	// 	color: $white
-	// 	padding: .5em 0 .8em 1em 
-	// 	max-width: span(10)
-	// 	background-color: $red
-	// 	@include round(em(2))
 </style>

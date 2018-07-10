@@ -1,237 +1,224 @@
 <template>
-	<simple-litter modifier="callback"
-			 :className="`positionRight_zero positionBottom_full-and-offset absolute parent callback${response.success ? ' centered' : ''}`">
-		<form @submit.prevent="validateBeforeSubmit"
-			method="POST"
-			@blur="onBlurForm"
-			class="callbackForm parent row wrap h-between v-centered perspective">
+  <simple-litter 
+    :class-name="`positionRight_zero positionBottom_full-and-offset absolute parent callback${response.success ? ' centered' : ''}`"
+    modifier="callback"
+  >
+    <form 
+      class="callbackForm parent row wrap h-between v-centered perspective"
+      method="POST"
+      @submit.prevent="validateBeforeSubmit"
+      @blur="onBlurForm"
+    >
 					
-			<form-controller 
-				v-model="callback_name"
-				:value="callback_name"
-				:error="errors.first('full_name')"
-				v-validate="{ 
-					required: true, 
-					regex: regexp.regex_full_name
-				}"
-				autocomplete="name"
-				name="callback_name"
-				label="ФИО"
-				placeholder="Иванов Иван Иванович"
-				maxLength="230"
-				minLength="4"
-				:show="!response.success"
-			/>
+      <form-controller 
+        v-validate="{ 
+          required: true, 
+          regex: regexp.regex_full_name
+        }"
+        v-model="callback_name"
+        :value="callback_name"
+        :error="errors.first('full_name')"
+        :show="!response.success"
+        autocomplete="name"
+        name="callback_name"
+        label="ФИО"
+        placeholder="Иванов Иван Иванович"
+        max-length="230"
+        min-length="4"
+      />
 
 			
-			<form-controller v-model="callback_phone"
-				:value="callback_phone"
-				:error="errors.first('phone_number')"
-				v-validate="{ 
-					required: true, 
-					regex: regexp.regex_phone
-				}"
-				autocomplete="tel"
-				type="tel"
-				name="callback_phone"
-				label="Номер телефона"
-				placeholder="+7 (985) 905-12-51"
-				maxLength="26"
-				minLength="2"
-				:show="!response.success"
-			/>
-			<transition appear name="fade">
-				<p v-if="response.serverMessage"
-				   :class="{
-				   		'registrationForm__message': true,
-				   		'fullWidth': true,
-				   		'registrationForm__message_error': response.error,
-						'registrationForm__message_success': response.success,
-						'light': response.success,
-				   }"
-					>{{ response.serverMessage }}</p>
-			</transition>
-			<base-button 
-				:className="
-					`button_centered marginTop_29 button_submit textShadow${response.error ? ' button_error' : ''}${response.success ? ' button_successful' : ''}` "
-				modifier="burgund"
-				type="submit">
-				{{ !response.requesting ? 'Заказать' : 'Обработка...' }}
-			</base-button>
-		</form>
-	</simple-litter>
+      <form-controller 
+        v-validate="{ 
+          required: true, 
+          regex: regexp.regex_phone
+        }"
+        v-model="callback_phone"
+        :show="!response.success"
+        :value="callback_phone"
+        :error="errors.first('phone_number')"
+        autocomplete="tel"
+        type="tel"
+        name="callback_phone"
+        label="Номер телефона"
+        placeholder="+7 (985) 905-12-51"
+        max-length="26"
+        min-length="2"
+      />
+      <transition 
+        name="fade"
+        appear 
+      >
+        <p 
+          v-if="response.serverMessage"
+          :class="{
+            'registrationForm__message': true,
+            'fullWidth': true,
+            'registrationForm__message_error': response.error,
+            'registrationForm__message_success': response.success,
+            'light': response.success,
+          }"
+        >{{ response.serverMessage }}</p>
+      </transition>
+      <base-button 
+        :class-name="
+        `button_centered marginTop_29 button_submit textShadow${response.error ? ' button_error' : ''}${response.success ? ' button_successful' : ''}` "
+        modifier="burgund"
+        type="submit">
+        {{ !response.requesting ? 'Заказать' : 'Обработка...' }}
+      </base-button>
+    </form>
+  </simple-litter>
 </template>
 
 <script>
-	import SimpleLitter  from '@/components/SimpleLitter';
-	import FormController  from '@/components/FormController';
-	import russian from 'vee-validate/dist/locale/ru';
-	import BaseButton from '@/components/BaseButton';
-	import {callbackUrl} from '@/constants/conf';
-	import {timeout} from '@/constants/pureFunctions';
+import SimpleLitter from "@/components/SimpleLitter";
+import FormController from "@/components/FormController";
+import russian from "vee-validate/dist/locale/ru";
+import BaseButton from "@/components/BaseButton";
+import { callbackUrl } from "@/constants/conf";
+import { timeout } from "@/constants/pureFunctions";
 
-	// Third party functions
-	import axios from 'axios';
-	import Cookies from 'js-cookie';
+// Third party functions
+import axios from "axios";
+import Cookies from "js-cookie";
 
+import { regex_phone, regex_full_name } from "@/constants/validation";
 
-	import {
-		regex_phone,
-		regex_full_name
-	} from '@/constants/validation';
+export default {
+  name: "CallbackForm",
+  components: {
+    SimpleLitter,
+    FormController,
+    BaseButton
+  },
+  mixins: [],
+  props: {
+    onBlurForm: {
+      type: Function,
+      required: true
+    }
+  },
+  data: () => ({
+    callback_name: "",
+    callback_phone: "",
+    response: {
+      serverMessage: "",
+      success: false,
+      error: false,
+      requestion: false
+    },
+    regexp: {
+      regex_phone,
+      regex_full_name
+    }
+  }),
+  computed: {},
+  beforeCreate() {},
+  created() {
+    this.$validator.localize("ru", {
+      messages: russian.messages,
+      attributes: {
+        full_name: "ФИО",
+        phone_number: "номер телефона"
+      }
+    });
+  },
+  beforeMount() {},
+  mounted() {},
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  methods: {
+    setResponseData(newResponseData) {
+      this.$set(this, "response", newResponseData);
+    },
+    validateBeforeSubmit(event) {
+      event.preventDefault();
 
-	export default {
-		name: "CallbackForm",
-		props: {
-			onBlurForm: {
-				type: Function,
-				required: true
-			}
-		},
-  	    components: {
-  	    	SimpleLitter,
-  	    	FormController,
-  	    	BaseButton
-	    },
-	    mixins: [],
-	    data: () => ({
-	    	callback_name: "",
-	    	callback_phone: "",
-	    	response: {
-		  		serverMessage: "",
-		  		success: false,
-		  		error: false,
-		  		requestion: false
-		  	},
-		  	regexp: {
-		      	regex_phone,
-				regex_full_name,
-		  	},
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
-	    	this.$validator.localize('ru', {
-		  		messages: russian.messages,
-		  		attributes: {
-		  			full_name: "ФИО",
-			      	phone_number: "номер телефона",
-		  		}
-		  	});
+      this.$validator.validateAll().then(result => {
+        // Reffer to response.
+        const oldResponseData = this.response;
 
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    	
-	    },
-	    computed: {
-	    },
-	    methods: {
-	    	setResponseData(newResponseData) {
-				this.$set(
-		  			this,
-		  			'response',
-		  			newResponseData
-		  		);
-		  	},
-	    	validateBeforeSubmit(event) {
-  	  			event.preventDefault();
+        this.setResponseData({
+          ...oldResponseData,
+          requesting: true
+        });
 
-				this.$validator.validateAll().then((result) => {
-					// Reffer to response.
-					const oldResponseData = this.response;
+        if (result) {
+          const csrftoken = Cookies.get("csrftoken");
 
-					this.setResponseData({
-						...oldResponseData,
-						requesting: true,
-					});
+          axios({
+            method: "post",
+            url: callbackUrl,
+            data: {
+              callback_name: this.callback_name,
+              callback_phone: this.callback_phone
+            },
+            headers: {
+              "X-CSRFToken": csrftoken
+            }
+          })
+            .then(response => {
+              this.setResponseData({
+                ...oldResponseData,
+                serverMessage: response.data,
+                requesting: false,
+                success: true
+              });
+            })
+            .catch(error => {
+              this.setResponseData({
+                ...oldResponseData,
+                serverMessage: `Внутренняя ошибка сервера: ${error}`,
+                requesting: false,
+                error: true
+              });
 
-				    if (result) {
-							  
-						const csrftoken = Cookies.get('csrftoken');
+              timeout(() => {
+                this.setResponseData({
+                  ...oldResponseData,
+                  error: false,
+                  serverMessage: ""
+                });
+              }, 3000);
+            });
+          return;
+        } else {
+          this.setResponseData({
+            ...oldResponseData,
+            serverMessage: `Проверьте правильность введёных данных`,
+            requesting: false,
+            error: true
+          });
 
-						axios({
-							method: 'post',
-							url: callbackUrl,
-							data: {
-								callback_name: this.callback_name,
-								callback_phone: this.callback_phone
-							},
-							headers: {
-								'X-CSRFToken': csrftoken
-							}
-						})
-							.then(response => {
-
-								
-								this.setResponseData({
-									...oldResponseData,
-									serverMessage: response.data,
-									requesting: false,
-									success: true
-								});
-							})
-							.catch(error => {
-								this.setResponseData({
-									...oldResponseData,
-									serverMessage: `Внутренняя ошибка сервера: ${error}`,
-									requesting: false,
-									error: true
-								});
-
-								timeout(() => {
-									this.setResponseData({
-										...oldResponseData,
-										error: false,
-										serverMessage: ''
-									});
-									
-								}, 3000);
-							});
-				        	return;
-				    } else {
-						this.setResponseData({
-								...oldResponseData,
-								serverMessage: `Проверьте правильность введёных данных`,
-								requesting: false,
-								error: true
-							});
-
-				    	timeout(() => {
-							this.setResponseData({
-				  				...oldResponseData,
-				  				error: false,
-				  				serverMessage: ''
-				  			});
-				  			
-				  		}, 3000);
-				    }
-
-				}); // end validateAll
-    		}
-	    },
-	    beforeUpdate() {
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
-	};
+          timeout(() => {
+            this.setResponseData({
+              ...oldResponseData,
+              error: false,
+              serverMessage: ""
+            });
+          }, 3000);
+        }
+      }); // end validateAll
+    }
+  }
+};
 </script>
 
 <style lang="sass" scoped>
 
-	@import '../styles/conf/_sizes.sass'
-	@import '../styles/conf/_breakpoints.sass'
-	@import '../styles/conf/_colors.sass'
-	.litter_callback
-		min-width: em(322.956186888460770432) $i
-		@include breakpoint($xxs)
-			max-height: 55vh
-			padding-bottom: 0 $i
-	.callbackForm
-		overflow: scroll
-		font-size: $s16
+@import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
+@import '../styles/conf/_colors.sass'
+.litter_callback
+	min-width: em(322.956186888460770432) $i
+	@include breakpoint($xxs)
+		max-height: 55vh
+		
+		
+.callbackForm
+	overflow: auto
+	font-size: $s16
 
 </style>

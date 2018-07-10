@@ -10,7 +10,7 @@ from pages.models import RegistrationPage
 from django.http import Http404, JsonResponse
 from .parsers import *
 from threading import Thread
-
+from marks.models import Mark
 
 
 # Create your views here.
@@ -21,6 +21,23 @@ class BaseRegistrationView(BaseView):
     def __init__(self):
         super(BaseRegistrationView, self).__init__()
         self.page_model = RegistrationPage
+
+    def get(self, request):
+        data = extract_data(request.GET)
+
+        if 'utm_source' in data:
+            utm_marks = ['utm_source', 'utm_medium', 'utm_content', 'utm_term', 'utm_campaign']
+            mark = Mark()
+
+            for utm_mark in utm_marks:
+                if utm_mark in data:
+                    setattr(mark, utm_mark, data[utm_mark])
+
+            mark.save()
+
+            return redirect('registration')
+
+        return super(BaseRegistrationView, self).get(request)
 #
 def set_led_consultant(consultant_num, consultant_categories, consultants_models):
     index = 0
@@ -32,6 +49,7 @@ def set_led_consultant(consultant_num, consultant_categories, consultants_models
                 "type": consultant_categories[index],
                 "instance": consultant[0]
             }
+
         index = index + 1
 
     return False
@@ -76,15 +94,19 @@ def personal_room(request, consultant_num):
                 'referral_url': getattr(consultant, 'refferal_url', '')
             }
             consultant_data.update(consultant_needed_data)
+
             return JsonResponse({
                 "consultant": consultant_data
             })
+
         else:
             raise Http404('')
 
 def extract_data(data):
     new_data = {}
+
     for key in data:
        new_data[key] = data[key]
+       
     return new_data
 # new_data = {'last_name': 'Журавлёв', 'first_name': 'Филипп', 'middle_name': '', 'empty_middle_name': 'on', 'birthday': '2017-11-03', 'passport_data': '9705 - 455421', 'phone_number': '+7 (213) 123 12 31', 'city': 'Moscow','region': 'Moscow', 'street': 'Igralnaya', 'num_home': '1', 'num_apartment': '1', 'email': 'rory_mercury@list.ru', 'checkReady': 'on'}

@@ -101,12 +101,19 @@ a
     background-size: 1px 1px
   &.lightenHover
     &:hover, &:focus, &:active 
-      color: $pink
-      background-image: linear-gradient(to right, $pink 0%, $pink 100%)
+      $darkenGreen: darken($green, 30%)
+      color: $darkenGreen
+      background-image: linear-gradient(to right, $darkenGreen 0%, $darkenGreen 100%)
+      // color: $pink
+      // background-image: linear-gradient(to right, $pink 0%, $pink 100%)
     // $$darkGray: darken($darkGray, 25%)
   &.darkenLink
     color: $burgund
     background-image: linear-gradient(to right, $burgund 0%, $burgund 100%)    
+
+  // &.darkGreenHover 
+  //   color: $burgund
+  //   background-image: linear-gradient(to right, $darkenGreen 0%, $darkenGreen 100%)    
   &.darkenHover   
     &:hover, &:focus, &:active 
       color: $burgund

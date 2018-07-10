@@ -1,143 +1,125 @@
 <template>
-	<section class="notFound">
-		<main-title>Страница не найдена</main-title>
-		<canvas id="canvas" class="notFound__canvas fullWidth materialShadow fewRound" />
-	</section>
+  <section class="notFound">
+    <main-title>Страница не найдена</main-title>
+    <canvas 
+      id="canvas" 
+      class="notFound__canvas fullWidth materialShadow fewRound" />
+  </section>
 </template>
 
 <script>
-	import MainTitle from '@/components/MainTitle';
+import MainTitle from "@/components/MainTitle";
 
-	export default {
-		name: "NotFound",
-		props: {
-	
-		},
-  	    components: {
-  	    	MainTitle
-	    },
-	    mixins: [],
-	    data: () => ({
-	    }),
-	    beforeCreate() {
-	    },
-	    created() {
+export default {
+  name: "NotFound",
+  components: {
+    MainTitle
+  },
+  mixins: [],
+  props: {},
+  data: () => ({}),
+  computed: {},
+  beforeCreate() {},
+  created() {},
+  beforeMount() {},
+  mounted() {
+    const element = document.getElementById("canvas");
+    const ctx = element.getContext("2d");
 
-	    },
-	    beforeMount () {
-	    },
-	    mounted() {
-	    	const element = document.getElementById('canvas');
-			const ctx = element.getContext('2d');
+    let width, height, particles;
+    let step = 10;
 
+    let init = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
 
-			let width, height,
-				particles;
-			let step = 10;
+      element.width = width;
+      element.height = height;
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = "#333";
 
-			let init = () => {
-				width  = window.innerWidth;
-				height = window.innerHeight;
+      let fontSize = Math.min(height, width) / 2.5;
 
-				element.width = width;
-				element.height = height;
-				;
+      ctx.font = `${fontSize}px ProximaNova`;
+      ctx.textAlign = "center";
 
-				ctx.fillStyle = '#fff';
-				ctx.fillRect(0,0, width, height);
-				ctx.fillStyle = '#333';
+      ctx.fillText("404!", width / 2, height / 2 + fontSize / 5);
 
-				let fontSize = Math.min(height, width)/2.5;
+      const data = ctx.getImageData(0, 0, width, height).data;
+      const data32 = new Uint32Array(data.buffer);
 
+      particles = [];
 
-				ctx.font = `${fontSize}px ProximaNova`;
-				ctx.textAlign = 'center';
-				
-				ctx.fillText('404!', width/2, height/2 + fontSize/5);
+      for (let x = 0; x < width; x += step) {
+        for (let y = 0; y < height; y += step) {
+          const color = data32[y * width + x];
 
-				const data = ctx.getImageData(0, 0, width, height).data;
-				const data32 = new Uint32Array(data.buffer);
+          if (color != 0xffffffff) {
+            particles.push({
+              x,
+              y
+            });
+          }
+        }
+      }
+    };
 
-				particles  = [];
+    init();
 
-				for (let x = 0; x < width; x += step) {
-					for (let y = 0; y < height; y += step) {
-						const color = data32[y * width + x];
+    window.onresize = init;
 
-						if (color != 0xFFFFFFFF) {
-							particles.push({
-								x,
-								y
-							});
-						}
+    let counter = 0;
 
-					}
-				}
-			}
+    function drawIt() {
+      ctx.fillStyle = "#1c1c1c";
+      ctx.fillRect(0, 0, width, height);
 
-			init();
+      for (let i = 0; i < particles.length; i++) {
+        const dY = step / 10 * Math.sin(i * 13 + counter),
+          dX = step / 10 * Math.cos(i * 11 + counter),
+          radius = step * 0.5 + dX - dY;
 
-			window.onresize = init;
+        ctx.beginPath();
+        ctx.arc(
+          particles[i].x + dX,
+          particles[i].y + dY,
+          radius,
+          0,
+          2 * Math.PI,
+          false
+        );
+        const color = (counter + 15 * (5 + dX - dY)) % 360;
 
-			let counter = 0;
+        ctx.fillStyle = `hsl(${color}, 100%, 50%)`;
+        ctx.fill();
+      }
 
-			function drawIt() {
+      counter += 0.1;
 
-				ctx.fillStyle = '#1c1c1c';
-				ctx.fillRect(0, 0, width, height);
+      requestAnimationFrame(drawIt);
 
-				for (let i = 0; i< particles.length; i++) {
-					const dY = step/10 * Math.sin(i * 13 + counter),	
-						  dX = step/10 * Math.cos(i * 11 + counter),
-						  radius = step * 0.5 + dX - dY;
+      // particles.forEach(particle => {
+      // 	ctx.fillStyle = colors[Math.round(Math.random(1 * 2))]//particle.color;
 
+      // 	// Заливка частицы квадратным фоном.
+      // 	ctx.fillRect(
+      // 		particle.x,
+      // 		particle.y,
+      // 		step,
+      // 		step
+      // 	);
 
-					ctx.beginPath();
-					ctx.arc(
-						particles[i].x + dX,
-						particles[i].y + dY,
-						radius,
-						0, 2 * Math.PI,
-						false
-					);
-					const color = (counter + 15 * (5 + dX - dY)) % 360;
+      // })
+    }
 
-					ctx.fillStyle = `hsl(${color}, 100%, 50%)`;
-					ctx.fill();
-				}
-
-				counter += .1;
-
-				requestAnimationFrame(drawIt);
-
-				// particles.forEach(particle => {
-				// 	ctx.fillStyle = colors[Math.round(Math.random(1 * 2))]//particle.color;
-
-				// 	// Заливка частицы квадратным фоном.
-				// 	ctx.fillRect(
-				// 		particle.x,
-				// 		particle.y,
-				// 		step,
-				// 		step
-				// 	);
-
-				// })
-
-			}
-
-			drawIt();
-	    },
-	    computed: {
-	    },
-	    methods: {
-	    },
-	    beforeUpdate() {
-	    },
-	    updated() {
-	    },
-	    beforeDestroy() {
-	    }
-	};
+    drawIt();
+  },
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  methods: {}
+};
 </script>
 
 <style lang="sass" scoped>

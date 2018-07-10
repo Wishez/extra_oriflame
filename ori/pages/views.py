@@ -5,6 +5,12 @@ from home.forms import CallbackForm
 from django.contrib.sites.models import Site
 from home.models import *
 
+class StoriesView(TemplateView):
+    template_name = 'stories.html'
+
+class StoriesIframeView(TemplateView):
+    template_name = 'iframe.html'
+
 def get_single_model(Model):
     return Model.objects.get()
 

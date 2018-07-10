@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render
 from .models import *
-from .forms import CallbackForm
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
@@ -12,16 +10,6 @@ from accounts.parsers import *
 from pages.models import RegistrationPage
 
 import json
-# def index(request):
-#     #program = Program.objects.filter(published__lte=timezone.now()).order_by('-published')
-#     program = Program.objects.all()
-#     slider = Slider.objects.all()
-#     callback = CallbackForm()
-#     return render(request, 'index.html', {
-#         'program': program,
-#         'slider': slider,
-#         'callback': callback
-#     })
 
 @csrf_exempt
 def registration(request):
@@ -58,7 +46,7 @@ def registration(request):
             )
         ).start()
 
-        return HttpResponse('Вы успешно прошли регистрацию Вы успешно прошли регистрацию. Менеджер свяжется с вами в течение 12-ти часов. ')
+        return HttpResponse('Вы успешно прошли регистрацию. Менеджер свяжется с вами в течение 12-ти часов. ')
 
     return HttpResponse('')
 
@@ -69,7 +57,7 @@ def callback(request):
         callback = Callback(**data)
         callback.save()
 
-        html = 'Наша команда по обработке закзов консультации приняла вашу заявку! Пожулайста, ожидайте соединения;).'
+        html = 'Наша команда по обработке закзов консультации приняла вашу заявку! Пожалуйста, ожидайте соединения;).'
         return HttpResponse(html)
 
     return HttpResponse('')

@@ -122,6 +122,11 @@
 			padding-bottom: $s11
 		&_18
 			padding-bottom: $s18
+
+	&_horizontal
+		padding-left: rem(29)
+		padding-right: rem(18)
+
 .visible-hidden-smLess 
 	@include breakpoint($sm-less) 
 		white-space: nowrap
@@ -130,8 +135,33 @@
 		width: 1px
 		height: 1px
 		position: absolute
+
+.removeOffsetWithGrid
+	@supports (display: grid)
+		padding-left: 0
+		padding-right: 0
+		margin-bottom: 0
+.gap
+	&_increased
+		grid-gap: $s29
+
+.display
+	&_grid
+
+		@supports(display: grid)
+			display: grid
+
+.grid
+	&_base-columns
+		@supports (display: grid)
+			grid-template-columns: repeat(auto-fit, minmax(284px, 1fr))
 .margin
+	&Centered
+		margin-left: auto
+		margin-right: auto
 	&Left
+		&_heading
+			margin-left: -3px
 		&_29
 			margin-left: $s29
 		&_47
@@ -142,6 +172,12 @@
 			@include breakpoint($xs)
 				margin-left: $s18
 	&Right
+		&_6
+			margin-right: $s6
+
+		&_11
+			margin-right: $s11
+
 		&_29
 			margin-right: $s29
 		&_47
@@ -190,7 +226,13 @@
 			@include breakpoint($xxs)
 				margin-bottom: $s11
 .font
+	&-family
+		&_main
+			font-family: $mainFont
 	&-size
+		&_base
+			font-size: 1em
+
 		&_11
 			font-size: $s11
 		&_29
@@ -220,11 +262,14 @@
 	&_big
 		z-index: 10
 .position
+	
+
 	&Top
 		&_11
 			top: $s11
 		&_18
 			top: $s18
+
 	&Bottom
 		&_full-and-offset
 			bottom: calc(100% + #{$s6})
@@ -238,6 +283,7 @@
 			bottom: $s29
 		&_negative-18
 			bottom: -$s18
+
 	&Left
 		&_zero
 			left: 0
@@ -256,6 +302,7 @@
 		&_xxs-47
 			@include breakpoint($xxs)
 				left: $s47
+
 	&Right
 		&_11
 			right: $s11
@@ -268,6 +315,7 @@
 		&_xs
 			&-auto
 				right: auto
+
 	&_horizontal-centered
 		&-xs
 			@include breakpoint($xs)
@@ -287,17 +335,25 @@
 	font-style: normal
 .normalWeight
 	font-weight: normal
+	
 .whiteColor
 	color: $white
-.pinkColor
-	color: $pink
-.burgundColor
-	color: $burgund
 .darkGrayColor
 	color: $darkGray
+.pinkColor
+	color: $pink
+.greenColor
+	color: $green
+.darkenGreenColor
+	color: $darkenGreen
+.burgundColor
+	color: $burgund
 .background-color
 	&_pink
 		background-color: $pink
+	&_darkGray
+		background-color: $darkGray
+		
 .visible-hidden-xs 
 	@include breakpoint($xs) 
 		white-space: nowrap
@@ -308,26 +364,16 @@
 		position: absolute
 	  
 
-	
+.min-width_240
+	min-width: 240px $i
+
 .whiteTextShadow
 	text-shadow: -2px 1px 13px rgba(255, 255, 255, .8)
 .textShadow
-	text-shadow: -2px 1px 13px rgba(0, 0, 0, 0.35)
+	text-shadow: 1px 1px 10px  rgba(0, 0, 0, 0.35)
 
 .cascadeShadow
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4)
-// .imageContainer 
-// 	height: 100%
-// 		/* style */
-// 	&, &__image 
-// 		transition: .3s ease-in-out
-// 		width: span(12)
-	
-// 	&__image 
-// 		background-position: center 
-// 		background-repeat: no-repeat
-// 		background-size: cover
-	
 
 	
 .restrictBlock 
@@ -350,10 +396,18 @@
 	opacity: 0
 
 .unstyledList > li
-	margin-top: 0
+	// margin-top: 0
 	&:before
 		content: none
 
+.order
+	&_first
+		order: -1
+
+	&_last
+		order: 10
+
+		
 ::-webkit-scrollbar-track
 	// -webkit-box-shadow: inset 0 0 6px $shadow
 	// background-color: $darkGray
@@ -395,9 +449,14 @@
 
 
 .container 
-	padding: 0 1.5rem
+	padding-right: 1.5rem 
+	padding-left: 2.5rem
 	margin-right: auto
 	margin-left: auto
+
+	@include breakpoint($xxs)
+		padding-right: 1rem 
+		padding-left: 1.5rem
 	
 
 
@@ -434,27 +493,66 @@ input[type=number]:hover::-webkit-inner-spin-button
 
 .slowFade
 	&-enter-active, &-appear-active, &-leave-active 
-		transition: opacity 1.5s ease-in		
+		transition: opacity .4s
 		will-change: opacity
-	&-enter, &-leave-to, &-appear-to
-		opacity: 0
-	&-enter-active, &-leave-active 
-		transition: opacity 1.5s ease-in-out
-		will-change: opacity
-	&-enter, &-leave-to
-		opacity: 0
-.fade
-	&-appear-active, &-leave-active, &-enter-active
-		transition: opacity .5s ease-in-out
-		will-change: opacity
+		
 	&-enter, &-leave-to, &-appear-to
 		opacity: 0
 
 	&-enter-active, &-leave-active 
-		transition: opacity .5s ease-in-out
-  		will-change: opacity
+		transition: opacity .4s
+		will-change: opacity
+
+	&-enter-active
+		transition-timing-function: $decelleration
+
+	&-leave-active 
+		transition-timing-function: $acceleration
+
 	&-enter, &-leave-to
 		opacity: 0
+
+.fade
+	&-appear-active, &-leave-active, &-enter-active
+		transition: opacity .2s
+		will-change: opacity
+
+	&-enter, &-leave-to, &-appear-to
+		opacity: 0
+
+	// &-enter-active, &-leave-active 
+	// 	transition: opacity .2s
+ //  		will-change: opacity
+
+	&-enter-active
+		transition-timing-function: $decelleration
+
+	&-leave-active 
+		transition-timing-function: $acceleration
+
+	// &-enter, &-leave-to
+	// 	opacity: 0
+
+.fadeIn
+
+	&-appear-active, &-enter-active
+		transition: opacity .2s
+		will-change: opacity
+		transition-timing-function: $decelleration
+
+	&-enter, &-appear-to
+		opacity: 0
+		will-change: opacity
+
+	&-leave-active 
+		transition-timing-function: $acceleration
+
+	&-enter
+		opacity: 0
+
+	&-leave-to, &-leave-active
+		display: none
+
 .topMargin
 	&_29
 		margin-top: $s29 $i
@@ -462,6 +560,7 @@ input[type=number]:hover::-webkit-inner-spin-button
 		margin-top: $s18 $i
 	&_11
 		margin-top: $s11 $i
+
 .zeroTopMargin
 	margin-top: 0 $i
 
@@ -479,26 +578,42 @@ input[type=number]:hover::-webkit-inner-spin-button
 		transform: translateY(1.5rem)
 
 	&-enter-active, &-leave-active 
-		transition: opacity .2s ease-in, transform .2s ease-in-out 
+		transition: opacity .2s, transform .2s
 		transform: translateY(0)
-  		will-change: opacity, transform
+		will-change: opacity, transform
+
+	&-enter-active
+		transition-timing-function: $decelleration
+
+	&-leave-active 
+		transition-timing-function: $acceleration
 
 	&-enter, &-leave-to
 		transform: translateY(1.5rem)
 		opacity: 0
+
 .fadeTranslateFromTop
+
 	&-enter, &-leave-to
 		opacity: 0
 		transform: translateY(-1.5rem)
 
 	&-enter-active, &-leave-active 
-		transition: opacity .2s ease-in, transform .2s ease-in-out 
+		transition: opacity .2s, transform .2s
 		transform: translateY(0)
   		will-change: opacity, transform
 
 	&-enter, &-leave-to
 		transform: translateY(-1.5rem)
 		opacity: 0
+
+	&-enter-active
+		transition-timing-function: $decelleration
+
+	&-leave-active 
+		transition-timing-function: $acceleration
+
+
 
 .fading
 	&-appear
@@ -546,6 +661,22 @@ input[type=number]:hover::-webkit-inner-spin-button
 a.disableUnderline
 	background-image: none
 
+.display
+	// &_block
+	// 	display: block
+	// &_inline-block
+	// 	display: inline-block
+	// &_contains
+	// 	display: contains
+	&_none
+		display: none
+		&-phone
+			@include breakpoint($xxs)
+				display: none
+
+	&_grid
+		display: grid
+	
 .disableLinkHover
 	&:hover, &:focus, &:active
 		background-image: none $i
@@ -558,3 +689,8 @@ a.disableUnderline
 .overflowHidden
 	overflow: hidden
 	overflow-y: hidden
+
+.controller__input_datepicker
+	left: 0
+	min-width: 100%
+	transform: translateY($s29)

@@ -1,148 +1,173 @@
 
 <template>
-	<li class="navLinkContainer" @click="go" @mouseenter="highlight">
-    	<router-link :class="{ 
-    		navLink: true, 
-    		parent: true, 
-    		centered: true,
-    		nowrap: true,
-    		column: true,
-    		navLink_mobile: isPageScrolled
-    	}"
-		  exact
-		  :data-index="index"
-	      :aria-describedby="isActive ? 'active_page' : null"
-	      role="presentation"
-		  activeClass="navLink_active"
-	      :to="href"
-    	>
-    		<base-icon :icon="icon" modifier="navigation" v-if="icon" />
-      		<slot></slot>
-    	</router-link>
+  <li 
+    role="presentation" 
+    class="navLinkContainer" 
+    @click="go" 
+    @mouseenter="highlight">
+    <router-link 
+      v-if="!isExternalLink"
+      :class="{ 
+        'navLink parent centered nowrap column': true, 
+        navLink_mobile: isPageScrolled || isMobile
+      }"
+      :to="href"
+      :data-index="index"
+      :aria-describedby="isActive ? 'active_page' : null"
+      active-class="navLink_active"
+      exact
+    >
+      <base-icon 
+        v-if="icon" 
+        :icon="icon" 
+        modifier="navigation" 
+      />
+      <slot/>
+    </router-link>
+    	
+    <external-link
+      v-if="isExternalLink"
+      :class-name="`navLink parent centered nowrap column${isPageScrolled || isMobile ? ' navLink_mobile' : ''}`"
+      :data-index="index"
+      :aria-describedby="isActive ? 'active_page' : null"
+      :to="href"
+      show-icon="hide"
+      is-custom-styles
+    >
+      <!-- iconClass="absolute navLink__externalIcon" -->
+      <base-icon 
+        v-if="icon" 
+        :icon="icon" 
+        modifier="navigation" 
+      />
+      <slot/>
+    </external-link>
   </li>
 </template>
 
 <script>
-	import BaseIcon from '@/components/BaseIcon';
+import BaseIcon from "@/components/BaseIcon";
+import ExternalLink from "@/components/ExternalLink";
 
-	import {
-		setTabPosition, 
-		doBy, 
-		doByYScroll, 
-		listen,
-		slideTo,
-		timeout
-	} from './../constants/pureFunctions';
+import {
+  setTabPosition,
+  doBy,
+  doByYScroll,
+  listen,
+  slideTo,
+  timeout
+} from "./../constants/pureFunctions";
 
-	export default {
-		props: {
-			href: {
-				type: String,
-				required: true
-			},
-			icon: {
-				type: String,
-				required: true
-			},
-			index: {
-				type: [String, Number],
-				required: true
-			}
-		},
-		data() {
-			return {
-				isPageScrolled: false
-			};
-		},
-		computed: {
-			checkCurrenLocation() {
-				return () => {
-					let currentLocation = window.location.pathname;
+export default {
+  components: {
+    BaseIcon,
+    ExternalLink
+  },
+  props: {
+    href: {
+      type: String,
+      required: true
+    },
+    icon: {
+      type: String,
+      required: true
+    },
+    index: {
+      type: [String, Number],
+      required: true
+    },
+    isExternalLink: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    isMobile: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  data() {
+    return {
+      isPageScrolled: false
+    };
+  },
+  computed: {
+    checkCurrenLocation() {
+      return () => {
+        let currentLocation = window.location.pathname;
 
-					const isHash = currentLocation.match(/#[^\/]/);
+        const isHash = currentLocation.match(/#[^\/]/);
 
-					if (isHash) {
-						const index = isHash.index;
-						currentLocation = currentLocation.slice(0, index);
+        if (isHash) {
+          const index = isHash.index;
+          currentLocation = currentLocation.slice(0, index);
 
-						hashResource = currentLocation.slice(index);
+          hashResource = currentLocation.slice(index);
 
-						window.location.hash = currentLocation;
+          window.location.hash = currentLocation;
 
-						slideTo(hashResource);
-					}
-					
-					return this.href === currentLocation;
-				};
-				
-			},
-			isActive: {
-				get: function() { 
-					return this.checkCurrenLocation();
-				},
-				set: function(newValue) {
+          slideTo(hashResource);
+        }
 
-				}
+        return this.href === currentLocation;
+      };
+    },
+    isActive: {
+      get: function() {
+        return this.checkCurrenLocation();
+      },
+      set: function(newValue) {}
+    },
+    tab() {
+      return document.querySelector(".activeTab");
+    }
+  },
+  mounted() {
+    const baseScrollOffset = this.$store.state.baseOffsetForTransform;
 
-			},
-			tab() {
-				return document.querySelector('.activeTab');
-			},
-		},
-		methods: {
-			go(event) {
-				if(this.$store.state.menuWasTransformed) {
-					this.$store.state.animations.animateNavigationToDefaultState();
-				}
+    timeout(() => {
+      this.$set(
+        this,
+        "isPageScrolled",
+        this.$store.state.rootElement.scrollTop > baseScrollOffset + 50
+      );
+    }, 10);
 
-				doBy({
-					callback: () => {
-		      			setTabPosition(this.tab, this.index);
-		      		}
-		      	});
+    listen({
+      event: "scroll",
+      callback: event => {
+        this.$set(this, "isPageScrolled", this.$store.state.isPageScrolled);
+      } // end callback
+    }); // end listen
+  },
+  methods: {
+    go(event) {
+      if (this.$store.state.menuWasTransformed) {
+        this.$store.state.animations.animateNavigationToDefaultState();
+      }
 
-				this.$set(
-					this, // target
-					'isActive', // prop
-					this.checkCurrenLocation() // value
-				);
-		    	
-		    },
-		    highlight(event) {
-		    	doBy({
-		    		callback: () => {
-		    			setTabPosition(this.tab, this.index, 'translate');
-		    		}
-		    	}); // end doBy
-		    },
-		     
-		},
-		mounted() {
-			const baseScrollOffset = this.$store.state.baseOffsetForTransform;
-			
-			// this.$nextTick(() => {
-			// });
-			timeout(() => {
-				this.$set(
-					this, 
-					'isPageScrolled', 
-					this.$store.state.rootElement.scrollTop > baseScrollOffset + 50
-				);
-			}, 0)
+      doBy({
+        callback: () => {
+          setTabPosition(this.tab, this.index);
+        }
+      });
 
-			
-
-			listen({
-		  		event: 'scroll', 
-		  		callback: event => {		  			
-					this.$set(this, 'isPageScrolled', this.$store.state.isPageScrolled);
-			 	} // end callback
-			});// end listen
-		},
-		components: {
-			BaseIcon
-		}
-	}
+      this.$set(
+        this, // target
+        "isActive", // prop
+        this.checkCurrenLocation() // value
+      );
+    },
+    highlight(event) {
+      doBy({
+        callback: () => {
+          setTabPosition(this.tab, this.index, "translate");
+        }
+      }); // end doBy
+    }
+  }
+};
 </script>
 
 <style lang="sass">
@@ -154,7 +179,7 @@
 	.activeTab
 		height: 4px
 		position: absolute
-		top: 0
+		bottom: 0
 		z-index: 1
 		left: 0
 		background-color: $burgund
@@ -163,10 +188,10 @@
 		@include breakpoint($xs)
 			display: none
 	.navLink
-		border-top-width: 4px
-		border-top-style: solid
-		border-top-color: $pink
-		min-height: 54px
+		border-bottom-width: 4px
+		border-bottom-style: solid
+		border-bottom-color: $darkenGreen
+		min-height: 70px
 		background-color: #fff
 		min-width: 155px
 		background-image:  none
@@ -177,6 +202,7 @@
 		overflow: hidden
 		z-index: 0
 		padding-bottom: $s6 / 1.618
+
 		&::before, &::after
 			content: ""
 			width: 100%
@@ -186,26 +212,33 @@
 			transition: transform .3s ease-in-out
 		
 		&::before
-			transform: translateY(-100%);
+			transform: translateY(-101%);
 			z-index: -1
 			background: $linkGradient
 			height: 100%
+			@include breakpoint($xs)
+				content: none
+
+
 		&:hover, &:focus, &:active
 			background-image: none
 			& .icon
+
 			&:after, &:before
 				transform: translate(0, 0)
 
 		@include breakpoint($xs)	
 			min-width: auto
 			padding-top: .5rem
-		@include breakpoint($xxs)
+			transform: none $i
 			background: transparent
 			border-color: transparent
-			color: $white
-			border-width: $s3
 			border-style: solid 
-			font-size: (16em / 18)
+			border-width: $s3
+			color: $white
+
+		@include breakpoint($xxs)
+			font-size: (18em / 18)
 
 		&_active, &:hover, &:focus, &:active
 			color: $burgund
@@ -223,26 +256,29 @@
 			// border-top-color: $burgund 
 			&, &:hover, &:focus
 				background: $linkGradient
+
 				@include breakpoint($xxs)
 					background: transparent
+
 			@include breakpoint($xxs)
 				background: transparent
 				border-bottom-color: $pink
 		&_mobile
 			background: transparent
-			// border-top: 0
 			border-color: transparent
-
 			font-size: em(16)
 			min-width: auto
 			white-space: nowrap
-			overflow: visible;
+			overflow: visible
+
 			@include breakpoint($xs-up)
 				padding: .5rem .5rem 0 $s25
 				max-width: em(67.772816512, 16)
 				color: $darkGray $i
+
 			@include breakpoint($xs)
 				color: $white $i
+
 			&.navLink_active, &:hover, &:focus, &:active
 				background: transparent
 				@include breakpoint($xs-up)
@@ -254,6 +290,7 @@
 						
 			&:before
 				content: none
+
 			&.navLink_active				
 				background: transparent 
 				// border: 0

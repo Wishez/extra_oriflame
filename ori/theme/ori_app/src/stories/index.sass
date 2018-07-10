@@ -1,10 +1,65 @@
 @import '../styles/conf/_sizes.sass'
+@import '../styles/conf/_breakpoints.sass'
+
+.fillVH.fillVH
+	height: 1px
+	min-height: 600px
+
 .simpleWrapper
-	// max-width: 800px
+	max-width: 800px
 	min-height: $s144 * 2.5
-	// margin: 0 auto
-	
+	padding: $s77 1.25rem $s233 1.5rem
+	margin: 0 auto
+
+.marginTop
+	&_extra
+		margin-top: 50em
+		
 .paddingTop
+	&_77
+		padding-top: $s77
+
 	&_144
 		padding-top: $s144
 
+	&_233
+		padding-top: $s233
+
+	&_big
+		padding-top: 15em
+	
+.userNotificationHint
+		top: calc(100% + #{$s11})
+		height: max-content
+		left: 100%
+		transform: translateX(-60%)
+
+.paddingBottom
+	&_144
+		padding-bottom: $s144
+
+	&_233
+		padding-bottom: $s233
+
+	&_big
+		padding-bottom: 15em
+
+.ladderFold__title.ladderFold__title
+	top: .6em
+
+.aboutItemImage
+	max-width: 25%
+	flex: 1
+
+	@include breakpoint($xs)
+		min-width: 100%
+		margin-bottom: .75rem
+
+.progressive-image
+	overflow: visible
+
+.width
+	&_425.width_425
+		min-width: 425px
+	&_500.width_500.width_500
+		width: 500px

@@ -13,3 +13,4 @@ jet.dashboard
 range_filter
 __pycache__
 newDesign
+rest_framework

@@ -1,30 +1,31 @@
 <template>
-	<article :class="{
-		'userHint background-color_pink paddingContainer_horizontal paddingContainer_vertical fewRound materialShadow': true, 
-		['userHint_' + modifier]: modifier, 
-		[className]: className
-	}"
-	>
-		<slot/>
-	</article>
+  <article 
+    :class="{
+      'userHint background-color_pink paddingContainer_horizontal paddingContainer_vertical fewRound materialShadow': true, 
+      ['userHint_' + modifier]: modifier, 
+      [className]: className
+    }"
+  >
+    <slot/>
+  </article>
 </template>
 
 <script>
-	export default {
-		name: "UserHint",
-		props: {
-			className: {
-				type: String,
-				required: false,
-				default: null
-			},
-			modifier: {
-				type: String,
-				required: false,
-			},
-		},
-  	   
-	};
+export default {
+  name: "UserHint",
+  props: {
+    className: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    modifier: {
+      type: String,
+      required: false,
+      default: ""
+    }
+  }
+};
 </script>
 
 <style lang="sass" scoped>

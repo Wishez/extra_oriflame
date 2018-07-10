@@ -1,318 +1,376 @@
 <template>
-    <div class="mainContent">
-    	<section @mouseup="onMouseUpParentAwesomeButton" class="banner parent h-around v-centered prespective wrap">
-    		<h1 class="bold banner__title textShadow">
-    			<span class="mainColor">Скидки от 20%</span> и <span class="mainColor">подарки</span> сразу после регистрации<span class="mainColor">.</span></h1>
-    		<awesome-link label="Переход на страницу регистрации"
-    				content="Регистрация" href="/registration" className="banner__button whiteTextShadow"></awesome-link>
+  <div class="mainContent">
+    <section
+      class="banner parent h-around v-centered wrap marginCentered materialShadow fewRound"
+      @mouseup="onMouseUpParentAwesomeButton"
+    >
+      <div class="bannerInfo  wrap parent h-around prespective v-centered">
+        <h1 :class="`bold banner__title textShadow ${bannerTextColor}`">
+          <span :class="bannerTextHighlightColor">Скидки от 20%</span> и <span :class="bannerTextHighlightColor">подарки</span> сразу после регистрации<span :class="bannerTextHighlightColor">.</span>
+        </h1>
 
-    		<blurry-image-loader
-    			:src="banner"
-    			defaultMedia="(min-width: 481px)"
-    			alt="Регистрация"
-    			modifier="banner"
-    			className="materialShadow fewRound fullWidth"
-    		/>
+        <awesome-link
+          label="Переход на страницу регистрации"
+          content="Регистрация"
+          href="/registration"
+          class-name="banner__button whiteTextShadow"/>
+      </div>
+      <blurry-image-loader
+        v-if="isDecorativeBanner"
+        :src="banner"
+        default-media="(min-width: 481px)"
+        alt="Регистрация"
+        modifier="banner"
+        class-name="materialShadow fewRound fullWidth"
+      />
 
-    	</section>
-    	<fade-translate-transition-group tag="section" className="h-between blog parent row wrap"
-    	:duration="1500">
-			<about-item
-				v-for="aboutItem in aboutItems"
-			 	:key="aboutItem.id"
-				:data-index="aboutItem.id"
-				:title="aboutItem.title"
-				:paragraph="aboutItem.paragraph">
-			</about-item>
-		</fade-translate-transition-group>
-		<section class="programm parent column">
-			<decorative-title>Бонусы со старта</decorative-title>
+      <external-link
+        v-if="!isDecorativeBanner"
+        to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+        aria-label="Текущий каталог"
+        show-icon="hide"
+        class-name="banner__image disableUnderline"
 
-			<p :class="['programm__paragraph', paragraph.position]"
-				v-for="paragraph in programmParagraphs"
-				:key="paragraph.id"
-				v-html="paragraph.text"
-			/>
-			<div class="programmItems parent h-between row wrap">
+      >
+        <blurry-image-loader
+          v-if="$store.state.currentSiteTheme.bannerType === 'catalog'"
+          alt="Текущий каталог"
+          src="https://ru.oriflame.com/catalogue-image.png"
+          relative />
+      </external-link>
+      <external-link
+        v-if="!isDecorativeBanner"
+        to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+        show-icon="hide"
+        aria-label="Текущий каталог"
+        class-name=" banner__image disableUnderline fullWidth_xxs">
+        <blurry-image-loader
+          alt="Текущий каталог"
+          src="https://ru.oriflame.com/catalogue-image.png"
+          relative
+        />
+      </external-link>
+    </section>
 
-				<programm-item
-					:src="item.src"
-					:title="item.title"
-					:key="item.id"
-					:name="item.name"
-					:stepDescription="item.stepDescription"
-					:titleModifier="item.titleModifier"
-					v-for='item in programmItems'
-				/>
-			</div>
+    <fade-translate-transition-group
+      :duration="1500"
+      tag="section"
+      class-name="h-between blog parent row wrap"
+    >
 
-		</section>
-		<section class="extraInformation parent row wrap">
-			<decorative-title className="extraInformation__title container">Полезная информация</decorative-title>
-			<div class="container currentCatalog baseChild halfWidth">
-				<h3 class="currentCatalog__title">Текущий каталог</h3>
-				<external-link to="https://ru.oriflame.com/ecatalogue/502181?per=201609" showIcon="hide" className="materialShadow currentCatalog__image">
-					<blurry-image-loader
-						relative
-						alt="Текущий каталог"
-						src="https://ru.oriflame.com/catalogue-image.png"/>
-				</external-link>
-			</div>
+      <about-item
+        :key="0"
+        :data-index="0"
+        :image="aboutImages.oriflame"
+        title="Наша компания"
+        class-name="parent column"
 
-			<ul role="navigation" aria-label="Навигация по полезным ресурсам" class="container baseChild extraInformation__navigation">
-				<li :key="link.id" v-for="link in extraInfoLinks">
-					<internal-link
-						:to="link.href"
-						:hashResource="link.hashResource"
-						v-if="!link.external"
-						className="darkenHover"
-					>
-						{{ link.text }}
-					</internal-link>
-					<external-link
-						className="darkenHover"
-						:to="link.href"
-						v-if="link.external">
-						{{ link.text }}
-					</external-link>
+      >
+        <p>
 
-				</li>
-			</ul>
-		</section>
-    </div>
+          Oriflame – <strong>европейская косметическая компания</strong> прямых продаж №1, с которой <strong>сотрудничают более 3 миллионов</strong> консультантов по всему миру, а годовой оборот компании составляет <strong>около 1,5 млрд евро</strong>.</p>
+        <p>
+          Компания Oriflame предлагает <strong>более 1000</strong> наименований <strong>прогрессивных продуктов</strong> по доступной цене &mdash; косметических средств, модных аксессуаров, ароматов, средств по уходу за телом, волосами и т.п., разработанных в Швеции <strong>по уникальным инновационным технологиям</strong>.
+        </p>
+      </about-item>
+
+      <about-item
+        :key="1"
+        :data-index="1"
+        :image="aboutImages.smell"
+        title="Царство ароматов"
+      >
+        <p>Все ароматы Oriflame создаются во Франции — <strong>в самом сердце парфюмерной промышленности</strong> мира, чтобы их <i>качество</i>, <i>новизна</i> и <i>неповторимость</i> <strong>соответствовали высочайшим требованиям</strong>.</p>
+
+        <p>Компания Oriflame разрабатывает свои ароматы в тесном сотрудничестве с парфюмерами города Грасс, который несомненно, является «мировой столицей парфюмерии».</p>
+        <p>
+          <strong>Описание всех ароматов</strong> Oriflame вы можете найти здесь <external-link
+            class-name="lightenHover"
+            to="https://media-cis-cdn.oriflame.com/-/media/RU/Files/My-Pages/Sell/Product-Expert/Product-guide/Fragrance04042016.ashx?u=0101010000&la=ru-RU)">руководстве по продукции</external-link>.
+        </p>
+      </about-item>
+      <about-item
+        :key="2"
+        :data-index="2"
+        :image="aboutImages.wellness"
+        title="Здоровье с Wellness"
+      >
+        <p>Продукция Wellness от Oriflame разработана с целью <strong>сбалансировать питание организма</strong> на клеточном уровне в условиях высокого темпа жизни и качества продуктов питания, которые предлагает нам современный мир, стать <i>более здоровыми</i>, <i>энергичными</i> и <i>счастливыми</i>.</p>
+
+        <p>Продукция Wellness <strong>производится в соответствии с высочайшими международными стандартами качества</strong>. Продукты и программы разрабатывались <strong>ведущими мировыми учеными</strong> в течение 15 лет научных исследований и тестов, проводимых в Швеции</p>
+        <p>
+          Подробное описание вы можете прочитать здесь <external-link
+            class-name="lightenHover"
+            to="https://media-cis-cdn.oriflame.com/-/media/CIS/Images/My-Pages/Sell/Sell-Wellness/Wellness-product-guide/Wellness-product-guide.ashx?u=0101010000&la=ru-RU">Руководство по продукции Wellness</external-link>.
+        </p>
+      </about-item>
+
+      <about-item
+        :key="3"
+        :data-index="3"
+        :image="aboutImages.skin"
+        image-class="aboutItemImage_big"
+        title="Уход за кожей"
+      >
+        <p>
+          Более 50 лет компания Oriflame занимается <strong>глубокими исследованиями в области ухода за кожей</strong> и <strong>разрабатывает новаторские высокоэффективные косметические средства</strong>, которые прошли клинические, дерматологические испытания и получили международную JMP сертификацию.
+        </p>
+
+        <p>
+          Oriflame предлагает всевозможные крема, активаторы, инструменты и аксессуары для ухода за кожей, отдельную линию продукции для мужчин и многое другое.
+        </p>
+      </about-item>
+
+      <awesome-link
+        :key="4"
+        :data-index="4"
+        container-class-name="parent centered marginCentered marginTop_6"
+
+        href="/registration"
+        content="Регистрация"
+        modifier="burgund"
+        label="Перейти на страницу регистрации"
+      />
+    </fade-translate-transition-group>
+
+    <section class="programm parent column">
+      <decorative-title>Бонусы со старта</decorative-title>
+
+      <p
+        v-for="paragraph in programmParagraphs"
+        :class="['programm__paragraph', paragraph.position]"
+        :key="paragraph.id"
+        v-html="paragraph.text"
+      />
+      <div class="programmItems parent h-between row wrap">
+
+        <programm-item
+          v-for="(item, index) in programmItems"
+          :key="index"
+          :src="item.src"
+          :title="item.title"
+          :name="item.name"
+          :step-description="item.stepDescription"
+          :title-modifier="item.titleModifier"
+        />
+      </div>
+
+      <awesome-link
+        container-class-name="parent centered marginTop_47"
+        href="/registration"
+        content="Зарегистрироваться"
+        class-name="min-width_240"
+        modifier="green"
+        label="Перейти на страницу регистрации"
+      />
+
+    </section>
+    <section
+      v-if="isDecorativeBanner"
+      class="extraInformation parent row wrap">
+      <decorative-title class-name="extraInformation__title container">Полезная информация</decorative-title>
+      <div class="container currentCatalog baseChild halfWidth parent row wrap">
+        <h3 class="currentCatalog__title marginLeft_heading fullWidth">
+          Текущий каталог
+        </h3>
+        <external-link
+          to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+          show-icon="hide"
+          class-name="materialShadow currentCatalog__image disableUnderline">
+          <blurry-image-loader
+            relative
+            alt="Текущий каталог"
+            src="https://ru.oriflame.com/catalogue-image.png"/>
+        </external-link>
+        <external-link
+          to="https://ru.oriflame.com/ecatalogue/502181?per=201609"
+          show-icon="hide"
+          class-name="materialShadow currentCatalog__image disableUnderline">
+          <blurry-image-loader
+            relative
+            alt="Текущий каталог"
+            src="https://ru.oriflame.com/catalogue-image.png"/>
+        </external-link>
+      </div>
+
+      <ul
+        role="navigation"
+        aria-label="Навигация по полезным ресурсам"
+        class="container baseChild extraInformation__navigation">
+        <li
+          v-for="(link, index) in extraInfoLinks"
+          :key="index"
+        >
+          <internal-link
+            v-if="!link.external"
+            :to="link.href"
+            :hash-resource="link.hashResource"
+            class-name="lightenHover"
+          >
+            {{ link.text }}
+          </internal-link>
+          <external-link
+            v-if="link.external"
+            :to="link.href"
+            class-name="lightenHover"
+          >
+            {{ link.text }}
+          </external-link>
+
+        </li>
+      </ul>
+
+    </section>
+  </div>
 </template>
 
 <script>
-	// Images
-	import banner from './../assets/images/banner.png';
-	import mobileBanner from './../assets/images/mobile-banner.png';
-	import firstStepImage from './../assets/images/programm/first.png'
-	import secondStepImage from './../assets/images/programm/second.png'
-	import thirdStepImage from './../assets/images/programm/third.png'
-	import fourthWoomanStepImage from './../assets/images/programm/fourth_wooman.png'
-	import fourthManStepImage from './../assets/images/programm/fourth_man.png'
+// Images
+import banner from "./../assets/images/banner.png";
 
-	// Components
-	import FadeTranslateTransitionGroup from '@/components/FadeTranslateTransitionGroup';
-	import BlurryImageLoader from '@/components/BlurryImageLoader';
-	import AwesomeLink from '@/components/AwesomeLink';
-	import AboutItem from '@/components/AboutItem';
-	import ExternalLink from '@/components/ExternalLink';
-	import InternalLink from '@/components/InternalLink';
-	import DecorativeTitle from '@/components/DecorativeTitle';
-	import ProgrammItem from '@/components/ProgrammItem';
+import { first, second, third, fourth } from "@/assets/images/programm";
+import mobileBanner from "./../assets/images/mobile-banner.png";
 
+// Components
 
-	import {onMouseUpParentAwesomeButton} from './../constants/pureFunctions';
+import AwesomeLink from "@/components/AwesomeLink";
+import AboutItem from "@/components/AboutItem";
+import DecorativeTitle from "@/components/DecorativeTitle";
+import ProgrammItem from "@/components/ProgrammItem";
 
-	export default {
-	  name: 'MainPage',
-	  components: {
-	  	BlurryImageLoader,
-	  	AwesomeLink,
-	  	AboutItem,
-	  	DecorativeTitle,
-	  	ProgrammItem,
-	  	ExternalLink,
-	  	InternalLink,
-	  	FadeTranslateTransitionGroup
-	  },
-	  data() {
-	  	return {
-	  		banner: window.innerWidth <= 480 ?
-	  			mobileBanner :
-	  			banner,
-	  		aboutItems: [
-	  			{
-	  				id: 1,
-	  				title: 'Кратко',
-	  				paragraph: 'Мы <strong>команда в Орифлейм</strong>, <i>не первый год</i> практикующая в этом замечательном бизнесе.'
-	  			},
-	  			{
-	  				id: 2,
-	  				title: 'Деятельность',
-	  				paragraph: 'Мы <strong>продаём продукцию</strong> Орифлейм — хорошую <strong>косметику</strong>, различные <strong>аксессуары</strong> и здоровую,  комплексную, богатую витаминами <strong>еду</strong>.'
-	  			},
-	  			{
-	  				id: 3,
-	  				title: 'Основной доход',
-	  				paragraph: 'Мы <strong>создаём свою команду</strong> и <strong>помогаем нашим товарищам</strong> формировать свои собственные. От этого <i>образуется товарооборот</i> и мы <strong>получаем хороший процент</strong> от него.'
-	  			},
-	  			{
-	  				id: 4,
-	  				title: 'Погружение',
-	  				paragraph: 'Вы можете <strong>пройти регистрацию и стать членом</strong> нашей опытной команды. Помимо деятельности, вам будет всегда доступен <strong>стартовый комплект приятных бонусов</strong>.'
-	  			}
-	  		], // end aboutItems
-	  		programmParagraphs: [
-	  			{
-	  				id: 1,
-	  				text: 'Когда вы <i>пройдёте регистрацию</i>, вы можете <strong>взять квест</strong>. Название этому квесту «Статовая программа». На самом деле, это <strong>одна из акций</strong>, которая доступна всем консультантам.',
-	  				position: 'v-s-start'
-	  			},{
-	  				id: 2,
-	  				text: 'Вам нужно будет <strong>размещать заказы</strong>. За эти заказы, вы будете получать <strong>бонусные балы</strong> — <i>внутренняя валюта Орифлейм</i>.',
-	  				position: 'v-s-centered'
-	  			},{
-	  				id: 3,
-	  				text: '<strong>Каждые 200 баллов</strong>, вы сможете <strong>выбрать разнообразные  предметы</strong>, на которые будут <strong>хорошие скидки</strong>. Ко всему прочему, бонусные баллы <i>принесут вам доход</i>!',
-	  				position: 'v-s-end'
-	  			}
-	  		], // end aboutParagraphs
-	  		programmItems: [
-	  			{
-	  				id: 0,
-	  				title: "Первый шаг",
-	  				src: firstStepImage,
-	  				name: "first",
-	  				stepDescription: {
-	  					paragraph: "По достижению <strong>первых 200 баллов</strong>, у вас будет <strong>специальная скидка</strong> на этот набор. Вы сэкономите 1033₽ + 5% от стандартной цены набора.",
-	  					items: [
-	  						{
-	  							name: 'Питательный крем для рук и тела',
-	  							id: 0
-	  						},
-	  						{
-	  							name: 'Крем-мыло «Молоко и мед – Золотая серия» (Код: 31604)',
-	  							id: 1
-	  						},
-	  						{
-	  							name: 'Увлажняющий крем для душа «Молоко и мед – Золотая серия» (Код: 31605)',
-	  							id: 2
-	  						},
-	  						{
-	  							name: 'Специальное смягчающее средство «Нежная забота» (Код: 1276)',
-	  							id: 3
-	  						},
+import { onMouseUpParentAwesomeButton } from "./../constants/pureFunctions";
+import aboutImages from "@/assets/images/about";
 
-	  					]
-	  				}
-
-	  			}, // end first
-	  			{
-	  				id: 1,
-	  				title: "Второй шаг",
-	  				src: secondStepImage,
-	  				name: "second",
-	  				titleModifier: 'right',
-	  				stepDescription: {
-	  					paragraph: "Продвигаясь <strong>на следующий уровень</strong>, вы сможете <strong>заказать группу предметов</strong> по сходной цене: 2066₽ + 5% от цены каталога.",
-	  					items: [
-	  						{
-	  							name: 'Губная помада «The ONE Colour Stylist» (оттенок «Дивный пион»)',
-	  							id: 0
-	  						},
-	  						{
-	  							name: 'Тушь для ресниц 5-в-11 «The ONE Wonderlash» (оттенок «Черный»)',
-	  							id: 1
-	  						},
-	  					]
-	  				}
-
-	  			}, // end second
-	  			{
-	  				id: 2,
-	  				title: "Третий шаг",
-	  				src: thirdStepImage,
-	  				name: "third",
-	  				stepDescription: {
-	  					paragraph: "На данном этапе, вас ожидает <strong>выбор одного из набора</strong>  и <strong>скидка на него в 3099₽</strong> + 5% от суммы набора. ",
-	  					items: [
-	  						{
-	  							name: 'Продукты «Optimals Age ReviveАнти»: возрастной дневной и ночной крем, а также крем для кожи вокруг глаз (Код: 540211)',
-	  							id: 0
-	  						},
-	  						{
-	  							name: 'Туалетная вода «Eclat Femme» для нее(Код: 540212) или «Eclat Homme» для него (Код: 540213)',
-	  							id: 2
-	  						},
-	  					]
-	  				}
-
-	  			}, // end third
-	  			{
-	  				id: 3,
-	  				name: "fourthMan",
-	  				src: fourthManStepImage,
-	  				title: "Четвёртый шаг для мужчин",
-	  				titleModifier: 'center',
-	  				stepDescription: {
-	  					paragraph: "Завершающий шаг ー протеиновый завтрак, обогащённый витаминами <strong>для мужчин, со скидкой 4 130₽ + 5% от суммы набора</strong>.",
-	  					items: [
-	  						{
-	  							name: '«Вэлнэс Пэк» для мужчин (Код: 540215)',
-	  							id: 0
-	  						}
-	  					]
-	  				}
-
-	  			}, // end fourthWooman
-	  			{
-	  				id: 4,
-	  				title: "Последний шаг для женщин",
-	  				src: fourthWoomanStepImage,
-	  				name: "fourthWooman",
-	  				titleModifier: 'center',
-	  				stepDescription: {
-	  					paragraph: "Последний шаг ー полезная, питательная и здоровая еда <strong>для женщин, со скидкой в 4 130₽ + 5% от суммы набора</strong>.",
-	  					items: [
-	  						{
-	  							name: '«Вэлнэс Пэк» для женщин (Код: 540214)',
-	  							id: 0
-	  						}
-
-	  					]
-	  				}
-
-	  			} // end fourthMan
-	  		], // end programmItems
-	  		extraInfoLinks: [
-	  			{
-	  				id: 0,
-	  				text: "Бонусные баллы",
-	  				href: "/business",
-	  				hashResource:  '#scores'
-	  			},
-	  			{
-	  				id: 1,
-	  				text: "О регистрации",
-	  				href: "/registration",
-	  				hashResource:  '#description'
-	  			},
-	  			{
-	  				id: 2,
-	  				text: "Последние акции",
-	  				href: "/shares",
-	  				external: false
-	  			},
-	  			{
-	  				id: 3,
-	  				text: "Интернет магазин",
-	  				href: "https://www.oriflame.ru/",
-	  				external: true
-	  			},
-	  			{
-	  				id: 4,
-	  				text: "О структуре бизнеса",
-	  				href: "/business",
-
-	  			},
-	  			{
-	  				id: 5,
-	  				text: "Видео об Орифлейм ",
-	  				href: "/videos"
-	  			},
-	  		] // end extraInfoLinks
-	  	};
-	  },
-	  methods: {
-	  	onMouseUpParentAwesomeButton
-	  }
-	}
+export default {
+  name: "MainPage",
+  components: {
+    AwesomeLink,
+    AboutItem,
+    DecorativeTitle,
+    ProgrammItem
+  },
+  data() {
+    return {
+      banner: window.innerWidth <= 480 ? mobileBanner : banner,
+      aboutImages,
+      programmParagraphs: [
+        {
+          id: 1,
+          text:
+            "<strong>Одна из многих</strong> акций, которые будут вам доступны <strong>после регистрации</strong> &mdash; это <i>«Стартовая программа»</i>.",
+          position: "v-s-start"
+        },
+        {
+          id: 2,
+          text:
+            "Данная акция устроена в <strong>виде квеста</strong>, суть которого заключается в поэтапном выполнение <strong>условий</strong> (мы оставили их ниже), а после <strong>получили подарок</strong> в виде наборов продукции Орифлэйм <strong>общей стоимостью 10 328 ₽</strong>.",
+          position: "v-s-centered"
+        },
+        {
+          id: 3,
+          text: `<h3 class="marginLeft_heading">Условия квеста:</h3> <ul class="unstyledList">
+  					<li class="marginTop_29"><span class="semibold">Шаг №1:</span> необходимо приобретать продукцию Oriflame, <strong>в течении 21</strong>.</li>
+  					<li class="marginTop_18"><span class="semibold">Шаг №2:</span> суммарная стоимость ваших покупок должна быть <strong>более 99 бонусных    баллов ББ</strong> (каждый продукт соответствует своему количеству ББ)</li>
+  					</ul>`,
+          position: "v-s-end"
+        }
+      ], // end aboutParagraphs
+      programmItems: [
+        {
+          id: 0,
+          title: "Первый шаг",
+          src: first,
+          name: "first",
+          stepDescription: {
+            paragraph:
+              "Выполнив условия этого квеста <strong>вы получите, совершенно бесплатно</strong>, набор продукции №1."
+          }
+        }, // end first
+        {
+          id: 1,
+          title: "Второй шаг",
+          src: second,
+          name: "second",
+          titleModifier: "right",
+          stepDescription: {
+            paragraph:
+              "Выполнив эти условия ещё раз, в следующие 21 день, <strong>вы получите, совершенно бесплатно</strong>,  дополнительно к набору №1, набор продукции №2."
+          }
+        }, // end second
+        {
+          id: 2,
+          title: "Третий шаг",
+          src: third,
+          name: "third",
+          stepDescription: {
+            paragraph:
+              "Выполнив эти <strong>условия ещё раз</strong>, в следующие 21 день, вы можете выбрать <strong>один из трёх вариантов</strong>, дополнительно к набору №1 и №2, набор продукции №3."
+          }
+        }, // end third
+        {
+          id: 3,
+          name: "fourthMan",
+          src: fourth,
+          title: "Четвёртый шаг",
+          titleModifier: "center",
+          stepDescription: {
+            paragraph:
+              "Выполнив эти условия <strong>ещё раз, в следующие 21 день</strong>, вы можете выбрать один из двух вариантов, <strong> совершенно бесплатно</strong>, дополнительно к набору №1, №2 и №3, набор продукции №4."
+          }
+        } // end fourthWooman
+      ], // end programmItems
+      extraInfoLinks: [
+        {
+          id: 0,
+          text: "Бонусные баллы",
+          href: "/business",
+          hashResource: "#scores"
+        },
+        {
+          id: 1,
+          text: "О регистрации",
+          href: "/registration",
+          hashResource: "#description"
+        },
+        {
+          id: 3,
+          text: "Интернет магазин",
+          href: "https://www.oriflame.ru/",
+          external: true
+        },
+        {
+          id: 4,
+          text: "О структуре бизнеса",
+          href: "/business"
+        },
+        {
+          id: 5,
+          text: "Видео об Орифлейм ",
+          href: "/media"
+        }
+      ] // end extraInfoLinks
+    };
+  },
+  computed: {
+    isDecorativeBanner() {
+      return "decorative" === this.$store.state.currentSiteTheme.bannerType;
+    },
+    bannerTextHighlightColor() {
+      return this.isDecorativeBanner ? "pinkColor" : "darkenGreenColor";
+    },
+    bannerTextColor() {
+      return this.isDecorativeBanner ? "whiteColor" : "darkGrayColor";
+    }
+  },
+  methods: {
+    onMouseUpParentAwesomeButton
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='sass'>
+<<<<<<< HEAD
 	// Variables and helpful functions
 	@import './../styles/conf/_sizes.sass'
 	@import './../styles/conf/_colors.sass'
@@ -342,44 +400,131 @@
 		z-index: -1
 		left: 0
 		.progressive-image-main,.progressive-image-wrapper
-			height: 100%
-	.imageContainer_banner
-		// max-height: em(166)
-		height: 100%
-	.programm
-		margin-top: em(77 - 29.124) $i
-		&__paragraph
-			margin-top: $s47 $i
-			max-width: em(522.54)
+=======
+// Variables and helpful functions
+@import './../styles/conf/_sizes.sass'
+@import './../styles/conf/_colors.sass'
+@import './../styles/conf/_breakpoints.sass'
 
-	.programmItems
-		margin-top: $s77
-	.currentCatalog
-		@include breakpoint($xxs)
-			order: 2
-			margin-top: $s47
-		&__title
-			margin-bottom: $s16
-	.extraInformation
+.bannerInfo
+	padding: $s18 $s29 $s47 $s47
+	color: $darkGray
 
-		&__title
-			margin-bottom: $s47
-			.decorativeTitleContainer__title
-				@include breakpoint($xxs)
-					min-width: 80%
+.banner
+	position: relative
+	z-index: 0
 
-		&__navigation
-			padding-top: em(39)
-			max-width: 25%
-			min-width: 45%
+	background-color: #fff
+	max-width: 805px
+
+	&__title
+		z-index: 2
+		@include breakpoint($sm-up)
+		    max-width: 70%;
+
+		@include breakpoint($xs)
+			margin-bottom: 1.5rem;
+
+	& a
+		margin-top: 1.5rem
+
+	&__button
+		color: $darkGray
+
+	&__image
+		order: -1
+
+		max-width: 50%
+		margin-top: 0 $i
+
+		&:nth-of-type(1)
 			@include breakpoint($xxs)
-				max-width: none
-		&__image
-			min-height: em(500)
-	.extraInformation__title, .currentCatalog, .extraInformation__navigation
-		@include breakpoint($xxs)
-			padding: 0
-	.currentCatalog, .extraInformation__navigation
-		@include breakpoint($xxs)
-			min-width: 100%
+				display: none
+
+		&:nth-of-type(2)
+
+
+
+		.progressive-image
+>>>>>>> next
+			height: 100%
+			width: 100%
+
+		.progressive-image-main
+			@include breakpoint($xs)
+				height: 100%
+.aboutItemImage
+	max-width: 25%
+
+	&_big
+		max-width: 30%
+
+	@include breakpoint($xxs)
+		max-width: 100%
+		margin: 0 auto .75rem
+
+
+.imageContainer_banner
+	position: absolute
+	top: 0
+	z-index: -1
+	left: 0
+
+	.progressive-image-main,.progressive-image-wrapper
+		height: 100%
+
+.imageContainer_banner
+	height: 100%
+
+.programm
+	margin-top: em(77 - 29.124) $i
+
+	&__paragraph
+		margin-top: $s47 $i
+		max-width: em(522.54)
+
+.programmItems
+	margin-top: $s77
+
+.currentCatalog
+
+	@include breakpoint($xs)
+		min-width: 100%
+		order: 2
+		margin-top: $s47
+
+	@include breakpoint($xxs)
+
+	&__title
+		margin-bottom: $s16
+	&__image
+		max-width: 50%
+
+.extraInformation
+
+	&__title
+		margin-bottom: $s47
+		.decorativeTitleContainer__title
+			@include breakpoint($xxs)
+				min-width: 80%
+
+	&__navigation
+		padding-top: em(39)
+		max-width: 25%
+		min-width: 45%
+
+		@include breakpoint($xs)
+			max-width: none
+
+	&__image
+		min-height: em(500)
+
+.extraInformation__title, .currentCatalog, .extraInformation__navigation
+
+	@include breakpoint($xxs)
+		padding: 0
+
+.currentCatalog, .extraInformation__navigation
+	@include breakpoint($xxs)
+		min-width: 100%
 </style>

@@ -1,26 +1,26 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import MainPage from '@/templates/MainPage'
-import RegistrationPage from '@/templates/RegistrationPage'
-import BusinessPage from '@/templates/BusinessPage'
-import MediaPage from '@/templates/MediaPage'
-import PersonalRoomPage from '@/templates/PersonalRoomPage'
-import NotFound from '@/templates/404Page'
-import SharesPage from '@/templates/SharesPage'
-import SharePage from '@/templates/SharePage'
+import MainPage from "@/templates/MainPage";
+import RegistrationPage from "@/templates/RegistrationPage";
+import BusinessPage from "@/templates/BusinessPage";
+import MediaPage from "@/templates/MediaPage";
+import PersonalRoomPage from "@/templates/PersonalRoomPage";
+import NotFound from "@/templates/404Page";
+import SharesPage from "@/templates/SharesPage";
+import SharePage from "@/templates/SharePage";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-	mode: 'history',
-	routes: [
-		{
-	 		path: '/share/:slug',
-		  	component: SharePage,
-		  	name: "SharePage",
-		  	beforeEnter: (to, from, next) => {
-		  		localStorage.single_share_slug = to.params.slug;
+  mode: "history",
+  routes: [
+    {
+      path: "/share/:slug",
+      component: SharePage,
+      name: "SharePage",
+      beforeEnter: (to, from, next) => {
+        localStorage.single_share_slug = to.params.slug;
 
 		  		next()
 		  	}
